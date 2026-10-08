@@ -13,7 +13,7 @@ const mutate = (fn: (s: DesignSystem) => void) => { const s = clone(); fn(s); re
 
 describe('registry integrity', () => {
   it('validates the current component inventory and eight rules without React or a DOM', () => {
-    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'dialog', 'dropdown-menu', 'tabs', 'tooltip']);
+    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation']);
     expect(registry.rules).toHaveLength(8);
     expect(typeof globalThis.document).toBe('undefined');
   });

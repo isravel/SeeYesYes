@@ -7,7 +7,7 @@ test('seed preview hydrates, handles native activation, and has no serious axe f
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto('/');
-  await expect(page.getByRole('heading', {level: 1})).toHaveText('Good interfaces startwith a common language.');
+  await expect(page.getByRole('heading', {level: 1})).toHaveText('Overview');
   await page.getByRole('button', {name: 'Save settings'}).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('status').filter({hasText: 'Settings saved'})).toBeVisible();

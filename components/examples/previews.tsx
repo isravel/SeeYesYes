@@ -21,6 +21,8 @@ import { FormField } from '@/components/ui/form-field';
 import { Dialog } from '@/components/ui/dialog';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { Tabs } from '@/components/ui/tabs';
+import { Table } from '@/components/ui/table';
+import { Navigation } from '@/components/ui/navigation';
 import { Tooltip } from '@/components/ui/tooltip';
 function ButtonSave() {
   const [saved, setSaved] = useState(false);
@@ -53,13 +55,15 @@ function TooltipSave() {
   const [saved, setSaved] = useState(false);
   return <><Tooltip triggerLabel="Save preview" content="Only this preview is saved." onPress={() => setSaved(true)} /><span role="status">{saved ? 'Preview saved for this example.' : ''}</span></>;
 }
+function TableInvoices() { return <Table caption="Recent invoices" columns={[{ id: 'invoice', label: 'Invoice', rowHeader: true }, { id: 'status', label: 'Status' }]} rows={[{ id: '104', cells: { invoice: 'INV-104', status: <Badge tone="success">Paid</Badge> } }, { id: '105', cells: { invoice: 'INV-105', status: <Badge tone="warning">Pending</Badge> } }]} />; }
+function NavigationPreview() { return <Navigation label="Example navigation" showSkipLink={false} triggerLabel="Open example navigation" currentHref="#components-title" mainId="main" groups={[{ label: 'Explore', items: [{ label: 'Components', href: '#components-title' }, { label: 'Overview', href: '#main' }] }]} />; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
   avatarMember: AvatarMember, alertRecovery: AlertRecovery, progressUpload: ProgressUpload, skeletonList: SkeletonList,
   inputEmail: InputEmail, textareaNotes: TextareaNotes, selectRole: SelectRole, checkboxArchive: CheckboxArchive,
   radioPlan: RadioPlan, switchNotifications: SwitchNotifications, labelName: LabelName, formFieldEmail: FormFieldEmail,
-  dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave,
+  dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave, tableInvoices: TableInvoices, navigationPreview: NavigationPreview,
 };
 export const layoutPreviewMap = {};
 

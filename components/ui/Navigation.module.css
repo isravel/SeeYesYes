@@ -1,0 +1,20 @@
+.root { min-width: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-label); }
+.links { display: grid; gap: var(--sys-spacing-stack); }
+.groupHeading { font-size: var(--sys-typography-caption); color: var(--sys-color-muted-foreground); margin: 0 0 var(--sys-spacing-control-block); font-weight: var(--sys-typography-weight-medium); }
+.links ul, .breadcrumbs ol { list-style: none; padding: 0; margin: 0; }
+.links a { display: flex; align-items: center; min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-radius: var(--sys-radius-control); text-decoration: none; overflow-wrap: anywhere; }
+.links a:hover { background: var(--sys-color-muted); }
+.links a[aria-current="page"] { color: var(--sys-color-on-primary); background: var(--sys-color-primary); font-weight: var(--sys-typography-weight-medium); }
+.root a:focus-visible, .dialog a:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.skip { position: fixed; top: -100px; left: var(--sys-spacing-inline); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); background: var(--sys-color-surface); z-index: 150; }
+.skip:focus { top: var(--sys-spacing-stack); }
+.mobile { display: none; }
+.breadcrumbs { margin-top: var(--sys-spacing-stack); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.breadcrumbs ol { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-control-inline); }
+.breadcrumbs li + li::before { content: '/'; margin-right: var(--sys-spacing-control-inline); }
+.overlay { position: fixed; inset: 0; z-index: 100; background: color-mix(in srgb, var(--sys-color-foreground) 30%, transparent); }
+.drawer { width: min(22rem, calc(100% - var(--sys-spacing-inline))); height: 100%; background: var(--sys-color-surface); color: var(--sys-color-foreground); box-shadow: var(--sys-shadow-raised); overflow-y: auto; }
+.dialog { padding: var(--sys-spacing-stack); outline: none; }
+.drawerHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--sys-spacing-inline); margin-bottom: var(--sys-spacing-stack); }
+.drawerHeader h2 { font-size: var(--sys-typography-heading); margin: 0; }
+@media (max-width: 760px) { .desktop { display: none; } .mobile { display: block; } }

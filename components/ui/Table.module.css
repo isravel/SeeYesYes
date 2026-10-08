@@ -1,0 +1,8 @@
+.scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); }
+.scroll:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.root { width: 100%; border-collapse: collapse; background: var(--sys-color-surface); color: var(--sys-color-foreground); font-size: var(--sys-typography-label); text-align: start; }
+.root caption { text-align: start; padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); font-weight: var(--sys-typography-weight-medium); }
+.root th, .root td { padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-top: 1px solid var(--sys-color-border); white-space: nowrap; }
+.root thead { background: var(--sys-color-muted); }
+.root th { font-weight: var(--sys-typography-weight-medium); text-align: start; }
+.empty { color: var(--sys-color-muted-foreground); white-space: normal !important; }

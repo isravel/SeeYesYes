@@ -31,3 +31,10 @@
 .skip { position: absolute; left: 16px; top: -80px; padding: 12px; background: var(--sys-color-surface); z-index: 10; }
 .skip:focus { top: 12px; }
 @media (max-width: 640px) { .header, .main, .footer { width: calc(100% - 40px); } .header { align-items: start; flex-direction: column; padding-block: 20px; } .hero { padding-block: 54px; } .intro { font-size: 16px; } .sectionHeading { align-items: start; flex-direction: column; gap: var(--sys-spacing-4); } .stats { grid-template-columns: repeat(2, 1fr); } .componentGrid { grid-template-columns: 1fr; } .footer { flex-direction: column; } }
+
+.workspace { width: min(1400px, calc(100% - 64px)); margin-inline: auto; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--sys-spacing-8); }
+.workspace .main { width: 100%; min-width: 0; }
+.sidebar { padding-top: var(--sys-spacing-8); }
+.tagline { font-size: var(--sys-typography-heading); max-width: 28rem; }
+.main:focus-visible, .main h2:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+@media (max-width: 760px) { .workspace { display: block; width: calc(100% - 40px); } .sidebar { padding-top: var(--sys-spacing-stack); } }

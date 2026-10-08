@@ -21,7 +21,9 @@ export type ComponentDefaults = {
 "dialog": { "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
 "dropdown-menu": {  };
 "tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual" };
-"tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number }
+"tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number };
+"table": { "emptyMessage": string };
+"navigation": { "triggerLabel": string; "showSkipLink": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -95,5 +97,12 @@ export const contractDefaults: ComponentDefaults = {
   "tooltip": {
     "placement": "top",
     "delay": 600
+  },
+  "table": {
+    "emptyMessage": "No rows to show."
+  },
+  "navigation": {
+    "triggerLabel": "Open navigation",
+    "showSkipLink": true
   }
 };

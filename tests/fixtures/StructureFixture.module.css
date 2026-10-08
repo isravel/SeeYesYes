@@ -1,0 +1,4 @@
+.shell { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: var(--sys-spacing-stack); padding: var(--sys-spacing-stack); }
+.shell main { min-width: 0; }
+.shell main:focus-visible, .shell section:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } }
