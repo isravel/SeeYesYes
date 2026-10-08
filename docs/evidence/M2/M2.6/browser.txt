@@ -1,0 +1,35 @@
+
+> seeyesyes@0.1.0 test:browser
+> playwright test
+
+[WebServer] (node:96914) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 16 tests using 4 workers
+
+(node:96926) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96927) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96929) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 tests/browser/theme-scope.spec.ts:3:1 › SSR keeps workspace variables off html; hydration follows OS changes (1.2s)
+  ✓   3 tests/browser/structure.spec.ts:4:1 › desktop navigation, page title, headings, breadcrumbs, and skip target agree (1.2s)
+  ✓   5 tests/browser/theme-scope.spec.ts:17:1 › nearest scope controls defaults and geometry without changing the workspace (876ms)
+  ✓   1 tests/browser/overlays.spec.ts:8:1 › modal traps focus, inherits its scope, blocks outside dismissal, and restores trigger focus (2.1s)
+  ✓   4 tests/browser/foundation.spec.ts:5:1 › seed preview hydrates, handles native activation, and has no serious axe findings (2.3s)
+  ✓   7 tests/browser/theme-scope.spec.ts:51:1 › React Aria portals inherit the nearest nested scope (480ms)
+  ✓   6 tests/browser/structure.spec.ts:19:1 › mobile drawer contains focus, restores it on Escape, and closes into a selected destination (1.5s)
+  ✓   8 tests/browser/overlays.spec.ts:37:1 › menu skips disabled items, runs an action, and restores focus on selection or Escape (660ms)
+  ✓  11 tests/browser/overlays.spec.ts:57:1 › tabs connect panels and support automatic and manual keyboard activation (378ms)
+  ✓  10 tests/browser/structure.spec.ts:50:1 › table preserves native headers, empty text, and contained keyboard scrolling (528ms)
+  ✓   9 tests/browser/foundation.spec.ts:21:1 › foundation fits 320px and desktop in both appearances (1.6s)
+  ✓  12 tests/browser/overlays.spec.ts:77:1 › tooltip opens on hover and focus, inherits its scope, and dismisses with Escape (761ms)
+  ✓  14 tests/browser/foundation.spec.ts:33:1 › production mock endpoints recover by scenario and remain read-only (197ms)
+  ✓  13 tests/browser/structure.spec.ts:71:1 › navigation and tables fit mobile and desktop in both appearances (1.3s)
+  ✓  15 tests/browser/overlays.spec.ts:98:1 › workspace overlays stay within mobile and desktop viewports in both appearances (5.2s)
+  ✓  16 tests/browser/overlays.spec.ts:134:1 › workspace tooltip opens through normal keyboard tab navigation (586ms)
+
+  16 passed (13.1s)

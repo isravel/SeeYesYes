@@ -77,7 +77,7 @@ const buttonContract = {
     {
       when: { variant: "ghost", size: "small" },
       effect: "styled",
-      description: "Uses tighter inline padding so compact toolbar actions align with adjacent controls.",
+      description: "Uses shared inline spacing instead of density control padding for a small ghost button.",
     },
   ],
   // Destructive is never a theme default: it changes the meaning of every unmarked action.
@@ -121,7 +121,7 @@ const spinnerContract: ComponentContract = {
   anatomy: [{ part: 'root', description: 'An animated ring hidden from assistive technology.' }],
   props: [{ name: 'size', type: 'small | medium | large', required: false, defaultValue: 'medium', allowedValues: ['small', 'medium', 'large'], description: 'Indicator size.' }],
   variants: { size: ['small', 'medium', 'large'] }, compoundVariants: [], themeDefaults: { size: ['small', 'medium', 'large'] },
-  states: ['default'], tokenIds: ['motion.duration'],
+  states: ['default', 'loading', 'reduced-motion'], tokenIds: ['motion.duration'],
   accessibility: { status: 'not-reviewed', requirements: ['Keep decorative activity hidden; put a useful status on its parent.'], keyboard: [], ruleIds: [] },
   composition: { allowedComponentIds: [], constraints: ['Keep the action label visible.'] }, prohibitedUsage: ['Announcing every animation frame.'],
   exampleIds: ['spinner-progress'], ruleIds: [], aiGuidance: { prefer: ['Use inside an action or beside status text.'], avoid: ['Using a spinner as the only status message.'] },

@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:browser": "playwright test",
     "build": "npm run generate && next build",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build"
+    "check": "npm run typecheck && npm run audit:components && npm run lint && npm test && npm run build",
+    "audit:components": "node --import tsx scripts/audit-components.ts"
   },
   "dependencies": {
     "@fontsource/inter": "5.3.0",

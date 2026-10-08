@@ -1,9 +1,10 @@
 'use client';
-import type { ButtonHTMLAttributes, Ref } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import { useComponentDefaults } from '@/components/theme/ThemeScope';
 import { Spinner } from './spinner';
 import styles from './Button.module.css';
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'; size?: 'small' | 'medium' | 'large'; loading?: boolean; ref?: Ref<HTMLButtonElement>;
 };
 export function Button({ variant, size, type = 'button', loading = false, disabled, children, className = '', ref, ...props }: ButtonProps) {

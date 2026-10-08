@@ -16,8 +16,8 @@ export type ComponentDefaults = {
 "checkbox": { "size": "small" | "medium" | "large" };
 "radio-group": { "orientation": "horizontal" | "vertical" };
 "switch": { "size": "small" | "medium" | "large" };
-"label": {  };
-"form-field": {  };
+"label": { "required": boolean };
+"form-field": { "required": boolean };
 "dialog": { "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
 "dropdown-menu": {  };
 "tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual" };
@@ -81,8 +81,12 @@ export const contractDefaults: ComponentDefaults = {
   "switch": {
     "size": "medium"
   },
-  "label": {},
-  "form-field": {},
+  "label": {
+    "required": false
+  },
+  "form-field": {
+    "required": false
+  },
   "dialog": {
     "size": "medium",
     "dismissOnOutsidePress": false,

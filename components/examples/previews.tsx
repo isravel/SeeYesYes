@@ -38,7 +38,7 @@ function AlertRecovery() { return <Alert tone="info" title="Preview mode">Your c
 function ProgressUpload() { return <Progress label="Uploading files" value={68} />; }
 function SkeletonList() { return <section aria-busy="true" aria-label="Loading members"><Skeleton shape="text" /><Skeleton shape="rect" /></section>; }
 function InputEmail() { return <Input type="email" aria-label="Email address" placeholder="name@example.com" />; }
-function TextareaNotes() { return <Textarea aria-label="Notes" rows={3} placeholder="Add a note" />; }
+function TextareaNotes() { return <Textarea aria-label="Notes" placeholder="Add a note" />; }
 function SelectRole() { return <Select aria-label="Role" defaultValue="editor"><option value="editor">Editor</option><option value="viewer">Viewer</option></Select>; }
 function CheckboxArchive() { return <Checkbox aria-label="Include archived projects" />; }
 function RadioPlan() { return <RadioGroup name="preview-plan" label="Plan" options={[{ value: 'basic', label: 'Basic' }, { value: 'team', label: 'Team' }]} />; }
