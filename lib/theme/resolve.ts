@@ -4,11 +4,10 @@ import {
   type LiteralTokenValue, type InterchangeValue, type Oklch, type Mode,
 } from '@/lib/contract/schema';
 
-export const RESOLVER_VERSION = '1.0';
+import { spacingScale, radiusScale, typeScale, typeSizes } from './scales';
+
+export const RESOLVER_VERSION = '1.1';
 export const modes: Mode[] = ['light', 'dark'];
-export const spacingScale = { compact: [0.375, 0.5, 0.75], comfortable: [0.5, 0.625, 1], spacious: [0.75, 0.875, 1.25] } as const;
-export const radiusScale = { sharp: 0, soft: 0.5, curvy: 1 } as const;
-export const typeScale = { small: 0.875, default: 1, large: 1.125 } as const;
 export const toCssVariable = (id: string): `--sys-${string}` => `--sys-${id.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replaceAll('.', '-').toLowerCase()}`;
 export const colorCss = (color: Oklch) => `oklch(${color.l} ${color.c} ${color.h} / ${color.alpha})`;
 
@@ -45,20 +44,24 @@ function themeConstant(theme: Theme, path: string, token: TokenDefinition, fonts
     if (!font) throw new Error(`Unknown ${kind} font: ${String(value)}`);
     return { type: 'fontFamily', value: [font.family, kind === 'sans' ? 'sans-serif' : 'monospace'] };
   }
-  if (path === 'typography.scale') return { type: 'dimension', value: { value: typeScale[theme.typography.scale], unit: 'rem' } };
-  if (path === 'radius') return { type: 'dimension', value: { value: radiusScale[theme.radius], unit: 'rem' } };
+  if (path === 'typography.scale') {
+    const role = token.id.split('.')[1] as keyof typeof typeSizes;
+    if (!(role in typeSizes)) throw new Error(`No typography scale for ${token.id}`);
+    return { type: 'dimension', value: { value: typeSizes[role] * typeScale[theme.typography.scale], unit: 'rem' } };
+  }
+  if (path === 'radius') return { type: 'dimension', value: { value: radiusScale[theme.radius] * (token.id === 'radius.panel' ? 1.5 : 1), unit: 'rem' } };
   if (path === 'density') {
-    const index = { 'spacing.inline': 0, 'spacing.control-block': 1, 'spacing.control-inline': 2 }[token.id];
-    if (index === undefined) throw new Error(`No density scale for ${token.id}`);
-    return { type: 'dimension', value: { value: spacingScale[theme.density][index], unit: 'rem' } };
+    const role = token.id.split('.')[1] as keyof typeof spacingScale.comfortable;
+    if (!(role in spacingScale[theme.density])) throw new Error(`No density scale for ${token.id}`);
+    return { type: 'dimension', value: { value: spacingScale[theme.density][role], unit: 'rem' } };
   }
   if (path === 'motion') return { type: 'duration', value: { value: theme.motion === 'none' ? 0 : 140, unit: 'ms' } };
   if (path === 'effects.surface') return { type: 'number', value: theme.effects.surface === 'clean' ? 0 : 1 };
   if (path === 'shadows') throw new Error('Shadow resolution requires a mode.');
   throw new Error(`Unsupported theme token path: ${path}`);
 }
-function shadowConstant(theme: Theme, mode: Mode): LiteralTokenValue {
-  const depth = theme.shadows === 'none' || theme.effects.surface === 'clean' ? 0 : theme.shadows === 'soft' ? 1 : 2;
+function shadowConstant(theme: Theme, mode: Mode, token: TokenDefinition): LiteralTokenValue {
+  const depth = theme.shadows === 'none' || (token.id === 'shadow.surface' && theme.effects.surface === 'clean') ? 0 : theme.shadows === 'soft' ? 1 : 2;
   const dimension = (value: number) => ({ value, unit: 'px' as const });
   return { type: 'shadow', value: {
     color: { l: 0, c: 0, h: 0, alpha: depth ? mode === 'dark' ? 0.35 : 0.1 : 0 },
@@ -73,7 +76,7 @@ export function resolveTokens(definitions: TokenDefinition[], input: Theme, font
     if (paired) {
       const resolved = Object.fromEntries(modes.map(mode => {
         const constant = source.kind === 'literal' ? (source.constant as Record<Mode, LiteralTokenValue>)[mode]
-          : source.path === 'shadows' ? shadowConstant(theme, mode)
+          : source.path === 'shadows' ? shadowConstant(theme, mode, token)
           : themeConstant(theme, source.path.replace('*', mode), token, fonts);
         return [mode, formatConstant(constant)];
       })) as Record<Mode, ReturnType<typeof formatConstant>>;

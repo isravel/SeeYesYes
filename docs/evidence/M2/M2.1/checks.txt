@@ -1,0 +1,60 @@
+
+> seeyesyes@0.1.0 check
+> npm run typecheck && npm run lint && npm test && npm run build
+
+
+> seeyesyes@0.1.0 typecheck
+> npm run generate && tsc --noEmit
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 3 components, 57 tokens, 8 rules, and 11 examples.
+
+> seeyesyes@0.1.0 lint
+> eslint .
+
+
+> seeyesyes@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /Users/raj-7718/Documents/Product/SeeYesYes
+
+
+ Test Files  4 passed (4)
+      Tests  86 passed (86)
+   Start at  11:53:05
+   Duration  615ms (import 42%, tests 36%, transform 21%, worker 1%)
+
+
+> seeyesyes@0.1.0 build
+> npm run generate && next build
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 3 components, 57 tokens, 8 rules, and 11 examples.
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 37ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1581ms
+  Running TypeScript ...
+  Finished TypeScript in 2.1s ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/3) ...
+✓ Generating static pages using 6 workers (3/3) in 392ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/[...path]
+└ ƒ /internal-checks/theme-scopes
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

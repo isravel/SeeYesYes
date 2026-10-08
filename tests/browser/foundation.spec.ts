@@ -23,7 +23,7 @@ test('foundation fits 320px and desktop in both appearances', async ({ page }) =
       await page.setViewportSize({width, height: 900});
       await page.goto('/');
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-      await page.screenshot({path: `docs/evidence/M1/${colorScheme}-${width}.png`, fullPage: true});
+      await page.screenshot({path: `${process.env.SEEYESYES_EVIDENCE_DIR ?? 'test-results'}/${colorScheme}-${width}.png`, fullPage: true});
     }
   }
 });

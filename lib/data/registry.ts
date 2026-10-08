@@ -1,4 +1,5 @@
 import { ColorRoleSchema, type Theme, type DesignSystem, type TokenDefinition, type ComponentContract, type Example, type Rule, type Oklch } from '@/lib/contract/schema';
+import { spacingSteps, typeSizes } from '@/lib/theme/scales';
 import { toCssVariable } from '@/lib/theme/resolve';
 const color = (l: number, c = 0, h = 260): Oklch => ({ l, c, h, alpha: 1 });
 const light = {
@@ -31,9 +32,12 @@ const tokens: TokenDefinition[] = [
   ...ColorRoleSchema.options.map(role => themeToken(`color.${role.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`, `colors.*.${role}`, 'color', ['button-save'])),
   ...Object.keys(defaultTheme.palette).map(key => themeToken(`palette.${key}`, `palette.${key}`, 'color')),
   themeToken('typography.sans', 'typography.sansFontId', 'typography'), themeToken('typography.mono', 'typography.monoFontId', 'typography'),
-  themeToken('typography.body', 'typography.scale', 'typography'), themeToken('radius.control', 'radius', 'radius'),
-  ...['inline', 'control-block', 'control-inline'].map(key => themeToken(`spacing.${key}`, 'density', 'spacing', ['button-save'])),
-  themeToken('shadow.raised', 'shadows', 'shadow'), themeToken('effect.surface-depth', 'effects.surface', 'effect'),
+  ...Object.keys(typeSizes).map(role => themeToken(`typography.${role}`, 'typography.scale', 'typography')),
+  themeToken('radius.control', 'radius', 'radius'), themeToken('radius.panel', 'radius', 'radius'),
+  ...['inline', 'control-block', 'control-inline', 'stack', 'section', 'row-height'].map(key => themeToken(`spacing.${key}`, 'density', 'spacing', ['button-save'])),
+  ...Object.entries(spacingSteps).map(([step, value]) => literal(`spacing.${step}`, 'spacing', { type: 'dimension', value: { value, unit: 'rem' } })),
+  literal('spacing.target-minimum', 'spacing', { type: 'dimension', value: { value: 2.75, unit: 'rem' } }),
+  themeToken('shadow.surface', 'shadows', 'shadow'), themeToken('shadow.raised', 'shadows', 'shadow'), themeToken('effect.surface-depth', 'effects.surface', 'effect'),
   themeToken('motion.duration', 'motion', 'motion'), literal('motion.easing', 'motion', { type: 'cubicBezier', value: [0.2, 0, 0, 1] }),
   literal('typography.weight-medium', 'typography', { type: 'fontWeight', value: 500 }),
   literal('typography.line-height', 'typography', { type: 'number', value: 1.6 }),
@@ -80,7 +84,7 @@ const buttonContract = {
     "color.secondary", "color.on-secondary",
     "color.destructive", "color.on-destructive",
     "color.foreground", "color.muted", "color.focus",
-    "radius.control",
+    "radius.control", "spacing.target-minimum", "typography.weight-medium",
     "spacing.inline", "spacing.control-block", "spacing.control-inline",
   ],
   accessibility: {

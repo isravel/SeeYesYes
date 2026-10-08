@@ -1,9 +1,9 @@
 .root {
   display: inline-flex; align-items: center; justify-content: center;
   gap: var(--sys-spacing-inline); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline);
-  min-height: 2.75rem; border: 1px solid transparent; border-radius: var(--sys-radius-control);
+  min-height: var(--sys-spacing-target-minimum); border: 1px solid transparent; border-radius: var(--sys-radius-control);
   background: var(--button-background, var(--sys-color-primary)); color: var(--button-foreground, var(--sys-color-on-primary));
-  font: inherit; font-weight: 500; cursor: pointer;
+  font: inherit; font-weight: var(--sys-typography-weight-medium); cursor: pointer;
 }
 .root[data-variant="secondary"] { --button-background: var(--sys-color-secondary); --button-foreground: var(--sys-color-on-secondary); }
 .root[data-variant="ghost"] { --button-background: transparent; --button-foreground: var(--sys-color-foreground); }

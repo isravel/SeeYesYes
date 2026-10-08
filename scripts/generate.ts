@@ -19,6 +19,11 @@ await writeFile('lib/generated/public-contracts.ts', [
   'export const verifiedPortalContainer: NonNullable<ComponentProps<typeof UNSAFE_PortalProvider>["getContainer"]> = () => null;',
   'void layoutPreviewMap;',
 ].join('\n') + '\n');
+// Fallback defaults and their allowed prop types are derived from contracts, not another fixture.
+const defaults = Object.fromEntries(system.components.map(c => [c.id, Object.fromEntries(c.props.filter(p => p.defaultValue !== undefined).map(p => [p.name, p.defaultValue]))]));
+const propType = (prop: (typeof system.components)[number]['props'][number]) => prop.allowedValues?.map(v => JSON.stringify(v)).join(' | ') ?? typeof prop.defaultValue;
+const defaultTypes = system.components.map(c => `${JSON.stringify(c.id)}: { ${c.props.filter(p => p.defaultValue !== undefined).map(p => `${JSON.stringify(p.name)}: ${propType(p)}`).join('; ')} }`).join(';\n');
+await writeFile('lib/generated/component-defaults.ts', `// Generated from registry contracts. Do not edit.\nexport type ComponentDefaults = {\n${defaultTypes}\n};\nexport const contractDefaults: ComponentDefaults = ${JSON.stringify(defaults, null, 2)};\n`);
 const theme = system.themePresets.find(t => t.id === system.defaultThemeId)!;
 const resolved = resolveTokens(system.tokens, theme, system.fonts);
 const declaration = (mode: 'light' | 'dark') => Object.entries(cssVariables(resolved, mode)).map(([key, value]) => `  ${key}: ${value};`).join('\n');
