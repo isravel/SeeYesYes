@@ -1,0 +1,8 @@
+@import './tokens.css';
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--sys-color-background); color: var(--sys-color-foreground); font-family: var(--sys-typography-sans); font-size: var(--sys-typography-body); line-height: var(--sys-typography-line-height); }
+button, input, select, textarea { font: inherit; }
+a { color: inherit; }
+code, pre { font-family: var(--sys-typography-mono); }
+::selection { background: var(--sys-color-secondary); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; } }

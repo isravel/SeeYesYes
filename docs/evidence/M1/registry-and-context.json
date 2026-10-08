@@ -1,0 +1,27 @@
+{
+  "appearance": "system",
+  "components": [
+    "button",
+    "spinner",
+    "link"
+  ],
+  "exampleCount": 11,
+  "fullBytes": 60113,
+  "passed": true,
+  "referencedOnly": [
+    "button"
+  ],
+  "ruleCount": 8,
+  "schemaVersion": "1.0",
+  "scope": "default-theme",
+  "taskBytes": 14611,
+  "taskSelection": {
+    "includedComponentIds": [
+      "link"
+    ],
+    "requestedComponentIds": [
+      "link"
+    ]
+  },
+  "tokenCount": 37
+}

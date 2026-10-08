@@ -1,0 +1,5 @@
+.root { display: inline-block; width: 1.25em; height: 1.25em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; color: inherit; animation: spin calc(var(--sys-motion-duration) * 6) linear infinite; }
+.root[data-size="small"] { width: 1em; height: 1em; }
+.root[data-size="large"] { width: 1.75em; height: 1.75em; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .root { animation: none; } }

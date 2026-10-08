@@ -1,0 +1,81 @@
+/* Generated from the default preset. */
+:root {
+  --sys-color-accent: oklch(0.4 0.1 170 / 1);
+  --sys-color-background: oklch(0.985 0.002 260 / 1);
+  --sys-color-border: oklch(0.56 0.015 260 / 1);
+  --sys-color-destructive: oklch(0.43 0.16 25 / 1);
+  --sys-color-focus: oklch(0.44 0.16 264 / 1);
+  --sys-color-foreground: oklch(0.22 0.02 260 / 1);
+  --sys-color-info: oklch(0.43 0.1 235 / 1);
+  --sys-color-muted: oklch(0.94 0.005 260 / 1);
+  --sys-color-muted-foreground: oklch(0.43 0.015 260 / 1);
+  --sys-color-on-accent: oklch(1 0 260 / 1);
+  --sys-color-on-destructive: oklch(1 0 260 / 1);
+  --sys-color-on-info: oklch(1 0 260 / 1);
+  --sys-color-on-primary: oklch(1 0 260 / 1);
+  --sys-color-on-secondary: oklch(0.22 0.02 260 / 1);
+  --sys-color-on-success: oklch(1 0 260 / 1);
+  --sys-color-on-warning: oklch(0.2 0 260 / 1);
+  --sys-color-primary: oklch(0.44 0.16 264 / 1);
+  --sys-color-secondary: oklch(0.91 0.01 260 / 1);
+  --sys-color-success: oklch(0.38 0.09 150 / 1);
+  --sys-color-surface: oklch(1 0 260 / 1);
+  --sys-color-warning: oklch(0.82 0.13 85 / 1);
+  --sys-effect-surface-depth: 0;
+  --sys-motion-duration: 140ms;
+  --sys-motion-easing: cubic-bezier(0.2, 0, 0, 1);
+  --sys-palette-brand-500: oklch(0.44 0.16 264 / 1);
+  --sys-palette-neutral-100: oklch(0.94 0.005 260 / 1);
+  --sys-palette-neutral-900: oklch(0.22 0.02 260 / 1);
+  --sys-radius-control: 0.5rem;
+  --sys-shadow-raised: 0px 0px 0px 0px oklch(0 0 0 / 0);
+  --sys-spacing-control-block: 0.625rem;
+  --sys-spacing-control-inline: 1rem;
+  --sys-spacing-inline: 0.5rem;
+  --sys-typography-body: 1rem;
+  --sys-typography-line-height: 1.6;
+  --sys-typography-mono: var(--font-jetbrains-mono);
+  --sys-typography-sans: var(--font-inter);
+  --sys-typography-weight-medium: 500;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+  --sys-color-accent: oklch(0.8 0.09 170 / 1);
+  --sys-color-background: oklch(0.16 0.01 260 / 1);
+  --sys-color-border: oklch(0.6 0.01 260 / 1);
+  --sys-color-destructive: oklch(0.78 0.1 25 / 1);
+  --sys-color-focus: oklch(0.8 0.1 264 / 1);
+  --sys-color-foreground: oklch(0.95 0.005 260 / 1);
+  --sys-color-info: oklch(0.8 0.09 235 / 1);
+  --sys-color-muted: oklch(0.28 0.01 260 / 1);
+  --sys-color-muted-foreground: oklch(0.76 0.01 260 / 1);
+  --sys-color-on-accent: oklch(0.18 0 260 / 1);
+  --sys-color-on-destructive: oklch(0.18 0 260 / 1);
+  --sys-color-on-info: oklch(0.18 0 260 / 1);
+  --sys-color-on-primary: oklch(0.18 0.02 260 / 1);
+  --sys-color-on-secondary: oklch(0.96 0 260 / 1);
+  --sys-color-on-success: oklch(0.18 0 260 / 1);
+  --sys-color-on-warning: oklch(0.18 0 260 / 1);
+  --sys-color-primary: oklch(0.8 0.1 264 / 1);
+  --sys-color-secondary: oklch(0.3 0.015 260 / 1);
+  --sys-color-success: oklch(0.8 0.09 150 / 1);
+  --sys-color-surface: oklch(0.21 0.01 260 / 1);
+  --sys-color-warning: oklch(0.82 0.13 85 / 1);
+  --sys-effect-surface-depth: 0;
+  --sys-motion-duration: 140ms;
+  --sys-motion-easing: cubic-bezier(0.2, 0, 0, 1);
+  --sys-palette-brand-500: oklch(0.44 0.16 264 / 1);
+  --sys-palette-neutral-100: oklch(0.94 0.005 260 / 1);
+  --sys-palette-neutral-900: oklch(0.22 0.02 260 / 1);
+  --sys-radius-control: 0.5rem;
+  --sys-shadow-raised: 0px 0px 0px 0px oklch(0 0 0 / 0);
+  --sys-spacing-control-block: 0.625rem;
+  --sys-spacing-control-inline: 1rem;
+  --sys-spacing-inline: 0.5rem;
+  --sys-typography-body: 1rem;
+  --sys-typography-line-height: 1.6;
+  --sys-typography-mono: var(--font-jetbrains-mono);
+  --sys-typography-sans: var(--font-inter);
+  --sys-typography-weight-medium: 500;
+  }
+}

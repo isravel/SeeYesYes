@@ -1,0 +1,4 @@
+.root { color: var(--sys-color-primary); text-decoration-thickness: .08em; text-underline-offset: .2em; }
+.root[data-variant="subtle"] { color: var(--sys-color-foreground); }
+.root:hover { text-decoration-thickness: .14em; }
+.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; border-radius: 2px; }
