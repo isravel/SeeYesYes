@@ -1,0 +1,2 @@
+.root { display: inline-flex; align-items: baseline; gap: var(--sys-spacing-inline); color: var(--sys-color-foreground); font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); }
+.required { color: var(--sys-color-destructive); }

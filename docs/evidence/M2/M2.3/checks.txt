@@ -1,0 +1,13 @@
+M2.3 checks (2026-10-08)
+
+npm run typecheck
+  Validated 18 components, 57 tokens, 8 rules, and 26 examples.
+  TypeScript completed without errors.
+
+npm run lint
+  ESLint completed without errors.
+
+npm run build
+  Production build compiled and generated static pages successfully.
+
+Automated and browser test suites were not run for this task.

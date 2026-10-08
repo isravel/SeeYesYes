@@ -10,6 +10,14 @@ import { Avatar } from '@/components/ui/avatar';
 import { Alert } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup } from '@/components/ui/radio-group';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { FormField } from '@/components/ui/form-field';
 function ButtonSave() {
   const [saved, setSaved] = useState(false);
   return <><Button onClick={() => setSaved(true)}>Save settings</Button><span role="status">{saved ? 'Settings saved for this example.' : ''}</span></>;
@@ -23,10 +31,20 @@ function AvatarMember() { return <Avatar initials="MC" alt="Maya Chen" />; }
 function AlertRecovery() { return <Alert tone="info" title="Preview mode">Your changes stay in this preview.</Alert>; }
 function ProgressUpload() { return <Progress label="Uploading files" value={68} />; }
 function SkeletonList() { return <section aria-busy="true" aria-label="Loading members"><Skeleton shape="text" /><Skeleton shape="rect" /></section>; }
+function InputEmail() { return <Input type="email" aria-label="Email address" placeholder="name@example.com" />; }
+function TextareaNotes() { return <Textarea aria-label="Notes" rows={3} placeholder="Add a note" />; }
+function SelectRole() { return <Select aria-label="Role" defaultValue="editor"><option value="editor">Editor</option><option value="viewer">Viewer</option></Select>; }
+function CheckboxArchive() { return <Checkbox aria-label="Include archived projects" />; }
+function RadioPlan() { return <RadioGroup name="preview-plan" label="Plan" options={[{ value: 'basic', label: 'Basic' }, { value: 'team', label: 'Team' }]} />; }
+function SwitchNotifications() { return <Switch label="Email notifications" defaultChecked />; }
+function LabelName() { return <><Label htmlFor="preview-email">Email address</Label><Input id="preview-email" type="email" /></>; }
+function FormFieldEmail() { return <FormField id="preview-field-email" label="Email address" helpText="We will send your receipt here."><Input type="email" /></FormField>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
   avatarMember: AvatarMember, alertRecovery: AlertRecovery, progressUpload: ProgressUpload, skeletonList: SkeletonList,
+  inputEmail: InputEmail, textareaNotes: TextareaNotes, selectRole: SelectRole, checkboxArchive: CheckboxArchive,
+  radioPlan: RadioPlan, switchNotifications: SwitchNotifications, labelName: LabelName, formFieldEmail: FormFieldEmail,
 };
 export const layoutPreviewMap = {};
 

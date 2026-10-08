@@ -1,0 +1,8 @@
+.root { width: 100%; min-width: 0; min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); color: var(--sys-color-foreground); font: inherit; font-size: var(--sys-typography-label); }
+.root[data-size="small"] { padding-block: calc(var(--sys-spacing-control-block) * .75); font-size: var(--sys-typography-caption); }
+.root[data-size="large"] { font-size: var(--sys-typography-heading); }
+.root::placeholder { color: var(--sys-color-muted-foreground); opacity: 1; }
+.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.root[aria-invalid="true"] { border-color: var(--sys-color-destructive); }
+.root:disabled { cursor: not-allowed; opacity: .6; }
+.root:read-only { background: var(--sys-color-muted); }

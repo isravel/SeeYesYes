@@ -56,7 +56,7 @@ Goal: reusable accessible components and an adaptive workspace frame.
 
 - [x] M2.1 Define scales and semantic variables, with defaults as global CSS on `:root`; build `ThemeScope` (workspace scope on `<html>`, nested scopes on their own roots); adopt CSS Modules, naming rules, and OOCSS ownership boundaries for structure, appearance, and parent layout.
 - [x] M2.2 Build Button, Link, Card, Badge, Separator, Avatar, Alert, Progress, Spinner, and Skeleton with contracts/examples. [Evidence](../evidence/M2/M2.2/review.md)
-- [ ] M2.3 Build Input, Textarea, Select, Checkbox, Radio Group, Switch, Label, and Form Field with labels, help/errors, and native behavior.
+- [x] M2.3 Build Input, Textarea, Select, Checkbox, Radio Group, Switch, Label, and Form Field with labels, help/errors, and native behavior. [Evidence](../evidence/M2/M2.3/review.md)
 - [ ] M2.4 Build Dialog, Dropdown Menu, Tabs, and Tooltip as SeeYesYes wrappers over React Aria Components, with documented keyboard/focus behavior and overlays that portal into the nearest `ThemeScope`.
 - [ ] M2.5 Build Table and Navigation, including mobile drawer, skip link, active destination, headings, and breadcrumbs.
 - [ ] M2.6 Check every required contract for relevant states, `themeDefaults`, compound variants that match its combined CSS selectors, token IDs that match its CSS, and honest maturity and review status. Registry validation passes for the full inventory.
@@ -165,7 +165,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | Milestone | Status | Reviewed on | Evidence path | Open issues |
 | --- | --- | --- | --- | --- |
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
-| M2 | In progress | 2026-10-08 | [M2 task evidence](../evidence/M2/review.md) | M2.3–M2.8 and the completion gate remain open. |
+| M2 | In progress | 2026-10-08 | [M2 task evidence](../evidence/M2/review.md) | M2.4–M2.8 and the completion gate remain open. |
 | M3 | Not started | — | — | — |
 | M4 | Not started | — | — | — |
 | M5 | Not started | — | — | — |

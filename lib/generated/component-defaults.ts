@@ -9,7 +9,15 @@ export type ComponentDefaults = {
 "avatar": { "size": "small" | "medium" | "large" };
 "alert": { "tone": "info" | "success" | "warning" | "destructive" };
 "progress": { "max": number };
-"skeleton": { "shape": "text" | "rect" | "circle" }
+"skeleton": { "shape": "text" | "rect" | "circle" };
+"input": { "type": string; "size": "small" | "medium" | "large" };
+"textarea": { "size": "small" | "medium" | "large"; "rows": number };
+"select": { "size": "small" | "medium" | "large" };
+"checkbox": { "size": "small" | "medium" | "large" };
+"radio-group": { "orientation": "horizontal" | "vertical" };
+"switch": { "size": "small" | "medium" | "large" };
+"label": {  };
+"form-field": {  }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -46,5 +54,27 @@ export const contractDefaults: ComponentDefaults = {
   },
   "skeleton": {
     "shape": "text"
-  }
+  },
+  "input": {
+    "type": "text",
+    "size": "medium"
+  },
+  "textarea": {
+    "size": "medium",
+    "rows": 3
+  },
+  "select": {
+    "size": "medium"
+  },
+  "checkbox": {
+    "size": "medium"
+  },
+  "radio-group": {
+    "orientation": "vertical"
+  },
+  "switch": {
+    "size": "medium"
+  },
+  "label": {},
+  "form-field": {}
 };
