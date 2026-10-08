@@ -18,6 +18,10 @@ import { RadioGroup } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { FormField } from '@/components/ui/form-field';
+import { Dialog } from '@/components/ui/dialog';
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
+import { Tabs } from '@/components/ui/tabs';
+import { Tooltip } from '@/components/ui/tooltip';
 function ButtonSave() {
   const [saved, setSaved] = useState(false);
   return <><Button onClick={() => setSaved(true)}>Save settings</Button><span role="status">{saved ? 'Settings saved for this example.' : ''}</span></>;
@@ -39,12 +43,23 @@ function RadioPlan() { return <RadioGroup name="preview-plan" label="Plan" optio
 function SwitchNotifications() { return <Switch label="Email notifications" defaultChecked />; }
 function LabelName() { return <><Label htmlFor="preview-email">Email address</Label><Input id="preview-email" type="email" /></>; }
 function FormFieldEmail() { return <FormField id="preview-field-email" label="Email address" helpText="We will send your receipt here."><Input type="email" /></FormField>; }
+function DialogPreview() { return <Dialog triggerLabel="Open preview settings" title="Preview settings"><p>Changes here stay in this preview.</p></Dialog>; }
+function MenuActions() {
+  const [message, setMessage] = useState('');
+  return <><DropdownMenu triggerLabel="Preview actions" items={[{ id: 'save', label: 'Save preview' }, { id: 'reset', label: 'Reset preview' }]} onAction={id => setMessage(id === 'save' ? 'Preview saved for this example.' : 'Preview reset for this example.')} /><span role="status">{message}</span></>;
+}
+function TabsOverview() { return <Tabs label="Preview details" items={[{ id: 'overview', label: 'Overview', content: 'A shared starting point.' }, { id: 'tokens', label: 'Tokens', content: 'Semantic values from the theme.' }]} />; }
+function TooltipSave() {
+  const [saved, setSaved] = useState(false);
+  return <><Tooltip triggerLabel="Save preview" content="Only this preview is saved." onPress={() => setSaved(true)} /><span role="status">{saved ? 'Preview saved for this example.' : ''}</span></>;
+}
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
   avatarMember: AvatarMember, alertRecovery: AlertRecovery, progressUpload: ProgressUpload, skeletonList: SkeletonList,
   inputEmail: InputEmail, textareaNotes: TextareaNotes, selectRole: SelectRole, checkboxArchive: CheckboxArchive,
   radioPlan: RadioPlan, switchNotifications: SwitchNotifications, labelName: LabelName, formFieldEmail: FormFieldEmail,
+  dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave,
 };
 export const layoutPreviewMap = {};
 

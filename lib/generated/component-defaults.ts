@@ -17,7 +17,11 @@ export type ComponentDefaults = {
 "radio-group": { "orientation": "horizontal" | "vertical" };
 "switch": { "size": "small" | "medium" | "large" };
 "label": {  };
-"form-field": {  }
+"form-field": {  };
+"dialog": { "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
+"dropdown-menu": {  };
+"tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual" };
+"tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -76,5 +80,20 @@ export const contractDefaults: ComponentDefaults = {
     "size": "medium"
   },
   "label": {},
-  "form-field": {}
+  "form-field": {},
+  "dialog": {
+    "size": "medium",
+    "dismissOnOutsidePress": false,
+    "closeOnEscape": true,
+    "closeLabel": "Close"
+  },
+  "dropdown-menu": {},
+  "tabs": {
+    "orientation": "horizontal",
+    "activation": "automatic"
+  },
+  "tooltip": {
+    "placement": "top",
+    "delay": 600
+  }
 };

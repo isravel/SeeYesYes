@@ -1,0 +1,10 @@
+.root { display: grid; width: 100%; min-width: 0; gap: var(--sys-spacing-stack); color: var(--sys-color-foreground); }
+.list { display: flex; min-width: 0; max-width: 100%; gap: var(--sys-spacing-inline); overflow-x: auto; padding: var(--sys-spacing-inline); border-bottom: 1px solid var(--sys-color-border); }
+.tab { display: flex; flex: none; align-items: center; justify-content: center; min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-radius: var(--sys-radius-control); font-size: var(--sys-typography-label); cursor: pointer; }
+.tab[data-selected] { background: var(--sys-color-primary); color: var(--sys-color-on-primary); }
+.tab[data-hovered]:not([data-selected]) { background: var(--sys-color-muted); }
+.tab[data-focus-visible], .panel[data-focus-visible] { outline: 3px solid var(--sys-color-focus); outline-offset: -3px; }
+.tab[data-disabled] { opacity: .6; cursor: not-allowed; }
+.panel { min-width: 0; padding: var(--sys-spacing-inline); overflow-wrap: anywhere; }
+.root[data-orientation="vertical"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.root[data-orientation="vertical"] .list { flex-direction: column; border-bottom: 0; border-right: 1px solid var(--sys-color-border); }

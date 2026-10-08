@@ -1,0 +1,29 @@
+
+> seeyesyes@0.1.0 test:browser
+> playwright test
+
+[WebServer] (node:9533) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 3 workers
+
+(node:9554) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9555) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/browser/theme-scope.spec.ts:3:1 › SSR keeps workspace variables off html; hydration follows OS changes (901ms)
+  ✓   4 tests/browser/theme-scope.spec.ts:17:1 › nearest scope controls defaults and geometry without changing the workspace (467ms)
+  ✓   2 tests/browser/overlays.spec.ts:8:1 › modal traps focus, inherits its scope, blocks outside dismissal, and restores trigger focus (1.5s)
+  ✓   3 tests/browser/foundation.spec.ts:5:1 › seed preview hydrates, handles native activation, and has no serious axe findings (1.5s)
+  ✓   5 tests/browser/theme-scope.spec.ts:51:1 › React Aria portals inherit the nearest nested scope (547ms)
+  ✓   6 tests/browser/overlays.spec.ts:37:1 › menu skips disabled items, runs an action, and restores focus on selection or Escape (515ms)
+  ✓   8 tests/browser/overlays.spec.ts:57:1 › tabs connect panels and support automatic and manual keyboard activation (349ms)
+  ✓   7 tests/browser/foundation.spec.ts:20:1 › foundation fits 320px and desktop in both appearances (1.2s)
+  ✓  10 tests/browser/foundation.spec.ts:32:1 › production mock endpoints recover by scenario and remain read-only (158ms)
+  ✓   9 tests/browser/overlays.spec.ts:77:1 › tooltip opens on hover and focus, inherits its scope, and dismisses with Escape (694ms)
+  ✓  11 tests/browser/overlays.spec.ts:98:1 › workspace overlays stay within mobile and desktop viewports in both appearances (5.0s)
+  ✓  12 tests/browser/overlays.spec.ts:134:1 › workspace tooltip opens through normal keyboard tab navigation (454ms)
+
+  12 passed (10.8s)

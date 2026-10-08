@@ -1,0 +1,2 @@
+.main { padding: 1rem; }
+.scope { display: grid; min-width: 0; gap: 1rem; padding: 1rem; border: 1px solid var(--sys-color-border); }

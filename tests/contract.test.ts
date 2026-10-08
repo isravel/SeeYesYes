@@ -12,8 +12,8 @@ const settings = () => ({ settingsVersion: 1, theme: theme(), appearance: 'syste
 const mutate = (fn: (s: DesignSystem) => void) => { const s = clone(); fn(s); return s; };
 
 describe('registry integrity', () => {
-  it('validates the three seed components and eight rules without React or a DOM', () => {
-    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link']);
+  it('validates the current component inventory and eight rules without React or a DOM', () => {
+    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'dialog', 'dropdown-menu', 'tabs', 'tooltip']);
     expect(registry.rules).toHaveLength(8);
     expect(typeof globalThis.document).toBe('undefined');
   });

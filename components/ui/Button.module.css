@@ -12,6 +12,7 @@
 .root[data-size="small"] { font-size: .875em; }
 .root[data-size="large"] { font-size: 1.125em; }
 .root[data-variant="ghost"][data-size="small"] { padding-inline: var(--sys-spacing-inline); }
-.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+/* The data selector is used only by the private React Aria trigger adapter. */
+.root:focus-visible, .root[data-focus-visible] { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
 .root:disabled { opacity: .6; cursor: not-allowed; }
 .root:active:not(:disabled) { transform: translateY(1px); }

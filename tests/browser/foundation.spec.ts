@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { registry } from '@/lib/data/registry';
 
 test('seed preview hydrates, handles native activation, and has no serious axe findings', async ({ page }) => {
   const errors: string[] = [];
@@ -33,7 +34,7 @@ test('production mock endpoints recover by scenario and remain read-only', async
   expect(await (await request.get('/api/components?scenario=empty')).json()).toEqual({data: []});
   const normal = await request.get('/api/registry?scenario=normal');
   expect(normal.status()).toBe(200);
-  expect((await normal.json()).data.components).toHaveLength(3);
+  expect((await normal.json()).data.components).toHaveLength(registry.components.length);
   expect((await request.get('/api/components/unknown?scenario=error')).status()).toBe(404);
   expect((await request.post('/api/registry', {data: {}})).status()).toBe(405);
 });

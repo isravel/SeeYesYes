@@ -1,0 +1,9 @@
+.overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: var(--sys-spacing-stack); background: color-mix(in srgb, var(--sys-color-foreground) 30%, transparent); }
+.modal { width: min(100%, 34rem); max-height: calc(100dvh - var(--sys-spacing-stack) * 2); overflow: auto; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); color: var(--sys-color-foreground); box-shadow: var(--sys-shadow-raised); }
+.modal[data-size="small"] { width: min(100%, 24rem); }
+.modal[data-size="large"] { width: min(100%, 48rem); }
+.root { display: grid; gap: var(--sys-spacing-stack); padding: var(--sys-spacing-stack); min-width: 0; }
+.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: -3px; }
+.title { margin: 0; font-size: var(--sys-typography-heading); font-weight: var(--sys-typography-weight-medium); }
+.content { min-width: 0; overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sys-spacing-inline); }
