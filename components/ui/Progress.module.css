@@ -1,0 +1,6 @@
+.root { display: grid; gap: var(--sys-spacing-inline); width: 100%; color: var(--sys-color-foreground); font-size: var(--sys-typography-label); }
+.label { display: flex; justify-content: space-between; gap: var(--sys-spacing-inline); }
+.track { display: block; width: 100%; height: .5rem; overflow: hidden; appearance: none; border: 0; border-radius: var(--sys-radius-control); background: var(--sys-color-muted); color: var(--sys-color-primary); }
+.track::-webkit-progress-bar { border-radius: inherit; background: var(--sys-color-muted); }
+.track::-webkit-progress-value { border-radius: inherit; background: var(--sys-color-primary); }
+.track::-moz-progress-bar { border-radius: inherit; background: var(--sys-color-primary); }

@@ -1,0 +1,5 @@
+.root { display: inline-flex; align-items: center; width: fit-content; min-height: 1.5rem; padding-inline: var(--sys-spacing-inline); border-radius: var(--sys-radius-control); background: var(--badge-background, var(--sys-color-muted)); color: var(--badge-foreground, var(--sys-color-foreground)); font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); line-height: 1.25; }
+.root[data-tone="primary"] { --badge-background: var(--sys-color-primary); --badge-foreground: var(--sys-color-on-primary); }
+.root[data-tone="success"] { --badge-background: var(--sys-color-success); --badge-foreground: var(--sys-color-on-success); }
+.root[data-tone="warning"] { --badge-background: var(--sys-color-warning); --badge-foreground: var(--sys-color-on-warning); }
+.root[data-tone="destructive"] { --badge-background: var(--sys-color-destructive); --badge-foreground: var(--sys-color-on-destructive); }

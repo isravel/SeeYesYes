@@ -1,4 +1,5 @@
 import { ColorRoleSchema, type Theme, type DesignSystem, type TokenDefinition, type ComponentContract, type Example, type Rule, type Oklch } from '@/lib/contract/schema';
+import { additionalComponentContracts, additionalComponentExamples } from './component-contracts';
 import { spacingSteps, typeSizes } from '@/lib/theme/scales';
 import { toCssVariable } from '@/lib/theme/resolve';
 const color = (l: number, c = 0, h = 260): Oklch => ({ l, c, h, alpha: 1 });
@@ -117,7 +118,7 @@ const spinnerContract: ComponentContract = {
   anatomy: [{ part: 'root', description: 'An animated ring hidden from assistive technology.' }],
   props: [{ name: 'size', type: 'small | medium | large', required: false, defaultValue: 'medium', allowedValues: ['small', 'medium', 'large'], description: 'Indicator size.' }],
   variants: { size: ['small', 'medium', 'large'] }, compoundVariants: [], themeDefaults: { size: ['small', 'medium', 'large'] },
-  states: ['default'], tokenIds: ['color.primary', 'motion.duration'],
+  states: ['default'], tokenIds: ['motion.duration'],
   accessibility: { status: 'not-reviewed', requirements: ['Keep decorative activity hidden; put a useful status on its parent.'], keyboard: [], ruleIds: [] },
   composition: { allowedComponentIds: [], constraints: ['Keep the action label visible.'] }, prohibitedUsage: ['Announcing every animation frame.'],
   exampleIds: ['spinner-progress'], ruleIds: [], aiGuidance: { prefer: ['Use inside an action or beside status text.'], avoid: ['Using a spinner as the only status message.'] },
@@ -163,6 +164,6 @@ export const registry: DesignSystem = {
   principles: ['Use the same decisions for people and agents.', 'Choose semantic components and tokens.', 'Keep accessibility part of the contract.', 'Show what is verified and what is still a demo.'],
   fonts: [{ id: 'inter', family: 'Inter', kind: 'sans', source: 'self-hosted' }, { id: 'jetbrains-mono', family: 'JetBrains Mono', kind: 'mono', source: 'self-hosted' }],
   defaultThemeId: 'default', themePresets: [defaultTheme], tokens,
-  components: [buttonContract, spinnerContract, linkContract], rules, examples, layouts: [],
+  components: [buttonContract, spinnerContract, linkContract, ...additionalComponentContracts], rules, examples: [...examples, ...additionalComponentExamples], layouts: [],
   project: { framework: 'react', styling: 'css-variables', guidance: ['Import components through their public repository aliases.', 'Use CSS Modules for local structure and semantic variables for appearance.', 'Parents own placement; components own their internal behavior.', 'The local prototype has no published package or project scanner.'] },
 };

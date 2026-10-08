@@ -1,14 +1,14 @@
 'use client';
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, Ref } from 'react';
 import { useComponentDefaults } from '@/components/theme/ThemeScope';
 import { Spinner } from './spinner';
 import styles from './Button.module.css';
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'; size?: 'small' | 'medium' | 'large'; loading?: boolean;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'; size?: 'small' | 'medium' | 'large'; loading?: boolean; ref?: Ref<HTMLButtonElement>;
 };
-export function Button({ variant, size, type = 'button', loading = false, disabled, children, className = '', ...props }: ButtonProps) {
+export function Button({ variant, size, type = 'button', loading = false, disabled, children, className = '', ref, ...props }: ButtonProps) {
   const defaults = useComponentDefaults('button');
-  return <button {...props} type={type} className={`${styles.root} ${className}`} data-variant={variant ?? defaults.variant} data-size={size ?? defaults.size} disabled={disabled || loading} aria-busy={loading || undefined}>
+  return <button {...props} ref={ref} type={type} className={`${styles.root} ${className}`} data-variant={variant ?? defaults.variant} data-size={size ?? defaults.size} disabled={disabled || loading} aria-busy={loading || undefined}>
     {loading && <Spinner size="small" />}{children}
   </button>;
 }

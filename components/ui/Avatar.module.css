@@ -1,0 +1,4 @@
+.root { display: inline-grid; flex: none; place-items: center; width: var(--avatar-size, 2.5rem); height: var(--avatar-size, 2.5rem); overflow: hidden; border-radius: 50%; background: var(--sys-color-muted); color: var(--sys-color-foreground); font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); }
+.root[data-size="small"] { --avatar-size: 2rem; }
+.root[data-size="large"] { --avatar-size: 3rem; }
+.image { width: 100%; height: 100%; object-fit: cover; }

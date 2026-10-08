@@ -1,0 +1,5 @@
+.root { display: block; width: 100%; height: var(--sys-spacing-row-height); border-radius: var(--sys-radius-control); background: var(--sys-color-muted); animation: pulse calc(var(--sys-motion-duration) * 6) ease-in-out infinite alternate; }
+.root[data-shape="text"] { height: 1em; max-width: 28rem; }
+.root[data-shape="circle"] { width: var(--sys-spacing-row-height); aspect-ratio: 1; border-radius: 50%; }
+@keyframes pulse { to { opacity: .58; } }
+@media (prefers-reduced-motion: reduce) { .root { animation: none; } }

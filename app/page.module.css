@@ -19,6 +19,7 @@
 .component { min-width: 0; }
 .preview { min-height: 156px; background: var(--sys-color-muted); border-radius: var(--sys-radius-control); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: var(--sys-spacing-3); padding: var(--sys-spacing-6); font-size: var(--sys-typography-label); }
 .preview p { display: flex; align-items: center; gap: var(--sys-spacing-3); }
+.previewSections { display: grid; width: 100%; gap: var(--sys-spacing-3); }
 .componentText { padding: 16px 0; }
 .componentText h3 { font-size: 15px; margin: 0; font-weight: 600; }
 .componentText p { font-size: 13px; color: var(--sys-color-muted-foreground); margin: 4px 0 12px; }

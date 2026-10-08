@@ -1,0 +1,2 @@
+.root { display: grid; gap: var(--sys-spacing-stack); min-width: 0; padding: var(--sys-spacing-stack); background: var(--sys-color-surface); border: 1px solid transparent; border-radius: var(--sys-radius-panel); color: var(--sys-color-foreground); }
+.root[data-variant="outlined"] { border-color: var(--sys-color-border); background: transparent; }

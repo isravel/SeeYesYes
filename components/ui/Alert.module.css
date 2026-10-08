@@ -1,0 +1,7 @@
+.root { display: flex; align-items: flex-start; gap: var(--sys-spacing-inline); padding: var(--sys-spacing-stack); border: 1px solid var(--alert-border, var(--sys-color-border)); border-radius: var(--sys-radius-control); background: var(--alert-background, var(--sys-color-info)); color: var(--alert-foreground, var(--sys-color-on-info)); }
+.root[data-tone="success"] { --alert-background: var(--sys-color-success); --alert-foreground: var(--sys-color-on-success); --alert-border: var(--sys-color-success); }
+.root[data-tone="warning"] { --alert-background: var(--sys-color-warning); --alert-foreground: var(--sys-color-on-warning); --alert-border: var(--sys-color-warning); }
+.root[data-tone="destructive"] { --alert-background: var(--sys-color-destructive); --alert-foreground: var(--sys-color-on-destructive); --alert-border: var(--sys-color-destructive); }
+.icon { flex: none; width: 1.25em; height: 1.25em; }
+.content { min-width: 0; }
+.title { margin: 0 0 var(--sys-spacing-inline); font-weight: var(--sys-typography-weight-medium); }

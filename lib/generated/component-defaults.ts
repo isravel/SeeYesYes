@@ -2,7 +2,14 @@
 export type ComponentDefaults = {
 "button": { "variant": "primary" | "secondary" | "ghost" | "destructive"; "size": "small" | "medium" | "large"; "type": "button" | "submit" | "reset"; "disabled": boolean; "loading": boolean };
 "spinner": { "size": "small" | "medium" | "large" };
-"link": { "variant": "default" | "subtle" }
+"link": { "variant": "default" | "subtle" };
+"card": { "variant": "default" | "outlined" };
+"badge": { "tone": "neutral" | "primary" | "success" | "warning" | "destructive" };
+"separator": { "orientation": "horizontal" | "vertical"; "decorative": boolean };
+"avatar": { "size": "small" | "medium" | "large" };
+"alert": { "tone": "info" | "success" | "warning" | "destructive" };
+"progress": { "max": number };
+"skeleton": { "shape": "text" | "rect" | "circle" }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -17,5 +24,27 @@ export const contractDefaults: ComponentDefaults = {
   },
   "link": {
     "variant": "default"
+  },
+  "card": {
+    "variant": "default"
+  },
+  "badge": {
+    "tone": "neutral"
+  },
+  "separator": {
+    "orientation": "horizontal",
+    "decorative": true
+  },
+  "avatar": {
+    "size": "medium"
+  },
+  "alert": {
+    "tone": "info"
+  },
+  "progress": {
+    "max": 100
+  },
+  "skeleton": {
+    "shape": "text"
   }
 };
