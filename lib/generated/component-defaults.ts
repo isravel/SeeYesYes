@@ -27,7 +27,7 @@ export type ComponentDefaults = {
 "loading-state": { "variant": "spinner" | "skeleton" };
 "empty-state": {  };
 "error-state": { "title": string; "retryLabel": string };
-"not-found": { "title": string; "description": string; "homeHref": string; "homeLabel": string };
+"not-found": { "title": string; "description": string; "homeHref": string; "homeLabel": string; "headingLevel": number };
 "copy-button": { "successMessage": string; "failureMessage": string }
 };
 export const contractDefaults: ComponentDefaults = {
@@ -126,7 +126,8 @@ export const contractDefaults: ComponentDefaults = {
     "title": "We could not find that page",
     "description": "It may have moved or the address may be incorrect.",
     "homeHref": "/",
-    "homeLabel": "Return to overview"
+    "homeLabel": "Return to overview",
+    "headingLevel": 1
   },
   "copy-button": {
     "successMessage": "Copied to clipboard.",

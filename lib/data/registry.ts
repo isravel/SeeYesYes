@@ -17,7 +17,7 @@ const light = {
 const dark = {
   primary: color(0.8, 0.1, 264), onPrimary: color(0.18, 0.02), secondary: color(0.3, 0.015), onSecondary: color(0.96),
   accent: color(0.8, 0.09, 170), onAccent: color(0.18), background: color(0.16, 0.01), foreground: color(0.95, 0.005),
-  surface: color(0.21, 0.01), muted: color(0.28, 0.01), mutedForeground: color(0.76, 0.01), border: color(0.6, 0.01), focus: color(0.8, 0.1, 264),
+  surface: color(0.21, 0.01), muted: color(0.28, 0.01), mutedForeground: color(0.8, 0.01), border: color(0.6, 0.01), focus: color(0.8, 0.1, 264),
   destructive: color(0.78, 0.1, 25), onDestructive: color(0.18), success: color(0.8, 0.09, 150), onSuccess: color(0.18),
   warning: color(0.82, 0.13, 85), onWarning: color(0.18), info: color(0.8, 0.09, 235), onInfo: color(0.18),
 };

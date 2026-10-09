@@ -1,6 +1,6 @@
 # M2 progress
 
-M2 is in progress. All 29 required and shared components are implemented, and their contracts have been checked against the shipped code. M2 integration review and completion remain open.
+M2 implementation and automated integration review are complete. All 29 required and shared components are implemented, and their contracts have been checked against the shipped code. The completion gate remains open for the human keyboard, screen-reader, and final WCAG review required by the quality spec.
 
 | Task | Status | Evidence |
 | --- | --- | --- |
@@ -11,5 +11,6 @@ M2 is in progress. All 29 required and shared components are implemented, and th
 | M2.5 | Complete, 2026-10-08 | [Table and Navigation review](M2.5/review.md) |
 | M2.6 | Complete, 2026-10-08 | [Component contract review](M2.6/review.md) |
 | M2.7 | Complete, 2026-10-09 | [Shared feedback review](M2.7/review.md) |
+| M2.8 | Automated review complete, 2026-10-09 | [Integration review](M2.8/review.md) |
 
-Next is M2.8, the M2 integration review. Use GPT-6.1 Sol at Medium, then complete the M2 gate.
+M2's automated integration review is complete. A human tester still needs to record keyboard and screen-reader results and finish the WCAG criteria review before the milestone can close.

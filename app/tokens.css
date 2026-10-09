@@ -68,7 +68,7 @@
   --sys-color-foreground: oklch(0.95 0.005 260 / 1);
   --sys-color-info: oklch(0.8 0.09 235 / 1);
   --sys-color-muted: oklch(0.28 0.01 260 / 1);
-  --sys-color-muted-foreground: oklch(0.76 0.01 260 / 1);
+  --sys-color-muted-foreground: oklch(0.8 0.01 260 / 1);
   --sys-color-on-accent: oklch(0.18 0 260 / 1);
   --sys-color-on-destructive: oklch(0.18 0 260 / 1);
   --sys-color-on-info: oklch(0.18 0 260 / 1);

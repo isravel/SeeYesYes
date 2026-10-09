@@ -71,7 +71,7 @@ function ErrorRegistry() {
   const [attempts, setAttempts] = useState(0);
   return <><ErrorState title="Could not load components" message="The preview could not reach the component registry." onRetry={() => setAttempts(count => count + 1)} /><span role="status">{attempts ? `Retry requested (${attempts}).` : ''}</span></>;
 }
-function NotFoundComponent() { return <NotFound title="Component not found" description="That component is not in this registry." homeHref="#main" homeLabel="Return to overview" />; }
+function NotFoundComponent() { return <NotFound title="Component not found" description="That component is not in this registry." homeHref="#main" homeLabel="Return to overview" headingLevel={2} />; }
 function CopyContext() { return <CopyButton label="sample context" value={'Component: Button\nPurpose: Run a named action.'} />; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs,
