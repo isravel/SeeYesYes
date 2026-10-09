@@ -1,0 +1,2 @@
+.root { display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--sys-spacing-inline); max-width: 100%; }
+.message { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }

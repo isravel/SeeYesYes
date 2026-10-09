@@ -1,0 +1,80 @@
+
+> seeyesyes@0.1.0 typecheck
+> npm run generate && tsc --noEmit
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 29 components, 57 tokens, 8 rules, and 37 examples.
+
+> seeyesyes@0.1.0 audit:components
+> node --import tsx scripts/audit-components.ts
+
+button: 8 documented props, 15 CSS tokens, 1 compounds; experimental, not-reviewed
+spinner: 1 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+link: 3 documented props, 3 CSS tokens, 0 compounds; experimental, not-reviewed
+card: 2 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+badge: 2 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+separator: 2 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+avatar: 4 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+alert: 3 documented props, 13 CSS tokens, 0 compounds; experimental, not-reviewed
+progress: 3 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+skeleton: 3 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+input: 7 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+textarea: 7 documented props, 13 CSS tokens, 0 compounds; experimental, not-reviewed
+select: 6 documented props, 12 CSS tokens, 0 compounds; experimental, not-reviewed
+checkbox: 6 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+radio-group: 11 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+switch: 6 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+label: 3 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+form-field: 6 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+dialog: 13 documented props, 10 CSS tokens, 0 compounds; experimental, not-reviewed
+dropdown-menu: 9 documented props, 15 CSS tokens, 0 compounds; experimental, not-reviewed
+tabs: 9 documented props, 13 CSS tokens, 0 compounds; experimental, not-reviewed
+tooltip: 8 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+table: 6 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+navigation: 9 documented props, 18 CSS tokens, 0 compounds; experimental, not-reviewed
+loading-state: 4 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+empty-state: 4 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+error-state: 5 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+not-found: 5 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+copy-button: 6 documented props, 3 CSS tokens, 0 compounds; experimental, not-reviewed
+All 29 component implementations match their documented props, literal defaults, direct CSS tokens, and styled compounds.
+
+> seeyesyes@0.1.0 lint
+> eslint .
+
+
+> seeyesyes@0.1.0 build
+> npm run generate && next build
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 29 components, 57 tokens, 8 rules, and 37 examples.
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 71ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 340ms
+  Running TypeScript ...
+  Finished TypeScript in 2.8s ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/3) ...
+✓ Generating static pages using 8 workers (3/3) in 713ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/[...path]
+├ ƒ /internal-checks/overlays
+├ ƒ /internal-checks/structure
+└ ƒ /internal-checks/theme-scopes
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

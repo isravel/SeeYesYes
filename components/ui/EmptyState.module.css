@@ -1,0 +1,4 @@
+.root { display: grid; gap: var(--sys-spacing-inline); padding: var(--sys-spacing-stack); color: var(--sys-color-foreground); text-align: center; }
+.title { margin: 0; font-size: var(--sys-typography-heading); font-weight: var(--sys-typography-weight-medium); }
+.description { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-label); }
+.action { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sys-spacing-inline); }

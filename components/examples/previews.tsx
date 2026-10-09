@@ -23,6 +23,11 @@ import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { Tabs } from '@/components/ui/tabs';
 import { Table } from '@/components/ui/table';
 import { Navigation } from '@/components/ui/navigation';
+import { LoadingState } from '@/components/ui/loading-state';
+import { EmptyState } from '@/components/ui/empty-state';
+import { ErrorState } from '@/components/ui/error-state';
+import { NotFound } from '@/components/ui/not-found';
+import { CopyButton } from '@/components/ui/copy-button';
 import { Tooltip } from '@/components/ui/tooltip';
 function ButtonSave() {
   const [saved, setSaved] = useState(false);
@@ -57,6 +62,17 @@ function TooltipSave() {
 }
 function TableInvoices() { return <Table caption="Recent invoices" columns={[{ id: 'invoice', label: 'Invoice', rowHeader: true }, { id: 'status', label: 'Status' }]} rows={[{ id: '104', cells: { invoice: 'INV-104', status: <Badge tone="success">Paid</Badge> } }, { id: '105', cells: { invoice: 'INV-105', status: <Badge tone="warning">Pending</Badge> } }]} />; }
 function NavigationPreview() { return <Navigation label="Example navigation" showSkipLink={false} triggerLabel="Open example navigation" currentHref="#components-title" mainId="main" groups={[{ label: 'Explore', items: [{ label: 'Components', href: '#components-title' }, { label: 'Overview', href: '#main' }] }]} />; }
+function LoadingMembers() { return <LoadingState label="Loading team members" description="Checking the shared workspace." variant="skeleton" />; }
+function EmptyProjects() {
+  const [created, setCreated] = useState(false);
+  return <><EmptyState title="No projects yet" description="Create a project to keep related work together." action={<Button onClick={() => setCreated(true)}>Create project</Button>} /><span role="status">{created ? 'Sample project created.' : ''}</span></>;
+}
+function ErrorRegistry() {
+  const [attempts, setAttempts] = useState(0);
+  return <><ErrorState title="Could not load components" message="The preview could not reach the component registry." onRetry={() => setAttempts(count => count + 1)} /><span role="status">{attempts ? `Retry requested (${attempts}).` : ''}</span></>;
+}
+function NotFoundComponent() { return <NotFound title="Component not found" description="That component is not in this registry." homeHref="#main" homeLabel="Return to overview" />; }
+function CopyContext() { return <CopyButton label="sample context" value={'Component: Button\nPurpose: Run a named action.'} />; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -64,6 +80,7 @@ export const previewMap = {
   inputEmail: InputEmail, textareaNotes: TextareaNotes, selectRole: SelectRole, checkboxArchive: CheckboxArchive,
   radioPlan: RadioPlan, switchNotifications: SwitchNotifications, labelName: LabelName, formFieldEmail: FormFieldEmail,
   dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave, tableInvoices: TableInvoices, navigationPreview: NavigationPreview,
+  loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = {};
 

@@ -60,7 +60,7 @@ Goal: reusable accessible components and an adaptive workspace frame.
 - [x] M2.4 Build Dialog, Dropdown Menu, Tabs, and Tooltip as SeeYesYes wrappers over React Aria Components, with documented keyboard/focus behavior and overlays that portal into the nearest `ThemeScope`. [Evidence](../evidence/M2/M2.4/review.md)
 - [x] M2.5 Build Table and Navigation, including mobile drawer, skip link, active destination, headings, and breadcrumbs. [Evidence](../evidence/M2/M2.5/review.md)
 - [x] M2.6 Check every required contract for relevant states, `themeDefaults`, compound variants that match its combined CSS selectors, token IDs that match its CSS, and honest maturity and review status. Registry validation passes for the full inventory. [Evidence](../evidence/M2/M2.6/review.md)
-- [ ] M2.7 Build shared loading, empty, error/retry, not-found, and copy-feedback patterns.
+- [x] M2.7 Build shared loading, empty, error/retry, not-found, and copy-feedback patterns. [Evidence](../evidence/M2/M2.7/review.md)
 - [ ] M2.8 Review keyboard behavior and light/dark styling; verify variants reuse structure and components work across containers; test mobile shell and contained overflow.
 
 Completion gate: complete required inventory renders through shared primitives; labels and keyboard interactions work; shell works at 320px and desktop. Record initial A12–A14 evidence.
@@ -165,7 +165,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | Milestone | Status | Reviewed on | Evidence path | Open issues |
 | --- | --- | --- | --- | --- |
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
-| M2 | In progress | 2026-10-08 | [M2 task evidence](../evidence/M2/review.md) | M2.7–M2.8 and the completion gate remain open. |
+| M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | M2.8 and the completion gate remain open. |
 | M3 | Not started | — | — | — |
 | M4 | Not started | — | — | — |
 | M5 | Not started | — | — | — |

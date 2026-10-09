@@ -1,0 +1,5 @@
+.root { display: flex; align-items: center; gap: var(--sys-spacing-stack); color: var(--sys-color-foreground); }
+.title, .description { margin: 0; }
+.title { font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); }
+.description { margin-top: var(--sys-spacing-inline); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.skeleton { display: grid; flex: 0 1 10rem; gap: var(--sys-spacing-inline); }

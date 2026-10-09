@@ -1,0 +1,1 @@
+.root { display: grid; justify-items: start; gap: var(--sys-spacing-stack); }

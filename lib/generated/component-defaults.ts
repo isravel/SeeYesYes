@@ -23,7 +23,12 @@ export type ComponentDefaults = {
 "tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual" };
 "tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number };
 "table": { "emptyMessage": string };
-"navigation": { "triggerLabel": string; "showSkipLink": boolean }
+"navigation": { "triggerLabel": string; "showSkipLink": boolean };
+"loading-state": { "variant": "spinner" | "skeleton" };
+"empty-state": {  };
+"error-state": { "title": string; "retryLabel": string };
+"not-found": { "title": string; "description": string; "homeHref": string; "homeLabel": string };
+"copy-button": { "successMessage": string; "failureMessage": string }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -108,5 +113,23 @@ export const contractDefaults: ComponentDefaults = {
   "navigation": {
     "triggerLabel": "Open navigation",
     "showSkipLink": true
+  },
+  "loading-state": {
+    "variant": "spinner"
+  },
+  "empty-state": {},
+  "error-state": {
+    "title": "Could not load this content",
+    "retryLabel": "Retry"
+  },
+  "not-found": {
+    "title": "We could not find that page",
+    "description": "It may have moved or the address may be incorrect.",
+    "homeHref": "/",
+    "homeLabel": "Return to overview"
+  },
+  "copy-button": {
+    "successMessage": "Copied to clipboard.",
+    "failureMessage": "Could not copy. Check clipboard access and try again."
   }
 };
