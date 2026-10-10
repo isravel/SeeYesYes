@@ -27,9 +27,9 @@ export function useComponentDefaults<K extends keyof ComponentDefaults>(componen
 }
 export type ThemeScopeProps = {
   theme: Theme; appearance: Appearance; system?: DesignSystem; children: ReactNode;
-  workspace?: boolean; className?: string; id?: string;
+  workspace?: boolean; ready?: boolean; className?: string; id?: string;
 };
-export function ThemeScope({ theme, appearance, system: suppliedSystem, workspace = false, className = '', id, children }: ThemeScopeProps) {
+export function ThemeScope({ theme, appearance, system: suppliedSystem, workspace = false, ready = true, className = '', id, children }: ThemeScopeProps) {
   const parent = useThemeScope();
   const system = suppliedSystem ?? parent?.system;
   if (!system) throw new Error('A root ThemeScope needs a validated design system.');
@@ -49,7 +49,7 @@ export function ThemeScope({ theme, appearance, system: suppliedSystem, workspac
     getPortalContainer: () => workspace ? document.body : root.current,
   }), [system, theme, mode, workspace]);
   useEffect(() => {
-    if (!workspace || !variables || !mode) return;
+    if (!workspace || !ready || !variables || !mode) return;
     const html = document.documentElement;
     const previous = Object.fromEntries(Object.keys(variables).map(key => [key, html.style.getPropertyValue(key)]));
     const oldAppearance = html.getAttribute('data-appearance');
@@ -62,7 +62,7 @@ export function ThemeScope({ theme, appearance, system: suppliedSystem, workspac
       if (oldAppearance) html.setAttribute('data-appearance', oldAppearance); else html.removeAttribute('data-appearance');
       html.style.colorScheme = oldScheme;
     };
-  }, [workspace, variables, mode]);
+  }, [workspace, ready, variables, mode]);
   const content = workspace ? children : mode && variables ? <div ref={root} id={id} className={`${styles.root} ${className}`} data-theme-scope="" data-appearance={mode} style={{ ...variables, colorScheme: mode } as CSSProperties}>{children}</div> : null;
   return <ScopeContext.Provider value={value}><UNSAFE_PortalProvider getContainer={value.getPortalContainer}>{content}</UNSAFE_PortalProvider></ScopeContext.Provider>;
 }
