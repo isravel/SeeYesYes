@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
+import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
 import styles from './theme.module.css';
 
@@ -47,6 +48,26 @@ export default function ThemeEditorPage() {
     setTheme({ ...theme, colors: { ...theme.colors, [mode]: { ...theme.colors[mode], [role]: { ...suggestion } } } });
     setMessage(`${paletteId} copied into ${labels[role]} for ${mode} only.`);
   }
+  function updateThemeValue<K extends 'radius' | 'density' | 'shadows' | 'motion'>(key: K, value: (typeof theme)[K]) {
+    setTheme({ ...theme, [key]: value });
+    setMessage(`${key[0].toUpperCase()}${key.slice(1)} updated in the draft.`);
+  }
+  function updateFont(kind: 'sansFontId' | 'monoFontId', value: string) {
+    setTheme({ ...theme, typography: { ...theme.typography, [kind]: value } });
+    setMessage(`${kind === 'sansFontId' ? 'Sans' : 'Monospace'} font updated in the draft.`);
+  }
+  function updateScale(value: 'small' | 'default' | 'large') {
+    setTheme({ ...theme, typography: { ...theme.typography, scale: value } });
+    setMessage('Typography scale updated in the draft.');
+  }
+  function updateSurfaceEffect(value: 'clean' | 'subtle-depth') {
+    setTheme({ ...theme, effects: { ...theme.effects, surface: value } });
+    setMessage('Surface effect updated in the draft.');
+  }
+  function updateComponentDefault(componentId: string, property: 'variant' | 'size', value: string) {
+    setTheme({ ...theme, componentDefaults: { ...theme.componentDefaults, [componentId]: { ...theme.componentDefaults[componentId], [property]: value } } });
+    setMessage(`${componentId} ${property} default updated in the draft.`);
+  }
 
   return <main className={styles.page}>
     <header className={styles.header}>
@@ -84,6 +105,82 @@ export default function ThemeEditorPage() {
           <p>Suggestions copy into the selected role and mode only. They do not change the other mode.</p>
         </div>
         <p role="status" aria-live="polite" className={styles.status}>{message || 'Draft colors stay separate from the workspace until Apply is added.'}</p>
+      </section>
+
+      <section className={styles.panel} aria-labelledby="type-heading">
+        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>TYPOGRAPHY</p><h2 id="type-heading">Choose type settings</h2></div></div>
+        <div className={styles.settingsGrid}>
+          <label className={styles.field}>Sans font
+            <Select aria-label="Sans font" value={theme.typography.sansFontId} onChange={event => updateFont('sansFontId', event.currentTarget.value)}>
+              {registry.fonts.filter(font => font.kind === 'sans').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
+            </Select>
+          </label>
+          <label className={styles.field}>Monospace font
+            <Select aria-label="Monospace font" value={theme.typography.monoFontId} onChange={event => updateFont('monoFontId', event.currentTarget.value)}>
+              {registry.fonts.filter(font => font.kind === 'mono').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
+            </Select>
+          </label>
+          <label className={styles.field}>Type scale
+            <Select aria-label="Type scale" value={theme.typography.scale} onChange={event => updateScale(event.currentTarget.value as typeof theme.typography.scale)}>
+              <option value="small">Small</option><option value="default">Default</option><option value="large">Large</option>
+            </Select>
+          </label>
+        </div>
+      </section>
+
+      <section className={styles.panel} aria-labelledby="shape-heading">
+        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>SHAPE AND DENSITY</p><h2 id="shape-heading">Set shared geometry</h2></div></div>
+        <div className={styles.settingsGrid}>
+          <label className={styles.field}>Corner shape
+            <Select aria-label="Corner shape" value={theme.radius} onChange={event => updateThemeValue('radius', event.currentTarget.value as typeof theme.radius)}>
+              <option value="sharp">Sharp</option><option value="soft">Soft</option><option value="curvy">Curvy</option>
+            </Select>
+          </label>
+          <label className={styles.field}>Density
+            <Select aria-label="Density" value={theme.density} onChange={event => updateThemeValue('density', event.currentTarget.value as typeof theme.density)}>
+              <option value="compact">Compact</option><option value="comfortable">Comfortable</option><option value="spacious">Spacious</option>
+            </Select>
+          </label>
+        </div>
+      </section>
+
+      <section className={styles.panel} aria-labelledby="effects-heading">
+        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>SHADOWS, EFFECTS, AND MOTION</p><h2 id="effects-heading">Tune surface and motion settings</h2></div></div>
+        <div className={styles.settingsGrid}>
+          <label className={styles.field}>Shadow scale
+            <Select aria-label="Shadow scale" value={theme.shadows} onChange={event => updateThemeValue('shadows', event.currentTarget.value as typeof theme.shadows)}>
+              <option value="none">None</option><option value="soft">Soft</option><option value="defined">Defined</option>
+            </Select>
+          </label>
+          <label className={styles.field}>Surface effect
+            <Select aria-label="Surface effect" value={theme.effects.surface} onChange={event => updateSurfaceEffect(event.currentTarget.value as typeof theme.effects.surface)}>
+              <option value="clean">Clean</option><option value="subtle-depth">Subtle depth</option>
+            </Select>
+          </label>
+          <label className={styles.field}>Motion
+            <Select aria-label="Motion" value={theme.motion} onChange={event => updateThemeValue('motion', event.currentTarget.value as typeof theme.motion)}>
+              <option value="none">None</option><option value="subtle">Subtle</option>
+            </Select>
+          </label>
+        </div>
+      </section>
+
+      <section className={styles.panel} aria-labelledby="defaults-heading">
+        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>COMPONENT DEFAULTS</p><h2 id="defaults-heading">Set allowed defaults</h2><p>Options come from each component contract.</p></div></div>
+        <div className={styles.componentDefaults}>
+          {registry.components.filter(component => Object.keys(component.themeDefaults).length > 0).map(component => <fieldset className={styles.defaultGroup} key={component.id}>
+            <legend>{component.name}</legend>
+            {(['variant', 'size'] as const).filter(property => component.themeDefaults[property]?.length).map(property => {
+              const options = component.themeDefaults[property]!;
+              const current = theme.componentDefaults[component.id]?.[property] ?? String(component.props.find(prop => prop.name === property)?.defaultValue ?? options[0]);
+              return <label className={styles.field} key={property}>{property === 'variant' ? 'Variant' : 'Size'}
+                <Select aria-label={`${component.name} ${property} default`} value={current} onChange={event => updateComponentDefault(component.id, property, event.currentTarget.value)}>
+                  {options.map(option => <option key={option} value={option}>{option}</option>)}
+                </Select>
+              </label>;
+            })}
+          </fieldset>)}
+        </div>
       </section>
 
       <section className={styles.panel} aria-labelledby="preview-heading">

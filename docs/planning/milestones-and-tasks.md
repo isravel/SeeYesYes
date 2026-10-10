@@ -71,7 +71,7 @@ Goal: top-level decisions propagate predictably without leaking preview edits.
 
 - [x] M3.1 Implement default/applied/draft stores (appearance outside the draft), versioned local persistence, runtime validation, and early initialization from a validated/versioned cache with shared values and separate light/dark maps. [Evidence](../evidence/M3/M3.1/review.md)
 - [x] M3.2 Add independent light/dark editing, system preference listeners, OKLCH controls, and explicit palette suggestions. [Evidence](../evidence/M3/M3.2/review.md)
-- [ ] M3.3 Add typography, radius, density, shadows, clean/depth effects, motion, and valid component-default controls.
+- [x] M3.3 Add typography, radius, density, shadows, clean/depth effects, motion, and valid component-default controls. [Evidence](../evidence/M3/M3.3/review.md)
 - [ ] M3.4 Render a scoped multi-component preview; keep portal content inside its theme scope.
 - [ ] M3.5 Implement Apply, Discard, Reset draft, unsaved indicator, session navigation, and refresh behavior.
 - [ ] M3.6 Add local contrast calculation for the defined pairs, gamut handling, and warnings for failing draft/applied pairs.

@@ -16,6 +16,10 @@
 .value code { color: var(--sys-color-foreground); }
 .suggestion { display: grid; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--sys-color-muted); }
 .suggestion p { margin: 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
+.settingsGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.componentDefaults { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.defaultGroup { display: grid; gap: 14px; min-width: 0; margin: 0; padding: 14px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); }
+.defaultGroup legend { padding-inline: 6px; font-weight: 600; }
 .status { min-height: 1.5em; margin: 16px 0 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
 .previewScope { display: grid; gap: 16px; margin-top: 16px; padding: 18px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-background); }
 .previewScope h3 { margin: 0; font-size: 1.1rem; }
@@ -23,4 +27,4 @@
 .colorSamples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .colorSamples div { display: grid; min-height: 64px; place-items: center; padding: 8px; border-radius: var(--sys-radius-control); color: var(--sys-color-foreground); font-size: .8rem; }
 @media (max-width: 800px) { .controls { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .panel { padding: 16px; } }
+@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .panel { padding: 16px; } .settingsGrid, .componentDefaults { grid-template-columns: minmax(0, 1fr); } }
