@@ -18,7 +18,7 @@ Each task should deliver a reviewable change. Keep components with their contrac
 
 ## Model guide and switch reminders
 
-**Sol** means GPT-6.1 Sol; **Luna** means GPT-5.6 Luna. Start at Medium reasoning. Use Sol High for difficult reasoning or unresolved bugs. This guide is a starting point; adjust based on actual results and model availability.
+**Sol** means GPT-6.1 Sol; **Luna** means GPT-6 Luna. Start at Medium reasoning. Use Sol High for difficult reasoning or unresolved bugs. This guide is a starting point; adjust based on actual results and model availability.
 
 | Stage | Use Sol for | Use Luna for | Switch-back reminder |
 | --- | --- | --- | --- |
@@ -176,7 +176,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 
 Update the owning spec first when a requirement changes, then adjust affected tasks and acceptance checks. Record the reason here. Do not silently promote optional work or lower quality gates to finish a milestone.
 
-Implementation guidance (2026-10-08, model choice): added GPT-5.6 Luna/GPT-6.1 Sol task guidance and reminders in both directions. Sol handles shared logic and milestone reviews; Luna handles focused work once its foundations are ready. Handoffs name the next model and switch point. This changes the working guidance only; scope, acceptance checks, and evaluation controls stay intact.
+Implementation guidance (2026-10-08, model choice): added GPT-6 Luna/GPT-6.1 Sol task guidance and reminders in both directions. Sol handles shared logic and milestone reviews; Luna handles focused work once its foundations are ready. Handoffs name the next model and switch point. This changes the working guidance only; scope, acceptance checks, and evaluation controls stay intact.
 
 Initial planning decisions: density and clean/depth effects are required; richer effects and product components are deferred; local theme persistence is allowed; mock route handlers are allowed; context generation works locally; validation remains labeled sample data; Link is required to support semantic navigation guidance.
 

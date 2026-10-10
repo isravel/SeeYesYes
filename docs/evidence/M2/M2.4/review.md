@@ -22,4 +22,4 @@ The overlay fixture is available only when test routes are enabled. Contracts re
 
 ## Next task
 
-M2.5 adds Table and Navigation, including the mobile drawer, skip link, active destination, headings, and breadcrumbs. GPT-5.6 Luna at Medium can follow the established patterns.
+M2.5 adds Table and Navigation, including the mobile drawer, skip link, active destination, headings, and breadcrumbs. GPT-6 Luna at Medium can follow the established patterns.

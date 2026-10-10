@@ -25,6 +25,6 @@ The portal probe is a test fixture, not the completed SeeYesYes Dialog wrapper. 
 
 Resolver version is now 1.1 because token output expanded and shadow behavior was corrected: clean surfaces stay flat while raised overlays retain their selected shadow scale. No scope or acceptance requirements changed. CSS Modules and the existing structure/appearance ownership rules remain the styling pattern.
 
-Next: M2.2, one primitive at a time, starting with Button, Link, and Spinner, then Card and feedback primitives. Use GPT-5.6 Luna at Medium now that the shared logic is ready. Return to GPT-6.1 Sol at Medium for M2.4 overlay/focus behavior, M2.6 contract review, and the M2 completion gate.
+Next: M2.2, one primitive at a time, starting with Button, Link, and Spinner, then Card and feedback primitives. Use GPT-6 Luna at Medium now that the shared logic is ready. Return to GPT-6.1 Sol at Medium for M2.4 overlay/focus behavior, M2.6 contract review, and the M2 completion gate.
 
 Relevant specs: `docs/specs/05-visual-system-and-components.md` (shared API, inventory, and style ownership); `docs/specs/03-design-system-contract.md` (contracts, theme defaults, examples, compound variants); `docs/specs/06-quality-and-acceptance.md` (A12–A14).

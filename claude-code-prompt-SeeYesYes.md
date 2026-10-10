@@ -37,11 +37,11 @@ At handoff, record completed task IDs, decisions, open issues, and the next task
 
 ## Choose a model and remind me when to switch
 
-Use **GPT-6.1 Sol at Medium** for foundations, shared logic, difficult fixes, and milestone reviews. Use **GPT-5.6 Luna at Medium** for focused components, straightforward screens, documentation, examples, and small fixes once their foundations are ready. These are project recommendations, not measured performance claims.
+Use **GPT-6.1 Sol at Medium** for foundations, shared logic, difficult fixes, and milestone reviews. Use **GPT-6 Luna at Medium** for focused components, straightforward screens, documentation, examples, and small fixes once their foundations are ready. These are project recommendations, not measured performance claims.
 
 Before starting a task, check the [model guide in the milestone plan](docs/planning/milestones-and-tasks.md#model-guide-and-switch-reminders). Mention the recommended model and a short reason. When the recommendation changes, remind the user in either direction:
 
-- **Sol to Luna:** "This task is scoped and the shared logic is ready. You can switch to GPT-5.6 Luna at Medium for [task]. Switch back to Sol before [next complex task or milestone review]."
+- **Sol to Luna:** "This task is scoped and the shared logic is ready. You can switch to GPT-6 Luna at Medium for [task]. Switch back to Sol before [next complex task or milestone review]."
 - **Luna to Sol:** "Switch back to GPT-6.1 Sol at Medium for [task]; it changes [shared logic or connected requirements]."
 
 Increase Sol to High when a task needs deeper analysis. If Luna misses the same requirement or fails the same check after two repair attempts, recommend Sol and summarize the unresolved issue. Use actual failures to make that decision, not task length alone.
