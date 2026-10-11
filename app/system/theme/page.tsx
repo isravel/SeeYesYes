@@ -4,12 +4,12 @@ import { useStore } from 'zustand';
 import { ThemeScope } from '@/components/theme/ThemeScope';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
 import styles from './theme.module.css';
+import { ThemePreview } from './ThemePreview';
 
 const roles = [
   ['Surface and text', ['background', 'foreground', 'surface', 'muted', 'mutedForeground', 'border', 'focus']],
@@ -71,7 +71,7 @@ export default function ThemeEditorPage() {
 
   return <main className={styles.page}>
     <header className={styles.header}>
-      <div><p className={styles.eyebrow}>SYSTEM · THEME</p><h1>Theme editor</h1><p>Edit color values in a local draft. Light and dark stay independent.</p></div>
+      <div><p className={styles.eyebrow}>SYSTEM · THEME</p><h1>Theme editor</h1><p>Edit a local draft and try it in the preview. Light and dark colors stay independent.</p></div>
       <a href="/">Back to overview</a>
     </header>
     <div className={styles.controls}>
@@ -183,18 +183,15 @@ export default function ThemeEditorPage() {
         </div>
       </section>
 
-      <section className={styles.panel} aria-labelledby="preview-heading">
-        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>PREVIEW</p><h2 id="preview-heading">See the selected colors</h2></div></div>
+      <section className={`${styles.panel} ${styles.previewPanel}`} aria-labelledby="preview-heading">
+        <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>PREVIEW</p><h2 id="preview-heading">Try the draft theme</h2><p>Preview appearance is separate from the color mode you are editing.</p></div></div>
         <label className={styles.field}>Preview appearance
           <Select aria-label="Preview appearance" value={previewAppearance} onChange={event => setPreviewAppearance(event.currentTarget.value as typeof previewAppearance)}>
             <option value="light">Light</option><option value="dark">Dark</option><option value="system">Follow system</option>
           </Select>
         </label>
-        <ThemeScope theme={theme} appearance={previewAppearance} className={styles.previewScope}>
-          <Card><p className={styles.eyebrow}>COLOR SAMPLE</p><h3>{labels[role]}</h3><p>This preview uses the selected {mode} color values.</p><Button>Example action</Button></Card>
-          <div className={styles.colorSamples}>
-            {([['background', 'foreground'], ['surface', 'foreground'], ['primary', 'onPrimary'], ['accent', 'onAccent']] as const).map(([sample, foreground]) => <div key={sample} style={{ backgroundColor: `oklch(${theme.colors[mode][sample].l} ${theme.colors[mode][sample].c} ${theme.colors[mode][sample].h} / ${theme.colors[mode][sample].alpha})`, color: `oklch(${theme.colors[mode][foreground].l} ${theme.colors[mode][foreground].c} ${theme.colors[mode][foreground].h} / ${theme.colors[mode][foreground].alpha})` }}>{labels[sample]}</div>)}
-          </div>
+        <ThemeScope id="theme-editor-preview" theme={theme} appearance={previewAppearance} className={styles.previewScope}>
+          <ThemePreview />
         </ThemeScope>
       </section>
     </div>

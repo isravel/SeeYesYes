@@ -72,7 +72,7 @@ Goal: top-level decisions propagate predictably without leaking preview edits.
 - [x] M3.1 Implement default/applied/draft stores (appearance outside the draft), versioned local persistence, runtime validation, and early initialization from a validated/versioned cache with shared values and separate light/dark maps. [Evidence](../evidence/M3/M3.1/review.md)
 - [x] M3.2 Add independent light/dark editing, system preference listeners, OKLCH controls, and explicit palette suggestions. [Evidence](../evidence/M3/M3.2/review.md)
 - [x] M3.3 Add typography, radius, density, shadows, clean/depth effects, motion, and valid component-default controls. [Evidence](../evidence/M3/M3.3/review.md)
-- [ ] M3.4 Render a scoped multi-component preview; keep portal content inside its theme scope.
+- [x] M3.4 Render a scoped multi-component preview; keep portal content inside its theme scope. [Evidence](../evidence/M3/M3.4/review.md)
 - [ ] M3.5 Implement Apply, Discard, Reset draft, unsaved indicator, session navigation, and refresh behavior.
 - [ ] M3.6 Add local contrast calculation for the defined pairs, gamut handling, and warnings for failing draft/applied pairs.
 - [ ] M3.7 Handle blocked/corrupt/incompatible storage, cross-tab Web Lock serialization, stale-draft conflict rejection, latest-envelope sync through the `storage` event, session-only fallback when Web Locks is unavailable, and reduced-motion override.
@@ -166,7 +166,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | --- | --- | --- | --- | --- |
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
-| M3 | In progress | 2026-10-10 | [M3.1 review](../evidence/M3/M3.1/review.md) | M3.2–M3.8 remain open. |
+| M3 | In progress | 2026-10-11 | [M3.4 review](../evidence/M3/M3.4/review.md) | M3.5–M3.8 remain open. |
 | M4 | Not started | — | — | — |
 | M5 | Not started | — | — | — |
 | M6 | Not started | — | — | — |
