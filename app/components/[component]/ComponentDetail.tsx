@@ -18,6 +18,9 @@ import type { Scenario } from '@/lib/data/api';
 import type { ComponentContract, DesignSystem } from '@/lib/contract/schema';
 import { componentReadiness } from '@/lib/contract/readiness';
 import { effectiveDefaults } from '@/lib/contract/validate';
+import { stableJson } from '@/lib/contract/serialize';
+import { resolveTokens } from '@/lib/theme/resolve';
+import { useThemeScope } from '@/components/theme/ThemeScope';
 import styles from './detail.module.css';
 
 const adapter = createHttpAdapter();
@@ -62,6 +65,16 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
   const reviewed = component.accessibility.status === 'reviewed';
   const differing = Object.keys(appliedDefaults).filter(name => appliedDefaults[name] !== contractDefaults[name]);
   const tokenName = (id: string) => system.tokens.find(token => token.id === id);
+  const mode = useThemeScope()?.mode ?? null;
+  const resolved = new Map(resolveTokens(system.tokens, theme, system.fonts).map(token => [token.id, token]));
+  const tokenValue = (id: string) => {
+    const value = resolved.get(id)?.value;
+    if (value === undefined) return null;
+    return typeof value === 'object' ? String(value[mode ?? 'light']) : String(value);
+  };
+  const ruleIds = [...new Set([...component.ruleIds, ...component.accessibility.ruleIds])];
+  const rules = ruleIds.map(id => system.rules.find(rule => rule.id === id)).filter((rule): rule is NonNullable<typeof rule> => Boolean(rule));
+  const contractJson = stableJson(component);
 
   return <>
     <header className={styles.header}>
@@ -100,7 +113,7 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
         <div className={styles.preview} data-testid="component-preview" key={`${JSON.stringify(selection)}-${state}`}>{renderDemo(component.id, selection, state)}</div>
         {interactionStates.length > 0 && <p className={styles.note}>Interaction states to try in the preview with a pointer or keyboard: {interactionStates.join(', ')}.</p>}
         <h3>Matching code</h3>
-        <div className={styles.example}><pre><code>{`${importLine}\n\n${demoCode(component.id, selection, state)}`}</code></pre><CopyButton label={`${component.name} code`} value={`${importLine}\n\n${demoCode(component.id, selection, state)}`} /></div>
+        <div className={styles.example}><pre tabIndex={0} aria-label={`${component.name} matching code`}><code>{`${importLine}\n\n${demoCode(component.id, selection, state)}`}</code></pre><CopyButton label={`${component.name} code`} value={`${importLine}\n\n${demoCode(component.id, selection, state)}`} /></div>
       </> : preview?.intent === 'recommended'
         ? <><div className={styles.preview}><ExamplePreview previewKey={preview.previewKey} /></div><p className={styles.caption}>{preview.title}</p></>
         : <p>No recommended example with a preview is registered.</p>}
@@ -140,7 +153,7 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
     <section className={styles.section} aria-labelledby="use-heading">
       <h2 id="use-heading">Recommended use</h2>
       {recommended.length === 0 ? <p>No recommended examples are registered.</p> : recommended.map(example => <div key={example.id} className={styles.example}>
-        <h3>{example.title}</h3><pre><code>{example.code}</code></pre>
+        <h3>{example.title}</h3><pre tabIndex={0} aria-label={`${example.title} code`}><code>{example.code}</code></pre>
       </div>)}
     </section>
 
@@ -148,7 +161,7 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
       <h2 id="prohibited-heading">Prohibited use</h2>
       {list(component.prohibitedUsage)}
       {violations.map(example => <div key={example.id} className={styles.example}>
-        <h3>{example.title}</h3><pre><code>{example.code}</code></pre>
+        <h3>{example.title}</h3><pre tabIndex={0} aria-label={`${example.title} code`}><code>{example.code}</code></pre>
         {example.intent === 'violation' && <p>{example.explanation}</p>}
       </div>)}
     </section>
@@ -165,7 +178,8 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
 
     <section className={styles.section} aria-labelledby="tokens-heading">
       <h2 id="tokens-heading">Tokens</h2>
-      <ul>{component.tokenIds.map(id => <li key={id}><Link href={`/system/tokens#${id}`}>{id}</Link>{tokenName(id) ? <> · <code>{tokenName(id)!.cssVariable}</code></> : null}</li>)}</ul>
+      <p className={styles.note}>Values come from the applied theme{mode ? `; mode-dependent tokens show the ${mode} value, the mode in effect` : ''}.</p>
+      <ul>{component.tokenIds.map(id => <li key={id}><Link href={`/system/tokens#${id}`}>{id}</Link>{tokenName(id) ? <> · <code>{tokenName(id)!.cssVariable}</code></> : null}{tokenValue(id) ? <> · <code>{tokenValue(id)}</code></> : null}</li>)}</ul>
     </section>
 
     <section className={styles.section} aria-labelledby="composition-heading">
@@ -184,10 +198,27 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
       </div>
     </section>
 
+    <section className={styles.section} aria-labelledby="rules-heading">
+      <h2 id="rules-heading">Rules</h2>
+      {rules.length === 0 ? <p>No system rules are linked to this component.</p> : <ul className={styles.rules}>{rules.map(rule => <li key={rule.id} id={`rule-${rule.id}`}>
+        <p><code>{rule.id}</code> <Badge tone={rule.severity === 'error' ? 'destructive' : rule.severity === 'warning' ? 'warning' : 'neutral'}>{rule.severity}</Badge> <Badge>{rule.category}</Badge></p>
+        <p>{rule.description}</p><p className={styles.note}>Suggested fix: {rule.suggestedFix}</p>
+      </li>)}</ul>}
+    </section>
+
     <section className={styles.section} aria-labelledby="readiness-heading">
       <h2 id="readiness-heading">Metadata readiness</h2>
       <p>This checks that the contract and its references are complete. It does not mean the component was reviewed or an agent was tested.</p>
       <ul className={styles.checks}>{readiness.checks.map(check => <li key={check.id} data-passed={check.passed}><span aria-hidden="true">{check.passed ? '✓' : '✗'}</span> <span className={styles.visuallyHidden}>{check.passed ? 'Passed: ' : 'Failed: '}</span>{check.label}</li>)}</ul>
+    </section>
+
+    <section className={styles.section} aria-labelledby="contract-heading">
+      <h2 id="contract-heading">Contract</h2>
+      <p>The structured contract for this component, exactly as the registry stores it. Copy it to give a person or tool the same source of truth.</p>
+      <div className={styles.example}>
+        <pre tabIndex={0} aria-label={`${component.name} contract JSON`}><code>{contractJson}</code></pre>
+        <CopyButton label={`${component.name} contract`} value={contractJson} successMessage="Contract copied to clipboard." />
+      </div>
     </section>
   </>;
 }

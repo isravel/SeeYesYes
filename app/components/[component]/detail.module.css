@@ -26,3 +26,9 @@
 
 .controls { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
 .control { display: grid; gap: 6px; min-width: 9rem; font-size: .85rem; font-weight: 550; text-transform: capitalize; }
+
+.rules { list-style: none; padding-left: 0 !important; }
+.rules li { margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); }
+.rules p { margin: 4px 0; }
+.example pre:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.example pre { max-height: 26rem; }
