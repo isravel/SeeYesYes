@@ -9,7 +9,7 @@ test('every component has a detail route with every required section', async ({ 
     await expect(page.getByRole('heading', { level: 1, name: component.name, exact: true })).toBeVisible();
     for (const heading of headings) await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible();
     // Live preview renders the recommended example, props are tabulated, and review status is honest.
-    await expect(page.locator('section[aria-labelledby="preview-heading"] > div').first()).toBeVisible();
+    await expect(page.getByTestId('component-preview')).toBeVisible();
     await expect(page.getByRole('region', { name: `${component.name} props table` })).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::header').getByText('Not reviewed')).toBeVisible();
     await expect(page.getByText('Metadata-complete', { exact: true }).first()).toBeVisible();

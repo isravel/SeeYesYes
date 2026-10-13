@@ -5,6 +5,10 @@ import { useStore } from 'zustand';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
 import { ExamplePreview } from '@/components/examples/previews';
 import { Badge } from '@/components/ui/badge';
+import { CopyButton } from '@/components/ui/copy-button';
+import { Select } from '@/components/ui/select';
+import { demoCode, demos, renderDemo } from '@/components/examples/demos';
+import { activeCompounds, initialSelection, optionStatus, type Selection } from '@/lib/components/playground';
 import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
@@ -42,13 +46,20 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
   const stores = useThemeStores();
   const theme = useStore(stores.applied, state => state.settings.theme);
   const readiness = componentReadiness(component, system);
+  const contractDefaults = effectiveDefaults(component, { ...theme, componentDefaults: {} });
+  const appliedDefaults = effectiveDefaults(component, theme);
   const examples = system.examples.filter(example => component.exampleIds.includes(example.id));
   const recommended = examples.filter(example => example.intent === 'recommended');
   const violations = examples.filter(example => example.intent === 'violation');
   const preview = recommended[0];
+  const demo = demos[component.id];
+  const [selection, setSelection] = useState<Selection>(() => initialSelection(component, appliedDefaults));
+  const [state, setState] = useState(() => demo?.states[0] ?? 'default');
+  const compounds = activeCompounds(component, selection);
+  const unavailable = Object.entries(component.variants).flatMap(([name, choices]) => choices.filter(option => option !== selection[name]).map(option => ({ name, option, status: optionStatus(component, selection, name, option) })).filter(item => item.status.disabled));
+  const interactionStates = component.states.filter(item => !demo?.states.includes(item));
+  const importLine = `import { ${component.publicImport.exportName} } from "${component.publicImport.module}";`;
   const reviewed = component.accessibility.status === 'reviewed';
-  const contractDefaults = effectiveDefaults(component, { ...theme, componentDefaults: {} });
-  const appliedDefaults = effectiveDefaults(component, theme);
   const differing = Object.keys(appliedDefaults).filter(name => appliedDefaults[name] !== contractDefaults[name]);
   const tokenName = (id: string) => system.tokens.find(token => token.id === id);
 
@@ -73,7 +84,24 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
 
     <section className={styles.section} aria-labelledby="preview-heading">
       <h2 id="preview-heading">Live preview</h2>
-      {preview?.intent === 'recommended'
+      {demo ? <>
+        {(Object.keys(component.variants).length > 0 || demo.states.length > 1) && <div className={styles.controls}>
+          {Object.entries(component.variants).map(([name, choices]) => <label key={name} className={styles.control}>{name}
+            <Select value={selection[name]} aria-label={`${component.name} ${name}`} onChange={event => setSelection({ ...selection, [name]: event.currentTarget.value })}>
+              {choices.map(option => { const status = optionStatus(component, selection, name, option); return <option key={option} value={option} disabled={status.disabled && option !== selection[name]}>{option}</option>; })}
+            </Select>
+          </label>)}
+          {demo.states.length > 1 && <label className={styles.control}>state
+            <Select value={state} aria-label={`${component.name} state`} onChange={event => setState(event.currentTarget.value)}>{demo.states.map(item => <option key={item} value={item}>{item}</option>)}</Select>
+          </label>}
+        </div>}
+        {unavailable.length > 0 && <ul className={styles.note} aria-label="Unavailable combinations">{unavailable.map(item => <li key={`${item.name}-${item.option}`}><code>{item.name}={item.option}</code> is unavailable with the current selection: {item.status.reason}</li>)}</ul>}
+        {compounds.map(compound => <p key={JSON.stringify(compound.when)} className={styles.note}>This combination has a dedicated style: {compound.description}</p>)}
+        <div className={styles.preview} data-testid="component-preview" key={`${JSON.stringify(selection)}-${state}`}>{renderDemo(component.id, selection, state)}</div>
+        {interactionStates.length > 0 && <p className={styles.note}>Interaction states to try in the preview with a pointer or keyboard: {interactionStates.join(', ')}.</p>}
+        <h3>Matching code</h3>
+        <div className={styles.example}><pre><code>{`${importLine}\n\n${demoCode(component.id, selection, state)}`}</code></pre><CopyButton label={`${component.name} code`} value={`${importLine}\n\n${demoCode(component.id, selection, state)}`} /></div>
+      </> : preview?.intent === 'recommended'
         ? <><div className={styles.preview}><ExamplePreview previewKey={preview.previewKey} /></div><p className={styles.caption}>{preview.title}</p></>
         : <p>No recommended example with a preview is registered.</p>}
     </section>
