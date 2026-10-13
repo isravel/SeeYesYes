@@ -53,3 +53,5 @@
 .note { color: var(--sys-color-muted-foreground); font-size: .85rem; }
 
 .conflict { margin: 0; padding: 10px 12px; border: 1px solid var(--sys-color-warning); border-left-width: 4px; border-radius: var(--sys-radius-control); }
+
+.headerTools { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 16px; }

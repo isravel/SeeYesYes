@@ -41,4 +41,4 @@ Fonts ship locally through Next.js. Component styles use CSS Modules and shared 
 
 ## Current limits
 
-This is the M1 foundation plus M2.1, not the complete Phase 1 workspace. Theme editing and persistence, the full component set, layouts, documentation, and export screens come in later milestones. The demo validation endpoint returns fixtures; it never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.
+This covers M1–M3: the foundation, the component set, and the theme lifecycle (draft editing, Apply, locked cross-tab saving, and contrast warnings at `/system/theme`). It is not the complete Phase 1 workspace. The Tokens and Components screens, context and export screens, layouts, and documentation come in later milestones. The demo validation endpoint returns fixtures; it never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.

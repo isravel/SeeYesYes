@@ -3,6 +3,7 @@ import { ExamplePreview } from '@/components/examples/previews';
 import { Navigation } from '@/components/ui/navigation';
 import type { Metadata } from 'next';
 import { Link } from '@/components/ui/link';
+import { AppearanceSelector } from '@/components/theme/AppearanceSelector';
 import { resolveTokens } from '@/lib/theme/resolve';
 import styles from './page.module.css';
 export const metadata: Metadata = { title: 'Overview — SeeYesYes' };
@@ -13,7 +14,7 @@ export default async function Home() {
   return <>
     <a className={styles.skip} href="#main">Skip to content</a>
 
-    <header className={styles.header}><a href="/" className={styles.brand}>SeeYesYes<span className={styles.brandMark} aria-hidden="true">↗</span></a><span className={styles.stage}>Foundation preview · v{system.productVersion}</span></header>
+    <header className={styles.header}><a href="/" className={styles.brand}>SeeYesYes<span className={styles.brandMark} aria-hidden="true">↗</span></a><span className={styles.stage}>Foundation preview · v{system.productVersion}</span><AppearanceSelector /></header>
     <div className={styles.workspace}><aside className={styles.sidebar}><Navigation showSkipLink={false} label="Workspace" currentHref="/" mainId="main" groups={[{ items: [{ label: "Overview", href: "/" }, { label: "Components", href: "#components-title" }] }, { label: "System", items: [{ label: "Registry", href: "/api/registry" }, { label: "AI context", href: "/api/ai-context" }] }]} breadcrumbs={[{ label: "Overview", href: "/" }]} /></aside><main id="main" tabIndex={-1} className={styles.main}>
       <section className={styles.hero}><p className={styles.eyebrow}>ONE SYSTEM. SHARED DECISIONS.</p><h1>Overview</h1><p className={styles.tagline}>Good interfaces start with a common language.</p><p className={styles.intro}>A design system that humans and AI can understand.<br />Components, tokens, and guidance. All from one contract.</p><div className={styles.heroLinks}><Link href="/system/theme">Edit the theme ↗</Link><Link href="/api/registry">Explore the registry ↗</Link><Link href="/api/ai-context" variant="subtle">Read the AI context ↗</Link></div></section>
       <section aria-labelledby="foundation-title" className={styles.foundation}><div className={styles.sectionHeading}><div><p className={styles.eyebrow}>MILESTONE 02</p><h2 id="foundation-title">Shared components are taking shape.</h2></div><p>Real components. Validated references.<br />A small, connected starting point.</p></div><dl className={styles.stats}>{[[system.components.length, 'Working components'], [tokens.length, 'Resolved tokens'], [system.rules.length, 'Usage rules'], [system.themePresets.length, 'Default preset']].map(([value, label]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>

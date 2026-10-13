@@ -5,6 +5,7 @@ import { ThemeScope } from '@/components/theme/ThemeScope';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
+import { AppearanceSelector } from '@/components/theme/AppearanceSelector';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { registry } from '@/lib/data/registry';
@@ -93,7 +94,7 @@ export default function ThemeEditorPage() {
   return <main className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>SYSTEM · THEME</p><h1>Theme editor</h1><p>Edit a local draft and try it in the preview. Light and dark colors stay independent.</p></div>
-      <Link href="/">Back to overview</Link>
+      <div className={styles.headerTools}><AppearanceSelector /><Link href="/">Back to overview</Link></div>
     </header>
     <section className={styles.actions} aria-label="Draft actions">
       <p className={styles.unsaved} data-dirty={dirty}>{dirty ? 'Unsaved changes: the draft differs from the workspace theme.' : 'No unsaved changes.'}</p>

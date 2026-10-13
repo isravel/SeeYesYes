@@ -1,0 +1,3 @@
+.root { display: inline-flex; align-items: center; gap: var(--sys-spacing-2, 8px); font-size: var(--sys-typography-caption, .8rem); color: var(--sys-color-muted-foreground); }
+.status { min-width: 6.5em; }
+@media (max-width: 520px) { .status { display: none; } }

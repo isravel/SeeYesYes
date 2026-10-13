@@ -10,7 +10,7 @@ test('theme editor changes one mode at a time and applies palette suggestions ex
   const lightness = page.getByRole('spinbutton', { name: 'Lightness' });
   await lightness.fill('0.31');
   await expect(lightness).toHaveValue('0.31');
-  await expect(page.getByRole('status')).toContainText('Foreground light value updated');
+  await expect(page.getByRole('status').last()).toContainText('Foreground light value updated');
 
   await page.getByRole('button', { name: 'Dark colors' }).click();
   await expect(lightness).toHaveValue('0.95');
@@ -21,7 +21,7 @@ test('theme editor changes one mode at a time and applies palette suggestions ex
   await page.getByRole('button', { name: 'Dark colors' }).click();
   await page.getByRole('combobox', { name: 'Palette suggestion' }).selectOption('neutral-900');
   await page.getByRole('button', { name: 'Use suggestion for dark' }).click();
-  await expect(page.getByRole('status')).toContainText('copied into Foreground for dark only');
+  await expect(page.getByRole('status').last()).toContainText('copied into Foreground for dark only');
   await expect(lightness).toHaveValue('0.22');
 
   await page.emulateMedia({ colorScheme: 'dark' });
