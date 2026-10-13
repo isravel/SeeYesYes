@@ -43,3 +43,11 @@
 .unsaved { margin: 0; font-weight: 600; }
 .unsaved[data-dirty='true']::before { content: '● '; color: var(--sys-color-warning); }
 .actionButtons { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.contrast { margin: 0 0 20px; padding: 16px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
+.contrast h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.contrast p { margin: 6px 0; }
+.contrastOk { color: var(--sys-color-foreground); }
+.contrastWarn { margin: 8px 0; padding: 12px; border: 1px solid var(--sys-color-warning); border-left-width: 4px; border-radius: var(--sys-radius-control); }
+.contrastWarn ul { margin: 8px 0 0; padding-left: 20px; }
+.note { color: var(--sys-color-muted-foreground); font-size: .85rem; }

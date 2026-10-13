@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
+import { failingContrast } from '@/lib/accessibility/contrast';
 import { applyDraft, discardDraft, resetDraft } from '@/lib/theme/stores';
 import styles from './theme.module.css';
 import { ThemePreview } from './ThemePreview';
@@ -31,6 +32,7 @@ export default function ThemeEditorPage() {
   const stores = useThemeStores();
   const theme = useStore(stores.draft, state => state.theme);
   const setTheme = useStore(stores.draft, state => state.setTheme);
+  const applied = useStore(stores.applied, state => state.settings.theme);
   const dirty = useStore(stores.draft, state => state.dirty);
   const persistence = useStore(stores.applied, state => state.persistence);
   const initialized = useStore(stores.applied, state => state.initialized);
@@ -41,6 +43,8 @@ export default function ThemeEditorPage() {
   const [paletteId, setPaletteId] = useState(Object.keys(theme.palette)[0] ?? '');
   const [message, setMessage] = useState('');
   const color = theme.colors[mode][role];
+  const draftFailures = useMemo(() => failingContrast(theme), [theme]);
+  const appliedFailures = useMemo(() => failingContrast(applied), [applied]);
   const cssColor = useMemo(() => `oklch(${color.l} ${color.c} ${color.h} / ${color.alpha})`, [color]);
 
   function updateChannel(channel: Channel, value: number) {
@@ -103,6 +107,12 @@ export default function ThemeEditorPage() {
       </div>
       {persistence === 'session-only' && <p className={styles.status}>Changes stay in this tab and reset on refresh because browser storage is unavailable.</p>}
       {notice && persistence !== 'session-only' && <p className={styles.status}>{notice}</p>}
+    </section>
+    <section className={styles.contrast} aria-labelledby="contrast-heading">
+      <h2 id="contrast-heading">Contrast check</h2>
+      <ContrastReport title="Draft" failures={draftFailures} />
+      {dirty && <ContrastReport title="Applied workspace theme" failures={appliedFailures} />}
+      <p className={styles.note}>A limited local check of the required text, focus, and control-border pairs in both modes. Out-of-gamut colors are reduced in chroma first. It is not a full accessibility audit, and a failing draft can still be applied. Decorative borders are exempt under WCAG 1.4.11.</p>
     </section>
     <div className={styles.controls}>
       <section className={styles.panel} aria-labelledby="color-heading">
@@ -226,4 +236,13 @@ export default function ThemeEditorPage() {
       </section>
     </div>
   </main>;
+}
+
+type Failures = ReturnType<typeof failingContrast>;
+function ContrastReport({ title, failures }: { title: string; failures: Failures }) {
+  if (failures.length === 0) return <p className={styles.contrastOk}>{title}: all required pairs pass in light and dark.</p>;
+  return <div className={styles.contrastWarn} role="group" aria-label={`${title} contrast warnings`}>
+    <p><strong>{title}: {failures.length} required {failures.length === 1 ? 'pair fails' : 'pairs fail'}.</strong> This theme will not be marked as verified.</p>
+    <ul>{failures.map(f => <li key={`${f.mode}-${f.foreground}-${f.background}`}>{f.mode === 'light' ? 'Light' : 'Dark'}: {f.label} is {f.ratio.toFixed(2)}:1, needs {f.minimum}:1{f.mapped ? ' (out-of-gamut color adjusted)' : ''}.</li>)}</ul>
+  </div>;
 }
