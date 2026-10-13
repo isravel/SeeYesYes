@@ -75,7 +75,7 @@ Goal: top-level decisions propagate predictably without leaking preview edits.
 - [x] M3.4 Render a scoped multi-component preview; keep portal content inside its theme scope. [Evidence](../evidence/M3/M3.4/review.md)
 - [x] M3.5 Implement Apply, Discard, Reset draft, unsaved indicator, session navigation, and refresh behavior. [Evidence](../evidence/M3/M3.5/review.md)
 - [x] M3.6 Add local contrast calculation for the defined pairs, gamut handling, and warnings for failing draft/applied pairs. [Evidence](../evidence/M3/M3.6/review.md)
-- [ ] M3.7 Handle blocked/corrupt/incompatible storage, cross-tab Web Lock serialization, stale-draft conflict rejection, latest-envelope sync through the `storage` event, session-only fallback when Web Locks is unavailable, and reduced-motion override.
+- [x] M3.7 Handle blocked/corrupt/incompatible storage, cross-tab Web Lock serialization, stale-draft conflict rejection, latest-envelope sync through the `storage` event, session-only fallback when Web Locks is unavailable, and reduced-motion override. [Evidence](../evidence/M3/M3.7/review.md)
 - [ ] M3.8 Test lifecycle, global appearance changes during an open draft, mode independence, token propagation, and first paint after OS mode changes between visits. Cover missing/stale/corrupt bootstrap caches, the bootstrap-to-hydration handoff, a resolver test that every emitted value matches the bootstrap allowlist, and controlled concurrent two-tab Apply/appearance sequences, competing stale drafts, queued storage events, and missing-lock fallback.
 
 Completion gate: A03–A06, A07 for the Theme preview (including its dialog portal), and theme-related A13 pass; editing stays local until Apply; refresh restores applied settings; failure notices are usable.
@@ -166,7 +166,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | --- | --- | --- | --- | --- |
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
-| M3 | In progress | 2026-10-13 | [M3.6 review](../evidence/M3/M3.6/review.md) | M3.7–M3.8 remain open. |
+| M3 | In progress | 2026-10-13 | [M3.7 review](../evidence/M3/M3.7/review.md) | M3.8 and the M3 gate remain open. |
 | M4 | Not started | — | — | — |
 | M5 | Not started | — | — | — |
 | M6 | Not started | — | — | — |

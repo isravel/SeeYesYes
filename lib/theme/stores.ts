@@ -11,6 +11,8 @@ export type AppliedThemeState = {
   initialized: boolean;
   persistence: 'persistent' | 'session-only';
   notice: string | null;
+  appearancePending: boolean;
+  setAppearancePending: (pending: boolean) => void;
   setSettings: (settings: WorkspaceSettings, themeRevision?: number) => void;
   setNotice: (notice: string | null) => void;
   finishInitialization: (persistence: AppliedThemeState['persistence'], notice?: string | null) => void;
@@ -19,8 +21,15 @@ export type DraftThemeState = {
   theme: Theme;
   baseThemeRevision: number;
   dirty: boolean;
+  saving: boolean;
+  conflict: boolean;
+  saveError: string | null;
   setTheme: (theme: Theme) => void;
   reset: (theme: Theme, revision: number) => void;
+  refreshDirty: () => void;
+  setSaving: (saving: boolean) => void;
+  setConflict: (conflict: boolean) => void;
+  setSaveError: (saveError: string | null) => void;
 };
 export type DefaultThemeState = { settings: WorkspaceSettings };
 export type ThemeStores = { defaults: StoreApi<DefaultThemeState>; applied: StoreApi<AppliedThemeState>; draft: StoreApi<DraftThemeState> };
@@ -34,52 +43,70 @@ export function createThemeStores(defaultSettings = defaultWorkspaceSettings): T
   const defaults = createStore<DefaultThemeState>()(() => ({ settings: WorkspaceSettingsSchema.parse(defaultSettings) }));
   const applied = createStore<AppliedThemeState>()(set => ({
     settings: defaultSettings, themeRevision: 0, initialized: false,
-    persistence: 'persistent', notice: null,
+    persistence: 'persistent', notice: null, appearancePending: false,
+    setAppearancePending: appearancePending => set({ appearancePending }),
     setSettings: (settings, themeRevision) => set(state => ({ settings, themeRevision: themeRevision ?? state.themeRevision })),
     setNotice: notice => set({ notice }),
     finishInitialization: (persistence, notice = null) => set({ initialized: true, persistence, notice }),
   }));
   const draft = createStore<DraftThemeState>()(set => ({
-    theme: defaultSettings.theme, baseThemeRevision: 0, dirty: false,
+    theme: defaultSettings.theme, baseThemeRevision: 0, dirty: false, saving: false, conflict: false, saveError: null,
     setTheme: theme => set(state => ({ theme, dirty: themeValues(theme) !== themeValues(applied.getState().settings.theme), baseThemeRevision: state.baseThemeRevision })),
-    reset: (theme, revision) => set({ theme, baseThemeRevision: revision, dirty: false }),
+    reset: (theme, revision) => set({ theme, baseThemeRevision: revision, dirty: false, conflict: false, saveError: null }),
+    refreshDirty: () => set(state => ({ dirty: themeValues(state.theme) !== themeValues(applied.getState().settings.theme) })),
+    setSaving: saving => set({ saving }),
+    setConflict: conflict => set({ conflict }),
+    setSaveError: saveError => set({ saveError }),
   }));
   return { defaults, applied, draft };
 }
 
-export function initializeThemeStores(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null): void {
+const NO_LOCKS_NOTICE = 'Changes stay in this tab and reset on refresh because this browser cannot coordinate saves between tabs.';
+
+export function initializeThemeStores(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null, locksAvailable = true): void {
   const defaultThemeValue = system.themePresets.find(theme => theme.id === system.defaultThemeId) ?? defaultTheme;
   const defaultSettings = WorkspaceSettingsSchema.parse({ ...defaultWorkspaceSettings, theme: defaultThemeValue });
-  if (!storage) {
+  const loadDefaults = () => {
     stores.applied.getState().setSettings(defaultSettings, 0);
     stores.draft.getState().reset(defaultSettings.theme, 0);
+  };
+  if (!storage) {
+    loadDefaults();
     stores.applied.getState().finishInitialization('session-only', 'Changes stay in this tab and reset on refresh because browser storage is unavailable.');
     return;
   }
+  // Without Web Locks, saved settings are still read, but nothing is ever written to shared storage.
+  const finish = (notice: string | null) => locksAvailable
+    ? stores.applied.getState().finishInitialization('persistent', notice)
+    : stores.applied.getState().finishInitialization('session-only', notice ?? NO_LOCKS_NOTICE);
   let raw: string | null;
   try { raw = storage.getItem(SETTINGS_STORAGE_KEY); }
   catch {
-    stores.applied.getState().setSettings(defaultSettings, 0);
-    stores.draft.getState().reset(defaultSettings.theme, 0);
+    loadDefaults();
     stores.applied.getState().finishInitialization('session-only', 'Changes stay in this tab and reset on refresh because browser storage is blocked.');
     return;
   }
-  if (!raw) {
-    stores.applied.getState().setSettings(defaultSettings, 0);
-    stores.draft.getState().reset(defaultSettings.theme, 0);
-    stores.applied.getState().finishInitialization('persistent');
-    return;
-  }
+  if (!raw) { loadDefaults(); finish(null); return; }
   try {
     const { envelope, notice } = parseStoredSettings(raw, system);
     stores.applied.getState().setSettings(envelope.settings, envelope.themeRevision);
     stores.draft.getState().reset(envelope.settings.theme, envelope.themeRevision);
-    stores.applied.getState().finishInitialization('persistent', notice ?? null);
-  } catch {
-    stores.applied.getState().setSettings(defaultSettings, 0);
-    stores.draft.getState().reset(defaultSettings.theme, 0);
-    stores.applied.getState().finishInitialization('persistent', 'Saved settings could not be read. Defaults are active; you can continue editing.');
+    finish(notice ?? null);
+  } catch (error) {
+    loadDefaults();
+    finish(describeUnreadableSettings(raw, error));
   }
+}
+
+function describeUnreadableSettings(raw: string, error: unknown): string {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object' && 'envelopeVersion' in parsed && (parsed as { envelopeVersion: unknown }).envelopeVersion !== 1) {
+      return 'Saved settings use a format this version does not support. Defaults are active; applying a draft will replace them.';
+    }
+  } catch { /* Not JSON: treated as corrupt below. */ }
+  void error;
+  return 'Saved settings could not be read. Defaults are active; you can continue editing.';
 }
 
 export function persistWorkspaceSettings(settingsInput: WorkspaceSettings, themeRevision: number, system: DesignSystem, storage: StorageLike): PersistenceEnvelope {

@@ -10,7 +10,8 @@ import { Select } from '@/components/ui/select';
 import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
 import { failingContrast } from '@/lib/accessibility/contrast';
-import { applyDraft, discardDraft, resetDraft } from '@/lib/theme/stores';
+import { discardDraft, resetDraft } from '@/lib/theme/stores';
+import { commitDraft, getBrowserEnv } from '@/lib/theme/writer';
 import styles from './theme.module.css';
 import { ThemePreview } from './ThemePreview';
 
@@ -37,6 +38,9 @@ export default function ThemeEditorPage() {
   const persistence = useStore(stores.applied, state => state.persistence);
   const initialized = useStore(stores.applied, state => state.initialized);
   const notice = useStore(stores.applied, state => state.notice);
+  const saving = useStore(stores.draft, state => state.saving);
+  const conflict = useStore(stores.draft, state => state.conflict);
+  const saveError = useStore(stores.draft, state => state.saveError);
   const [mode, setMode] = useState<Mode>('light');
   const [previewAppearance, setPreviewAppearance] = useState<'light' | 'dark' | 'system'>('light');
   const [role, setRole] = useState<keyof typeof theme.colors.light>('primary');
@@ -79,16 +83,9 @@ export default function ThemeEditorPage() {
     setMessage(`${componentId} ${property} default updated in the draft.`);
   }
 
-  function apply() {
-    let storage: Storage | null = null;
-    try { storage = window.localStorage; } catch { /* Blocked storage leaves the change session-only. */ }
-    try {
-      const result = applyDraft(stores, registry, storage);
-      setMessage(result.status === 'unchanged' ? 'The draft already matches the workspace theme.'
-        : result.persisted ? 'Draft applied to the workspace and saved.' : (result.notice ?? 'Draft applied to the workspace for this session.'));
-    } catch (error) {
-      setMessage(`The draft could not be applied: ${error instanceof Error ? error.message : 'it is not a valid theme.'} Your draft is unchanged.`);
-    }
+  async function apply() {
+    const result = await commitDraft(stores, registry, getBrowserEnv());
+    if (result.status !== 'busy') setMessage(result.message);
   }
   function discard() { discardDraft(stores); setMessage('Changes discarded. The draft matches the workspace theme.'); }
   function reset() { resetDraft(stores); setMessage('Draft reset to the default preset. Apply to change the workspace.'); }
@@ -101,11 +98,13 @@ export default function ThemeEditorPage() {
     <section className={styles.actions} aria-label="Draft actions">
       <p className={styles.unsaved} data-dirty={dirty}>{dirty ? 'Unsaved changes: the draft differs from the workspace theme.' : 'No unsaved changes.'}</p>
       <div className={styles.actionButtons}>
-        <Button variant="primary" onClick={apply} disabled={!initialized || !dirty}>Apply to workspace</Button>
-        <Button variant="secondary" onClick={discard} disabled={!dirty}>Discard changes</Button>
+        <Button variant="primary" onClick={apply} loading={saving} disabled={!initialized || !dirty}>{saving ? 'Applying…' : saveError ? 'Retry apply' : 'Apply to workspace'}</Button>
+        <Button variant="secondary" onClick={discard} disabled={!dirty && !conflict}>Discard changes</Button>
         <Button variant="secondary" onClick={reset}>Reset draft</Button>
       </div>
-      {persistence === 'session-only' && <p className={styles.status}>Changes stay in this tab and reset on refresh because browser storage is unavailable.</p>}
+      {conflict && <p className={styles.conflict} role="alert">The theme changed in another tab. Your draft is still here. Use Discard changes to load the latest applied theme.</p>}
+      {saveError && <p className={styles.conflict} role="alert">{saveError}</p>}
+      {persistence === 'session-only' && <p className={styles.status}>Changes stay in this tab and reset on refresh. Browser storage or cross-tab coordination is unavailable here.</p>}
       {notice && persistence !== 'session-only' && <p className={styles.status}>{notice}</p>}
     </section>
     <section className={styles.contrast} aria-labelledby="contrast-heading">

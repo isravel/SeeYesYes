@@ -2,7 +2,9 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useStore } from 'zustand';
 import type { DesignSystem } from '@/lib/contract/schema';
+import { SETTINGS_STORAGE_KEY } from '@/lib/theme/persistence';
 import { createThemeStores, initializeThemeStores, type ThemeStores } from '@/lib/theme/stores';
+import { getBrowserEnv, syncFromStorage } from '@/lib/theme/writer';
 import { ThemeScope } from './ThemeScope';
 
 const ThemeStoresContext = createContext<ThemeStores | null>(null);
@@ -21,9 +23,13 @@ export function ThemeLifecycleProvider({ system, children }: { system: DesignSys
   const settings = useStore(stores.applied, state => state.settings);
   const initialized = useStore(stores.applied, state => state.initialized);
   useEffect(() => {
-    let storage: Storage | null = null;
-    try { storage = window.localStorage; } catch { /* Storage access can be blocked by browser policy. */ }
-    initializeThemeStores(stores, system, storage);
+    const { storage, locks } = getBrowserEnv();
+    initializeThemeStores(stores, system, storage, Boolean(locks));
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === null || event.key === SETTINGS_STORAGE_KEY) syncFromStorage(stores, system, getBrowserEnv().storage);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
   }, [stores, system]);
   return <ThemeStoresContext.Provider value={stores}><ThemeScope system={system} theme={settings.theme} appearance={settings.appearance} workspace ready={initialized}>{children}</ThemeScope></ThemeStoresContext.Provider>;
 }
