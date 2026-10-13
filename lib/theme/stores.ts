@@ -3,6 +3,7 @@ import { WorkspaceSettingsSchema, type DesignSystem, type PersistenceEnvelope, t
 import { defaultTheme } from '@/lib/data/registry';
 import { createPersistenceEnvelope, parseStoredSettings, SETTINGS_STORAGE_KEY } from './persistence';
 import { validateTheme } from '@/lib/contract/validate';
+import { assignThemeIdentity, themeValues } from './identity';
 
 export type AppliedThemeState = {
   settings: WorkspaceSettings;
@@ -40,7 +41,7 @@ export function createThemeStores(defaultSettings = defaultWorkspaceSettings): T
   }));
   const draft = createStore<DraftThemeState>()(set => ({
     theme: defaultSettings.theme, baseThemeRevision: 0, dirty: false,
-    setTheme: theme => set(state => ({ theme, dirty: JSON.stringify(theme) !== JSON.stringify(applied.getState().settings.theme), baseThemeRevision: state.baseThemeRevision })),
+    setTheme: theme => set(state => ({ theme, dirty: themeValues(theme) !== themeValues(applied.getState().settings.theme), baseThemeRevision: state.baseThemeRevision })),
     reset: (theme, revision) => set({ theme, baseThemeRevision: revision, dirty: false }),
   }));
   return { defaults, applied, draft };
@@ -90,4 +91,37 @@ export function persistWorkspaceSettings(settingsInput: WorkspaceSettings, theme
 
 export function markStorageBlocked(stores: ThemeStores): void {
   stores.applied.getState().finishInitialization('session-only', 'Changes stay in this tab and reset on refresh because browser storage is blocked.');
+}
+
+export type ApplyResult = { status: 'applied' | 'unchanged'; persisted: boolean; notice: string | null };
+
+/** Replaces the applied theme with the validated draft. Appearance is always preserved. */
+export function applyDraft(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null): ApplyResult {
+  const { settings, themeRevision, persistence } = stores.applied.getState();
+  const theme = assignThemeIdentity(validateTheme(stores.draft.getState().theme, system), system.themePresets);
+  const changed = themeValues(theme) !== themeValues(settings.theme);
+  const nextRevision = changed ? themeRevision + 1 : themeRevision;
+  const nextSettings: WorkspaceSettings = { ...settings, theme };
+  let persisted = false;
+  let notice: string | null = persistence === 'session-only' ? 'Changes stay in this tab and reset on refresh.' : null;
+  if (persistence === 'persistent' && storage) {
+    try { persistWorkspaceSettings(nextSettings, nextRevision, system, storage); persisted = true; }
+    catch { notice = 'Changes were applied for this session but could not be saved. Refresh will reset them.'; }
+  }
+  stores.applied.getState().setSettings(nextSettings, nextRevision);
+  stores.applied.getState().setNotice(notice);
+  stores.draft.getState().reset(theme, nextRevision);
+  return { status: changed ? 'applied' : 'unchanged', persisted, notice };
+}
+
+/** Restores the draft from the applied theme. */
+export function discardDraft(stores: ThemeStores): void {
+  const { settings, themeRevision } = stores.applied.getState();
+  stores.draft.getState().reset(settings.theme, themeRevision);
+}
+
+/** Loads the default preset into the draft only; the workspace changes on Apply. */
+export function resetDraft(stores: ThemeStores): void {
+  const { theme } = stores.defaults.getState().settings;
+  stores.draft.getState().setTheme(theme);
 }

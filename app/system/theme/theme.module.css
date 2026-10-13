@@ -37,3 +37,9 @@
 .colorSamples div { display: grid; min-height: 64px; place-items: center; padding: 8px; border-radius: var(--sys-radius-control); font-size: var(--sys-typography-label); }
 @media (max-width: 800px) { .controls { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .panel { padding: 16px; } .settingsGrid, .componentDefaults, .previewColumns { grid-template-columns: minmax(0, 1fr); } }
+
+.actions { display: grid; gap: 12px; margin: 20px 0; padding: 16px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
+.actions .status { margin: 0; }
+.unsaved { margin: 0; font-weight: 600; }
+.unsaved[data-dirty='true']::before { content: '● '; color: var(--sys-color-warning); }
+.actionButtons { display: flex; flex-wrap: wrap; gap: 12px; }

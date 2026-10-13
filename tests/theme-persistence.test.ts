@@ -5,7 +5,7 @@ import {
   buildThemeBootstrapScript, createPersistenceEnvelope, isAllowedBootstrapValue,
   parseStoredSettings, SETTINGS_STORAGE_KEY,
 } from '@/lib/theme/persistence';
-import { createThemeStores, initializeThemeStores, persistWorkspaceSettings } from '@/lib/theme/stores';
+import { applyDraft, createThemeStores, discardDraft, initializeThemeStores, persistWorkspaceSettings, resetDraft } from '@/lib/theme/stores';
 
 describe('versioned theme settings', () => {
   const settings = { settingsVersion: 1 as const, theme: defaultTheme, appearance: 'system' as const };
@@ -67,5 +67,80 @@ describe('versioned theme settings', () => {
 
   it('keeps the early bootstrap inline script syntactically valid', () => {
     expect(() => new Function(buildThemeBootstrapScript())).not.toThrow();
+  });
+});
+
+describe('draft lifecycle actions', () => {
+  const storageFor = (memory: Map<string, string>) => ({ getItem: (k: string) => memory.get(k) ?? null, setItem: (k: string, v: string) => { memory.set(k, v); } });
+  const edited = { ...defaultTheme, radius: defaultTheme.radius === 'curvy' ? 'sharp' as const : 'curvy' as const };
+
+  function setup(appearance: 'light' | 'dark' | 'system' = 'dark') {
+    const memory = new Map([[SETTINGS_STORAGE_KEY, JSON.stringify(createPersistenceEnvelope({ settingsVersion: 1, theme: defaultTheme, appearance }, 2, registry))]]);
+    const stores = createThemeStores();
+    initializeThemeStores(stores, registry, storageFor(memory));
+    return { memory, stores };
+  }
+
+  it('tracks unsaved state by settings only, ignoring theme identity', () => {
+    const { stores } = setup();
+    stores.draft.getState().setTheme({ ...defaultTheme, id: 'custom', basedOn: defaultTheme.id });
+    expect(stores.draft.getState().dirty).toBe(false);
+    stores.draft.getState().setTheme(edited);
+    expect(stores.draft.getState().dirty).toBe(true);
+  });
+
+  it('applies the draft with custom identity, bumps the revision once, preserves appearance, and saves', () => {
+    const { memory, stores } = setup('dark');
+    stores.draft.getState().setTheme(edited);
+    expect(applyDraft(stores, registry, storageFor(memory))).toMatchObject({ status: 'applied', persisted: true });
+    const applied = stores.applied.getState();
+    expect(applied.settings.appearance).toBe('dark');
+    expect(applied.settings.theme).toMatchObject({ id: 'custom', basedOn: defaultTheme.id, radius: edited.radius });
+    expect(applied.themeRevision).toBe(3);
+    expect(stores.draft.getState()).toMatchObject({ dirty: false, baseThemeRevision: 3 });
+    const stored = PersistenceEnvelopeSchema.parse(JSON.parse(memory.get(SETTINGS_STORAGE_KEY)!));
+    expect(stored.themeRevision).toBe(3);
+    expect(stored.settings.appearance).toBe('dark');
+    expect(applyDraft(stores, registry, storageFor(memory)).status).toBe('unchanged');
+    expect(stores.applied.getState().themeRevision).toBe(3);
+  });
+
+  it('restores the stock preset identity when the draft matches it again', () => {
+    const { memory, stores } = setup();
+    stores.draft.getState().setTheme(edited);
+    applyDraft(stores, registry, storageFor(memory));
+    resetDraft(stores);
+    applyDraft(stores, registry, storageFor(memory));
+    expect(stores.applied.getState().settings.theme).toEqual(defaultTheme);
+    expect(stores.applied.getState().themeRevision).toBe(4);
+  });
+
+  it('discards to the applied theme and resets to the default preset without touching the workspace', () => {
+    const { memory, stores } = setup();
+    stores.draft.getState().setTheme(edited);
+    applyDraft(stores, registry, storageFor(memory));
+    stores.draft.getState().setTheme({ ...edited, density: 'compact' });
+    discardDraft(stores);
+    expect(stores.draft.getState()).toMatchObject({ theme: stores.applied.getState().settings.theme, dirty: false });
+    const before = memory.get(SETTINGS_STORAGE_KEY);
+    resetDraft(stores);
+    expect(stores.draft.getState().theme).toEqual(defaultTheme);
+    expect(stores.draft.getState().dirty).toBe(true);
+    expect(stores.applied.getState().settings.theme.radius).toBe(edited.radius);
+    expect(memory.get(SETTINGS_STORAGE_KEY)).toBe(before);
+  });
+
+  it('keeps session-only applies out of storage and survives write failures', () => {
+    const session = createThemeStores();
+    initializeThemeStores(session, registry, null);
+    session.draft.getState().setTheme(edited);
+    expect(applyDraft(session, registry, null)).toMatchObject({ status: 'applied', persisted: false });
+    expect(session.applied.getState().settings.theme.radius).toBe(edited.radius);
+    const { stores } = setup();
+    stores.draft.getState().setTheme(edited);
+    const result = applyDraft(stores, registry, { getItem: () => null, setItem: () => { throw new Error('quota'); } });
+    expect(result.persisted).toBe(false);
+    expect(result.notice).toMatch(/could not be saved/);
+    expect(stores.applied.getState().settings.theme.radius).toBe(edited.radius);
   });
 });

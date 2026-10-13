@@ -4,10 +4,12 @@ import { useStore } from 'zustand';
 import { ThemeScope } from '@/components/theme/ThemeScope';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/components/ui/link';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
+import { applyDraft, discardDraft, resetDraft } from '@/lib/theme/stores';
 import styles from './theme.module.css';
 import { ThemePreview } from './ThemePreview';
 
@@ -29,6 +31,10 @@ export default function ThemeEditorPage() {
   const stores = useThemeStores();
   const theme = useStore(stores.draft, state => state.theme);
   const setTheme = useStore(stores.draft, state => state.setTheme);
+  const dirty = useStore(stores.draft, state => state.dirty);
+  const persistence = useStore(stores.applied, state => state.persistence);
+  const initialized = useStore(stores.applied, state => state.initialized);
+  const notice = useStore(stores.applied, state => state.notice);
   const [mode, setMode] = useState<Mode>('light');
   const [previewAppearance, setPreviewAppearance] = useState<'light' | 'dark' | 'system'>('light');
   const [role, setRole] = useState<keyof typeof theme.colors.light>('primary');
@@ -69,11 +75,35 @@ export default function ThemeEditorPage() {
     setMessage(`${componentId} ${property} default updated in the draft.`);
   }
 
+  function apply() {
+    let storage: Storage | null = null;
+    try { storage = window.localStorage; } catch { /* Blocked storage leaves the change session-only. */ }
+    try {
+      const result = applyDraft(stores, registry, storage);
+      setMessage(result.status === 'unchanged' ? 'The draft already matches the workspace theme.'
+        : result.persisted ? 'Draft applied to the workspace and saved.' : (result.notice ?? 'Draft applied to the workspace for this session.'));
+    } catch (error) {
+      setMessage(`The draft could not be applied: ${error instanceof Error ? error.message : 'it is not a valid theme.'} Your draft is unchanged.`);
+    }
+  }
+  function discard() { discardDraft(stores); setMessage('Changes discarded. The draft matches the workspace theme.'); }
+  function reset() { resetDraft(stores); setMessage('Draft reset to the default preset. Apply to change the workspace.'); }
+
   return <main className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>SYSTEM · THEME</p><h1>Theme editor</h1><p>Edit a local draft and try it in the preview. Light and dark colors stay independent.</p></div>
-      <a href="/">Back to overview</a>
+      <Link href="/">Back to overview</Link>
     </header>
+    <section className={styles.actions} aria-label="Draft actions">
+      <p className={styles.unsaved} data-dirty={dirty}>{dirty ? 'Unsaved changes: the draft differs from the workspace theme.' : 'No unsaved changes.'}</p>
+      <div className={styles.actionButtons}>
+        <Button variant="primary" onClick={apply} disabled={!initialized || !dirty}>Apply to workspace</Button>
+        <Button variant="secondary" onClick={discard} disabled={!dirty}>Discard changes</Button>
+        <Button variant="secondary" onClick={reset}>Reset draft</Button>
+      </div>
+      {persistence === 'session-only' && <p className={styles.status}>Changes stay in this tab and reset on refresh because browser storage is unavailable.</p>}
+      {notice && persistence !== 'session-only' && <p className={styles.status}>{notice}</p>}
+    </section>
     <div className={styles.controls}>
       <section className={styles.panel} aria-labelledby="color-heading">
         <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>COLORS</p><h2 id="color-heading">Edit a semantic role</h2></div><span className={styles.swatch} role="img" aria-label={`${labels[role]} preview`} style={{ backgroundColor: cssColor }} /></div>
@@ -104,7 +134,7 @@ export default function ThemeEditorPage() {
           <Button variant="secondary" onClick={usePaletteSuggestion}>Use suggestion for {mode}</Button>
           <p>Suggestions copy into the selected role and mode only. They do not change the other mode.</p>
         </div>
-        <p role="status" aria-live="polite" className={styles.status}>{message || 'Draft colors stay separate from the workspace until Apply is added.'}</p>
+        <p role="status" aria-live="polite" className={styles.status}>{message || 'Draft colors stay separate from the workspace until you apply them.'}</p>
       </section>
 
       <section className={styles.panel} aria-labelledby="type-heading">
