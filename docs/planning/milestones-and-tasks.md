@@ -86,7 +86,7 @@ Goal: developers can find, understand, and try the actual system.
 
 - [x] M4.1 Build Tokens with applied resolved values, search/category filters, purpose/examples, and copy actions. [Evidence](../evidence/M4/M4.1/review.md)
 - [x] M4.2 Build Components catalog with metadata-derived counts, categories, maturity, and review status. [Evidence](../evidence/M4/M4.2/review.md)
-- [ ] M4.3 Build a shared Component Detail template covering every specified section and props.
+- [x] M4.3 Build a shared Component Detail template covering every specified section and props. [Evidence](../evidence/M4/M4.3/review.md)
 - [ ] M4.4 Wire variant/state controls to real components and matching examples.
 - [ ] M4.5 Add usage boundaries, composition constraints, token/rule links, structured contract view, and copy feedback.
 - [ ] M4.6 Exercise loading, empty, error/retry, no-match, and unknown-component behavior.
@@ -167,7 +167,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
-| M4 | In progress | 2026-10-13 | [M4.2 review](../evidence/M4/M4.2/review.md) | M4.3–M4.8 remain open. |
+| M4 | In progress | 2026-10-13 | [M4.3 review](../evidence/M4/M4.3/review.md) | M4.4–M4.8 remain open. |
 | M5 | Not started | — | — | — |
 | M6 | Not started | — | — | — |
 | M7 | Not started | — | — | — |

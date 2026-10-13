@@ -78,7 +78,7 @@ function ComponentCard({ component, readiness }: { component: ComponentContract;
   const failed = readiness?.checks.filter(check => !check.passed) ?? [];
   const options = variantOptionCount(component);
   return <li className={styles.card} id={component.id}>
-    <div className={styles.cardHeader}><h2>{component.name}</h2><Badge>{component.category}</Badge></div>
+    <div className={styles.cardHeader}><h2><Link href={`/components/${component.id}`}>{component.name}</Link></h2><Badge>{component.category}</Badge></div>
     <p className={styles.purpose}>{component.purpose}</p>
     <div className={styles.badges}>
       <Badge tone={component.maturity === 'stable' ? 'success' : 'warning'}>{component.maturity === 'stable' ? 'Stable' : 'Experimental'}</Badge>
