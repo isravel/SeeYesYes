@@ -84,7 +84,7 @@ Completion gate: A03–A06, A07 for the Theme preview (including its dialog port
 
 Goal: developers can find, understand, and try the actual system.
 
-- [ ] M4.1 Build Tokens with applied resolved values, search/category filters, purpose/examples, and copy actions.
+- [x] M4.1 Build Tokens with applied resolved values, search/category filters, purpose/examples, and copy actions. [Evidence](../evidence/M4/M4.1/review.md)
 - [ ] M4.2 Build Components catalog with metadata-derived counts, categories, maturity, and review status.
 - [ ] M4.3 Build a shared Component Detail template covering every specified section and props.
 - [ ] M4.4 Wire variant/state controls to real components and matching examples.
@@ -167,7 +167,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M1 | Complete | 2026-10-08 | [M1 review](../evidence/M1/review.md) | Full A02/A15 close in later milestones. |
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
-| M4 | Not started | — | — | — |
+| M4 | In progress | 2026-10-13 | [M4.1 review](../evidence/M4/M4.1/review.md) | M4.2–M4.8 remain open. |
 | M5 | Not started | — | — | — |
 | M6 | Not started | — | — | — |
 | M7 | Not started | — | — | — |

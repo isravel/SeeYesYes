@@ -1,0 +1,24 @@
+.page { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding-block: 38px 72px; }
+.header { display: flex; justify-content: space-between; align-items: start; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--sys-color-muted); }
+.header h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.header p:not(.eyebrow) { max-width: 42rem; color: var(--sys-color-muted-foreground); }
+.eyebrow { margin: 0 0 8px; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
+.filters { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)) auto; gap: 16px; align-items: end; padding-block: 24px 8px; }
+.field { display: grid; gap: 7px; min-width: 0; font-size: .9rem; font-weight: 550; }
+.count { margin: 8px 0 16px; color: var(--sys-color-muted-foreground); font-size: .85rem; }
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.card { min-width: 0; padding: 20px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
+.cardHeader { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+.cardHeader h2 { margin: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.badges { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.purpose { margin: 10px 0 14px; color: var(--sys-color-muted-foreground); font-size: .9rem; }
+.values { display: grid; gap: 10px; margin: 0; }
+.value { display: grid; gap: 4px; min-width: 0; }
+.value dt { color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .04em; }
+.value dd { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0; min-width: 0; }
+.value code { overflow-wrap: anywhere; font-size: .85rem; }
+.swatch { width: 28px; height: 28px; flex: none; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); }
+.usage { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--sys-color-muted); }
+.usage p { margin: 4px 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
+@media (max-width: 900px) { .filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .list { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .filters { grid-template-columns: minmax(0, 1fr); } }
