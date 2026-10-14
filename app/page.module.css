@@ -38,3 +38,8 @@
 .tagline { font-size: var(--sys-typography-heading); max-width: 28rem; }
 .main:focus-visible, .main h2:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
 @media (max-width: 760px) { .workspace { display: block; width: calc(100% - 40px); } .sidebar { padding-top: var(--sys-spacing-stack); } }
+
+.health { margin-bottom: 54px; }
+.health table { margin-top: 8px; }
+.stats { grid-template-columns: repeat(4, 1fr); row-gap: 28px; }
+@media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }

@@ -18,7 +18,7 @@ export function withCategories(report: ValidationResult, rules: Rule[]): Finding
 }
 
 /** Counts follow the selected report, not the filters. */
-export function statusCounts(findings: Finding[]): Record<FindingStatus, number> {
+export function statusCounts(findings: { status: FindingStatus }[]): Record<FindingStatus, number> {
   const counts: Record<FindingStatus, number> = { passed: 0, info: 0, warning: 0, error: 0 };
   for (const finding of findings) counts[finding.status] += 1;
   return counts;
