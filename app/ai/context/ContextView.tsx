@@ -117,6 +117,7 @@ function Builder({ system }: { system: DesignSystem }) {
           </div>
         </div>
         <p className={styles.note} role="status">{fileMessage}</p>
+        <p className={styles.note}>Agent files for the <strong>default theme</strong> (they are generated at build time and cannot see your applied settings): <Link href="/llms.txt">/llms.txt</Link> and <Link href="/llms-full.txt">/llms-full.txt</Link>.</p>
         <p className={styles.note}>The settings file holds your applied theme and appearance (no cache). The exports above use that same applied theme.</p>
       </section>
       <Tabs label="Context views" items={[

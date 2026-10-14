@@ -1,5 +1,6 @@
 'use client';
 import NextLink from 'next/link';
+import { isPageRoute } from '@/lib/routes';
 import { useEffect, useRef, useState, type AnchorHTMLAttributes, type Ref } from 'react';
 import { Dialog, DialogTrigger, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { Button } from './button';
@@ -47,5 +48,5 @@ export function Navigation({ label, groups, currentHref, mainId, showSkipLink = 
 type NavAnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { href: string };
 /** Page routes navigate client-side so session state such as a theme draft survives; hashes and API routes stay plain anchors. */
 function NavAnchor({ href, ...props }: NavAnchorProps) {
-  return href.startsWith('/') && !href.startsWith('/api/') ? <NextLink href={href} {...props} /> : <a href={href} {...props} />;
+  return isPageRoute(href) ? <NextLink href={href} {...props} /> : <a href={href} {...props} />;
 }

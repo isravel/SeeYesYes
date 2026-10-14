@@ -1,5 +1,6 @@
 'use client';
 import NextLink from 'next/link';
+import { isPageRoute } from '@/lib/routes';
 import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';
 import { useComponentDefaults } from '@/components/theme/ThemeScope';
 import styles from './Link.module.css';
@@ -8,6 +9,6 @@ export function Link({ variant, className = '', children, ref, ...props }: LinkP
   const defaults = useComponentDefaults('link');
   const common = { 'data-variant': variant ?? defaults.variant, className: `${styles.root} ${className}` };
   // Page routes navigate client-side so session state such as an open theme draft survives; API routes stay plain anchors.
-  if (props.href.startsWith('/') && !props.href.startsWith('/api/')) return <NextLink {...props} ref={ref} {...common}>{children}</NextLink>;
+  if (isPageRoute(props.href)) return <NextLink {...props} ref={ref} {...common}>{children}</NextLink>;
   return <a {...props} ref={ref} {...common}>{children}</a>;
 }

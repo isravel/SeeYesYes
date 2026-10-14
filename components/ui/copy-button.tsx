@@ -2,8 +2,8 @@
 import { useState, type Ref } from 'react';
 import { Button } from './button';
 import styles from './CopyButton.module.css';
-export type CopyButtonProps = { value: string; label: string; successMessage?: string; failureMessage?: string; disabled?: boolean; ref?: Ref<HTMLDivElement> };
-export function CopyButton({ value, label, successMessage = 'Copied to clipboard.', failureMessage = 'Could not copy. Check clipboard access and try again.', disabled, ref }: CopyButtonProps) {
+export type CopyButtonProps = { value: string; label: string; text?: string; successMessage?: string; failureMessage?: string; disabled?: boolean; ref?: Ref<HTMLDivElement> };
+export function CopyButton({ value, label, text = 'Copy', successMessage = 'Copied to clipboard.', failureMessage = 'Could not copy. Check clipboard access and try again.', disabled, ref }: CopyButtonProps) {
   const [message, setMessage] = useState('');
   async function copy() {
     try {
@@ -15,7 +15,7 @@ export function CopyButton({ value, label, successMessage = 'Copied to clipboard
     }
   }
   return <div ref={ref} className={styles.root}>
-    <Button variant="secondary" disabled={disabled} aria-label={`Copy ${label}`} onClick={copy}>Copy</Button>
+    <Button variant="secondary" disabled={disabled} aria-label={`Copy ${label}`} onClick={copy}>{text}</Button>
     <span className={styles.message} role="status">{message}</span>
   </div>;
 }

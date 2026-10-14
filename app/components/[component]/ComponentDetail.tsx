@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { useStore } from 'zustand';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
@@ -18,7 +18,8 @@ import type { Scenario } from '@/lib/data/api';
 import type { ComponentContract, DesignSystem } from '@/lib/contract/schema';
 import { componentReadiness } from '@/lib/contract/readiness';
 import { effectiveDefaults } from '@/lib/contract/validate';
-import { stableJson } from '@/lib/contract/serialize';
+import { contextMarkdown, stableJson } from '@/lib/contract/serialize';
+import { createContext } from '@/lib/contract/context';
 import { resolveTokens } from '@/lib/theme/resolve';
 import { useThemeScope } from '@/components/theme/ThemeScope';
 import styles from './detail.module.css';
@@ -47,7 +48,9 @@ const list = (items: string[]) => <ul>{items.map(item => <li key={item}>{item}</
 
 function DetailContent({ component, system }: { component: ComponentContract; system: DesignSystem }) {
   const stores = useThemeStores();
-  const theme = useStore(stores.applied, state => state.settings.theme);
+  const settings = useStore(stores.applied, state => state.settings);
+  const theme = settings.theme;
+  const llmMarkdown = useMemo(() => contextMarkdown(createContext(system, { mode: 'task', componentIds: [component.id], settings })), [system, component.id, settings]);
   const readiness = componentReadiness(component, system);
   const contractDefaults = effectiveDefaults(component, { ...theme, componentDefaults: {} });
   const appliedDefaults = effectiveDefaults(component, theme);
@@ -80,6 +83,7 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>COMPONENT · {component.category.toUpperCase()}</p><h1>{component.name}</h1><p className={styles.lead}>{component.purpose}</p></div>
       <div className={styles.badges}>
+        <CopyButton label="for LLM" text="Copy for LLM" value={llmMarkdown} successMessage="Copied the task export for LLM use." />
         <Badge tone={component.maturity === 'stable' ? 'success' : 'warning'}>{component.maturity === 'stable' ? 'Stable' : 'Experimental'}</Badge>
         <Badge tone={reviewed ? 'success' : 'neutral'}>{reviewed ? 'Accessibility reviewed' : 'Not reviewed'}</Badge>
         <Badge tone={readiness.complete ? 'success' : 'warning'}>{readiness.complete ? 'Metadata-complete' : 'Metadata incomplete'}</Badge>

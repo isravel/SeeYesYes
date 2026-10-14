@@ -6,6 +6,7 @@ test('tokens follow the applied theme, filter, mark the mode in effect, and copy
   await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('/system/tokens');
   await expect(page.getByRole('heading', { name: 'Tokens', exact: true })).toBeVisible();
+  await expect(page.locator('li#color\\.primary')).toBeVisible();
   const total = await page.getByRole('listitem').filter({ has: page.getByRole('heading') }).count();
   expect(total).toBeGreaterThan(20);
   await expect(page.getByRole('status').first()).toHaveText(`${total} tokens`);
