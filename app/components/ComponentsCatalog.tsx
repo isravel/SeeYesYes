@@ -34,7 +34,7 @@ function Catalog({ scenario, readiness }: Props) {
   const filtered = filters.query !== '' || filters.category !== 'all';
   const clear = () => setFilters(noComponentFilters);
 
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>COMPONENTS</p><h1>Components</h1>
         <p>Every component in the system, with its maturity and review status as recorded in its contract. Counts are derived from the contracts.</p></div>

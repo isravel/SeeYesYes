@@ -22,7 +22,7 @@ export default async function ArticlePage({ params }: Props) {
   const article = (await articles()).find(item => item.slug === slug);
   if (!article) notFound();
   const toc = article.headings.filter(heading => heading.depth === 2);
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <nav aria-label="Breadcrumb" className={styles.crumbs}><Link href="/docs">Documentation</Link><span aria-hidden="true"> / </span><span aria-current="page">{article.title}</span></nav>
     <div className={styles.articleHeader}>
       <p className={styles.eyebrow}>{article.kind === 'reference' ? 'REFERENCE · GENERATED FROM THE REGISTRY' : 'GUIDE'}</p>

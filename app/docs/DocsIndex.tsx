@@ -15,7 +15,7 @@ export function DocsIndex({ articles }: { articles: ArticleSummary[] }) {
   const searching = query.trim() !== '';
   const guides = articles.filter(article => article.kind === 'guide');
   const references = articles.filter(article => article.kind === 'reference');
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <p className={styles.eyebrow}>DOCUMENTATION</p><h1>Documentation</h1>
       <p>Concepts, configuration, context, accessibility, and setup, written by hand, plus reference pages generated from the registry. Search works on this device and sends nothing anywhere.</p>

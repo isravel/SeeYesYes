@@ -24,7 +24,7 @@ export function AccessibilityView(props: { scenario: Scenario; rules: DesignSyst
 }
 
 function Accessibility({ scenario, rules }: { scenario: Scenario; rules: DesignSystem['rules'] }) {
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>QUALITY · ACCESSIBILITY</p><h1>Accessibility</h1>
         <p>Three separate things, kept apart on purpose: what people have reviewed, a limited calculation on your applied theme, and sample results from fixtures. None of them is a conformance claim, and there is no single score.</p></div>

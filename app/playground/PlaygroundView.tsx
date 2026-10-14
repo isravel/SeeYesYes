@@ -38,7 +38,7 @@ export function PlaygroundView() {
   const code = `${importLine}\n\n${demoCode(componentId, current.variants, current.state)}`;
   const [message, setMessage] = useState('');
 
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>PLAYGROUND</p><h1>Playground</h1>
         <p>Try theme settings, components, variants, and states together. Everything here is session-only and affects only the preview below. It never changes your workspace theme.</p></div>
@@ -49,7 +49,7 @@ export function PlaygroundView() {
         <h2 id="controls-heading">Settings <Badge tone="warning">Playground only</Badge></h2>
         <p className={styles.note}>Starts from your applied theme ({applied.theme.id}). Not applied, not saved, and gone on refresh.</p>
         <div className={styles.controls}>
-          <label className={styles.field}>Appearance
+          <label className={styles.field}>Preview appearance
             <Select value={appearance ?? 'workspace'} onChange={event => setAppearance(event.currentTarget.value === 'workspace' ? null : event.currentTarget.value as PlaygroundAppearance)}>
               <option value="workspace">Follow workspace ({applied.appearance})</option><option value="light">Light</option><option value="dark">Dark</option><option value="system">Follow system</option>
             </Select>

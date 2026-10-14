@@ -32,7 +32,7 @@ function Rules({ scenario }: { scenario: Scenario }) {
   const filtered = filters.category !== 'all' || filters.severity !== 'all';
   const clear = () => setFilters(noRuleFilters);
 
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>SYSTEM · RULES</p><h1>Rules</h1>
         <p>The guidance every component and screen is held to. Rules are documentation for people and AI agents; they do not inspect your code, and no fix edits a project.</p></div>

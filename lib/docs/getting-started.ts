@@ -15,11 +15,13 @@ export const integrationPaths = [
   { path: 'components/theme/ThemeLifecycleProvider.tsx', purpose: 'Applied and draft theme state, wrapped around the app in the root layout.' },
   { path: 'components/theme/ThemeScope.tsx', purpose: 'Provides theme variables, component defaults, and the overlay container for an area.' },
   { path: 'lib/data/registry.ts', purpose: 'The single registry of tokens, components, rules, and examples.' },
-  { path: 'app/layout.tsx', purpose: 'Where the provider and the early theme script are mounted.' },
+  { path: 'components/shell/WorkspaceShell.tsx', purpose: 'The shared header, navigation, and skip link around every screen.' },
+  { path: 'app/layout.tsx', purpose: 'Where the provider, the shell, and the early theme script are mounted.' },
   { path: 'app/tokens.css', purpose: 'Default CSS variables, generated from the registry by `npm run generate`.' },
 ] as const;
 
-export const layoutSnippet = `import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';
+export const layoutSnippet = `import { WorkspaceShell } from '@/components/shell/WorkspaceShell';
+import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';
 import { buildThemeBootstrapScript } from '@/lib/theme/persistence';
 
 export default async function RootLayout({ children }) {
@@ -27,7 +29,11 @@ export default async function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning lang="en">
       <head><script dangerouslySetInnerHTML={{ __html: buildThemeBootstrapScript() }} /></head>
-      <body><ThemeLifecycleProvider system={system}>{children}</ThemeLifecycleProvider></body>
+      <body>
+        <ThemeLifecycleProvider system={system}>
+          <WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell>
+        </ThemeLifecycleProvider>
+      </body>
     </html>
   );
 }`;

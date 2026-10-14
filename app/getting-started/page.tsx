@@ -12,7 +12,7 @@ export default async function GettingStartedPage() {
   const system = await localAdapter.get('registry');
   const example = system.examples.find(item => item.id === 'button-save' && item.intent === 'recommended');
   const button = system.components.find(component => component.id === 'button')!;
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <p className={styles.eyebrow}>GETTING STARTED</p><h1>Getting started</h1>
       <p>Run SeeYesYes locally, set a theme, use a component, and hand the same contract to an AI agent. Every command and path below comes from this repository.</p>

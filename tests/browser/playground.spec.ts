@@ -14,7 +14,7 @@ test('Playground starts from the applied theme, changes only its own preview, an
 
   await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
   await page.getByRole('combobox', { name: 'Density' }).selectOption('compact');
-  await page.getByRole('combobox', { name: 'Appearance' }).selectOption('dark');
+  await page.getByRole('combobox', { name: 'Preview appearance' }).selectOption('dark');
   await expect(page.getByText('Playground settings differ from the applied theme.')).toBeVisible();
   expect(await scopeVar(page, '#playground-preview', '--sys-radius-control')).toBe('1rem');
   await expect(page.locator('#playground-preview')).toHaveAttribute('data-appearance', 'dark');

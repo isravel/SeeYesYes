@@ -25,6 +25,6 @@ export function AppearanceSelector() {
     <Select aria-label="Workspace appearance" value={appearance} disabled={!initialized || pending} onChange={event => { void change(event.currentTarget.value as 'light' | 'dark' | 'system'); }}>
       <option value="system">Follow system</option><option value="light">Light</option><option value="dark">Dark</option>
     </Select>
-    <span className={styles.status} role="status" aria-live="polite">{pending ? 'Saving…' : message}</span>
+    <span className={styles.status} aria-live="polite">{pending ? 'Saving…' : message}</span>
   </label>;
 }

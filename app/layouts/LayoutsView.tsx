@@ -26,7 +26,7 @@ function Layouts({ scenario }: { scenario: Scenario }) {
   const primary = useQuery({ queryKey: ['layouts', scenario], queryFn: ({ signal }) => adapter.get('layouts', { scenario, signal }), retry: false, staleTime: Infinity });
   // The registry names the components each layout uses; it loads only after the layouts succeed with at least one entry.
   const secondary = useQuery({ queryKey: ['registry', scenario], queryFn: ({ signal }) => adapter.get('registry', { scenario, signal }), enabled: primary.isSuccess && primary.data.length > 0, retry: false, staleTime: Infinity });
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>PRODUCT · LAYOUTS</p><h1>Layouts</h1>
         <p>Demo compositions built only from the system&apos;s own components. They are not business features: save buttons give local feedback and store nothing. Change a preview&apos;s density or appearance to see the same components adapt, without touching the workspace.</p></div>

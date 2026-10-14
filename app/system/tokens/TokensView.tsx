@@ -50,7 +50,7 @@ function Tokens({ scenario, fonts, usage }: Props) {
   const filtered = filters.query !== '' || filters.category !== 'all' || filters.kind !== 'all';
   const clear = () => setFilters(noFilters);
 
-  return <main className={styles.page} aria-busy={!initialized || query.isPending}>
+  return <main id="main" tabIndex={-1} className={styles.page} aria-busy={!initialized || query.isPending}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>SYSTEM · TOKENS</p><h1>Tokens</h1>
         <p>Resolved values from the applied theme{theme.id === 'custom' ? ` (custom, based on ${theme.basedOn})` : ` (${theme.id})`}. Draft edits in the Theme editor appear here only after you apply them.</p></div>

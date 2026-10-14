@@ -41,7 +41,7 @@ function Validation({ scenario, rules, examples, components }: Props) {
   const clear = () => setFilters(noFindingFilters);
   const changeSample = (value: Sample) => { setSample(value); setSelectedId(null); };
 
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>QUALITY · VALIDATION</p><h1>Validation</h1>
         <p>Sample reports that show what rule findings look like. They are demo results from fixed fixtures, not a scan of any project, and nothing here runs, uploads, or edits code.</p></div>

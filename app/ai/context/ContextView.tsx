@@ -37,7 +37,7 @@ export function ContextView({ scenario }: { scenario: Scenario }) {
 
 function Context({ scenario }: { scenario: Scenario }) {
   const query = useQuery({ queryKey: ['registry', scenario], queryFn: ({ signal }) => adapter.get('registry', { scenario, signal }), retry: false, staleTime: Infinity });
-  return <main className={styles.page}>
+  return <main id="main" tabIndex={-1} className={styles.page}>
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>AI · CONTEXT</p><h1>AI context</h1>
         <p>The shared contract as an AI-readable export, generated locally from the registry and your applied theme. Nothing is sent anywhere, and no model is called.</p></div>
