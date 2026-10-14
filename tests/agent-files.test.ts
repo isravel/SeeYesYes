@@ -30,7 +30,7 @@ describe('llms.txt', () => {
 
   it('only links to screens that exist', () => {
     const targets = [...text.matchAll(/\]\((\/[^)]*)\)/g)].map(m => m[1]);
-    const known = new Set(['/system/tokens', '/system/rules', '/accessibility', '/layouts', '/ai/context', '/llms-full.txt', ...registry.components.map(c => `/components/${c.id}`)]);
+    const known = new Set(['/getting-started', '/system/tokens', '/system/rules', '/accessibility', '/layouts', '/ai/context', '/llms-full.txt', ...registry.components.map(c => `/components/${c.id}`)]);
     for (const target of targets) expect(known.has(target), target).toBe(true);
   });
 

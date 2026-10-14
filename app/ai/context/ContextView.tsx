@@ -41,7 +41,7 @@ function Context({ scenario }: { scenario: Scenario }) {
     <header className={styles.header}>
       <div><p className={styles.eyebrow}>AI · CONTEXT</p><h1>AI context</h1>
         <p>The shared contract as an AI-readable export, generated locally from the registry and your applied theme. Nothing is sent anywhere, and no model is called.</p></div>
-      <Link href="/system/theme">Edit the theme</Link>
+      <Link href="/getting-started">Getting started</Link>
     </header>
     {query.isPending && <LoadingState label="Loading the registry" description="Reading the contracts the export is built from." variant="skeleton" />}
     {query.isError && <ErrorState message={query.error.message} onRetry={() => { void query.refetch(); }} />}

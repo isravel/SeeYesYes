@@ -118,7 +118,7 @@ Goal: complete the product journeys and show useful compositions.
 
 - [x] M6.1 Build all seven required layout examples with shared primitives and density switching. [Evidence](../evidence/M6/M6.1/review.md)
 - [x] M6.2 Build Playground with isolated session settings, component/variant/state selection, and Reset to applied theme. [Evidence](../evidence/M6/M6.2/review.md)
-- [ ] M6.3 Build Getting Started against actual local setup and imports; label any future package workflow.
+- [x] M6.3 Build Getting Started against actual local setup and imports; label any future package workflow. [Evidence](../evidence/M6/M6.3/review.md)
 - [ ] M6.4 Build concept/configuration articles and registry-derived reference documentation.
 - [ ] M6.5 Implement local documentation search, real result destinations, no-match feedback, deep links, and Copy for LLM on articles.
 - [ ] M6.6 Check all thirteen views, navigation, unknown routes, long content, and copy actions.
@@ -169,7 +169,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M5 | Complete (automated) | 2026-10-14 | [M5.10 review](../evidence/M5/M5.10/review.md) | Full agent-file link check runs in M6; human accessibility review remains open. |
-| M6 | In progress | 2026-10-14 | [M6.2 review](../evidence/M6/M6.2/review.md) | M6.3–M6.8 remain open. |
+| M6 | In progress | 2026-10-14 | [M6.3 review](../evidence/M6/M6.3/review.md) | M6.4–M6.8 remain open. |
 | M7 | Not started | — | — | — |
 
 ## Change handling

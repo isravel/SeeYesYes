@@ -16,6 +16,8 @@ export function buildLlmsTxt(system: DesignSystem): string {
     DEFAULT_THEME_NOTE, '',
     '## Principles', '', ...system.principles.map(principle => `- ${principle}`), '',
     '## Project guidance', '', ...system.project.guidance.map(item => `- ${item}`), '',
+    '## Start here', '',
+    '- [Getting Started](/getting-started): Run the local prototype, set a theme, use a component, and export context.', '',
     '## System', '',
     '- [Tokens](/system/tokens): Resolved design tokens with values, purposes, and Design Tokens downloads.',
     '- [Rules](/system/rules): The system rules with violation and corrected examples.',
