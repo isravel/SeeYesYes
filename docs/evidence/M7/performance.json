@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-14",
+  "machine": {
+    "platform": "Darwin 25.6.0 arm64",
+    "cpus": 10,
+    "node": "v25.6.1"
+  },
+  "lighthouse": "13.5.0",
+  "chrome": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "conditions": {
+    "mockLatency": "0 ms (mock endpoints answer immediately)",
+    "formFactor": "mobile",
+    "throttling": "simulate",
+    "runsPerRoute": 3
+  },
+  "targets": {
+    "performance": 90,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "longTaskMs": 50
+  },
+  "results": [
+    {
+      "name": "Overview",
+      "path": "/",
+      "samples": [
+        {
+          "score": 92,
+          "lcp": 3179.036399999999,
+          "cls": 0,
+          "tbt": 65.5,
+          "scriptTransferKb": 299.126953125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 97,
+          "lcp": 2558.0993999999996,
+          "cls": 0,
+          "tbt": 70.00000000000023,
+          "scriptTransferKb": 299.126953125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 97,
+          "lcp": 2558.478,
+          "cls": 0,
+          "tbt": 71,
+          "scriptTransferKb": 299.126953125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        }
+      ],
+      "median": {
+        "score": 97,
+        "lcpMs": 2558,
+        "cls": 0,
+        "tbtMs": 70,
+        "scriptTransferKb": 299
+      }
+    },
+    {
+      "name": "Theme",
+      "path": "/system/theme",
+      "samples": [
+        {
+          "score": 96,
+          "lcp": 2710.278,
+          "cls": 0,
+          "tbt": 100.5,
+          "scriptTransferKb": 248.3408203125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 96,
+          "lcp": 2709.48795,
+          "cls": 0,
+          "tbt": 97,
+          "scriptTransferKb": 248.3408203125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 96,
+          "lcp": 2706.47955,
+          "cls": 0,
+          "tbt": 93,
+          "scriptTransferKb": 248.3408203125,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        }
+      ],
+      "median": {
+        "score": 96,
+        "lcpMs": 2709,
+        "cls": 0,
+        "tbtMs": 97,
+        "scriptTransferKb": 248
+      }
+    },
+    {
+      "name": "Components",
+      "path": "/components",
+      "samples": [
+        {
+          "score": 96,
+          "lcp": 2557.3673999999996,
+          "cls": 0.06253465299814791,
+          "tbt": 75.5,
+          "scriptTransferKb": 218.23046875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 96,
+          "lcp": 2556.1809000000003,
+          "cls": 0.06253465299814791,
+          "tbt": 76.5,
+          "scriptTransferKb": 218.23046875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 96,
+          "lcp": 2556.0336000000007,
+          "cls": 0.06253465299814791,
+          "tbt": 78.5,
+          "scriptTransferKb": 218.23046875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        }
+      ],
+      "median": {
+        "score": 96,
+        "lcpMs": 2556,
+        "cls": 0.063,
+        "tbtMs": 77,
+        "scriptTransferKb": 218
+      }
+    },
+    {
+      "name": "AI Context",
+      "path": "/ai/context",
+      "samples": [
+        {
+          "score": 94,
+          "lcp": 2857.28925,
+          "cls": 0.06253465299814791,
+          "tbt": 100.5,
+          "scriptTransferKb": 296.701171875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 94,
+          "lcp": 2859.9963,
+          "cls": 0.06253465299814791,
+          "tbt": 110,
+          "scriptTransferKb": 296.701171875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        },
+        {
+          "score": 94,
+          "lcp": 2856.7554,
+          "cls": 0.06253465299814791,
+          "tbt": 99,
+          "scriptTransferKb": 296.701171875,
+          "throttling": "simulate",
+          "formFactor": "mobile"
+        }
+      ],
+      "median": {
+        "score": 94,
+        "lcpMs": 2857,
+        "cls": 0.063,
+        "tbtMs": 101,
+        "scriptTransferKb": 297
+      }
+    }
+  ],
+  "interaction": [
+    {
+      "label": "Editing the Theme",
+      "count": 0,
+      "maxMs": 0
+    },
+    {
+      "label": "Filtering the catalog",
+      "count": 0,
+      "maxMs": 0
+    }
+  ],
+  "selfCheck": {
+    "label": "Observer self-check (120 ms busy loop)",
+    "count": 1,
+    "maxMs": 120
+  },
+  "pass": {
+    "routes": false,
+    "longTasks": true
+  }
+}

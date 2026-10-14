@@ -3,20 +3,20 @@ import { useState } from 'react';
 import { useStore } from 'zustand';
 import { Select } from '@/components/ui/select';
 import { commitAppearance, getBrowserEnv } from '@/lib/theme/writer';
-import { registry } from '@/lib/data/registry';
-import { useThemeStores } from './ThemeLifecycleProvider';
+import { useThemeStores, useThemeSystem } from './ThemeLifecycleProvider';
 import styles from './AppearanceSelector.module.css';
 
 /** Changes only the workspace appearance preference; it never touches the Theme draft. */
 export function AppearanceSelector() {
   const stores = useThemeStores();
+  const system = useThemeSystem();
   const appearance = useStore(stores.applied, state => state.settings.appearance);
   const pending = useStore(stores.applied, state => state.appearancePending);
   const initialized = useStore(stores.applied, state => state.initialized);
   const persistence = useStore(stores.applied, state => state.persistence);
   const [message, setMessage] = useState('');
   async function change(next: 'light' | 'dark' | 'system') {
-    const result = await commitAppearance(stores, registry, getBrowserEnv(), next);
+    const result = await commitAppearance(stores, system, getBrowserEnv(), next);
     if (result.status === 'failed') setMessage(result.message);
     else if (result.status === 'applied') setMessage(persistence === 'session-only' ? 'Appearance changed for this session.' : 'Appearance saved.');
   }

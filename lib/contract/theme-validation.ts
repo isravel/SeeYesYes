@@ -1,12 +1,23 @@
 // Theme validation and effective defaults, kept in a module of their own so components can use them on their own.
 import { ThemeSchema, type DesignSystem, type Theme, type ComponentContract } from './schema';
+
+/** The slice of a component contract that theme validation and effective defaults need. */
+export type ThemeComponent = { id: string; name: string; props: { name: string; defaultValue?: ComponentContract['props'][number]['defaultValue'] }[]; themeDefaults: ComponentContract['themeDefaults']; compoundVariants: ComponentContract['compoundVariants'] };
+/** The slice of the design system the theme runtime needs, so pages do not ship every contract to the browser. */
+export type ThemeSystem = Pick<DesignSystem, 'themePresets' | 'defaultThemeId' | 'fonts' | 'tokens'> & { components: ThemeComponent[] };
+
+export const toThemeSystem = (system: DesignSystem): ThemeSystem => ({
+  themePresets: system.themePresets, defaultThemeId: system.defaultThemeId, fonts: system.fonts, tokens: system.tokens,
+  components: system.components.map(component => ({ id: component.id, name: component.name, props: component.props.filter(prop => prop.defaultValue !== undefined).map(prop => ({ name: prop.name, defaultValue: prop.defaultValue })), themeDefaults: component.themeDefaults, compoundVariants: component.compoundVariants })),
+});
+
 import { resolveTokens } from '@/lib/theme/resolve';
 
-export function effectiveDefaults(component: ComponentContract, theme: Theme, explicit: Record<string, string | number | boolean | undefined> = {}) {
+export function effectiveDefaults(component: Pick<ThemeComponent, 'id' | 'props'>, theme: Theme, explicit: Record<string, string | number | boolean | undefined> = {}) {
   const defaults = Object.fromEntries(component.props.filter(p => p.defaultValue !== undefined).map(p => [p.name, p.defaultValue!]));
   return { ...defaults, ...theme.componentDefaults[component.id], ...Object.fromEntries(Object.entries(explicit).filter(([, v]) => v !== undefined)) } as Record<string, string | number | boolean>;
 }
-export function validateTheme(input: unknown, system: DesignSystem): Theme {
+export function validateTheme(input: unknown, system: ThemeSystem): Theme {
   const theme = ThemeSchema.parse(input);
   const preset = system.themePresets.find(p => p.id === (theme.basedOn ?? theme.id));
   if (!preset) throw new Error(`Unknown theme identity: ${theme.basedOn ?? theme.id}`);

@@ -1,14 +1,14 @@
 'use client';
 import { createContext, useContext, useEffect, useMemo, useRef, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react';
 import { UNSAFE_PortalProvider } from '@react-aria/overlays';
-import type { Appearance, DesignSystem, Mode, Theme } from '@/lib/contract/schema';
-import { effectiveDefaults, validateTheme } from '@/lib/contract/theme-validation';
+import type { Appearance, Mode, Theme } from '@/lib/contract/schema';
+import { effectiveDefaults, validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 import { cssVariables, resolveTokens } from '@/lib/theme/resolve';
 import { contractDefaults, type ComponentDefaults } from '@/lib/generated/component-defaults';
 import styles from './ThemeScope.module.css';
 
 type ScopeValue = {
-  system: DesignSystem; theme: Theme; mode: Mode | null;
+  system: ThemeSystem; theme: Theme; mode: Mode | null;
   defaults: Record<string, Record<string, string | number | boolean>>;
   getPortalContainer: () => HTMLElement | null;
 };
@@ -26,7 +26,7 @@ export function useComponentDefaults<K extends keyof ComponentDefaults>(componen
   return (scope?.defaults[componentId] ?? contractDefaults[componentId]) as ComponentDefaults[K];
 }
 export type ThemeScopeProps = {
-  theme: Theme; appearance: Appearance; system?: DesignSystem; children: ReactNode;
+  theme: Theme; appearance: Appearance; system?: ThemeSystem; children: ReactNode;
   workspace?: boolean; ready?: boolean; className?: string; id?: string;
 };
 export function ThemeScope({ theme, appearance, system: suppliedSystem, workspace = false, ready = true, className = '', id, children }: ThemeScopeProps) {

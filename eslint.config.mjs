@@ -5,5 +5,6 @@ export default tseslint.config(
   { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', 'lib/generated/**', 'playwright-report/**', 'test-results/**', 'evaluation/work/**'] },
   js.configs.recommended, ...tseslint.configs.recommended,
   { files: ['**/*.ts', '**/*.tsx'], plugins: { 'react-hooks': hooks }, rules: { ...hooks.configs.recommended.rules } },
-  { files: ['**/*.mjs'], languageOptions: { globals: { console: 'readonly', process: 'readonly' } } },
+  { files: ['**/*.mjs'], languageOptions: { globals: { console: 'readonly', process: 'readonly', fetch: 'readonly', setTimeout: 'readonly', URL: 'readonly' } } },
+  { files: ['scripts/perf.mjs'], languageOptions: { globals: { window: 'readonly', PerformanceObserver: 'readonly' } } },
 );

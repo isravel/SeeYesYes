@@ -1,3 +1,4 @@
+import { revealPreviews } from './helpers';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { registry } from '@/lib/data/registry';
@@ -7,6 +8,7 @@ test('seed preview hydrates, handles native activation, and has no serious axe f
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto('/');
+  await revealPreviews(page);
   await expect(page.getByRole('heading', {level: 1})).toHaveText('Overview');
   await expect(page.getByRole('textbox', {name: 'Notes', exact: true})).toHaveAttribute('rows', '3');
   await page.getByRole('button', {name: 'Save settings'}).focus();
@@ -24,6 +26,7 @@ test('foundation fits 320px and desktop in both appearances', async ({ page }) =
     for (const width of [320, 1280]) {
       await page.setViewportSize({width, height: 900});
       await page.goto('/');
+      await revealPreviews(page);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       await page.screenshot({path: `${process.env.SEEYESYES_EVIDENCE_DIR ?? 'test-results'}/${colorScheme}-${width}.png`, fullPage: true});
     }

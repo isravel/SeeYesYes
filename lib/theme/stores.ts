@@ -1,8 +1,7 @@
 import { createStore, type StoreApi } from 'zustand/vanilla';
-import { WorkspaceSettingsSchema, type DesignSystem, type PersistenceEnvelope, type Theme, type WorkspaceSettings } from '@/lib/contract/schema';
-import { defaultTheme } from '@/lib/data/registry';
+import { WorkspaceSettingsSchema, type PersistenceEnvelope, type Theme, type WorkspaceSettings } from '@/lib/contract/schema';
 import { createPersistenceEnvelope, parseStoredSettings, SETTINGS_STORAGE_KEY } from './persistence';
-import { validateTheme } from '@/lib/contract/validate';
+import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 import { assignThemeIdentity, themeValues } from './identity';
 import type { PlaygroundAppearance, PlaygroundOverrides } from './playground';
 
@@ -43,11 +42,7 @@ export type DefaultThemeState = { settings: WorkspaceSettings };
 export type ThemeStores = { defaults: StoreApi<DefaultThemeState>; applied: StoreApi<AppliedThemeState>; draft: StoreApi<DraftThemeState>; playground: StoreApi<PlaygroundState> };
 export type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 
-export const defaultWorkspaceSettings: WorkspaceSettings = {
-  settingsVersion: 1, theme: defaultTheme, appearance: 'system',
-};
-
-export function createThemeStores(defaultSettings = defaultWorkspaceSettings): ThemeStores {
+export function createThemeStores(defaultSettings: WorkspaceSettings): ThemeStores {
   const defaults = createStore<DefaultThemeState>()(() => ({ settings: WorkspaceSettingsSchema.parse(defaultSettings) }));
   const applied = createStore<AppliedThemeState>()(set => ({
     settings: defaultSettings, themeRevision: 0, initialized: false,
@@ -81,9 +76,10 @@ export function createThemeStores(defaultSettings = defaultWorkspaceSettings): T
 
 const NO_LOCKS_NOTICE = 'Changes stay in this tab and reset on refresh because this browser cannot coordinate saves between tabs.';
 
-export function initializeThemeStores(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null, locksAvailable = true): void {
-  const defaultThemeValue = system.themePresets.find(theme => theme.id === system.defaultThemeId) ?? defaultTheme;
-  const defaultSettings = WorkspaceSettingsSchema.parse({ ...defaultWorkspaceSettings, theme: defaultThemeValue });
+export function initializeThemeStores(stores: ThemeStores, system: ThemeSystem, storage: StorageLike | null, locksAvailable = true): void {
+  const defaultThemeValue = system.themePresets.find(theme => theme.id === system.defaultThemeId);
+  if (!defaultThemeValue) throw new Error(`Default theme ${system.defaultThemeId} is missing.`);
+  const defaultSettings = WorkspaceSettingsSchema.parse({ settingsVersion: 1, theme: defaultThemeValue, appearance: 'system' });
   const loadDefaults = () => {
     stores.applied.getState().setSettings(defaultSettings, 0);
     stores.draft.getState().reset(defaultSettings.theme, 0);
@@ -127,7 +123,7 @@ function describeUnreadableSettings(raw: string, error: unknown): string {
   return 'Saved settings could not be read. Defaults are active; you can continue editing.';
 }
 
-export function persistWorkspaceSettings(settingsInput: WorkspaceSettings, themeRevision: number, system: DesignSystem, storage: StorageLike): PersistenceEnvelope {
+export function persistWorkspaceSettings(settingsInput: WorkspaceSettings, themeRevision: number, system: ThemeSystem, storage: StorageLike): PersistenceEnvelope {
   const settings = WorkspaceSettingsSchema.parse({ ...settingsInput, theme: validateTheme(settingsInput.theme, system) });
   const envelope = createPersistenceEnvelope(settings, themeRevision, system);
   storage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(envelope));
@@ -141,7 +137,7 @@ export function markStorageBlocked(stores: ThemeStores): void {
 export type ApplyResult = { status: 'applied' | 'unchanged'; persisted: boolean; notice: string | null };
 
 /** Replaces the applied theme with the validated draft. Appearance is always preserved. */
-export function applyDraft(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null): ApplyResult {
+export function applyDraft(stores: ThemeStores, system: ThemeSystem, storage: StorageLike | null): ApplyResult {
   const { settings, themeRevision, persistence } = stores.applied.getState();
   const theme = assignThemeIdentity(validateTheme(stores.draft.getState().theme, system), system.themePresets);
   const changed = themeValues(theme) !== themeValues(settings.theme);

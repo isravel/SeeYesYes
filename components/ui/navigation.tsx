@@ -1,11 +1,11 @@
 'use client';
 import NextLink from 'next/link';
 import { isPageRoute } from '@/lib/routes';
-import { useEffect, useRef, useState, type AnchorHTMLAttributes, type Ref } from 'react';
-import { Dialog, DialogTrigger, Heading, Modal, ModalOverlay } from 'react-aria-components';
+import { lazy, Suspense, useEffect, useRef, useState, type AnchorHTMLAttributes, type Ref } from 'react';
 import { Button } from './button';
-import { InternalTriggerButton } from './internal-trigger-button';
 import styles from './Navigation.module.css';
+const loadDrawer = () => import('./navigation-drawer').then(module => ({ default: module.NavigationDrawer }));
+const Drawer = lazy(loadDrawer);
 export type NavigationItem = { label: string; href: string };
 export type NavigationGroup = { label?: string; items: NavigationItem[] };
 export type NavigationProps = {
@@ -33,12 +33,10 @@ export function Navigation({ label, groups, currentHref, mainId, showSkipLink = 
   return <section ref={ref} aria-label={`${label} shell`} className={`${styles.root} ${className}`}>
     {showSkipLink && <a href={`#${mainId}`} className={styles.skip}>Skip to content</a>}
     <div className={styles.desktop}>{links()}</div>
-    <div className={styles.mobile}><DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
-      <InternalTriggerButton label={triggerLabel} />
-      <ModalOverlay className={styles.overlay} isDismissable><Modal className={styles.drawer}><Dialog className={styles.dialog}>
-        {({ close }) => <><div className={styles.drawerHeader}><Heading slot="title">{label}</Heading><Button variant="ghost" onClick={close}>Close navigation</Button></div>{links(close)}</>}
-      </Dialog></Modal></ModalOverlay>
-    </DialogTrigger></div>
+    <div className={styles.mobile}>
+      <Button variant="secondary" aria-haspopup="dialog" aria-expanded={isOpen} onClick={() => setOpen(true)} onPointerEnter={() => void loadDrawer()} onFocus={() => void loadDrawer()}>{triggerLabel}</Button>
+      {isOpen && <Suspense fallback={null}><Drawer label={label} onOpenChange={setOpen}>{close => links(close)}</Drawer></Suspense>}
+    </div>
     {breadcrumbs.length > 0 && <nav aria-label="Breadcrumbs" className={styles.breadcrumbs}><ol>{breadcrumbs.map((item, index) => <li key={item.href}>
       {index === breadcrumbs.length - 1 ? <span aria-current="page">{item.label}</span> : <NavAnchor href={item.href}>{item.label}</NavAnchor>}
     </li>)}</ol></nav>}

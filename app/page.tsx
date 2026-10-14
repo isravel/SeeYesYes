@@ -1,5 +1,5 @@
 import { localAdapter } from '@/lib/data/adapter';
-import { ExamplePreview } from '@/components/examples/previews';
+import { LazyPreview, PreviewsOnDemand } from './LazyPreview';
 import type { Metadata } from 'next';
 import { Link } from '@/components/ui/link';
 import { DemoHealth } from './DemoHealth';
@@ -19,10 +19,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
         [coverage.components, 'Components'], [`${coverage.metadataComplete} of ${coverage.components}`, 'Metadata-complete'], [`${coverage.accessibilityReviewed} of ${coverage.components}`, 'Accessibility reviewed'], [coverage.tokens, 'Resolved tokens'],
         [coverage.rules, 'Usage rules'], [coverage.examples, 'Examples'], [coverage.interactive, 'Interactive components'], [system.themePresets.length, 'Default preset']].map(([value, label]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>
       <DemoHealth scenario={parsedScenario.success ? parsedScenario.data : 'normal'} />
-      <section aria-labelledby="components-title"><div className={styles.sectionHeading}><div><p className={styles.eyebrow}>TRY THE COMPONENTS</p><h2 id="components-title" tabIndex={-1}>Small pieces. Clear intent.</h2></div><p>Maturity and review status are on each component page.</p></div><div className={styles.componentGrid}>{system.components.map(component => {
+      <section aria-labelledby="components-title"><div className={styles.sectionHeading}><div><p className={styles.eyebrow}>TRY THE COMPONENTS</p><h2 id="components-title" tabIndex={-1}>Small pieces. Clear intent.</h2></div><p>Maturity and review status are on each component page.</p></div><PreviewsOnDemand><div className={styles.componentGrid}>{system.components.map(component => {
         const example = system.examples.find(e => component.exampleIds.includes(e.id) && e.intent === 'recommended');
-        return <article key={component.id} className={styles.component}><div className={styles.preview}>{example?.intent === 'recommended' && <ExamplePreview previewKey={example.previewKey} />}</div><div className={styles.componentText}><h3>{component.name}</h3><p>{component.shortPurpose}</p><code>{component.publicImport.exportName}</code></div></article>;
-      })}</div></section>
+        return <article key={component.id} className={styles.component}><div className={styles.preview}>{example?.intent === 'recommended' && <LazyPreview previewKey={example.previewKey} />}</div><div className={styles.componentText}><h3>{component.name}</h3><p>{component.shortPurpose}</p><code>{component.publicImport.exportName}</code></div></article>;
+      })}</div></PreviewsOnDemand></section>
       <section className={styles.next}><p className={styles.eyebrow}>WHERE TO GO NEXT</p><h2>A workspace built from the system itself.</h2><p>Change the theme and watch components update together. Explore tokens, rules, and accessibility evidence, then export the same contract for people and AI agents. This preview has no project scanner, and validation results are labeled demo fixtures.</p><div className={styles.heroLinks}><Link href="/system/tokens">Tokens ↗</Link><Link href="/system/rules">Rules ↗</Link><Link href="/accessibility">Accessibility ↗</Link><Link href="/validation">Validation ↗</Link></div></section>
     </main>
   </>;

@@ -2,12 +2,11 @@
 import { useMemo, useState } from 'react';
 import { useStore } from 'zustand';
 import { ThemeScope } from '@/components/theme/ThemeScope';
-import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
+import { useThemeStores, useThemeSystem } from '@/components/theme/ThemeLifecycleProvider';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
-import { registry } from '@/lib/data/registry';
 import type { Mode, Oklch } from '@/lib/contract/schema';
 import { failingContrast } from '@/lib/accessibility/contrast';
 import { discardDraft, resetDraft } from '@/lib/theme/stores';
@@ -31,6 +30,7 @@ type Channel = keyof Oklch;
 
 export function ThemeEditor() {
   const stores = useThemeStores();
+  const system = useThemeSystem();
   const theme = useStore(stores.draft, state => state.theme);
   const setTheme = useStore(stores.draft, state => state.setTheme);
   const applied = useStore(stores.applied, state => state.settings.theme);
@@ -84,7 +84,7 @@ export function ThemeEditor() {
   }
 
   async function apply() {
-    const result = await commitDraft(stores, registry, getBrowserEnv());
+    const result = await commitDraft(stores, system, getBrowserEnv());
     if (result.status !== 'busy') setMessage(result.message);
   }
   function discard() { discardDraft(stores); setMessage('Changes discarded. The draft matches the workspace theme.'); }
@@ -151,12 +151,12 @@ export function ThemeEditor() {
         <div className={styles.settingsGrid}>
           <label className={styles.field}>Sans font
             <Select aria-label="Sans font" value={theme.typography.sansFontId} onChange={event => updateFont('sansFontId', event.currentTarget.value)}>
-              {registry.fonts.filter(font => font.kind === 'sans').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
+              {system.fonts.filter(font => font.kind === 'sans').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
             </Select>
           </label>
           <label className={styles.field}>Monospace font
             <Select aria-label="Monospace font" value={theme.typography.monoFontId} onChange={event => updateFont('monoFontId', event.currentTarget.value)}>
-              {registry.fonts.filter(font => font.kind === 'mono').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
+              {system.fonts.filter(font => font.kind === 'mono').map(font => <option key={font.id} value={font.id}>{font.family}</option>)}
             </Select>
           </label>
           <label className={styles.field}>Type scale
@@ -207,7 +207,7 @@ export function ThemeEditor() {
       <section className={styles.panel} aria-labelledby="defaults-heading">
         <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>COMPONENT DEFAULTS</p><h2 id="defaults-heading">Set allowed defaults</h2><p>Options come from each component contract.</p></div></div>
         <div className={styles.componentDefaults}>
-          {registry.components.filter(component => Object.keys(component.themeDefaults).length > 0).map(component => <fieldset className={styles.defaultGroup} key={component.id}>
+          {system.components.filter(component => Object.keys(component.themeDefaults).length > 0).map(component => <fieldset className={styles.defaultGroup} key={component.id}>
             <legend>{component.name}</legend>
             {(['variant', 'size'] as const).filter(property => component.themeDefaults[property]?.length).map(property => {
               const options = component.themeDefaults[property]!;

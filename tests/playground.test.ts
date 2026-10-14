@@ -1,3 +1,4 @@
+import { defaultWorkspaceSettings } from '@/lib/theme/default-settings';
 import { describe, expect, it } from 'vitest';
 import { defaultTheme } from '@/lib/data/registry';
 import { createThemeStores } from '@/lib/theme/stores';
@@ -27,7 +28,7 @@ describe('playground theme', () => {
 
 describe('playground store', () => {
   it('keeps overrides and appearance apart from the applied and draft stores, and resets cleanly', () => {
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     const appliedBefore = stores.applied.getState().settings;
     const draftBefore = stores.draft.getState();
     stores.playground.getState().setOverride('radius', 'curvy');

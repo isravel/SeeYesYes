@@ -1,3 +1,4 @@
+import { revealPreviews } from './helpers';
 import { test, expect, type Locator } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -102,6 +103,7 @@ test('workspace overlays stay within mobile and desktop viewports in both appear
     for (const width of [320, 1280]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
+      await revealPreviews(page);
       await page.getByRole('button', { name: 'Open preview settings' }).click();
       const dialog = page.getByRole('dialog', { name: 'Preview settings' });
       await expect(dialog).toBeVisible();
@@ -133,6 +135,7 @@ test('workspace overlays stay within mobile and desktop viewports in both appear
 
 test('workspace tooltip opens through normal keyboard tab navigation', async ({ page }) => {
   await page.goto('/');
+  await revealPreviews(page);
   await expect(page.locator('html')).toHaveAttribute('data-appearance', /light|dark/);
   const trigger = page.getByRole('button', { name: 'Save preview', exact: true });
   for (let step = 0; step < 80; step++) {

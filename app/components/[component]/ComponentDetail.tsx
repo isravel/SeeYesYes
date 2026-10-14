@@ -35,6 +35,8 @@ function Detail({ componentId, scenario }: { componentId: string; scenario: Scen
   const primary = useQuery({ queryKey: ['component', componentId, scenario], queryFn: ({ signal }) => adapter.get('component', { componentId, scenario, signal }), retry: false, staleTime: Infinity });
   // The registry supplies linked examples and components, so it loads only after the component succeeds.
   const secondary = useQuery({ queryKey: ['registry', scenario], queryFn: ({ signal }) => adapter.get('registry', { scenario, signal }), enabled: primary.isSuccess, retry: false, staleTime: Infinity });
+  // The starting variant selection follows the applied theme, so wait until saved settings have been read.
+  const settingsReady = useStore(useThemeStores().applied, state => state.initialized);
   const crumbs = <nav aria-label="Breadcrumb" className={styles.crumbs}><Link href="/components">Components</Link><span aria-hidden="true"> / </span><span aria-current="page">{primary.data?.name ?? componentId}</span></nav>;
   // While loading or after an error there is no contract yet, but the page still needs its heading.
   const placeholderTitle = <h1 className={styles.placeholderTitle}>{componentId}</h1>;
@@ -42,7 +44,7 @@ function Detail({ componentId, scenario }: { componentId: string; scenario: Scen
   if (primary.isPending) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<LoadingState label="Loading component" description="Reading the component contract." variant="skeleton" /></main>;
   if (primary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<ErrorState message={primary.error.message} onRetry={() => { void primary.refetch(); }} /></main>;
   if (secondary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<ErrorState title="Linked data did not load" message={secondary.error.message} onRetry={() => { void secondary.refetch(); }} /></main>;
-  if (!secondary.data) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<LoadingState label="Loading examples and linked components" variant="skeleton" /></main>;
+  if (!secondary.data || !settingsReady) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<LoadingState label="Loading examples and linked components" variant="skeleton" /></main>;
   return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<DetailContent component={primary.data} system={secondary.data} /></main>;
 }
 

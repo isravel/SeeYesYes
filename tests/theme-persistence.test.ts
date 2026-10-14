@@ -1,3 +1,4 @@
+import { defaultWorkspaceSettings } from '@/lib/theme/default-settings';
 import { describe, expect, it } from 'vitest';
 import { PersistenceEnvelopeSchema } from '@/lib/contract/schema';
 import { registry, defaultTheme } from '@/lib/data/registry';
@@ -36,7 +37,7 @@ describe('versioned theme settings', () => {
   });
 
   it('initializes independent applied and draft state from storage and supports a session-only fallback', () => {
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     expect(stores.defaults.getState().settings.theme).toEqual(defaultTheme);
     const saved = createPersistenceEnvelope({ ...settings, appearance: 'dark' }, 4, registry);
     const memory = new Map([[SETTINGS_STORAGE_KEY, JSON.stringify(saved)]]);
@@ -48,12 +49,12 @@ describe('versioned theme settings', () => {
     expect(stores.draft.getState().baseThemeRevision).toBe(4);
     expect(stores.draft.getState().theme).toEqual(defaultTheme);
 
-    const blocked = createThemeStores();
+    const blocked = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(blocked, registry, null);
     expect(blocked.applied.getState().persistence).toBe('session-only');
     expect(blocked.applied.getState().notice).toMatch(/reset on refresh/);
     expect(blocked.applied.getState().initialized).toBe(true);
-    const denied = createThemeStores();
+    const denied = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(denied, registry, { getItem: () => { throw new Error('denied'); }, setItem: () => {} });
     expect(denied.applied.getState().persistence).toBe('session-only');
   });
@@ -76,7 +77,7 @@ describe('draft lifecycle actions', () => {
 
   function setup(appearance: 'light' | 'dark' | 'system' = 'dark') {
     const memory = new Map([[SETTINGS_STORAGE_KEY, JSON.stringify(createPersistenceEnvelope({ settingsVersion: 1, theme: defaultTheme, appearance }, 2, registry))]]);
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(stores, registry, storageFor(memory));
     return { memory, stores };
   }
@@ -131,7 +132,7 @@ describe('draft lifecycle actions', () => {
   });
 
   it('keeps session-only applies out of storage and survives write failures', () => {
-    const session = createThemeStores();
+    const session = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(session, registry, null);
     session.draft.getState().setTheme(edited);
     expect(applyDraft(session, registry, null)).toMatchObject({ status: 'applied', persisted: false });

@@ -27,7 +27,7 @@ describe('Getting Started matches the repository', () => {
 
   it('shows root layout setup that the real layout contains', () => {
     const layout = readFileSync('app/layout.tsx', 'utf8');
-    for (const line of ["import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';", "import { buildThemeBootstrapScript } from '@/lib/theme/persistence';", '<ThemeLifecycleProvider system={system}>', '<WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell>', "import { WorkspaceShell } from '@/components/shell/WorkspaceShell';", "buildThemeBootstrapScript()", 'suppressHydrationWarning']) {
+    for (const line of ["import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';", "import { buildThemeBootstrapScript } from '@/lib/theme/persistence';", '<ThemeLifecycleProvider system={toThemeSystem(system)}>', '<WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell>', "import { WorkspaceShell } from '@/components/shell/WorkspaceShell';", "buildThemeBootstrapScript()", 'suppressHydrationWarning']) {
       expect(layout, line).toContain(line);
       expect(layoutSnippet, line).toContain(line.replace(/^import /, 'import '));
     }

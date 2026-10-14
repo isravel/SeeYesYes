@@ -37,7 +37,4 @@ export function plainText(markdown: string): string {
   return markdown.replace(/```[\s\S]*?```/g, match => match.replace(/```\w*\n?/g, ' ')).replace(/`([^`]+)`/g, '$1').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/^\s*(?:[#>]+|[-*]\s)/gm, ' ').replace(/[*|]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-/** Markdown for Copy for LLM: links become site-root paths, so the text works away from this page. */
-export function withRootLinks(markdown: string): string {
-  return markdown.replace(/\]\((?!https?:|mailto:|#)(?!\/)([^)]+)\)/g, (_match, target: string) => `](/${target.replace(/^\.\//, '')})`);
-}
+export { withRootLinks } from './links';

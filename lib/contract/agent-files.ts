@@ -1,7 +1,7 @@
 import type { DesignSystem } from './schema';
 import { createContext } from './context';
 import { contextMarkdown } from './serialize';
-import { withRootLinks } from '@/lib/docs/markdown';
+import { withRootLinks } from '@/lib/docs/links';
 
 const DEFAULT_THEME_NOTE = 'This file is generated at build time from the registry and the default theme preset. It cannot see a browser\'s applied settings. For an export that matches your applied theme, use AI Context at /ai/context.';
 /** The parts of a documentation article the agent files need. */

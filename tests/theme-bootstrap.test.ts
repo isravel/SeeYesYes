@@ -1,3 +1,4 @@
+import { defaultWorkspaceSettings } from '@/lib/theme/default-settings';
 import { describe, expect, it } from 'vitest';
 import { defaultTheme, registry } from '@/lib/data/registry';
 import { buildThemeBootstrapScript, createPersistenceEnvelope, SETTINGS_STORAGE_KEY } from '@/lib/theme/persistence';
@@ -106,7 +107,7 @@ describe('mode independence and token propagation', () => {
     const storage = { getItem: (k: string) => memory.get(k) ?? null, setItem: (k: string, v: string) => { memory.set(k, v); } };
     const locks: LockManagerLike = { request: async (_n, _o, cb) => cb() };
     const env: WriterEnv = { storage, locks };
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(stores, registry, storage);
     stores.draft.getState().setTheme(edited);
     await commitDraft(stores, registry, env);
@@ -123,7 +124,7 @@ describe('global appearance during an open draft', () => {
     const memory = new Map<string, string>();
     const storage = { getItem: (k: string) => memory.get(k) ?? null, setItem: (k: string, v: string) => { memory.set(k, v); } };
     const env: WriterEnv = { storage, locks: { request: async (_n, _o, cb) => cb() } };
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(stores, registry, storage);
     const draftTheme = { ...defaultTheme, density: 'compact' as const };
     stores.draft.getState().setTheme(draftTheme);

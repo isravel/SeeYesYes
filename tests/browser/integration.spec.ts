@@ -1,8 +1,10 @@
+import { revealPreviews } from './helpers';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test('feedback examples expose useful names, status, and recovery actions', async ({ page, context }) => {
   await page.goto('/');
+  await revealPreviews(page);
 
   const loading = page.getByRole('status', { name: 'Loading team members' });
   await expect(loading).toHaveAttribute('aria-busy', 'true');
@@ -40,6 +42,7 @@ test('workspace and representative content fit the required widths in both appea
     for (const width of [320, 768, 1280, 1920]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
+      await revealPreviews(page);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       const copy = page.getByRole('button', { name: 'Copy sample context' });
       await copy.scrollIntoViewIfNeeded();
@@ -51,6 +54,7 @@ test('workspace and representative content fit the required widths in both appea
 test('200% zoom layout proxy reflows to a 640px viewport without page overflow', async ({ page }) => {
   await page.setViewportSize({ width: 640, height: 900 });
   await page.goto('/');
+  await revealPreviews(page);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Open navigation', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Workspace', exact: true })).toBeVisible();
@@ -61,6 +65,7 @@ test('200% zoom layout proxy reflows to a 640px viewport without page overflow',
 test('reduced motion removes nonessential animation and transition time', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
+  await revealPreviews(page);
   const button = page.getByRole('button', { name: 'Save settings' });
   const timing = await button.evaluate(element => ({
     animationDuration: getComputedStyle(element).animationDuration,

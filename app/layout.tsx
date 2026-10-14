@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { localAdapter } from '@/lib/data/adapter';
+import { toThemeSystem } from '@/lib/contract/theme-validation';
 import { WorkspaceShell } from '@/components/shell/WorkspaceShell';
 import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';
 import { buildThemeBootstrapScript } from '@/lib/theme/persistence';
@@ -14,5 +15,5 @@ const mono = localFont({ src: '../node_modules/@fontsource/jetbrains-mono/files/
 export const metadata: Metadata = { title: 'SeeYesYes — Shared decisions', description: 'A design system that humans and AI can understand.' };
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const system = await localAdapter.get('registry');
-  return <html suppressHydrationWarning lang="en" className={`${sans.variable} ${mono.variable}`}><head><script dangerouslySetInnerHTML={{ __html: buildThemeBootstrapScript() }} /></head><body><ThemeLifecycleProvider system={system}><WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell></ThemeLifecycleProvider></body></html>;
+  return <html suppressHydrationWarning lang="en" className={`${sans.variable} ${mono.variable}`}><head><script dangerouslySetInnerHTML={{ __html: buildThemeBootstrapScript() }} /></head><body><ThemeLifecycleProvider system={toThemeSystem(system)}><WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell></ThemeLifecycleProvider></body></html>;
 }

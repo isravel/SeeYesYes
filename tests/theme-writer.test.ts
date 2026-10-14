@@ -1,3 +1,4 @@
+import { defaultWorkspaceSettings } from '@/lib/theme/default-settings';
 import { describe, expect, it } from 'vitest';
 import { PersistenceEnvelopeSchema } from '@/lib/contract/schema';
 import { defaultTheme, registry } from '@/lib/data/registry';
@@ -21,7 +22,7 @@ function createBrowser() {
     },
   };
   const tab = (options: { locks?: boolean } = {}) => {
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     const hasLocks = options.locks !== false;
     initializeThemeStores(stores, registry, storage, hasLocks);
     const env: WriterEnv = { storage, locks: hasLocks ? locks : null };
@@ -205,7 +206,7 @@ describe('fallbacks without Web Locks or storage', () => {
   });
 
   it('keeps blocked storage session-only', async () => {
-    const stores = createThemeStores();
+    const stores = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(stores, registry, { getItem: () => { throw new Error('blocked'); }, setItem: () => { throw new Error('blocked'); } });
     expect(stores.applied.getState().persistence).toBe('session-only');
     stores.draft.getState().setTheme(withRadius(otherRadius));
@@ -217,10 +218,10 @@ describe('fallbacks without Web Locks or storage', () => {
 
 describe('unreadable saved settings', () => {
   it('falls back to defaults with a specific notice for corrupt and unsupported data', () => {
-    const corrupt = createThemeStores();
+    const corrupt = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(corrupt, registry, { getItem: () => '{nope', setItem: () => {} });
     expect(corrupt.applied.getState().notice).toMatch(/could not be read/);
-    const future = createThemeStores();
+    const future = createThemeStores(defaultWorkspaceSettings);
     initializeThemeStores(future, registry, { getItem: () => JSON.stringify({ envelopeVersion: 9, settings: {} }), setItem: () => {} });
     expect(future.applied.getState().notice).toMatch(/format this version does not support/);
     expect(future.applied.getState().settings.theme).toEqual(defaultTheme);

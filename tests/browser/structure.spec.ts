@@ -1,3 +1,4 @@
+import { revealPreviews } from './helpers';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -75,6 +76,7 @@ test('navigation and tables fit mobile and desktop in both appearances', async (
     for (const width of [320, 1280]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
+      await revealPreviews(page);
       await page.getByRole('table', { name: 'Recent invoices' }).scrollIntoViewIfNeeded();
       await page.screenshot({ path: `${evidence}/table-${colorScheme}-${width}.png` });
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

@@ -1,5 +1,5 @@
-import type { DesignSystem, PersistenceEnvelope, Theme } from '@/lib/contract/schema';
-import { validateTheme } from '@/lib/contract/validate';
+import type { PersistenceEnvelope, Theme } from '@/lib/contract/schema';
+import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 import { assignThemeIdentity, themeValues } from './identity';
 import { parseStoredSettings, SETTINGS_STORAGE_KEY } from './persistence';
 import { applyDraft, persistWorkspaceSettings, type StorageLike, type ThemeStores } from './stores';
@@ -21,7 +21,7 @@ export function getBrowserEnv(): WriterEnv {
 }
 
 type Latest = { status: 'ok'; envelope: PersistenceEnvelope } | { status: 'empty' | 'unreadable' };
-function readLatest(storage: StorageLike, system: DesignSystem): Latest {
+function readLatest(storage: StorageLike, system: ThemeSystem): Latest {
   try {
     const raw = storage.getItem(SETTINGS_STORAGE_KEY);
     if (!raw) return { status: 'empty' };
@@ -40,7 +40,7 @@ function sharedWritesAllowed(stores: ThemeStores, env: WriterEnv): env is { stor
 }
 
 /** Apply the draft. Persistent saves run inside the exclusive settings lock; there is never an unlocked shared write. */
-export async function commitDraft(stores: ThemeStores, system: DesignSystem, env: WriterEnv): Promise<CommitResult> {
+export async function commitDraft(stores: ThemeStores, system: ThemeSystem, env: WriterEnv): Promise<CommitResult> {
   const draft = stores.draft.getState();
   if (draft.saving) return { status: 'busy', persisted: false, message: 'A save is already in progress.' };
   let theme: Theme;
@@ -93,7 +93,7 @@ export async function commitDraft(stores: ThemeStores, system: DesignSystem, env
 }
 
 /** Change only the appearance preference, merging into the latest stored theme, revision, and cache. */
-export async function commitAppearance(stores: ThemeStores, system: DesignSystem, env: WriterEnv, appearance: 'light' | 'dark' | 'system'): Promise<CommitResult> {
+export async function commitAppearance(stores: ThemeStores, system: ThemeSystem, env: WriterEnv, appearance: 'light' | 'dark' | 'system'): Promise<CommitResult> {
   const applied = stores.applied.getState();
   if (applied.appearancePending) return { status: 'busy', persisted: false, message: 'A save is already in progress.' };
   if (!sharedWritesAllowed(stores, env)) {
@@ -124,7 +124,7 @@ export async function commitAppearance(stores: ThemeStores, system: DesignSystem
 }
 
 /** Treat a `storage` event as an invalidation signal: reread the stored envelope rather than trusting the event payload. */
-export function syncFromStorage(stores: ThemeStores, system: DesignSystem, storage: StorageLike | null): boolean {
+export function syncFromStorage(stores: ThemeStores, system: ThemeSystem, storage: StorageLike | null): boolean {
   if (!storage || stores.applied.getState().persistence === 'session-only') return false;
   const latest = readLatest(storage, system);
   if (latest.status !== 'ok') return false;

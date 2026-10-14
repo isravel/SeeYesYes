@@ -21,6 +21,7 @@ export const integrationPaths = [
 ] as const;
 
 export const layoutSnippet = `import { WorkspaceShell } from '@/components/shell/WorkspaceShell';
+import { toThemeSystem } from '@/lib/contract/theme-validation';
 import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';
 import { buildThemeBootstrapScript } from '@/lib/theme/persistence';
 
@@ -30,7 +31,7 @@ export default async function RootLayout({ children }) {
     <html suppressHydrationWarning lang="en">
       <head><script dangerouslySetInnerHTML={{ __html: buildThemeBootstrapScript() }} /></head>
       <body>
-        <ThemeLifecycleProvider system={system}>
+        <ThemeLifecycleProvider system={toThemeSystem(system)}>
           <WorkspaceShell version={system.productVersion}>{children}</WorkspaceShell>
         </ThemeLifecycleProvider>
       </body>

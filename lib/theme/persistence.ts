@@ -1,9 +1,9 @@
 import {
   PersistenceEnvelopeSchema, WorkspaceSettingsSchema,
-  type DesignSystem, type Mode, type PersistenceEnvelope, type Theme, type WorkspaceSettings,
+  type Mode, type PersistenceEnvelope, type Theme, type WorkspaceSettings,
 } from '@/lib/contract/schema';
 import { resolveTokens } from './resolve';
-import { validateTheme } from '@/lib/contract/validate';
+import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 
 export const SETTINGS_STORAGE_KEY = 'seeyesyes:settings:v1';
 export const ENVELOPE_VERSION = 1;
@@ -26,7 +26,7 @@ export function isAllowedBootstrapValue(value: string): boolean {
   );
 }
 
-export function createBootstrapCache(theme: Theme, system: DesignSystem, themeRevision: number): NonNullable<PersistenceEnvelope['bootstrap']> {
+export function createBootstrapCache(theme: Theme, system: ThemeSystem, themeRevision: number): NonNullable<PersistenceEnvelope['bootstrap']> {
   const tokens = resolveTokens(system.tokens, theme, system.fonts);
   const modeIndependent: Record<string, string> = {};
   const modes: Record<Mode, Record<string, string>> = { light: {}, dark: {} };
@@ -41,7 +41,7 @@ export function createBootstrapCache(theme: Theme, system: DesignSystem, themeRe
   return { cacheVersion: CACHE_VERSION, resolverVersion: RESOLVER_VERSION, themeRevision, modeIndependent, modes };
 }
 
-export function createPersistenceEnvelope(settings: WorkspaceSettings, themeRevision: number, system: DesignSystem): PersistenceEnvelope {
+export function createPersistenceEnvelope(settings: WorkspaceSettings, themeRevision: number, system: ThemeSystem): PersistenceEnvelope {
   const validatedSettings = WorkspaceSettingsSchema.parse(settings);
   const theme = validateTheme(validatedSettings.theme, system);
   return PersistenceEnvelopeSchema.parse({
@@ -60,7 +60,7 @@ function validateCache(envelope: PersistenceEnvelope): PersistenceEnvelope['boot
 }
 
 export type StoredSettingsResult = { envelope: PersistenceEnvelope; notice?: string };
-export function parseStoredSettings(raw: string, system: DesignSystem): StoredSettingsResult {
+export function parseStoredSettings(raw: string, system: ThemeSystem): StoredSettingsResult {
   const parsed: unknown = JSON.parse(raw);
   const envelope = PersistenceEnvelopeSchema.parse(parsed);
   const settings = WorkspaceSettingsSchema.parse(envelope.settings);
