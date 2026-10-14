@@ -116,7 +116,7 @@ Completion gate: A08 and A11 pass. A09 and A10 pass for every view built so far;
 
 Goal: complete the product journeys and show useful compositions.
 
-- [ ] M6.1 Build all seven required layout examples with shared primitives and density switching.
+- [x] M6.1 Build all seven required layout examples with shared primitives and density switching. [Evidence](../evidence/M6/M6.1/review.md)
 - [ ] M6.2 Build Playground with isolated session settings, component/variant/state selection, and Reset to applied theme.
 - [ ] M6.3 Build Getting Started against actual local setup and imports; label any future package workflow.
 - [ ] M6.4 Build concept/configuration articles and registry-derived reference documentation.
@@ -169,7 +169,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M5 | Complete (automated) | 2026-10-14 | [M5.10 review](../evidence/M5/M5.10/review.md) | Full agent-file link check runs in M6; human accessibility review remains open. |
-| M6 | Not started | — | — | — |
+| M6 | In progress | 2026-10-14 | [M6.1 review](../evidence/M6/M6.1/review.md) | M6.2–M6.8 remain open. |
 | M7 | Not started | — | — | — |
 
 ## Change handling

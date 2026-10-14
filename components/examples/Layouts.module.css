@@ -1,0 +1,34 @@
+/* Layouts adapt to the width of their own preview, so they respond whether the page or the container is narrow. */
+.frame { container-type: inline-size; }
+.shell, .dashboard, .split, .detail, .settings, .dense, .marketing { display: grid; gap: var(--sys-spacing-stack); color: var(--sys-color-foreground); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sys-spacing-inline); padding: var(--sys-spacing-inline) var(--sys-spacing-stack); border-bottom: 1px solid var(--sys-color-muted); }
+.bar nav { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-stack); }
+.brand { font-weight: 650; }
+.body { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: var(--sys-spacing-stack); }
+.side { display: grid; align-content: start; gap: var(--sys-spacing-inline); }
+.main { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--sys-spacing-inline); }
+.stat { display: grid; }
+.stat span { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.stat strong { font-size: var(--sys-typography-heading); font-weight: 550; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sys-spacing-inline); }
+.split { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); align-items: start; }
+.list { display: grid; gap: var(--sys-spacing-inline); margin: 0; padding: 0; list-style: none; }
+.item { display: flex; align-items: center; gap: var(--sys-spacing-inline); width: 100%; padding: var(--sys-spacing-inline) var(--sys-spacing-inline); text-align: left; font: inherit; color: inherit; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); cursor: pointer; }
+.item[aria-pressed='true'] { border-color: var(--sys-color-primary); box-shadow: 0 0 0 2px var(--sys-color-primary); }
+.item:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--sys-spacing-inline); margin: 0; }
+.facts dt { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.facts dd { margin: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-inline); align-items: center; }
+.form { display: grid; gap: var(--sys-spacing-stack); max-width: 34rem; }
+.toolbar { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-inline); align-items: end; }
+.hero { display: grid; gap: var(--sys-spacing-inline); padding-block: var(--sys-spacing-section); }
+.hero h3 { margin: 0; font-size: var(--sys-typography-title); letter-spacing: -.03em; }
+.hero p { margin: 0; max-width: 36rem; color: var(--sys-color-muted-foreground); }
+.muted { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.heading { margin: 0; font-size: var(--sys-typography-heading); }
+@container (max-width: 40rem) {
+  .body, .split { grid-template-columns: minmax(0, 1fr); }
+  .side { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; }
+}

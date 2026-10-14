@@ -1,0 +1,15 @@
+.page { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding-block: 38px 72px; }
+.header { display: flex; justify-content: space-between; align-items: start; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--sys-color-muted); }
+.header h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.header p:not(.eyebrow) { max-width: 46rem; color: var(--sys-color-muted-foreground); }
+.eyebrow { margin: 0 0 8px; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
+.list { display: grid; gap: 32px; margin: 28px 0 0; padding: 0; list-style: none; }
+.card { min-width: 0; }
+.cardHeader { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.cardHeader h2 { margin: 0; font-size: 1.3rem; }
+.cardHeader p { margin: 4px 0 0; color: var(--sys-color-muted-foreground); font-size: .9rem; }
+.controls { display: flex; gap: 12px; flex-wrap: wrap; }
+.field { display: grid; gap: 6px; min-width: 10rem; font-size: .85rem; font-weight: 550; }
+.preview { padding: 20px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); overflow: auto; }
+.uses { margin: 10px 0 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
+@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .preview { padding: 12px; } }

@@ -1,3 +1,4 @@
+import { layoutExamples } from './layout-contracts';
 import { ColorRoleSchema, type Theme, type DesignSystem, type TokenDefinition, type ComponentContract, type Example, type Rule, type Oklch } from '@/lib/contract/schema';
 import { additionalComponentContracts, additionalComponentExamples } from './component-contracts';
 import { formComponentContracts, formComponentExamples } from './form-contracts';
@@ -168,6 +169,6 @@ export const registry: DesignSystem = {
   principles: ['Use the same decisions for people and agents.', 'Choose semantic components and tokens.', 'Keep accessibility part of the contract.', 'Show what is verified and what is still a demo.'],
   fonts: [{ id: 'inter', family: 'Inter', kind: 'sans', source: 'self-hosted' }, { id: 'jetbrains-mono', family: 'JetBrains Mono', kind: 'mono', source: 'self-hosted' }],
   defaultThemeId: 'default', themePresets: [defaultTheme], tokens,
-  components: [buttonContract, spinnerContract, linkContract, ...additionalComponentContracts, ...formComponentContracts, ...overlayComponentContracts, ...structureComponentContracts, ...feedbackComponentContracts], rules, examples: [...examples, ...additionalComponentExamples, ...formComponentExamples, ...overlayComponentExamples, ...structureComponentExamples, ...feedbackComponentExamples], layouts: [],
+  components: [buttonContract, spinnerContract, linkContract, ...additionalComponentContracts, ...formComponentContracts, ...overlayComponentContracts, ...structureComponentContracts, ...feedbackComponentContracts], rules, examples: [...examples, ...additionalComponentExamples, ...formComponentExamples, ...overlayComponentExamples, ...structureComponentExamples, ...feedbackComponentExamples], layouts: layoutExamples,
   project: { framework: 'react', styling: 'css-variables', guidance: ['Import components through their public repository aliases.', 'Use CSS Modules for local structure and semantic variables for appearance.', 'Parents own placement; components own their internal behavior.', 'The local prototype has no published package or project scanner.'] },
 };

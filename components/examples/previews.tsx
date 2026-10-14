@@ -29,6 +29,7 @@ import { ErrorState } from '@/components/ui/error-state';
 import { NotFound } from '@/components/ui/not-found';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Tooltip } from '@/components/ui/tooltip';
+import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
   const [saved, setSaved] = useState(false);
   return <><Button onClick={() => setSaved(true)}>Save settings</Button><span role="status">{saved ? 'Settings saved for this example.' : ''}</span></>;
@@ -82,10 +83,16 @@ export const previewMap = {
   dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave, tableInvoices: TableInvoices, navigationPreview: NavigationPreview,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
-export const layoutPreviewMap = {};
+export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };
 
 export function ExamplePreview({ previewKey }: { previewKey: string }) {
   if (!Object.hasOwn(previewMap, previewKey)) throw new Error(`Unknown preview key: ${previewKey}`);
   const Preview = previewMap[previewKey as keyof typeof previewMap];
+  return <Preview />;
+}
+
+export function ExampleLayoutPreview({ previewKey }: { previewKey: string }) {
+  if (!Object.hasOwn(layoutPreviewMap, previewKey)) throw new Error(`Unknown layout preview key: ${previewKey}`);
+  const Preview = layoutPreviewMap[previewKey as keyof typeof layoutPreviewMap];
   return <Preview />;
 }

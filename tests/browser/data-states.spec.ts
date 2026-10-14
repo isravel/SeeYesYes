@@ -34,6 +34,7 @@ const screens = [
   { name: 'Rules', path: '/system/rules', api: '**/api/rules?*', loading: 'Loading rules', ready: (page: Page) => page.locator('li[id="wcag-contrast"]'), empty: 'No rules yet', emptyLink: 'Show the normal rules', noMatch: null },
   { name: 'Validation', path: '/validation', api: '**/api/validation?*', loading: 'Loading demo reports', ready: (page: Page) => page.getByRole('heading', { name: /Demo report/ }), empty: 'No demo reports', emptyLink: 'Show the demo reports', noMatch: null },
   { name: 'Accessibility', path: '/accessibility', api: '**/api/components?*', loading: 'Loading review evidence', ready: (page: Page) => page.getByRole('region', { name: 'Component review evidence table' }), empty: null, emptyLink: null, noMatch: null },
+  { name: 'Layouts', path: '/layouts', api: '**/api/layouts?*', loading: 'Loading layouts', ready: (page: Page) => page.locator('#layout-dashboard'), empty: 'No layouts yet', emptyLink: 'Show the normal layouts', noMatch: null },
   { name: 'AI Context', path: '/ai/context', api: '**/api/registry?*', loading: 'Loading the registry', ready: (page: Page) => page.getByRole('radio', { name: 'Overview', exact: true }), empty: null, emptyLink: null, noMatch: null },
   { name: 'Component Detail', path: '/components/button', api: '**/api/components/button?*', loading: 'Loading component', ready: (page: Page) => page.getByRole('heading', { level: 1, name: 'Button', exact: true }), empty: null, emptyLink: null, noMatch: null },
 ];

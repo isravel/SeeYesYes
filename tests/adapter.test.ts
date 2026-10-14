@@ -58,7 +58,7 @@ describe('typed adapters and reproducible mock transport', () => {
     expect(s.themePresets[0].id).toBe(s.defaultThemeId);
     expect(s.project.guidance.length).toBeGreaterThan(0);
     // Layouts are intentionally empty until M6; schema and transport already preserve them.
-    expect(s.layouts).toEqual([]);
+    expect(s.layouts).toHaveLength(7);
   });
   it('labels demo reports and resolves every rule and example', () => {
     const reports = demoReports(registry);
