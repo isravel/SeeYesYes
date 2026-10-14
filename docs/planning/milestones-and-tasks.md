@@ -134,11 +134,11 @@ Goal: finish required quality checks and document what actually works.
 - [x] M7.1 Run type checking, linting, focused tests, and production build; fix failures. [Evidence](../evidence/M7/M7.1-M7.2.md)
 - [x] M7.2 Run browser journeys for theme persistence, context export, mock recovery, and key keyboard interactions. [Evidence](../evidence/M7/M7.1-M7.2.md)
 - [x] M7.3 Audit all routes and relevant states with automated accessibility checks; resolve serious/critical findings and review the rest. [Evidence](../evidence/M7/M7.3-review.md)
-- [ ] M7.4 Complete manual keyboard/screen-reader checks and the applicable WCAG criteria review. **Needs a human tester;** an agent prepares the checklist and records supplied results only.
+- [ ] M7.4 Complete manual keyboard/screen-reader checks and the applicable WCAG criteria review. **Needs a human tester (checklist prepared: [M7.4-checklist](../evidence/M7/M7.4-checklist.md));** an agent prepares the checklist and records supplied results only.
 - [x] M7.5 Review viewport/zoom, light/dark, density/radius, motion, and overflow checks; audit OOCSS separation, naming, and independence across standalone/nested/overlay examples. [Evidence](../evidence/M7/M7.5-review.md)
-- [ ] M7.6 Run the recorded production performance procedure and investigate budget failures.
-- [ ] M7.7 Review content for misleading package, AI, validation, maturity, or accessibility claims.
-- [ ] M7.8 Complete A01–A18 evidence and write local setup, architecture, mock boundaries, and known limitations.
+- [ ] M7.6 Run the recorded production performance procedure and investigate budget failures. **Procedure run and investigated; the LCP target is still missed, so this stays open** ([evidence](../evidence/M7/M7.6-review.md)).
+- [x] M7.7 Review content for misleading package, AI, validation, maturity, or accessibility claims. [Evidence](../evidence/M7/M7.7-review.md)
+- [ ] M7.8 Complete A01–A18 evidence and write local setup, architecture, mock boundaries, and known limitations. **Handoff and the evidence matrix are written ([handoff](../handoff.md)); this stays open because A17 fails and the human checks in M7.4 are not done.**
 
 Completion gate: all required acceptance checks pass with evidence. Any failed or unverified required check keeps the milestone open. Optional enhancements and deployment remain separate tasks.
 
@@ -170,7 +170,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M5 | Complete (automated) | 2026-10-14 | [M5.10 review](../evidence/M5/M5.10/review.md) | Full agent-file link check runs in M6; human accessibility review remains open. |
 | M6 | Complete (automated) | 2026-10-14 | [M6 gate](../evidence/M6/gate.md) | Human accessibility review remains open. |
-| M7 | Not started | — | — | — |
+| M7 | In progress | 2026-10-14 | [Handoff](../handoff.md) | M7.4 needs a human tester; M7.6 (LCP target) and M7.8 remain open. |
 
 ## Change handling
 

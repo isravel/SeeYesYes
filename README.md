@@ -1,6 +1,6 @@
 # SeeYesYes
 
-A design system that humans and AI can understand.
+A design system that humans and AI can understand. Whether agents do better with it has not been measured yet.
 
 M1 builds the shared contract and a working foundation preview. M2.1 adds shared scales and isolated theme scopes. The full workspace is planned in `docs/planning/milestones-and-tasks.md`.
 
@@ -39,6 +39,10 @@ The checks generate a public-import and preview-key probe, type-check it, lint t
 
 Fonts ship locally through Next.js. Component styles use CSS Modules and shared semantic variables. The generated default CSS comes from the same resolver as context exports.
 
+## Handoff
+
+See [docs/handoff.md](docs/handoff.md) for setup, architecture, what is mocked, acceptance evidence, and open work. Phase 1 is not complete: manual accessibility testing and the performance target (A17) are open.
+
 ## Current limits
 
-This covers M1–M4: the foundation, the component set, the theme lifecycle (draft editing, Apply, locked cross-tab saving, and contrast warnings at `/system/theme`), and exploration of tokens (`/system/tokens`, with Design Tokens downloads) and components (`/components`, with live variant and state controls). It is not the complete Phase 1 workspace. Context and export screens, rules, layouts, the playground, and documentation come in later milestones. Add `?scenario=empty` or `?scenario=error` to the Tokens, Components, and component detail pages to see their empty and error states. The demo validation endpoint returns fixtures; it never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.
+All thirteen views are built: Overview, Getting Started, Theme, Tokens, Components, Component Detail, Layouts, AI Context, Rules, Accessibility, Validation, Playground, and Documentation, plus `/llms.txt` and `/llms-full.txt`. Add `?scenario=empty` or `?scenario=error` to any data-driven screen to see its empty and error states. Results shown as validation or health are demo fixtures. No package is published and nothing is deployed. The demo validation endpoint returns fixtures; it never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.

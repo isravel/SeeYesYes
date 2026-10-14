@@ -6,5 +6,5 @@ export default tseslint.config(
   js.configs.recommended, ...tseslint.configs.recommended,
   { files: ['**/*.ts', '**/*.tsx'], plugins: { 'react-hooks': hooks }, rules: { ...hooks.configs.recommended.rules } },
   { files: ['**/*.mjs'], languageOptions: { globals: { console: 'readonly', process: 'readonly', fetch: 'readonly', setTimeout: 'readonly', URL: 'readonly' } } },
-  { files: ['scripts/perf.mjs'], languageOptions: { globals: { window: 'readonly', PerformanceObserver: 'readonly' } } },
+  { files: ['scripts/perf.mjs'], languageOptions: { globals: { window: 'readonly', PerformanceObserver: 'readonly', performance: 'readonly' } } },
 );

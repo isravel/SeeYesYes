@@ -6,7 +6,7 @@ order: 3
 
 # Context for AI agents
 
-[AI Context](/ai/context) generates the shared contract as readable Markdown and structured JSON. It runs locally and calls no model.
+[AI Context](/ai/context) generates the shared contract as readable Markdown and structured JSON. It runs locally and calls no model. No evaluation of how well agents use these exports has been recorded yet, so nothing here claims better results.
 
 ## Three modes
 
