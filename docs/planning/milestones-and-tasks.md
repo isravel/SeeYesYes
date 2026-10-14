@@ -133,9 +133,9 @@ Goal: finish required quality checks and document what actually works.
 
 - [ ] M7.1 Run type checking, linting, focused tests, and production build; fix failures.
 - [ ] M7.2 Run browser journeys for theme persistence, context export, mock recovery, and key keyboard interactions.
-- [ ] M7.3 Audit all routes and relevant states with automated accessibility checks; resolve serious/critical findings and review the rest.
+- [x] M7.3 Audit all routes and relevant states with automated accessibility checks; resolve serious/critical findings and review the rest. [Evidence](../evidence/M7/M7.3-review.md)
 - [ ] M7.4 Complete manual keyboard/screen-reader checks and the applicable WCAG criteria review. **Needs a human tester;** an agent prepares the checklist and records supplied results only.
-- [ ] M7.5 Review viewport/zoom, light/dark, density/radius, motion, and overflow checks; audit OOCSS separation, naming, and independence across standalone/nested/overlay examples.
+- [x] M7.5 Review viewport/zoom, light/dark, density/radius, motion, and overflow checks; audit OOCSS separation, naming, and independence across standalone/nested/overlay examples. [Evidence](../evidence/M7/M7.5-review.md)
 - [ ] M7.6 Run the recorded production performance procedure and investigate budget failures.
 - [ ] M7.7 Review content for misleading package, AI, validation, maturity, or accessibility claims.
 - [ ] M7.8 Complete A01–A18 evidence and write local setup, architecture, mock boundaries, and known limitations.

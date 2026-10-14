@@ -32,3 +32,5 @@
 .rules p { margin: 4px 0; }
 .example pre:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
 .example pre { max-height: 26rem; }
+
+.placeholderTitle { margin: 0 0 20px; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }

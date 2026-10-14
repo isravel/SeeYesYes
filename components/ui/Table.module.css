@@ -5,4 +5,4 @@
 .root th, .root td { padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-top: 1px solid var(--sys-color-border); white-space: nowrap; }
 .root thead { background: var(--sys-color-muted); }
 .root th { font-weight: var(--sys-typography-weight-medium); text-align: start; }
-.empty { color: var(--sys-color-muted-foreground); white-space: normal !important; }
+.root .empty { color: var(--sys-color-muted-foreground); white-space: normal; }

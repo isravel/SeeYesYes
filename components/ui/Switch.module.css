@@ -1,7 +1,8 @@
 .root { display: inline-flex; min-height: var(--sys-spacing-target-minimum); align-items: center; gap: var(--sys-spacing-inline); color: var(--sys-color-foreground); font-size: var(--sys-typography-label); cursor: pointer; }
-.control { position: relative; width: 2.75rem; height: 1.5rem; flex: none; appearance: none; margin: 0; border: 0; border-radius: 999px; background: var(--sys-color-muted); cursor: inherit; transition: background-color var(--sys-motion-duration) ease; }
-.control::after { position: absolute; top: .1875rem; left: .1875rem; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--sys-color-surface); content: ""; transition: transform var(--sys-motion-duration) ease; }
-.control:checked { background: var(--sys-color-primary); }
+.control { position: relative; width: 2.75rem; height: 1.5rem; flex: none; appearance: none; margin: 0; border: 0; border-radius: 999px; background: var(--sys-color-muted); box-shadow: inset 0 0 0 1px var(--sys-color-border); cursor: inherit; transition: background-color var(--sys-motion-duration) ease; }
+.control::after { position: absolute; top: .1875rem; left: .1875rem; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--sys-color-muted-foreground); content: ""; transition: transform var(--sys-motion-duration) ease; }
+.control:checked { background: var(--sys-color-primary); box-shadow: none; }
+.control:checked::after { background: var(--sys-color-on-primary); }
 .control:checked::after { transform: translateX(1.25rem); }
 .control:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
 .control:disabled { cursor: not-allowed; opacity: .6; }

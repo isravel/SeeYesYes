@@ -36,11 +36,13 @@ function Detail({ componentId, scenario }: { componentId: string; scenario: Scen
   // The registry supplies linked examples and components, so it loads only after the component succeeds.
   const secondary = useQuery({ queryKey: ['registry', scenario], queryFn: ({ signal }) => adapter.get('registry', { scenario, signal }), enabled: primary.isSuccess, retry: false, staleTime: Infinity });
   const crumbs = <nav aria-label="Breadcrumb" className={styles.crumbs}><Link href="/components">Components</Link><span aria-hidden="true"> / </span><span aria-current="page">{primary.data?.name ?? componentId}</span></nav>;
+  // While loading or after an error there is no contract yet, but the page still needs its heading.
+  const placeholderTitle = <h1 className={styles.placeholderTitle}>{componentId}</h1>;
 
-  if (primary.isPending) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<LoadingState label="Loading component" description="Reading the component contract." variant="skeleton" /></main>;
-  if (primary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<ErrorState message={primary.error.message} onRetry={() => { void primary.refetch(); }} /></main>;
-  if (secondary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<ErrorState title="Linked data did not load" message={secondary.error.message} onRetry={() => { void secondary.refetch(); }} /></main>;
-  if (!secondary.data) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<LoadingState label="Loading examples and linked components" variant="skeleton" /></main>;
+  if (primary.isPending) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<LoadingState label="Loading component" description="Reading the component contract." variant="skeleton" /></main>;
+  if (primary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<ErrorState message={primary.error.message} onRetry={() => { void primary.refetch(); }} /></main>;
+  if (secondary.isError) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<ErrorState title="Linked data did not load" message={secondary.error.message} onRetry={() => { void secondary.refetch(); }} /></main>;
+  if (!secondary.data) return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}{placeholderTitle}<LoadingState label="Loading examples and linked components" variant="skeleton" /></main>;
   return <main id="main" tabIndex={-1} className={styles.page}>{crumbs}<DetailContent component={primary.data} system={secondary.data} /></main>;
 }
 

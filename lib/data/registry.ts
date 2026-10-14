@@ -137,7 +137,7 @@ const linkContract: ComponentContract = {
     { name: 'children', type: 'ReactNode', required: true, description: 'Describe the destination.' },
     { name: 'variant', type: 'default | subtle', required: false, defaultValue: 'default', allowedValues: ['default', 'subtle'], description: 'Link emphasis.' },
   ], variants: { variant: ['default', 'subtle'] }, compoundVariants: [], themeDefaults: { variant: ['default', 'subtle'] }, states: ['default', 'hover', 'focus-visible'],
-  tokenIds: ['color.primary', 'color.foreground', 'color.focus'], accessibility: { status: 'not-reviewed', requirements: ['Use meaningful link text and a real href.', 'Keep focus visible.'], keyboard: [{ key: 'Enter', behavior: 'Follow the link.' }], ruleIds: ['wcag-focus-visible'] },
+  tokenIds: ['color.primary', 'color.foreground', 'color.focus', 'radius.control'], accessibility: { status: 'not-reviewed', requirements: ['Use meaningful link text and a real href.', 'Keep focus visible.'], keyboard: [{ key: 'Enter', behavior: 'Follow the link.' }], ruleIds: ['wcag-focus-visible'] },
   composition: { allowedComponentIds: [], constraints: ['Do not nest links or buttons.'] }, prohibitedUsage: ['Running an action without navigation; use Button.'],
   exampleIds: ['link-docs'], ruleIds: ['prefer-semantic-link'], aiGuidance: { prefer: ['Use Link for navigation.'], avoid: ['Buttons that only change the URL.'] },
 };
