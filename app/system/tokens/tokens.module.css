@@ -22,3 +22,10 @@
 .usage p { margin: 4px 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
 @media (max-width: 900px) { .filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .list { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .filters { grid-template-columns: minmax(0, 1fr); } }
+
+.export { margin-top: 24px; padding: 20px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
+.export h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.export h3 { margin: 16px 0 6px; font-size: 1rem; }
+.export p { margin: 6px 0; color: var(--sys-color-muted-foreground); font-size: .9rem; max-width: 46rem; }
+.exportActions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.exportError { padding: 10px 12px; border: 1px solid var(--sys-color-destructive); border-left-width: 4px; border-radius: var(--sys-radius-control); color: var(--sys-color-foreground) !important; }

@@ -17,8 +17,17 @@ import type { FontOption, Mode, ResolvedToken } from '@/lib/contract/schema';
 import { createHttpAdapter } from '@/lib/data/adapter';
 import type { Scenario } from '@/lib/data/api';
 import { resolveTokens } from '@/lib/theme/resolve';
+import { DESIGN_TOKENS_FORMAT, exportDesignTokens, NOTES_FILENAME, TokenExportError } from '@/lib/contract/design-tokens';
 import { filterTokens, isColorValue, noFilters, type TokenFilters, type TokenUsage } from '@/lib/tokens/browse';
 import styles from './tokens.module.css';
+
+function download(name: string, content: string) {
+  const url = URL.createObjectURL(new Blob([content], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url; link.download = name;
+  document.body.append(link); link.click(); link.remove();
+  URL.revokeObjectURL(url);
+}
 
 const categories: ResolvedToken['category'][] = ['color', 'typography', 'spacing', 'radius', 'shadow', 'effect', 'motion'];
 
@@ -38,6 +47,11 @@ function Tokens({ scenario, fonts, usage }: Props) {
   const query = useQuery({ queryKey: ['tokens', scenario], queryFn: ({ signal }) => adapter.get('tokens', { scenario, signal }), retry: false, staleTime: Infinity });
   const [filters, setFilters] = useState<TokenFilters>(noFilters);
   const tokens = useMemo(() => query.data ? resolveTokens(query.data, theme, fonts) : [], [query.data, theme, fonts]);
+  const exported = useMemo(() => {
+    if (tokens.length === 0) return null;
+    try { return { ok: true as const, ...exportDesignTokens(tokens, theme) }; }
+    catch (error) { return { ok: false as const, message: error instanceof TokenExportError ? error.message : 'The export could not be built.' }; }
+  }, [tokens, theme]);
   const shown = useMemo(() => filterTokens(tokens, filters), [tokens, filters]);
   const filtered = filters.query !== '' || filters.category !== 'all' || filters.kind !== 'all';
   const clear = () => setFilters(noFilters);
@@ -52,6 +66,20 @@ function Tokens({ scenario, fonts, usage }: Props) {
     {query.isError && <ErrorState message={query.error.message} onRetry={() => { void query.refetch(); }} />}
     {query.data && query.data.length === 0 && <EmptyState title="No tokens yet" description="The registry returned no token definitions. Switch to the normal demo data to see them." action={<Link href="/system/tokens">Show the normal tokens</Link>} />}
     {query.data && query.data.length > 0 && <>
+      <section className={styles.export} aria-labelledby="export-heading">
+        <h2 id="export-heading">Download design tokens</h2>
+        {exported?.ok === false && <p className={styles.exportError} role="alert">Design tokens cannot be downloaded because a value is invalid: {exported.message}</p>}
+        {exported?.ok && <>
+          <p>One file per mode for the applied theme, in the {DESIGN_TOKENS_FORMAT}. Tools that read this format, such as Style Dictionary, can use them. {exported.notes.summary}</p>
+          <div className={styles.exportActions}>
+            {exported.files.map(file => <Button key={file.name} variant="secondary" onClick={() => download(file.name, file.content)}>Download {file.mode} tokens</Button>)}
+            <Button variant="ghost" onClick={() => download(NOTES_FILENAME, exported.notesContent)}>Download export notes</Button>
+          </div>
+          {exported.notes.exclusions.length > 0 && <><h3>Excluded from the files</h3>
+            <ul>{exported.notes.exclusions.map(item => <li key={item.id}><code>{item.id}</code> ({item.modes.join(' and ')}): {item.reason}</li>)}</ul></>}
+          {exported.notes.exclusions.length === 0 && <p className={styles.exportNote}>No tokens are excluded.</p>}
+        </>}
+      </section>
       <section className={styles.filters} aria-label="Find tokens">
         <label className={styles.field}>Search tokens
           <Input type="search" value={filters.query} placeholder="Name, variable, or purpose" onChange={event => setFilters({ ...filters, query: event.currentTarget.value })} />

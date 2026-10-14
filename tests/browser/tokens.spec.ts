@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- these tests navigate downloaded JSON documents */
 import { test, expect } from '@playwright/test';
 
 test('tokens follow the applied theme, filter, mark the mode in effect, and copy values', async ({ page, context }) => {
@@ -69,4 +70,44 @@ test('applied changes show up on Tokens, drafts do not, and the draft survives n
   await page.getByRole('searchbox', { name: 'Search tokens' }).fill('radius.control');
   await expect(value).toHaveText('1rem');
   await expect(page.getByText('custom, based on')).toBeVisible();
+});
+
+test('design token downloads follow the applied theme, validate, and list exclusions honestly', async ({ page }) => {
+  await page.goto('/system/tokens');
+  await expect(page.getByRole('heading', { name: 'Download design tokens' })).toBeVisible();
+  await expect(page.getByText('Design Tokens Format Module 2025.10')).toBeVisible();
+  await expect(page.getByText('Style Dictionary')).toBeVisible();
+  await expect(page.getByText('No tokens are excluded.')).toBeVisible();
+
+  const read = async (name: string) => {
+    const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name }).click()]);
+    const path = await download.path();
+    const { readFileSync } = await import('node:fs');
+    return { filename: download.suggestedFilename(), json: JSON.parse(readFileSync(path, 'utf8')) as Record<string, any> };
+  };
+  const light = await read('Download light tokens');
+  expect(light.filename).toBe('seeyesyes.light.tokens.json');
+  const dark = await read('Download dark tokens');
+  expect(dark.filename).toBe('seeyesyes.dark.tokens.json');
+  expect(light.json.color.primary.$type).toBe('color');
+  expect(light.json.color.primary.$value.colorSpace).toBe('oklch');
+  expect(light.json.color.primary.$value).not.toEqual(dark.json.color.primary.$value);
+  expect(light.json.radius.control.$value).toEqual(dark.json.radius.control.$value);
+  const notes = await read('Download export notes');
+  expect(notes.filename).toBe('seeyesyes.export-notes.json');
+  expect(notes.json).toMatchObject({ format: 'Design Tokens Format Module 2025.10', exclusions: [] });
+
+  // A draft changes nothing; applying it changes the files.
+  await page.goto('/system/theme');
+  await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
+  await page.goto('/system/tokens');
+  expect((await read('Download light tokens')).json.radius.control.$value).toEqual({ value: 0.5, unit: 'rem' });
+  await page.goto('/system/theme');
+  await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
+  await page.getByRole('button', { name: 'Apply to workspace' }).click();
+  await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
+  await page.goto('/system/tokens');
+  const applied = await read('Download light tokens');
+  expect(applied.json.radius.control.$value).toEqual({ value: 1, unit: 'rem' });
+  expect((await read('Download export notes')).json).toMatchObject({ themeId: 'custom', basedOnThemeId: 'default' });
 });
