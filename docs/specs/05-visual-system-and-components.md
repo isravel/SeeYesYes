@@ -119,7 +119,7 @@ Keep selectors shallow and component-owned. Avoid IDs, cross-module child overri
 | Feedback | Alert, Badge, Progress, Spinner, Skeleton |
 | Structure/data | Card, Table, Avatar, Separator |
 
-Components with `interactive: true` are Button, Link, Navigation, Tabs, Dropdown Menu, Dialog, Tooltip (dismissible with Escape), Input, Textarea, Select, Checkbox, Radio Group, and Switch. All others are `interactive: false`, including Label, Form Field, Card, Table, Avatar, Separator, Alert, Badge, Progress, Spinner, and Skeleton. A component that later gains a focusable part, such as a dismissible Alert, changes to `true` and gains keyboard guidance and the focus rule.
+Components with `interactive: true` are Button, Link, Navigation, Tabs, Dropdown Menu, Dialog, Tooltip (dismissible with Escape), Input, Textarea, Select, Checkbox, Radio Group, and Switch. The feedback patterns that embed an action, retry, link, or copy control (Empty State, Error State, Not Found, and Copy Button) are also `interactive: true`. All others are `interactive: false`, including Label, Form Field, Card, Table, Avatar, Separator, Alert, Badge, Progress, Spinner, and Skeleton. A component that later gains a focusable part, such as a dismissible Alert, changes to `true` and gains keyboard guidance and the focus rule.
 
 Link is explicitly required because Button guidance depends on a semantic navigation alternative. Use Radio Group to describe grouped radio behavior. Dropdown and Dropdown Menu refer to one component family, not two implementations.
 
