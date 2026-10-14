@@ -204,3 +204,27 @@ test('copy and download failures and empty selections give clear feedback', asyn
   await expect(page.getByRole('button', { name: 'Download JSON' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Copy JSON context' })).toHaveCount(0);
 });
+
+test('the AGENTS.md snippet shows its size, copies exactly, and updates after Apply', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/ai/context');
+  const section = page.getByRole('region', { name: 'Agent instructions' });
+  await expect(section).toContainText('Paste it into');
+  const shown = (await section.getByLabel('AGENTS.md snippet').locator('code').textContent())!;
+  await expect(section).toContainText(`${Buffer.byteLength(shown, 'utf8').toLocaleString('en-US')} bytes`);
+  await expect(section).toContainText('not token counts');
+  for (const component of registry.components) expect(shown).toContain(`- ${component.name}: \`import { ${component.publicImport.exportName} }`);
+  expect(shown).toContain('Theme: `default`.');
+  await section.getByRole('button', { name: 'Copy AGENTS.md snippet' }).click();
+  await expect(page.getByText('AGENTS.md snippet copied to clipboard.')).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(shown);
+
+  await page.goto('/system/theme');
+  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
+  await page.getByRole('button', { name: 'Apply to workspace' }).click();
+  await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
+  await page.goto('/ai/context');
+  const updated = (await page.getByLabel('AGENTS.md snippet').locator('code').textContent())!;
+  expect(updated).toContain('Theme: `custom` (based on `default`).');
+  expect(updated).toMatch(/- Button: .* \(default variant=ghost\)/);
+});

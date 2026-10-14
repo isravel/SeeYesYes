@@ -59,3 +59,49 @@ describe('route kinds', () => {
     for (const href of ['/llms.txt', '/llms-full.txt', '/api/registry', '/sample-avatar.svg', '#main', 'https://example.com']) expect(isPageRoute(href), href).toBe(false);
   });
 });
+
+import { buildAgentsSnippet, AGENTS_SNIPPET_TARGET_BYTES } from '@/lib/contract/agent-files';
+import { byteLength } from '@/lib/contract/export-files';
+import { defaultTheme } from '@/lib/data/registry';
+import { assignThemeIdentity } from '@/lib/theme/identity';
+
+describe('AGENTS.md snippet', () => {
+  const settings = (theme = defaultTheme, appearance: 'light' | 'dark' | 'system' = 'system') => ({ settingsVersion: 1 as const, theme, appearance });
+  const snippet = buildAgentsSnippet(registry, settings());
+
+  it('includes every component with its verified import, and every system rule', () => {
+    for (const component of registry.components) {
+      expect(snippet, component.id).toContain(`- ${component.name}: \`import { ${component.publicImport.exportName} } from "${component.publicImport.module}";\` ${component.shortPurpose}`);
+    }
+    for (const rule of registry.rules.filter(r => r.appliesTo === 'system')) expect(snippet, rule.id).toContain(`- \`${rule.id}\` (${rule.severity}): ${rule.description}`);
+    for (const rule of registry.rules.filter(r => r.appliesTo !== 'system')) expect(snippet).not.toContain(`\`${rule.id}\``);
+    for (const text of [...registry.principles, ...registry.project.guidance]) expect(snippet).toContain(text);
+    expect(snippet).toContain('/ai/context');
+    expect(snippet).toContain('/llms.txt');
+  });
+
+  it('stays near its size target without dropping anything', () => {
+    expect(byteLength(snippet)).toBeLessThanOrEqual(AGENTS_SNIPPET_TARGET_BYTES * 1.25);
+    expect(byteLength(snippet)).toBeGreaterThan(AGENTS_SNIPPET_TARGET_BYTES * 0.5);
+  });
+
+  it('is deterministic and independent of record order', () => {
+    expect(buildAgentsSnippet(registry, settings())).toBe(snippet);
+    expect(buildAgentsSnippet({ ...registry, components: [...registry.components].reverse(), rules: [...registry.rules].reverse() }, settings())).toBe(snippet);
+  });
+
+  it('updates after Apply: the theme ID, its base, the appearance, and only the defaults that changed', () => {
+    expect(snippet).toContain('Theme: `default`.');
+    expect(snippet).not.toContain('(default ');
+    const edited = assignThemeIdentity({ ...defaultTheme, componentDefaults: { button: { variant: 'ghost' } } }, registry.themePresets);
+    const applied = buildAgentsSnippet(registry, settings(edited, 'dark'));
+    expect(applied).toContain('Theme: `custom` (based on `default`). Appearance: dark.');
+    expect(applied).toMatch(/- Button: .* \(default variant=ghost\)/);
+    expect(applied.match(/\(default /g)).toHaveLength(1);
+    expect(applied).not.toBe(snippet);
+  });
+
+  it('rejects invalid settings instead of writing a misleading snippet', () => {
+    expect(() => buildAgentsSnippet(registry, { settingsVersion: 1, theme: defaultTheme, appearance: 'sepia' })).toThrow();
+  });
+});

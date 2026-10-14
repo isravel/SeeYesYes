@@ -18,6 +18,7 @@ import { createHttpAdapter } from '@/lib/data/adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { AIContext, DesignSystem } from '@/lib/contract/schema';
 import { createContext } from '@/lib/contract/context';
+import { AGENTS_SNIPPET_TARGET_BYTES, buildAgentsSnippet } from '@/lib/contract/agent-files';
 import { contextCounts, contextMarkdown, stableJson } from '@/lib/contract/serialize';
 import { downloadText } from '@/lib/browser/download';
 import { byteLength, contextFilename, formatBytes, SETTINGS_FILENAME } from '@/lib/contract/export-files';
@@ -66,6 +67,7 @@ function Builder({ system }: { system: DesignSystem }) {
   const markdown = useMemo(() => context ? contextMarkdown(context) : '', [context]);
   const [fileMessage, setFileMessage] = useState('');
   const save = (name: string, content: string, type: string) => setFileMessage(downloadText(name, content, type) ?? `Saved ${name}.`);
+  const agents = useMemo(() => buildAgentsSnippet(system, settings), [system, settings]);
   const settingsJson = useMemo(() => stableJson(WorkspaceSettingsSchema.parse(settings)), [settings]);
 
   return <>
@@ -86,6 +88,16 @@ function Builder({ system }: { system: DesignSystem }) {
             : <ul>{choices.map(component => <li key={component.id}><label><Checkbox checked={selected.includes(component.id)} onChange={() => toggle(component.id)} /> <span>{component.name}</span> <span className={styles.muted}>{component.shortPurpose}</span></label></li>)}</ul>}
         </fieldset>
       </div>}
+    </section>
+
+    <section className={styles.panel} aria-labelledby="agents-heading">
+      <h2 id="agents-heading">Agent instructions</h2>
+      <p className={styles.note}>A short <code>AGENTS.md</code> snippet for your project: the principles, project guidance, your applied theme, one line per component with its import, and every system rule. Paste it into <code>AGENTS.md</code>, <code>CLAUDE.md</code>, or whichever instructions file your coding agent reads. It is an index, so use a task export above for detailed work.</p>
+      <div className={styles.exportRow}>
+        <strong>AGENTS.md snippet</strong><span className={styles.muted}>{formatBytes(byteLength(agents))} (target about {formatBytes(AGENTS_SNIPPET_TARGET_BYTES)}; bytes, not token counts)</span>
+        <CopyButton label="AGENTS.md snippet" value={agents} successMessage="AGENTS.md snippet copied to clipboard." />
+      </div>
+      <pre className={styles.code} tabIndex={0} aria-label="AGENTS.md snippet"><code>{agents}</code></pre>
     </section>
 
     {result.status === 'empty' && <EmptyState title="Select a component to export" description="Task context needs at least one component. Pick one above, or switch to Overview or Full." />}

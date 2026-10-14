@@ -33,3 +33,36 @@ export function buildLlmsFullTxt(system: DesignSystem): string {
   const context = createContext(system, { mode: 'full' });
   return `> ${DEFAULT_THEME_NOTE}\n\n${contextMarkdown(context)}`;
 }
+
+export const AGENTS_SNIPPET_TARGET_BYTES = 4096;
+
+import { validateTheme, effectiveDefaults } from './validate';
+import { WorkspaceSettingsSchema } from './schema';
+
+/**
+ * The `AGENTS.md` snippet: an index like overview mode, not implementation guidance. Every line comes from contract fields.
+ * Nothing is dropped to fit a size target; if it runs long, tighten `shortPurpose` or rule descriptions in the registry.
+ */
+export function buildAgentsSnippet(system: DesignSystem, settingsInput: unknown): string {
+  const settings = WorkspaceSettingsSchema.parse(settingsInput);
+  const theme = validateTheme(settings.theme, system);
+  const contractDefaults = (component: DesignSystem['components'][number]) => effectiveDefaults(component, { ...theme, componentDefaults: {} });
+  const componentLine = (component: DesignSystem['components'][number]) => {
+    const applied = effectiveDefaults(component, theme);
+    const base = contractDefaults(component);
+    const changed = Object.keys(applied).filter(name => applied[name] !== base[name]).sort().map(name => `${name}=${String(applied[name])}`);
+    return `- ${component.name}: \`import { ${component.publicImport.exportName} } from "${component.publicImport.module}";\` ${component.shortPurpose}${changed.length ? ` (default ${changed.join(', ')})` : ''}`;
+  };
+  const rules = byId(system.rules.filter(rule => rule.appliesTo === 'system'));
+  const lines = [
+    `## ${system.name} design system`, '',
+    `Use the ${system.name} design system for UI in this project. ${system.principles[0]}`, '',
+    '### Principles', '', ...system.principles.map(principle => `- ${principle}`), '',
+    '### Project guidance', '', ...system.project.guidance.map(item => `- ${item}`), '',
+    `### Theme`, '', `Theme: \`${theme.id}\`${theme.basedOn ? ` (based on \`${theme.basedOn}\`)` : ''}. Appearance: ${settings.appearance}. Use semantic CSS variables from the system; do not hard-code colors.`, '',
+    '### Components', '', 'Prefer these over custom markup. Import each from its module.', '', ...byId(system.components).map(componentLine), '',
+    '### Rules', '', ...rules.map(rule => `- \`${rule.id}\` (${rule.severity}): ${rule.description}`), '',
+    '### More detail', '', 'For detailed work on specific components, copy a task export from AI Context (/ai/context). The full system is at /llms-full.txt and an index at /llms.txt.', '',
+  ];
+  return `${lines.join('\n')}\n`;
+}
