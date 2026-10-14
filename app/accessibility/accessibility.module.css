@@ -1,0 +1,11 @@
+.page { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding-block: 38px 72px; }
+.header { display: flex; justify-content: space-between; align-items: start; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--sys-color-muted); }
+.header h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.header p:not(.eyebrow) { max-width: 46rem; color: var(--sys-color-muted-foreground); }
+.eyebrow { margin: 0 0 8px; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
+.section { padding-block: 28px; border-bottom: 1px solid var(--sys-color-muted); min-width: 0; }
+.section h2 { margin: 0 0 12px; font-size: 1.3rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.section h3 { margin: 24px 0 8px; font-size: 1.05rem; }
+.note { color: var(--sys-color-muted-foreground); font-size: .9rem; max-width: 48rem; }
+.summary { margin: 12px 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } }

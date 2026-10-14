@@ -33,6 +33,7 @@ const screens = [
   { name: 'Components', path: '/components', api: '**/api/components?*', loading: 'Loading components', ready: (page: Page) => page.locator('li#button'), empty: 'No components yet', emptyLink: 'Show the normal catalog', noMatch: { box: 'Search components', title: 'No components match' } },
   { name: 'Rules', path: '/system/rules', api: '**/api/rules?*', loading: 'Loading rules', ready: (page: Page) => page.locator('li[id="wcag-contrast"]'), empty: 'No rules yet', emptyLink: 'Show the normal rules', noMatch: null },
   { name: 'Validation', path: '/validation', api: '**/api/validation?*', loading: 'Loading demo reports', ready: (page: Page) => page.getByRole('heading', { name: /Demo report/ }), empty: 'No demo reports', emptyLink: 'Show the demo reports', noMatch: null },
+  { name: 'Accessibility', path: '/accessibility', api: '**/api/components?*', loading: 'Loading review evidence', ready: (page: Page) => page.getByRole('region', { name: 'Component review evidence table' }), empty: null, emptyLink: null, noMatch: null },
   { name: 'AI Context', path: '/ai/context', api: '**/api/registry?*', loading: 'Loading the registry', ready: (page: Page) => page.getByRole('radio', { name: 'Overview', exact: true }), empty: null, emptyLink: null, noMatch: null },
   { name: 'Component Detail', path: '/components/button', api: '**/api/components/button?*', loading: 'Loading component', ready: (page: Page) => page.getByRole('heading', { level: 1, name: 'Button', exact: true }), empty: null, emptyLink: null, noMatch: null },
 ];
@@ -71,9 +72,9 @@ for (const screen of screens) {
 
     test('the demo error scenario stays an error and keeps offering Retry', async ({ page }) => {
       await page.goto(`${screen.path}?scenario=error`);
-      await expect(page.getByText(/deterministic error scenario/)).toBeVisible();
-      await page.getByRole('button', { name: 'Retry' }).click();
-      await expect(page.getByText(/deterministic error scenario/)).toBeVisible();
+      await expect(page.getByText(/deterministic error scenario/).first()).toBeVisible();
+      await page.getByRole('button', { name: 'Retry' }).first().click();
+      await expect(page.getByText(/deterministic error scenario/).first()).toBeVisible();
     });
   });
 }
