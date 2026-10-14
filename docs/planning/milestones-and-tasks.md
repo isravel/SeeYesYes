@@ -100,7 +100,7 @@ Completion gate: A02, component- and token-related A09 (including the Design Tok
 Goal: make the shared contract visible and exportable without overstating enforcement.
 
 - [x] M5.1 Build overview/task/full context selection, searchable component selection, dependency counts, and matching human/JSON/Markdown views from applied settings. [Evidence](../evidence/M5/M5.1/review.md)
-- [ ] M5.2 Implement copy/download with failure feedback, `WorkspaceSettings` JSON download, stable serialization, schema/mode/scope labels, byte counts, and empty-selection/reference-error handling.
+- [x] M5.2 Implement copy/download with failure feedback, `WorkspaceSettings` JSON download, stable serialization, schema/mode/scope labels, byte counts, and empty-selection/reference-error handling. [Evidence](../evidence/M5/M5.2/review.md)
 - [ ] M5.3 Build Rules with severity/category filters and referenced violation/corrected examples.
 - [ ] M5.4 Seed clean, mixed, and failing validation scenarios with resolvable rule/example references.
 - [ ] M5.5 Build Validation filters, findings, linked details, and copyable fixes; show unavailable auto-fix explicitly.
@@ -168,7 +168,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
-| M5 | In progress | 2026-10-14 | [M5.1 review](../evidence/M5/M5.1/review.md) | M5.2–M5.10 remain open. |
+| M5 | In progress | 2026-10-14 | [M5.2 review](../evidence/M5/M5.2/review.md) | M5.3–M5.10 remain open. |
 | M6 | Not started | — | — | — |
 | M7 | Not started | — | — | — |
 

@@ -133,3 +133,74 @@ test('loading, error, and missing-data states offer Retry, and the page fits and
     expect(serious).toEqual([]);
   }
 });
+
+const readDownload = async (page: Page, name: string) => {
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name }).click()]);
+  const { readFileSync } = await import('node:fs');
+  return { filename: download.suggestedFilename(), content: readFileSync((await download.path())!, 'utf8') };
+};
+
+test('copy and download deliver exactly the displayed export, with byte counts', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/ai/context');
+  await pickMode(page, 'Task');
+  await page.getByRole('checkbox', { name: /^Button/ }).check();
+  const json = (await jsonText(page))!;
+  const markdown = (await markdownText(page))!;
+  const bytes = (text: string) => Buffer.byteLength(text, 'utf8').toLocaleString('en-US');
+
+  const exportsPanel = page.getByRole('region', { name: 'Copy or download' });
+  await expect(exportsPanel).toContainText('not token counts');
+  await expect(exportsPanel.locator('div', { hasText: /^JSON/ }).first()).toContainText(`${bytes(json)} bytes`);
+  await expect(exportsPanel.locator('div', { hasText: /^Markdown/ }).first()).toContainText(`${bytes(markdown)} bytes`);
+
+  await page.getByRole('button', { name: 'Copy JSON context' }).click();
+  await expect(page.getByText('JSON copied to clipboard.')).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(json);
+  await page.getByRole('button', { name: 'Copy Markdown context' }).click();
+  await expect(page.getByText('Markdown copied to clipboard.')).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(markdown);
+
+  const jsonFile = await readDownload(page, 'Download JSON');
+  expect(jsonFile.filename).toBe('seeyesyes.task-button.context.json');
+  expect(jsonFile.content).toBe(json);
+  expect(Buffer.byteLength(jsonFile.content, 'utf8').toLocaleString('en-US')).toBe(bytes(json));
+  const mdFile = await readDownload(page, 'Download Markdown');
+  expect(mdFile.filename).toBe('seeyesyes.task-button.context.md');
+  expect(mdFile.content).toBe(markdown);
+  await expect(page.getByText('Saved seeyesyes.task-button.context.md.')).toBeVisible();
+});
+
+test('the settings download is the applied WorkspaceSettings without a cache', async ({ page }) => {
+  await page.goto('/system/theme');
+  await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
+  await page.getByRole('button', { name: 'Apply to workspace' }).click();
+  await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
+  await page.getByRole('combobox', { name: 'Workspace appearance' }).selectOption('light');
+  await expect(page.getByText('Appearance saved.')).toBeVisible();
+  await page.goto('/ai/context');
+  const file = await readDownload(page, 'Download settings JSON');
+  expect(file.filename).toBe('seeyesyes.settings.json');
+  const settings = JSON.parse(file.content);
+  expect(Object.keys(settings).sort()).toEqual(['appearance', 'settingsVersion', 'theme']);
+  expect(settings).toMatchObject({ settingsVersion: 1, appearance: 'light', theme: { id: 'custom', basedOn: 'default', radius: 'curvy' } });
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('seeyesyes:settings:v1')!));
+  expect(settings).toEqual(stored.settings);
+});
+
+test('copy and download failures and empty selections give clear feedback', async ({ page }) => {
+  // No clipboard permission: the shared copy pattern reports the failure.
+  await page.goto('/ai/context');
+  await page.getByRole('button', { name: 'Copy JSON context' }).click();
+  await expect(page.getByText('Could not copy. Check clipboard access and try again.')).toBeVisible();
+
+  await page.evaluate(() => { URL.createObjectURL = () => { throw new Error('blocked'); }; });
+  await page.getByRole('button', { name: 'Download JSON' }).click();
+  await expect(page.getByText('The file could not be saved.')).toBeVisible();
+
+  // Task mode with nothing selected offers no export at all.
+  await pickMode(page, 'Task');
+  await expect(page.getByRole('heading', { name: 'Select a component to export' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Download JSON' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Copy JSON context' })).toHaveCount(0);
+});

@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { useStore } from 'zustand';
 import { useThemeStores } from '@/components/theme/ThemeLifecycleProvider';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CopyButton } from '@/components/ui/copy-button';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ErrorState } from '@/components/ui/error-state';
 import { Input } from '@/components/ui/input';
@@ -17,6 +19,9 @@ import type { Scenario } from '@/lib/data/api';
 import type { AIContext, DesignSystem } from '@/lib/contract/schema';
 import { createContext } from '@/lib/contract/context';
 import { contextCounts, contextMarkdown, stableJson } from '@/lib/contract/serialize';
+import { downloadText } from '@/lib/browser/download';
+import { byteLength, contextFilename, formatBytes, SETTINGS_FILENAME } from '@/lib/contract/export-files';
+import { WorkspaceSettingsSchema } from '@/lib/contract/schema';
 import { filterComponents, noComponentFilters } from '@/lib/components/catalog';
 import { ContextHuman } from './ContextHuman';
 import styles from './context.module.css';
@@ -59,6 +64,9 @@ function Builder({ system }: { system: DesignSystem }) {
   const context = result.status === 'ok' ? result.context : null;
   const json = useMemo(() => context ? stableJson(context) : '', [context]);
   const markdown = useMemo(() => context ? contextMarkdown(context) : '', [context]);
+  const [fileMessage, setFileMessage] = useState('');
+  const save = (name: string, content: string, type: string) => setFileMessage(downloadText(name, content, type) ?? `Saved ${name}.`);
+  const settingsJson = useMemo(() => stableJson(WorkspaceSettingsSchema.parse(settings)), [settings]);
 
   return <>
     <section className={styles.panel} aria-labelledby="mode-heading">
@@ -93,6 +101,23 @@ function Builder({ system }: { system: DesignSystem }) {
         </dl>
         <Counts context={context} />
         {context.mode === 'task' && <TaskSelection context={context} />}
+      </section>
+      <section className={styles.panel} aria-labelledby="export-heading">
+        <h2 id="export-heading">Copy or download</h2>
+        <p className={styles.note}>Sizes are UTF-8 bytes of the file, not token counts.</p>
+        <div className={styles.exports}>
+          {([['JSON', json, 'json', 'application/json'], ['Markdown', markdown, 'md', 'text/markdown']] as const).map(([label, text, extension, type]) => <div key={label} className={styles.exportRow}>
+            <strong>{label}</strong><span className={styles.muted}>{formatBytes(byteLength(text))}</span>
+            <CopyButton label={`${label} context`} value={text} successMessage={`${label} copied to clipboard.`} />
+            <Button variant="secondary" onClick={() => save(contextFilename(context, extension), text, type)}>Download {label}</Button>
+          </div>)}
+          <div className={styles.exportRow}>
+            <strong>Applied settings</strong><span className={styles.muted}>{formatBytes(byteLength(settingsJson))}</span>
+            <Button variant="secondary" onClick={() => save(SETTINGS_FILENAME, settingsJson, 'application/json')}>Download settings JSON</Button>
+          </div>
+        </div>
+        <p className={styles.note} role="status">{fileMessage}</p>
+        <p className={styles.note}>The settings file holds your applied theme and appearance (no cache). The exports above use that same applied theme.</p>
       </section>
       <Tabs label="Context views" items={[
         { id: 'human', label: 'Human', content: <ContextHuman context={context} /> },

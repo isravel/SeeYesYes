@@ -28,3 +28,7 @@
 .items p { margin: 4px 0 0; }
 @media (max-width: 800px) { .summary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } .choices ul { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } }
+
+.exports { display: grid; gap: 12px; margin-top: 12px; }
+.exportRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.exportRow strong { min-width: 8rem; }
