@@ -132,7 +132,7 @@ describe('pure context and one-way closure', () => {
     const first = createContext(registry, options);
     expect(stableJson(first)).toBe(stableJson(createContext(registry, { ...options, componentIds: ['button', 'link'] })));
     expect(first.appearance).toBe('system');
-    expect(JSON.parse(contextMarkdown(first).split('```json\n')[1].split('\n```')[0])).toEqual(first);
+    expect(contextMarkdown(first)).toBe(contextMarkdown(createContext(registry, { ...options, componentIds: ['button', 'link'] })));
   });
   it('overview is an index; full resolves from applied settings and reports custom identity', () => {
     const s = settings(); s.theme.density = 'spacious'; s.theme = assignThemeIdentity(s.theme, registry.themePresets);
