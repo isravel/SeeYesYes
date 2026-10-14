@@ -201,7 +201,7 @@ function DetailContent({ component, system }: { component: ComponentContract; sy
     <section className={styles.section} aria-labelledby="rules-heading">
       <h2 id="rules-heading">Rules</h2>
       {rules.length === 0 ? <p>No system rules are linked to this component.</p> : <ul className={styles.rules}>{rules.map(rule => <li key={rule.id} id={`rule-${rule.id}`}>
-        <p><code>{rule.id}</code> <Badge tone={rule.severity === 'error' ? 'destructive' : rule.severity === 'warning' ? 'warning' : 'neutral'}>{rule.severity}</Badge> <Badge>{rule.category}</Badge></p>
+        <p><Link href={`/system/rules#${rule.id}`}><code>{rule.id}</code></Link> <Badge tone={rule.severity === 'error' ? 'destructive' : rule.severity === 'warning' ? 'warning' : 'neutral'}>{rule.severity}</Badge> <Badge>{rule.category}</Badge></p>
         <p>{rule.description}</p><p className={styles.note}>Suggested fix: {rule.suggestedFix}</p>
       </li>)}</ul>}
     </section>

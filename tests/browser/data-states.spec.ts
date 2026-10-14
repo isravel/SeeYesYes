@@ -31,6 +31,8 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).analyze())
 const screens = [
   { name: 'Tokens', path: '/system/tokens', api: '**/api/tokens?*', loading: 'Loading tokens', ready: (page: Page) => page.locator('li#color\\.primary'), empty: 'No tokens yet', emptyLink: 'Show the normal tokens', noMatch: { box: 'Search tokens', title: 'No tokens match' } },
   { name: 'Components', path: '/components', api: '**/api/components?*', loading: 'Loading components', ready: (page: Page) => page.locator('li#button'), empty: 'No components yet', emptyLink: 'Show the normal catalog', noMatch: { box: 'Search components', title: 'No components match' } },
+  { name: 'Rules', path: '/system/rules', api: '**/api/rules?*', loading: 'Loading rules', ready: (page: Page) => page.locator('li[id="wcag-contrast"]'), empty: 'No rules yet', emptyLink: 'Show the normal rules', noMatch: null },
+  { name: 'AI Context', path: '/ai/context', api: '**/api/registry?*', loading: 'Loading the registry', ready: (page: Page) => page.getByRole('radio', { name: 'Overview', exact: true }), empty: null, emptyLink: null, noMatch: null },
   { name: 'Component Detail', path: '/components/button', api: '**/api/components/button?*', loading: 'Loading component', ready: (page: Page) => page.getByRole('heading', { level: 1, name: 'Button', exact: true }), empty: null, emptyLink: null, noMatch: null },
 ];
 
