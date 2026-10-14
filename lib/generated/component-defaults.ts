@@ -1,4 +1,4 @@
-// Generated from registry contracts. Do not edit.
+// Generated from component contracts. Do not edit.
 export type ComponentDefaults = {
 "button": { "variant": "primary" | "secondary" | "ghost" | "destructive"; "size": "small" | "medium" | "large"; "type": "button" | "submit" | "reset"; "disabled": boolean; "loading": boolean };
 "spinner": { "size": "small" | "medium" | "large" };

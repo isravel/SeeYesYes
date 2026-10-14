@@ -1,0 +1,2 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--sys-color-background); color: var(--sys-color-foreground); }
+main { padding: 24px; max-width: 48rem; margin-inline: auto; }

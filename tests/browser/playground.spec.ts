@@ -2,10 +2,13 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const scopeVar = (page: Page, selector: string, name: string) => page.locator(selector).evaluate((el, n) => getComputedStyle(el).getPropertyValue(n).trim(), name);
+/** Wait until the workspace scope has applied its variables, so baselines are not read from the pre-hydration stylesheet. */
+const hydrated = (page: Page) => expect.poll(() => page.evaluate(() => document.documentElement.style.getPropertyValue('--sys-radius-control'))).not.toBe('');
 const workspaceVar = (page: Page, name: string) => page.evaluate(n => getComputedStyle(document.documentElement).getPropertyValue(n).trim(), name);
 
 test('Playground starts from the applied theme, changes only its own preview, and resets', async ({ page }) => {
   await page.goto('/playground');
+  await hydrated(page);
   await expect(page.getByText('Playground only').first()).toBeVisible();
   await expect(page.getByText('Matches the applied theme.')).toBeVisible();
   const appliedRadius = await workspaceVar(page, '--sys-radius-control');
@@ -71,6 +74,7 @@ test('component, variant, and state controls change the real preview and its cod
 
 test('overlays portal into the Playground scope and inherit its settings, not the workspace', async ({ page }) => {
   await page.goto('/playground');
+  await hydrated(page);
   const workspaceRadius = await workspaceVar(page, '--sys-radius-control');
   await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
   await page.getByRole('combobox', { name: 'Component' }).selectOption('dialog');

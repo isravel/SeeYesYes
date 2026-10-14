@@ -146,9 +146,9 @@ Completion gate: all required acceptance checks pass with evidence. Any failed o
 
 Runs alongside the product milestones, following the [agent evaluation plan](../specs/07-agent-evaluation.md). These tasks do not block Phase 1 completion, but Phase 2 does not start until E5 is recorded.
 
-- [ ] E1 (during M6) Write the eight task files with prompts, expected components, probed rules, and requirement checklists. Confirm no task can be copied verbatim from a registry example.
-- [ ] E2 (during M6) Build the fixture app and its reset script. Confirm C0 contains no registry, documentation, exports, or `AGENTS.md`.
-- [ ] E3 (during M6) Build the scoring script for automated violation checks and axe runs, keyed by rule ID. Test it against the registry's violation and corrected examples.
+- [x] E1 (during M6) Write the eight task files with prompts, expected components, probed rules, and requirement checklists. Confirm no task can be copied verbatim from a registry example. [Evidence](../evidence/evaluation/e1-e3.md)
+- [x] E2 (during M6) Build the fixture app and its reset script. Confirm C0 contains no registry, documentation, exports, or `AGENTS.md`. [Evidence](../evidence/evaluation/e1-e3.md)
+- [x] E3 (during M6) Build the scoring script for automated violation checks and axe runs, keyed by rule ID. Test it against the registry's violation and corrected examples. [Evidence](../evidence/evaluation/e1-e3.md)
 - [ ] E4 (after M7) Run round 1: one agent setup, 8 tasks × 4 conditions × 3 runs, in randomized order. **Needs an operator;** an implementing agent must not score the manual checks of its own runs.
 - [ ] E5 Write the round 1 report with per-task and overall results against the pre-set decision criteria, and record follow-up decisions in the change log.
 

@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react';
 import { UNSAFE_PortalProvider } from '@react-aria/overlays';
 import type { Appearance, DesignSystem, Mode, Theme } from '@/lib/contract/schema';
-import { effectiveDefaults, validateTheme } from '@/lib/contract/validate';
+import { effectiveDefaults, validateTheme } from '@/lib/contract/theme-validation';
 import { cssVariables, resolveTokens } from '@/lib/theme/resolve';
 import { contractDefaults, type ComponentDefaults } from '@/lib/generated/component-defaults';
 import styles from './ThemeScope.module.css';

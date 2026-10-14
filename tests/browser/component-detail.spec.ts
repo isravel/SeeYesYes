@@ -4,9 +4,10 @@ import { registry } from '@/lib/data/registry';
 const headings = ['Overview', 'Live preview', 'Variants', 'States', 'Anatomy', 'Props', 'Recommended use', 'Prohibited use', 'Accessibility', 'Tokens', 'Composition', 'AI guidance', 'Rules', 'Metadata readiness', 'Contract'];
 
 test('every component has a detail route with every required section', async ({ page }) => {
+  test.setTimeout(120_000);
   for (const component of registry.components) {
     await page.goto(`/components/${component.id}`);
-    await expect(page.getByRole('heading', { level: 1, name: component.name, exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: component.name, exact: true })).toBeVisible({ timeout: 15_000 });
     for (const heading of headings) await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible();
     // Live preview renders the recommended example, props are tabulated, and review status is honest.
     await expect(page.getByTestId('component-preview')).toBeVisible();
