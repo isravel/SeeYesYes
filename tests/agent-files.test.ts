@@ -4,9 +4,14 @@ import { buildLlmsFullTxt, buildLlmsTxt } from '@/lib/contract/agent-files';
 import { createContext } from '@/lib/contract/context';
 import { contextMarkdown } from '@/lib/contract/serialize';
 import { isPageRoute } from '@/lib/routes';
+import { loadArticles, loadGuides } from '@/lib/docs/articles';
+import { withRootLinks } from '@/lib/docs/markdown';
+
+const articles = loadArticles(registry);
+const guides = loadGuides();
 
 describe('llms.txt', () => {
-  const text = buildLlmsTxt(registry);
+  const text = buildLlmsTxt(registry, articles);
 
   it('follows the llms.txt shape: heading, summary, principles, then link sections', () => {
     const lines = text.split('\n');
@@ -30,26 +35,26 @@ describe('llms.txt', () => {
 
   it('only links to screens that exist', () => {
     const targets = [...text.matchAll(/\]\((\/[^)]*)\)/g)].map(m => m[1]);
-    const known = new Set(['/getting-started', '/system/tokens', '/system/rules', '/accessibility', '/layouts', '/ai/context', '/llms-full.txt', ...registry.components.map(c => `/components/${c.id}`)]);
+    const known = new Set(['/docs', ...articles.map(a => `/docs/${a.slug}`), '/getting-started', '/system/tokens', '/system/rules', '/accessibility', '/layouts', '/ai/context', '/llms-full.txt', ...registry.components.map(c => `/components/${c.id}`)]);
     for (const target of targets) expect(known.has(target), target).toBe(true);
   });
 
   it('is deterministic', () => {
-    expect(buildLlmsTxt(registry)).toBe(text);
-    expect(buildLlmsTxt({ ...registry, components: [...registry.components].reverse() })).toBe(text);
+    expect(buildLlmsTxt(registry, articles)).toBe(text);
+    expect(buildLlmsTxt({ ...registry, components: [...registry.components].reverse() }, [...articles].reverse())).toBe(text);
   });
 });
 
 describe('llms-full.txt', () => {
   it('is the full-mode Markdown for the default theme, behind a note saying so', () => {
-    const text = buildLlmsFullTxt(registry);
+    const text = buildLlmsFullTxt(registry, guides);
     const context = createContext(registry, { mode: 'full' });
     expect(context.scope).toBe('default-theme');
     expect(text.startsWith('> This file is generated at build time')).toBe(true);
-    expect(text.endsWith(contextMarkdown(context))).toBe(true);
+    expect(text).toContain(contextMarkdown(context));
     expect(text).toContain('scope default-theme');
     for (const component of registry.components) expect(text).toContain(`(\`${component.id}\`)`);
-    expect(buildLlmsFullTxt(registry)).toBe(text);
+    expect(buildLlmsFullTxt(registry, guides)).toBe(text);
   });
 });
 
@@ -103,5 +108,35 @@ describe('AGENTS.md snippet', () => {
 
   it('rejects invalid settings instead of writing a misleading snippet', () => {
     expect(() => buildAgentsSnippet(registry, { settingsVersion: 1, theme: defaultTheme, appearance: 'sepia' })).toThrow();
+  });
+});
+
+
+describe('agent files include the documentation (A16)', () => {
+  const short = buildLlmsTxt(registry, articles);
+  const full = buildLlmsFullTxt(registry, guides);
+
+  it('llms.txt links Getting Started, the documentation index, and every article with its description', () => {
+    expect(short).toContain('- [Getting Started](/getting-started):');
+    expect(short).toContain('- [Documentation index](/docs):');
+    for (const article of articles) expect(short).toContain(`- [${article.title}](/docs/${article.slug}): ${article.description}`);
+    expect(short.indexOf('## Documentation')).toBeGreaterThan(short.indexOf('## Components'));
+  });
+
+  it('llms-full.txt appends exactly the hand-written articles, with site-root links, after the full export', () => {
+    expect(full.indexOf('# Documentation')).toBeGreaterThan(full.indexOf('## Components'));
+    for (const guide of guides) {
+      expect(full).toContain(`<!-- Documentation article: /docs/${guide.slug} -->`);
+      expect(full).toContain(withRootLinks(guide.markdown));
+    }
+    for (const reference of articles.filter(a => a.kind === 'reference')) expect(full).not.toContain(`<!-- Documentation article: /docs/${reference.slug} -->`);
+    const docs = full.slice(full.indexOf('# Documentation'));
+    expect([...docs.matchAll(/\]\((?!\/|https?:|#)/g)]).toHaveLength(0);
+  });
+
+  it('every site link in both files resolves to a real route', () => {
+    const routes = new Set(['/', '/getting-started', '/system/theme', '/system/tokens', '/system/rules', '/components', '/layouts', '/ai/context', '/accessibility', '/validation', '/playground', '/docs', '/llms.txt', '/llms-full.txt',
+      ...registry.components.map(c => `/components/${c.id}`), ...articles.map(a => `/docs/${a.slug}`)]);
+    for (const text of [short, full]) for (const [, target] of text.matchAll(/\]\((\/[^)]*)\)/g)) expect(routes.has(target.split('#')[0]), target).toBe(true);
   });
 });

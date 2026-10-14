@@ -1,3 +1,4 @@
+import { loadArticles } from '@/lib/docs/articles';
 import { localAdapter } from '@/lib/data/adapter';
 import { buildLlmsTxt } from '@/lib/contract/agent-files';
 
@@ -5,5 +6,5 @@ import { buildLlmsTxt } from '@/lib/contract/agent-files';
 export const dynamic = 'force-static';
 export async function GET() {
   const system = await localAdapter.get('registry');
-  return new Response(buildLlmsTxt(system), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  return new Response(buildLlmsTxt(system, loadArticles(system)), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

@@ -1,20 +1,23 @@
 import { test, expect } from '@playwright/test';
 import { registry } from '@/lib/data/registry';
 import { buildLlmsFullTxt, buildLlmsTxt } from '@/lib/contract/agent-files';
+import { loadArticles, loadGuides } from '@/lib/docs/articles';
 
 test('/llms.txt and /llms-full.txt are served as text, generated from the registry and default theme', async ({ request }) => {
   const short = await request.get('/llms.txt');
   expect(short.status()).toBe(200);
   expect(short.headers()['content-type']).toContain('text/plain');
-  expect(await short.text()).toBe(buildLlmsTxt(registry));
+  expect(await short.text()).toBe(buildLlmsTxt(registry, loadArticles(registry)));
   const full = await request.get('/llms-full.txt');
   expect(full.status()).toBe(200);
   expect(full.headers()['content-type']).toContain('text/plain');
   const text = await full.text();
-  expect(text).toBe(buildLlmsFullTxt(registry));
+  expect(text).toBe(buildLlmsFullTxt(registry, loadGuides()));
   expect(text).toContain('scope default-theme');
   // Every link in llms.txt resolves to a real page.
-  for (const path of [...(await short.text()).matchAll(/\]\((\/[^)]*)\)/g)].map(m => m[1])) expect((await request.get(path)).status(), path).toBe(200);
+  const links = new Set([...(await short.text()).matchAll(/\]\((\/[^)]*)\)/g), ...text.matchAll(/\]\((\/[^)]*)\)/g)].map(m => m[1].split('#')[0]));
+  expect(links.has('/getting-started') && links.has('/docs/concepts')).toBe(true);
+  for (const path of links) expect((await request.get(path)).status(), path).toBe(200);
 });
 
 test('the AI Context screen links the agent files and says they use the default theme', async ({ page }) => {
