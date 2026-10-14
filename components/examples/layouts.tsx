@@ -47,7 +47,7 @@ export function SplitViewLayout() {
   const [selected, setSelected] = useState(people[0].id);
   const person = people.find(item => item.id === selected)!;
   return <Frame><div className={styles.split}>
-    <ul className={styles.list} aria-label="People">{people.map(item => <li key={item.id}><button type="button" className={styles.item} aria-pressed={item.id === selected} onClick={() => setSelected(item.id)}><Avatar initials={item.initials} alt="" size="small" /><span>{item.name}</span></button></li>)}</ul>
+    <ul className={styles.list} aria-label="People">{people.map(item => <li key={item.id}><Button variant={item.id === selected ? 'secondary' : 'ghost'} aria-pressed={item.id === selected} onClick={() => setSelected(item.id)}>{item.name}</Button></li>)}</ul>
     <Card><div className={styles.actions}><Avatar initials={person.initials} alt={person.name} /><div><h3 className={styles.heading}>{person.name}</h3><p className={styles.muted}>{person.role}</p></div></div><Separator /><p>{person.note}</p><Button variant="secondary">Send message</Button></Card>
   </div></Frame>;
 }

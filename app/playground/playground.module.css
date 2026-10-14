@@ -5,10 +5,10 @@
 .eyebrow { margin: 0 0 8px; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
 .layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 24px; padding-top: 24px; align-items: start; }
 .panel { min-width: 0; padding: 20px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
-.panel h2, .previewColumn h2 { margin: 0 0 8px; font-size: 1.15rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.panel h2:not(:first-child) { margin-top: 24px; }
+.panel > h2, .previewColumn > h2 { margin: 0 0 8px; font-size: 1.15rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.panel > h2:not(:first-child) { margin-top: 24px; }
 .previewColumn { min-width: 0; position: sticky; top: 16px; }
-.previewColumn h3 { margin: 18px 0 8px; font-size: 1rem; }
+.previewColumn > h3 { margin: 18px 0 8px; font-size: 1rem; }
 .note { color: var(--sys-color-muted-foreground); font-size: .85rem; }
 .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 12px; }
 .field { display: grid; gap: 6px; min-width: 0; font-size: .85rem; font-weight: 550; text-transform: capitalize; }

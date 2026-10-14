@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import { registry } from '@/lib/data/registry';
 import { buildLlmsFullTxt, buildLlmsTxt } from '@/lib/contract/agent-files';
 import { loadArticles, loadGuides } from '@/lib/docs/articles';
+import { createContext } from '@/lib/contract/context';
+import { contextMarkdown } from '@/lib/contract/serialize';
+import { defaultTheme } from '@/lib/data/registry';
 
 test('/llms.txt and /llms-full.txt are served as text, generated from the registry and default theme', async ({ request }) => {
   const short = await request.get('/llms.txt');
@@ -34,6 +37,8 @@ test('Copy for LLM copies the component task export under the applied theme and 
   await page.getByRole('button', { name: 'Copy for LLM' }).click();
   await expect(page.getByText('Copied the task export for LLM use.')).toBeVisible();
   const defaultCopy = await page.evaluate(() => navigator.clipboard.readText());
+  // The copied text is exactly the task export the screen would produce for this component under the applied theme.
+  expect(defaultCopy).toBe(contextMarkdown(createContext(registry, { mode: 'task', componentIds: ['button'], settings: { settingsVersion: 1, theme: defaultTheme, appearance: 'system' } })));
   expect(defaultCopy).toContain('task context · schema 1.0 · scope applied-theme · theme default');
   expect(defaultCopy).toContain('Requested: button');
   expect(defaultCopy).toContain('### Button (`button`)');

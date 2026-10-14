@@ -4,7 +4,7 @@
 .header > p:not(.eyebrow) { max-width: 44rem; color: var(--sys-color-muted-foreground); margin: 0; }
 .eyebrow { margin: 0; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
 .step { padding-block: 28px; border-bottom: 1px solid var(--sys-color-muted); min-width: 0; }
-.step h2 { margin: 0 0 12px; font-size: 1.3rem; }
+.step > h2 { margin: 0 0 12px; font-size: 1.3rem; }
 .command { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 14px; margin: 10px 0; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); }
 .command p { margin: 4px 0 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
 .preview { display: flex; align-items: center; gap: 12px; padding: 24px; margin: 12px 0; border-radius: var(--sys-radius-panel); background: var(--sys-color-muted); }

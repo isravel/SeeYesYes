@@ -14,9 +14,6 @@
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sys-spacing-inline); }
 .split { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); align-items: start; }
 .list { display: grid; gap: var(--sys-spacing-inline); margin: 0; padding: 0; list-style: none; }
-.item { display: flex; align-items: center; gap: var(--sys-spacing-inline); width: 100%; padding: var(--sys-spacing-inline) var(--sys-spacing-inline); text-align: left; font: inherit; color: inherit; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); cursor: pointer; }
-.item[aria-pressed='true'] { border-color: var(--sys-color-primary); box-shadow: 0 0 0 2px var(--sys-color-primary); }
-.item:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--sys-spacing-inline); margin: 0; }
 .facts dt { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
 .facts dd { margin: 0; }

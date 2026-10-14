@@ -122,7 +122,7 @@ Goal: complete the product journeys and show useful compositions.
 - [x] M6.4 Build concept/configuration articles and registry-derived reference documentation. [Evidence](../evidence/M6/M6.4/review.md)
 - [x] M6.5 Implement local documentation search, real result destinations, no-match feedback, deep links, and Copy for LLM on articles. [Evidence](../evidence/M6/M6.5/review.md)
 - [x] M6.6 Check all thirteen views, navigation, unknown routes, long content, and copy actions. [Evidence](../evidence/M6/M6.6/review.md)
-- [ ] M6.7 Run a fresh local setup walkthrough and verify example code, route links, and Playground portal isolation.
+- [x] M6.7 Run a fresh local setup walkthrough and verify example code, route links, and Playground portal isolation. [Evidence](../evidence/M6/M6.7/review.md)
 - [x] M6.8 Include articles in `/llms.txt` and `/llms-full.txt` and run the agent-file checks in A16. [Evidence](../evidence/M6/M6.8/review.md)
 
 Completion gate: A01, A07 (including Playground), A09 and A10 (including Layouts and Documentation search), A16, and A18 pass; complete configure/apply/export and discover/preview/copy journeys work.
@@ -169,7 +169,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M5 | Complete (automated) | 2026-10-14 | [M5.10 review](../evidence/M5/M5.10/review.md) | Full agent-file link check runs in M6; human accessibility review remains open. |
-| M6 | In progress | 2026-10-14 | [M6.8 review](../evidence/M6/M6.8/review.md) | M6.7 remains open. |
+| M6 | Complete (automated) | 2026-10-14 | [M6 gate](../evidence/M6/gate.md) | Human accessibility review remains open. |
 | M7 | Not started | — | — | — |
 
 ## Change handling

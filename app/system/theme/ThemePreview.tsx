@@ -22,7 +22,7 @@ export function ThemePreview() {
     <div className={styles.previewColumns}>
       <Card className={styles.sampleCard}>
         <Badge tone="primary">Sample workspace</Badge>
-        <h3>Team profile</h3>
+        <h3 className={styles.sampleTitle}>Team profile</h3>
         <p>Try the controls to see how the draft feels in everyday use.</p>
         <form aria-label="Preview profile" className={styles.sampleForm} onSubmit={event => { event.preventDefault(); setSavedName(name); }}>
           <FormField id="preview-name" label="Display name" required>
@@ -39,7 +39,7 @@ export function ThemePreview() {
         </form>
       </Card>
       <Card className={styles.sampleCard}>
-        <h3>Actions and surfaces</h3>
+        <h3 className={styles.sampleTitle}>Actions and surfaces</h3>
         <Tabs label="Preview details" items={[
           { id: 'overview', label: 'Overview', content: <p>A shared theme shapes text, spacing, surfaces, and focus states.</p> },
           { id: 'activity', label: 'Activity', content: <p>Sample activity: {actions} example {actions === 1 ? 'action' : 'actions'} run.</p> },

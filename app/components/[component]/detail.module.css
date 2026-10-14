@@ -6,9 +6,9 @@
 .lead { max-width: 42rem; color: var(--sys-color-muted-foreground); }
 .badges { display: flex; flex-wrap: wrap; gap: 8px; }
 .section { padding-block: 28px; border-bottom: 1px solid var(--sys-color-muted); min-width: 0; }
-.section h2 { margin: 0 0 14px; font-size: 1.3rem; }
-.section h3 { margin: 18px 0 8px; font-size: 1rem; }
-.section ul { margin: 8px 0; padding-left: 20px; }
+.section > h2 { margin: 0 0 14px; font-size: 1.3rem; }
+.section > h3, .example > h3, .columns > div > h3 { margin: 18px 0 8px; font-size: 1rem; }
+.section > ul, .columns > div > ul { margin: 8px 0; padding-left: 20px; }
 .facts { display: grid; gap: 12px; margin: 0; }
 .facts dt { color: var(--sys-color-muted-foreground); font-size: .8rem; font-weight: 600; letter-spacing: .04em; }
 .facts dd { margin: 2px 0 0; overflow-wrap: anywhere; }

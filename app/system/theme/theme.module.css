@@ -23,7 +23,7 @@
 .status { min-height: 1.5em; margin: 16px 0 0; color: var(--sys-color-muted-foreground); font-size: .85rem; }
 .previewScope { display: grid; gap: 16px; margin-top: 16px; padding: 18px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-background); }
 .previewPanel { grid-column: 1 / -1; }
-.previewScope h3 { margin: 0; font-size: var(--sys-typography-heading); }
+.sampleTitle { margin: 0; font-size: var(--sys-typography-heading); }
 .previewColumns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sys-spacing-stack); }
 .sampleCard, .sampleForm { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }
 .sampleCard > p, .sampleForm > p { margin: 0; color: var(--sys-color-muted-foreground); }

@@ -1,0 +1,42 @@
+== node v25.6.1, npm 11.9.0
+== npm ci
+115 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+exit 0
+== npm run check
+Validated 29 components, 57 tokens, 8 rules, and 37 examples.
+error-state: 5 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+ Test Files  28 passed (28)
+      Tests  307 passed (307)
+Validated 29 components, 57 tokens, 8 rules, and 37 examples.
+✓ Compiled successfully in 3.0s
+exit 0
+== npx playwright install chromium
+exit 0
+== npm run test:browser
+  ✓  152 tests/browser/views.spec.ts:106:1 › very long content wraps instead of overflowing (1.2s)
+  ✓  153 tests/browser/views.spec.ts:123:1 › every copy action puts something useful on the clipboard and reports it (6.0s)
+
+  153 passed (1.6m)
+exit 0
+== npm run dev smoke
+/ 200
+/getting-started 200
+/system/theme 200
+/system/tokens 200
+/components 200
+/components/button 200
+/layouts 200
+/ai/context 200
+/system/rules 200
+/accessibility 200
+/validation 200
+/playground 200
+/docs 200
+/docs/setup 200
+/llms.txt 200
+/llms-full.txt 200
+dev stopped
+
