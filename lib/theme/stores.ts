@@ -4,6 +4,7 @@ import { defaultTheme } from '@/lib/data/registry';
 import { createPersistenceEnvelope, parseStoredSettings, SETTINGS_STORAGE_KEY } from './persistence';
 import { validateTheme } from '@/lib/contract/validate';
 import { assignThemeIdentity, themeValues } from './identity';
+import type { PlaygroundAppearance, PlaygroundOverrides } from './playground';
 
 export type AppliedThemeState = {
   settings: WorkspaceSettings;
@@ -31,8 +32,15 @@ export type DraftThemeState = {
   setConflict: (conflict: boolean) => void;
   setSaveError: (saveError: string | null) => void;
 };
+export type PlaygroundState = {
+  overrides: PlaygroundOverrides;
+  appearance: PlaygroundAppearance;
+  setOverride: <K extends keyof PlaygroundOverrides>(key: K, value: PlaygroundOverrides[K] | undefined) => void;
+  setAppearance: (appearance: PlaygroundAppearance) => void;
+  reset: () => void;
+};
 export type DefaultThemeState = { settings: WorkspaceSettings };
-export type ThemeStores = { defaults: StoreApi<DefaultThemeState>; applied: StoreApi<AppliedThemeState>; draft: StoreApi<DraftThemeState> };
+export type ThemeStores = { defaults: StoreApi<DefaultThemeState>; applied: StoreApi<AppliedThemeState>; draft: StoreApi<DraftThemeState>; playground: StoreApi<PlaygroundState> };
 export type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 
 export const defaultWorkspaceSettings: WorkspaceSettings = {
@@ -58,7 +66,17 @@ export function createThemeStores(defaultSettings = defaultWorkspaceSettings): T
     setConflict: conflict => set({ conflict }),
     setSaveError: saveError => set({ saveError }),
   }));
-  return { defaults, applied, draft };
+  const playground = createStore<PlaygroundState>()(set => ({
+    overrides: {}, appearance: null,
+    setOverride: (key, value) => set(state => {
+      const overrides = { ...state.overrides };
+      if (value === undefined) delete overrides[key]; else overrides[key] = value;
+      return { overrides };
+    }),
+    setAppearance: appearance => set({ appearance }),
+    reset: () => set({ overrides: {}, appearance: null }),
+  }));
+  return { defaults, applied, draft, playground };
 }
 
 const NO_LOCKS_NOTICE = 'Changes stay in this tab and reset on refresh because this browser cannot coordinate saves between tabs.';

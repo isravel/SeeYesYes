@@ -1,0 +1,21 @@
+.page { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding-block: 38px 72px; }
+.header { display: flex; justify-content: space-between; align-items: start; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--sys-color-muted); }
+.header h1 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; }
+.header p:not(.eyebrow) { max-width: 44rem; color: var(--sys-color-muted-foreground); }
+.eyebrow { margin: 0 0 8px; color: var(--sys-color-muted-foreground); font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
+.layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 24px; padding-top: 24px; align-items: start; }
+.panel { min-width: 0; padding: 20px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); }
+.panel h2, .previewColumn h2 { margin: 0 0 8px; font-size: 1.15rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.panel h2:not(:first-child) { margin-top: 24px; }
+.previewColumn { min-width: 0; position: sticky; top: 16px; }
+.previewColumn h3 { margin: 18px 0 8px; font-size: 1rem; }
+.note { color: var(--sys-color-muted-foreground); font-size: .85rem; }
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 12px; }
+.field { display: grid; gap: 6px; min-width: 0; font-size: .85rem; font-weight: 550; text-transform: capitalize; }
+.actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.preview { min-height: 220px; padding: 24px; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); }
+.stage { display: flex; align-items: center; justify-content: center; min-height: 160px; overflow: auto; }
+.code pre { margin: 0 0 8px; padding: 14px; overflow-x: auto; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); font-size: .8rem; }
+.code pre:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } .previewColumn { position: static; } }
+@media (max-width: 520px) { .page { width: calc(100% - 32px); padding-top: 24px; } .header { flex-direction: column; } .controls { grid-template-columns: minmax(0, 1fr); } }
