@@ -106,7 +106,7 @@ Goal: make the shared contract visible and exportable without overstating enforc
 - [x] M5.5 Build Validation filters, findings, linked details, and copyable fixes; show unavailable auto-fix explicitly. [Evidence](../evidence/M5/M5.5/review.md)
 - [x] M5.6 Build Accessibility with separate review evidence, measured contrast, and demo reports. [Evidence](../evidence/M5/M5.6/review.md)
 - [x] M5.7 Build Overview using calculated registry coverage and clearly labeled demo health/results. [Evidence](../evidence/M5/M5.7/review.md)
-- [ ] M5.8 Test exports after Apply, mode/view agreement, dependency completeness, local task/full size comparisons, fixture counts, filters, and request recovery.
+- [x] M5.8 Test exports after Apply, mode/view agreement, dependency completeness, local task/full size comparisons, fixture counts, filters, and request recovery. [Evidence](../evidence/M5/M5.8/review.md)
 - [ ] M5.9 Generate `/llms.txt` and `/llms-full.txt` at build time from the registry and default preset; add Copy for LLM to Component Detail.
 - [ ] M5.10 Build the `AGENTS.md` snippet in AI Context with size display, Copy, and tests for completeness and update after Apply.
 
@@ -168,7 +168,7 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M2 | In progress | 2026-10-09 | [M2 task evidence](../evidence/M2/review.md) | Automated M2.8 review is complete; the quality gate remains open for human keyboard, screen-reader, and WCAG review. |
 | M3 | Complete (automated) | 2026-10-13 | [M3.8 review](../evidence/M3/M3.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
-| M5 | In progress | 2026-10-14 | [M5.7 review](../evidence/M5/M5.7/review.md) | M5.8–M5.10 remain open. |
+| M5 | In progress | 2026-10-14 | [M5.8 review](../evidence/M5/M5.8/review.md) | M5.9–M5.10 remain open. |
 | M6 | Not started | — | — | — |
 | M7 | Not started | — | — | — |
 
