@@ -10,12 +10,12 @@ import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Select } from '@/components/ui/select';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { DesignSystem, Theme } from '@/lib/contract/schema';
 import styles from './layouts.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function LayoutsView({ scenario }: { scenario: Scenario }) {
   const [client] = useState(() => new QueryClient());

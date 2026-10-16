@@ -9,14 +9,14 @@ import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Table } from '@/components/ui/table';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { DesignSystem } from '@/lib/contract/schema';
 import { checkThemeContrast } from '@/lib/accessibility/contrast';
 import { evidenceRows, formSemantics, sampleAccessibilityResults } from '@/lib/accessibility/evidence';
 import styles from './accessibility.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function AccessibilityView(props: { scenario: Scenario; rules: DesignSystem['rules'] }) {
   const [client] = useState(() => new QueryClient());

@@ -10,14 +10,14 @@ import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Select } from '@/components/ui/select';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { DesignSystem } from '@/lib/contract/schema';
 import { filterFindings, noFindingFilters, statusCounts, statuses, withCategories, type Finding, type FindingFilters } from '@/lib/validation/browse';
 import { ruleCategories } from '@/lib/rules/browse';
 import styles from './validation.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 type Props = { scenario: Scenario; rules: DesignSystem['rules']; examples: DesignSystem['examples']; components: { id: string; name: string }[] };
 type Sample = 'clean' | 'mixed' | 'failing';
 const tone = (status: Finding['status']) => status === 'error' ? 'destructive' as const : status === 'warning' ? 'warning' as const : status === 'passed' ? 'success' as const : 'neutral' as const;

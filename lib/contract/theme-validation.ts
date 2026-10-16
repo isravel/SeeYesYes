@@ -1,5 +1,6 @@
 // Theme validation and effective defaults, kept in a module of their own so components can use them on their own.
-import { ThemeSchema, type DesignSystem, type Theme, type ComponentContract } from './schema';
+import type { DesignSystem, Theme, ComponentContract } from './schema';
+import { parseTheme } from '@/lib/theme/check';
 
 /** The slice of a component contract that theme validation and effective defaults need. */
 export type ThemeComponent = { id: string; name: string; props: { name: string; defaultValue?: ComponentContract['props'][number]['defaultValue'] }[]; themeDefaults: ComponentContract['themeDefaults']; compoundVariants: ComponentContract['compoundVariants'] };
@@ -18,7 +19,7 @@ export function effectiveDefaults(component: Pick<ThemeComponent, 'id' | 'props'
   return { ...defaults, ...theme.componentDefaults[component.id], ...Object.fromEntries(Object.entries(explicit).filter(([, v]) => v !== undefined)) } as Record<string, string | number | boolean>;
 }
 export function validateTheme(input: unknown, system: ThemeSystem): Theme {
-  const theme = ThemeSchema.parse(input);
+  const theme = parseTheme(input);
   const preset = system.themePresets.find(p => p.id === (theme.basedOn ?? theme.id));
   if (!preset) throw new Error(`Unknown theme identity: ${theme.basedOn ?? theme.id}`);
   for (const [kind, fontId] of [['sans', theme.typography.sansFontId], ['mono', theme.typography.monoFontId]]) {

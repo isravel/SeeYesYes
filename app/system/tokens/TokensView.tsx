@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Link } from '@/components/ui/link';
 import { Select } from '@/components/ui/select';
 import type { FontOption, Mode, ResolvedToken } from '@/lib/contract/schema';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import { downloadText } from '@/lib/browser/download';
 import type { Scenario } from '@/lib/data/api';
 import { resolveTokens } from '@/lib/theme/resolve';
@@ -25,7 +25,7 @@ import styles from './tokens.module.css';
 const categories: ResolvedToken['category'][] = ['color', 'typography', 'spacing', 'radius', 'shadow', 'effect', 'motion'];
 
 type Props = { scenario: Scenario; fonts: FontOption[]; usage: Record<string, TokenUsage> };
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function TokensView(props: Props) {
   const [client] = useState(() => new QueryClient());

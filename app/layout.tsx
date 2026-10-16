@@ -6,11 +6,8 @@ import { toThemeSystem } from '@/lib/contract/theme-validation';
 import { WorkspaceShell } from '@/components/shell/WorkspaceShell';
 import { ThemeLifecycleProvider } from '@/components/theme/ThemeLifecycleProvider';
 import { buildThemeBootstrapScript } from '@/lib/theme/persistence';
-const sans = localFont({ src: [
-  { path: '../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2', weight: '400' },
-  { path: '../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2', weight: '500' },
-  { path: '../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2', weight: '600' },
-], variable: '--font-inter', display: 'swap' });
+// One variable font file replaces separate 400, 500, and 600 files, which saves two requests on first load.
+const sans = localFont({ src: '../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2', weight: '100 900', variable: '--font-inter', display: 'swap' });
 const mono = localFont({ src: '../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2', variable: '--font-jetbrains-mono', display: 'swap' });
 export const metadata: Metadata = { title: 'SeeYesYes — Shared decisions', description: 'A design system that humans and AI can understand.' };
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

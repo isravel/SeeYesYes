@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Select } from '@/components/ui/select';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { ComponentContract } from '@/lib/contract/schema';
 import type { ComponentReadiness } from '@/lib/contract/readiness';
@@ -23,7 +23,7 @@ export function ComponentsCatalog(props: Props) {
   return <QueryClientProvider client={client}><Catalog {...props} /></QueryClientProvider>;
 }
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 function Catalog({ scenario, readiness }: Props) {
   const query = useQuery({ queryKey: ['components', scenario], queryFn: ({ signal }) => adapter.get('components', { scenario, signal }), retry: false, staleTime: Infinity });

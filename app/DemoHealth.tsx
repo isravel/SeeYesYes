@@ -7,12 +7,12 @@ import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Table } from '@/components/ui/table';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import { statusCounts, statuses } from '@/lib/validation/browse';
 import styles from './page.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function DemoHealth({ scenario }: { scenario: Scenario }) {
   const [client] = useState(() => new QueryClient());

@@ -1,8 +1,8 @@
-import {
-  LiteralTokenValueSchema, ResolvedTokenSchema, ThemeSchema,
-  type Theme, type FontOption, type TokenDefinition, type ResolvedToken,
-  type LiteralTokenValue, type InterchangeValue, type Oklch, type Mode,
+import type {
+  Theme, FontOption, TokenDefinition, ResolvedToken,
+  LiteralTokenValue, InterchangeValue, Oklch, Mode,
 } from '@/lib/contract/schema';
+import { parseTheme } from './check';
 
 import { spacingScale, radiusScale, typeScale, typeSizes } from './scales';
 
@@ -11,8 +11,8 @@ export const modes: Mode[] = ['light', 'dark'];
 export const toCssVariable = (id: string): `--sys-${string}` => `--sys-${id.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replaceAll('.', '-').toLowerCase()}`;
 export const colorCss = (color: Oklch) => `oklch(${color.l} ${color.c} ${color.h} / ${color.alpha})`;
 
-export function formatConstant(input: LiteralTokenValue): { value: string | number; interchange: InterchangeValue } {
-  const constant = LiteralTokenValueSchema.parse(input);
+/** Constants are validated by their schema where they enter, so formatting does not re-parse them. */
+export function formatConstant(constant: LiteralTokenValue): { value: string | number; interchange: InterchangeValue } {
   switch (constant.type) {
     case 'color': return { value: colorCss(constant.value), interchange: constant };
     case 'dimension': case 'duration': return { value: `${constant.value.value}${constant.value.unit}`, interchange: constant };
@@ -69,7 +69,7 @@ function shadowConstant(theme: Theme, mode: Mode, token: TokenDefinition): Liter
   } };
 }
 export function resolveTokens(definitions: TokenDefinition[], input: Theme, fonts: FontOption[]): ResolvedToken[] {
-  const theme = ThemeSchema.parse(input);
+  const theme = parseTheme(input);
   return [...definitions].sort((a, b) => a.id.localeCompare(b.id)).map(token => {
     const source = token.source;
     const paired = source.kind === 'literal' ? !('type' in source.constant) : source.path.includes('*') || source.path === 'shadows';
@@ -80,7 +80,7 @@ export function resolveTokens(definitions: TokenDefinition[], input: Theme, font
           : themeConstant(theme, source.path.replace('*', mode), token, fonts);
         return [mode, formatConstant(constant)];
       })) as Record<Mode, ReturnType<typeof formatConstant>>;
-      return ResolvedTokenSchema.parse({ ...token, value: { light: resolved.light.value, dark: resolved.dark.value }, interchange: { light: resolved.light.interchange, dark: resolved.dark.interchange } });
+      return { ...token, value: { light: resolved.light.value, dark: resolved.dark.value }, interchange: { light: resolved.light.interchange, dark: resolved.dark.interchange } } as ResolvedToken;
     }
     const constant = source.kind === 'literal' ? source.constant as LiteralTokenValue : themeConstant(theme, source.path, token, fonts);
     const formatted = formatConstant(constant);
@@ -88,7 +88,7 @@ export function resolveTokens(definitions: TokenDefinition[], input: Theme, font
       const fontId = String(readPath(theme, source.path));
       if (fonts.find(f => f.id === fontId)?.source === 'self-hosted') formatted.value = `var(--font-${fontId})`;
     }
-    return ResolvedTokenSchema.parse({ ...token, ...formatted });
+    return { ...token, ...formatted } as ResolvedToken;
   });
 }
 export function cssVariables(tokens: ResolvedToken[], mode: Mode): Record<string, string> {

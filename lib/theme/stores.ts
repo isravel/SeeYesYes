@@ -1,5 +1,6 @@
 import { createStore, type StoreApi } from 'zustand/vanilla';
-import { WorkspaceSettingsSchema, type PersistenceEnvelope, type Theme, type WorkspaceSettings } from '@/lib/contract/schema';
+import type { PersistenceEnvelope, Theme, WorkspaceSettings } from '@/lib/contract/schema';
+import { parseWorkspaceSettings } from './check';
 import { createPersistenceEnvelope, parseStoredSettings, SETTINGS_STORAGE_KEY } from './persistence';
 import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 import { assignThemeIdentity, themeValues } from './identity';
@@ -43,7 +44,7 @@ export type ThemeStores = { defaults: StoreApi<DefaultThemeState>; applied: Stor
 export type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
 
 export function createThemeStores(defaultSettings: WorkspaceSettings): ThemeStores {
-  const defaults = createStore<DefaultThemeState>()(() => ({ settings: WorkspaceSettingsSchema.parse(defaultSettings) }));
+  const defaults = createStore<DefaultThemeState>()(() => ({ settings: parseWorkspaceSettings(defaultSettings) }));
   const applied = createStore<AppliedThemeState>()(set => ({
     settings: defaultSettings, themeRevision: 0, initialized: false,
     persistence: 'persistent', notice: null, appearancePending: false,
@@ -79,7 +80,7 @@ const NO_LOCKS_NOTICE = 'Changes stay in this tab and reset on refresh because t
 export function initializeThemeStores(stores: ThemeStores, system: ThemeSystem, storage: StorageLike | null, locksAvailable = true): void {
   const defaultThemeValue = system.themePresets.find(theme => theme.id === system.defaultThemeId);
   if (!defaultThemeValue) throw new Error(`Default theme ${system.defaultThemeId} is missing.`);
-  const defaultSettings = WorkspaceSettingsSchema.parse({ settingsVersion: 1, theme: defaultThemeValue, appearance: 'system' });
+  const defaultSettings = parseWorkspaceSettings({ settingsVersion: 1, theme: defaultThemeValue, appearance: 'system' });
   const loadDefaults = () => {
     stores.applied.getState().setSettings(defaultSettings, 0);
     stores.draft.getState().reset(defaultSettings.theme, 0);
@@ -124,7 +125,7 @@ function describeUnreadableSettings(raw: string, error: unknown): string {
 }
 
 export function persistWorkspaceSettings(settingsInput: WorkspaceSettings, themeRevision: number, system: ThemeSystem, storage: StorageLike): PersistenceEnvelope {
-  const settings = WorkspaceSettingsSchema.parse({ ...settingsInput, theme: validateTheme(settingsInput.theme, system) });
+  const settings = parseWorkspaceSettings({ ...settingsInput, theme: validateTheme(settingsInput.theme, system) });
   const envelope = createPersistenceEnvelope(settings, themeRevision, system);
   storage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(envelope));
   return envelope;

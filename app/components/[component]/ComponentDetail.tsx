@@ -13,7 +13,7 @@ import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Table } from '@/components/ui/table';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { ComponentContract, DesignSystem } from '@/lib/contract/schema';
 import { componentReadiness } from '@/lib/contract/readiness';
@@ -24,7 +24,7 @@ import { resolveTokens } from '@/lib/theme/resolve';
 import { useThemeScope } from '@/components/theme/ThemeScope';
 import styles from './detail.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function ComponentDetail({ componentId, scenario }: { componentId: string; scenario: Scenario }) {
   const [client] = useState(() => new QueryClient());

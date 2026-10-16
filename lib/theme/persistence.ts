@@ -1,7 +1,5 @@
-import {
-  PersistenceEnvelopeSchema, WorkspaceSettingsSchema,
-  type Mode, type PersistenceEnvelope, type Theme, type WorkspaceSettings,
-} from '@/lib/contract/schema';
+import type { Mode, PersistenceEnvelope, Theme, WorkspaceSettings } from '@/lib/contract/schema';
+import { parsePersistenceEnvelope, parseWorkspaceSettings } from './check';
 import { resolveTokens } from './resolve';
 import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 
@@ -42,9 +40,9 @@ export function createBootstrapCache(theme: Theme, system: ThemeSystem, themeRev
 }
 
 export function createPersistenceEnvelope(settings: WorkspaceSettings, themeRevision: number, system: ThemeSystem): PersistenceEnvelope {
-  const validatedSettings = WorkspaceSettingsSchema.parse(settings);
+  const validatedSettings = parseWorkspaceSettings(settings);
   const theme = validateTheme(validatedSettings.theme, system);
-  return PersistenceEnvelopeSchema.parse({
+  return parsePersistenceEnvelope({
     envelopeVersion: ENVELOPE_VERSION, themeRevision, settings: { ...validatedSettings, theme },
     bootstrap: createBootstrapCache(theme, system, themeRevision),
   });
@@ -62,8 +60,8 @@ function validateCache(envelope: PersistenceEnvelope): PersistenceEnvelope['boot
 export type StoredSettingsResult = { envelope: PersistenceEnvelope; notice?: string };
 export function parseStoredSettings(raw: string, system: ThemeSystem): StoredSettingsResult {
   const parsed: unknown = JSON.parse(raw);
-  const envelope = PersistenceEnvelopeSchema.parse(parsed);
-  const settings = WorkspaceSettingsSchema.parse(envelope.settings);
+  const envelope = parsePersistenceEnvelope(parsed);
+  const settings = parseWorkspaceSettings(envelope.settings);
   const theme = validateTheme(settings.theme, system);
   const bootstrap = validateCache(envelope);
   return {

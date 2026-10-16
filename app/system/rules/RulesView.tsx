@@ -9,13 +9,13 @@ import { ErrorState } from '@/components/ui/error-state';
 import { Link } from '@/components/ui/link';
 import { LoadingState } from '@/components/ui/loading-state';
 import { Select } from '@/components/ui/select';
-import { createHttpAdapter } from '@/lib/data/adapter';
+import { createLazyHttpAdapter } from '@/lib/data/lazy-adapter';
 import type { Scenario } from '@/lib/data/api';
 import type { DesignSystem } from '@/lib/contract/schema';
 import { affectedComponentIds, filterRules, noRuleFilters, ruleCategories, ruleSeverities, type RuleFilters } from '@/lib/rules/browse';
 import styles from './rules.module.css';
 
-const adapter = createHttpAdapter();
+const adapter = createLazyHttpAdapter();
 
 export function RulesView({ scenario }: { scenario: Scenario }) {
   const [client] = useState(() => new QueryClient());

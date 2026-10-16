@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "machine": {
     "platform": "Darwin 25.6.0 arm64",
     "cpus": 10,
@@ -25,39 +25,39 @@
       "path": "/",
       "samples": [
         {
-          "score": 92,
-          "lcp": 3179.036399999999,
+          "score": 99,
+          "lcp": 2117.0850000000005,
           "cls": 0,
-          "tbt": 65.5,
-          "scriptTransferKb": 299.126953125,
+          "tbt": 82,
+          "scriptTransferKb": 301.671875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 97,
-          "lcp": 2558.0993999999996,
+          "score": 99,
+          "lcp": 2108.2425,
           "cls": 0,
-          "tbt": 70.00000000000023,
-          "scriptTransferKb": 299.126953125,
+          "tbt": 64.5,
+          "scriptTransferKb": 301.671875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 97,
-          "lcp": 2558.478,
+          "score": 98,
+          "lcp": 2112.7927499999996,
           "cls": 0,
-          "tbt": 71,
-          "scriptTransferKb": 299.126953125,
+          "tbt": 131.99999999999977,
+          "scriptTransferKb": 301.671875,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 97,
-        "lcpMs": 2558,
+        "score": 99,
+        "lcpMs": 2113,
         "cls": 0,
-        "tbtMs": 70,
-        "scriptTransferKb": 299
+        "tbtMs": 82,
+        "scriptTransferKb": 302
       }
     },
     {
@@ -65,39 +65,39 @@
       "path": "/system/theme",
       "samples": [
         {
-          "score": 96,
-          "lcp": 2710.278,
+          "score": 97,
+          "lcp": 2416.7694,
           "cls": 0,
-          "tbt": 100.5,
-          "scriptTransferKb": 248.3408203125,
+          "tbt": 69,
+          "scriptTransferKb": 216.009765625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 96,
-          "lcp": 2709.48795,
+          "score": 98,
+          "lcp": 2410.566,
           "cls": 0,
-          "tbt": 97,
-          "scriptTransferKb": 248.3408203125,
+          "tbt": 45.5,
+          "scriptTransferKb": 216.009765625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 96,
-          "lcp": 2706.47955,
+          "score": 97,
+          "lcp": 2419.09125,
           "cls": 0,
-          "tbt": 93,
-          "scriptTransferKb": 248.3408203125,
+          "tbt": 68,
+          "scriptTransferKb": 216.009765625,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 96,
-        "lcpMs": 2709,
+        "score": 97,
+        "lcpMs": 2417,
         "cls": 0,
-        "tbtMs": 97,
-        "scriptTransferKb": 248
+        "tbtMs": 68,
+        "scriptTransferKb": 216
       }
     },
     {
@@ -105,39 +105,39 @@
       "path": "/components",
       "samples": [
         {
-          "score": 96,
-          "lcp": 2557.3673999999996,
+          "score": 98,
+          "lcp": 2109.0326999999997,
           "cls": 0.06253465299814791,
-          "tbt": 75.5,
-          "scriptTransferKb": 218.23046875,
+          "tbt": 71,
+          "scriptTransferKb": 220.8154296875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 96,
-          "lcp": 2556.1809000000003,
+          "score": 98,
+          "lcp": 2106.0568500000004,
           "cls": 0.06253465299814791,
-          "tbt": 76.5,
-          "scriptTransferKb": 218.23046875,
+          "tbt": 69,
+          "scriptTransferKb": 220.8154296875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 96,
-          "lcp": 2556.0336000000007,
+          "score": 92,
+          "lcp": 2904.63395,
           "cls": 0.06253465299814791,
-          "tbt": 78.5,
-          "scriptTransferKb": 218.23046875,
+          "tbt": 153,
+          "scriptTransferKb": 220.8154296875,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 96,
-        "lcpMs": 2556,
+        "score": 98,
+        "lcpMs": 2109,
         "cls": 0.063,
-        "tbtMs": 77,
-        "scriptTransferKb": 218
+        "tbtMs": 71,
+        "scriptTransferKb": 221
       }
     },
     {
@@ -145,39 +145,39 @@
       "path": "/ai/context",
       "samples": [
         {
-          "score": 94,
-          "lcp": 2857.28925,
-          "cls": 0.06253465299814791,
-          "tbt": 100.5,
-          "scriptTransferKb": 296.701171875,
+          "score": 99,
+          "lcp": 2108.03175,
+          "cls": 0.005485495877030518,
+          "tbt": 88,
+          "scriptTransferKb": 300.431640625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 94,
-          "lcp": 2859.9963,
-          "cls": 0.06253465299814791,
-          "tbt": 110,
-          "scriptTransferKb": 296.701171875,
+          "score": 99,
+          "lcp": 2106.6858,
+          "cls": 0.005485495877030518,
+          "tbt": 78.5,
+          "scriptTransferKb": 300.431640625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 94,
-          "lcp": 2856.7554,
-          "cls": 0.06253465299814791,
-          "tbt": 99,
-          "scriptTransferKb": 296.701171875,
+          "score": 99,
+          "lcp": 2107.2109499999997,
+          "cls": 0.005485495877030518,
+          "tbt": 76.5,
+          "scriptTransferKb": 300.431640625,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 94,
-        "lcpMs": 2857,
-        "cls": 0.063,
-        "tbtMs": 101,
-        "scriptTransferKb": 297
+        "score": 99,
+        "lcpMs": 2107,
+        "cls": 0.005,
+        "tbtMs": 79,
+        "scriptTransferKb": 300
       }
     }
   ],
@@ -199,7 +199,7 @@
     "maxMs": 120
   },
   "pass": {
-    "routes": false,
+    "routes": true,
     "longTasks": true
   }
 }
