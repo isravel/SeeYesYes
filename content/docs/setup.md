@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. For a production preview, run `npm run build` and then `npm start`.
+Open http://localhost:8088. For a production preview, run `npm run build` and then `npm start` (also on port 8088).
 
 ## Check it
 

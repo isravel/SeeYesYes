@@ -6,6 +6,8 @@ Date: 2026-10-14
 
 **Limitation recorded:** this machine only has Node.js v25.6.1, not the pinned Node 24 LTS. The walkthrough therefore ran on Node 25 and does not prove Node 24 behavior; the pin is stated in `.nvmrc`, the README, and Getting Started.
 
+**2026-10-16 follow-up:** the final gate used an isolated Node 24.22.0 runtime. The current working tree passed the full check and all 165 browser tests ([current results](../../M7/M7.1-M7.2.md)). This closes runtime verification for the pinned major; the fresh-clone walkthrough above still describes its original Node 25 session.
+
 **Example code now compiles.** `tests/example-code.test.ts` type-checks every recommended registry example against the real components through the TypeScript compiler (and confirms the check is not vacuous by rejecting a bad variant and a bad import). It found three examples that referenced handlers that did not exist (`createProject`, `reloadComponents`, `contextMarkdown`); they are now self-contained. Examples also import only from contract public modules.
 
 **Route links.** Every site link in Getting Started, every documentation article, `/llms.txt`, and `/llms-full.txt` is checked in unit and browser tests (all return 200; anchors point to real headings and rule IDs).

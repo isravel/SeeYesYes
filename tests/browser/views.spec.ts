@@ -67,14 +67,25 @@ test('every view fits narrow and wide viewports in both appearances with no seri
 
 test('the navigation reaches every view, and the mobile drawer contains focus and restores it', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto('/');
-  for (const view of views.filter(v => v.name !== 'Component Detail' && v.name !== 'Overview')) {
+  let documentNavigations = 0;
+  page.on('request', request => {
+    if (request.resourceType() === 'document') documentNavigations += 1;
+  });
+  await page.goto('/system/rules');
+  documentNavigations = 0;
+  await page.evaluate(() => { document.documentElement.dataset.sidebarProbe = 'mounted'; });
+  const sidebarViews = views.filter(view => view.name !== 'Component Detail');
+  for (const view of sidebarViews) {
     await page.getByRole('navigation', { name: 'Workspace', exact: true }).getByRole('link', { name: view.nav, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`${view.path.replaceAll('/', '\\/')}$`));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(view.h1);
+    expect(await page.evaluate(() => document.documentElement.dataset.sidebarProbe), view.name).toBe('mounted');
+    expect(documentNavigations, view.name).toBe(0);
   }
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('/system/rules');
+  documentNavigations = 0;
+  await page.evaluate(() => { document.documentElement.dataset.sidebarProbe = 'mounted'; });
   const open = page.getByRole('button', { name: 'Open navigation', exact: true });
   await open.click();
   const dialog = page.getByRole('dialog', { name: 'Workspace', exact: true });
@@ -83,10 +94,14 @@ test('the navigation reaches every view, and the mobile drawer contains focus an
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(open).toBeFocused();
-  await open.click();
-  await page.getByRole('dialog', { name: 'Workspace', exact: true }).getByRole('link', { name: 'Tokens', exact: true }).click();
-  await expect(page).toHaveURL(/\/system\/tokens$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tokens');
+  for (const view of sidebarViews) {
+    await open.click();
+    await page.getByRole('dialog', { name: 'Workspace', exact: true }).getByRole('link', { name: view.nav, exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`${view.path.replaceAll('/', '\\/')}$`));
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(view.h1);
+    expect(await page.evaluate(() => document.documentElement.dataset.sidebarProbe), `mobile ${view.name}`).toBe('mounted');
+    expect(documentNavigations, `mobile ${view.name}`).toBe(0);
+  }
 });
 
 test('unknown routes are a 404 with recovery inside the shell', async ({ page }) => {

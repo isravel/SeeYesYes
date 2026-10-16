@@ -46,6 +46,8 @@ describe('early bootstrap script', () => {
   const cases: Array<[string, (e: ReturnType<typeof clone>) => unknown]> = [
     ['a missing cache', e => ({ ...e, bootstrap: undefined })],
     ['a stale revision', e => ({ ...e, bootstrap: { ...e.bootstrap!, themeRevision: 4 } })],
+    ['a negative revision', e => ({ ...e, themeRevision: -1, bootstrap: { ...e.bootstrap!, themeRevision: -1 } })],
+    ['an unsafe revision', e => ({ ...e, themeRevision: Number.MAX_SAFE_INTEGER + 1, bootstrap: { ...e.bootstrap!, themeRevision: Number.MAX_SAFE_INTEGER + 1 } })],
     ['an old cache version', e => ({ ...e, bootstrap: { ...e.bootstrap!, cacheVersion: 0 } })],
     ['an old resolver version', e => ({ ...e, bootstrap: { ...e.bootstrap!, resolverVersion: '0.9' } })],
     ['an unsafe value', e => ({ ...e, bootstrap: { ...e.bootstrap!, modeIndependent: { ...e.bootstrap!.modeIndependent, '--sys-radius-control': 'red;display:none' } } })],

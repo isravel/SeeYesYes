@@ -51,7 +51,7 @@ function number(value: unknown, path: string, min: number, max: number): number 
   return value;
 }
 function integer(value: unknown, path: string): number {
-  if (typeof value !== 'number' || !Number.isInteger(value) || value < 0) return fail(path, 'expected a non-negative integer');
+  if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0) return fail(path, 'expected a non-negative safe integer');
   return value;
 }
 function oklch(value: unknown, path: string): Oklch {

@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. For a production preview, run `npm run build` then `npm start`.
+Open http://localhost:8088. For a production preview, run `npm run build` then `npm start` (also on port 8088).
 
 ## Check the foundation
 
@@ -41,8 +41,8 @@ Fonts ship locally through Next.js. Component styles use CSS Modules and shared 
 
 ## Handoff
 
-See [docs/handoff.md](docs/handoff.md) for setup, architecture, what is mocked, acceptance evidence, and open work. Phase 1 is not complete: manual accessibility testing and the performance target (A17) are open.
+See [docs/handoff.md](docs/handoff.md) for setup, architecture, what is mocked, acceptance evidence, and open work. The [final gate review](docs/evidence/M7/gate.md) passes the automated checks, including performance. Phase 1 remains open for human accessibility and visual review, plus actual browser zoom testing.
 
 ## Current limits
 
-All thirteen views are built: Overview, Getting Started, Theme, Tokens, Components, Component Detail, Layouts, AI Context, Rules, Accessibility, Validation, Playground, and Documentation, plus `/llms.txt` and `/llms-full.txt`. Add `?scenario=empty` or `?scenario=error` to any data-driven screen to see its empty and error states. Results shown as validation or health are demo fixtures. No package is published and nothing is deployed. The demo validation endpoint returns fixtures; it never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.
+All thirteen views are built: Overview, Getting Started, Theme, Tokens, Components, Component Detail, Layouts, AI Context, Rules, Accessibility, Validation, Playground, and Documentation, plus `/llms.txt` and `/llms-full.txt`. Add `?scenario=empty` or `?scenario=error` to any data-driven screen to see its empty and error states. Results shown as validation or health are demo fixtures. The demo validation endpoint never scans a project. Seed components are experimental and have not had the required human accessibility review. No package is published and no site is deployed.

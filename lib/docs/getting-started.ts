@@ -1,7 +1,7 @@
 /** The facts Getting Started states. A test checks each command, script, and path against the repository. */
 export const setupCommands = [
   { command: 'npm ci', note: 'Install the exact dependencies in the lockfile.' },
-  { command: 'npm run dev', note: 'Start the local app, then open http://localhost:3000.' },
+  { command: 'npm run dev', note: 'Start the local app, then open http://localhost:8088.' },
   { command: 'npm run check', note: 'Type-check, audit components, lint, run unit tests, and build.' },
   { command: 'npx playwright install chromium', note: 'Once, to download the browser the end-to-end tests use.' },
   { command: 'npm run test:browser', note: 'Run the browser journeys against a production build.' },

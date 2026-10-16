@@ -88,4 +88,4 @@ writeFileSync('docs/evidence/M7/performance.md', [
   `Overall: routes ${pass.routes ? 'meet' : 'MISS'} their targets; interaction ${pass.longTasks ? 'meets' : 'MISSES'} the long-task target.`, '',
 ].join('\n'));
 console.log(JSON.stringify({ pass, results: results.map(r => ({ name: r.name, ...r.median })), interaction: [theme, catalog] }, null, 2));
-process.exit(0);
+process.exit(pass.routes && pass.longTasks ? 0 : 1);

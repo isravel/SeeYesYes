@@ -135,10 +135,10 @@ Goal: finish required quality checks and document what actually works.
 - [x] M7.2 Run browser journeys for theme persistence, context export, mock recovery, and key keyboard interactions. [Evidence](../evidence/M7/M7.1-M7.2.md)
 - [x] M7.3 Audit all routes and relevant states with automated accessibility checks; resolve serious/critical findings and review the rest. [Evidence](../evidence/M7/M7.3-review.md)
 - [ ] M7.4 Complete manual keyboard/screen-reader checks and the applicable WCAG criteria review. **Needs a human tester (checklist prepared: [M7.4-checklist](../evidence/M7/M7.4-checklist.md));** an agent prepares the checklist and records supplied results only.
-- [x] M7.5 Review viewport/zoom, light/dark, density/radius, motion, and overflow checks; audit OOCSS separation, naming, and independence across standalone/nested/overlay examples. [Evidence](../evidence/M7/M7.5-review.md)
-- [ ] M7.6 Run the recorded production performance procedure and investigate budget failures. **Procedure run and investigated; the LCP target is still missed, so this stays open** ([evidence](../evidence/M7/M7.6-review.md)).
+- [ ] M7.5 Review viewport/zoom, light/dark, density/radius, motion, and overflow checks; audit OOCSS separation, naming, and independence across standalone/nested/overlay examples. **Automated and agent screenshot checks pass; actual 200% browser zoom and the human visual review remain open.** The final gate corrected the earlier completed status because a 640px viewport proxy alone does not verify actual browser zoom. [Evidence](../evidence/M7/M7.5-review.md)
+- [x] M7.6 Run the recorded production performance procedure and investigate budget failures. **Passes on the 2026-10-16 Node 24 production run:** LCP 2.11–2.41 s, scores 98–99, CLS at most 0.063, and no interaction long task above 50 ms. [Evidence](../evidence/M7/M7.6-review.md)
 - [x] M7.7 Review content for misleading package, AI, validation, maturity, or accessibility claims. [Evidence](../evidence/M7/M7.7-review.md)
-- [ ] M7.8 Complete A01–A18 evidence and write local setup, architecture, mock boundaries, and known limitations. **Handoff and the evidence matrix are written ([handoff](../handoff.md)); this stays open because A17 fails and the human checks in M7.4 are not done.**
+- [ ] M7.8 Complete A01–A18 evidence and write local setup, architecture, mock boundaries, and known limitations. **The [final gate review](../evidence/M7/gate.md), [handoff](../handoff.md), and evidence matrix are current. Automated checks pass; signoff stays open for M7.4 and the remaining zoom and visual review in M7.5.**
 
 Completion gate: all required acceptance checks pass with evidence. Any failed or unverified required check keeps the milestone open. Optional enhancements and deployment remain separate tasks.
 
@@ -170,11 +170,13 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 | M4 | Complete (automated) | 2026-10-14 | [M4.8 review](../evidence/M4/M4.8/review.md) | Human screen-reader and WCAG review remain open. |
 | M5 | Complete (automated) | 2026-10-14 | [M5.10 review](../evidence/M5/M5.10/review.md) | Full agent-file link check runs in M6; human accessibility review remains open. |
 | M6 | Complete (automated) | 2026-10-14 | [M6 gate](../evidence/M6/gate.md) | Human accessibility review remains open. |
-| M7 | In progress | 2026-10-14 | [Handoff](../handoff.md) | M7.4 needs a human tester; M7.6 (LCP target) and M7.8 remain open. |
+| M7 | In progress | 2026-10-16 | [Final gate review](../evidence/M7/gate.md) | Automated checks and M7.6 pass on Node 24. M7.4, actual zoom and human visual review in M7.5, and M7.8 signoff remain open. |
 
 ## Change handling
 
 Update the owning spec first when a requirement changes, then adjust affected tasks and acceptance checks. Record the reason here. Do not silently promote optional work or lower quality gates to finish a milestone.
+
+Final gate review (2026-10-16): the full check, 165 browser tests, and A17 pass on Node 24.22.0. Runtime and bootstrap revision checks now reject unsafe stored values, and the performance command returns a failure exit status when a budget is missed. M7.6 closes. A14 is partial and M7.5 reopens because the recorded 200% zoom check was a viewport proxy; actual browser zoom and human visual review remain unverified. M7.4 and M7.8 remain open. Acceptance requirements and performance budgets are unchanged.
 
 Implementation guidance (2026-10-08, model choice): added GPT-6 Luna/GPT-6.1 Sol task guidance and reminders in both directions. Sol handles shared logic and milestone reviews; Luna handles focused work once its foundations are ready. Handoffs name the next model and switch point. This changes the working guidance only; scope, acceptance checks, and evaluation controls stay intact.
 
