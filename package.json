@@ -9,6 +9,8 @@
     "dev": "next dev --port 8088",
     "start": "next start --port 8088",
     "generate": "node --import tsx scripts/generate.ts",
+    "export:artifact": "node --import tsx scripts/export-artifact.ts",
+
     "typecheck": "npm run generate && tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
