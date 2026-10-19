@@ -240,8 +240,10 @@ function main(): void {
       '.': './src/index.ts',
       './styles.css': './src/styles/base.css',
       './tokens.css': './src/styles/tokens.css',
+      './artifact': './ARTIFACT.json',
       './package.json': './package.json',
     },
+
     files: ['src', 'README.md', 'ARTIFACT.json'],
     peerDependencies: {
       react: '>=19.0.0',
