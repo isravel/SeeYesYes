@@ -34,6 +34,7 @@ import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
+import { InputOtp } from '@/components/ui/input-otp';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -55,6 +56,8 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [picked, setPicked] = useState<string[]>([]);
   const [tags, setTags] = useState(['Archived', 'Draft']);
   const [failing, setFailing] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [otpDone, setOtpDone] = useState('');
   const [page, setPage] = useState(6);
   const [open, setOpen] = useState<string[]>([]);
   const [confirmed, setConfirmed] = useState('');
@@ -124,6 +127,11 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <CheckboxGroup name="channels" label="Notify me by" value={picked} onChange={setPicked} helpText="Choose any." error={picked.length === 0 && message === 'submit' ? 'Choose at least one.' : undefined}
           options={[{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push', disabled: true }]} />
         <p data-testid="x3-picked">{picked.join(',')}|{view}</p>
+        <InputOtp name="otp" label="Verification code" helpText="Enter the 6-digit code." value={otp} onChange={setOtp} onComplete={code => setOtpDone(code)} error={otp.length === 6 && otp !== '123456' ? 'That code is not right.' : undefined} />
+        <InputOtp label="Masked code" length={4} masked defaultValue="12" />
+        <InputOtp label="Locked code" defaultValue="123456" readOnly />
+        <InputOtp label="Unavailable code" disabled />
+        <p data-testid="x3-otp">{otp}|{otpDone}</p>
       </section>
       <section aria-label="Disclosure and navigation" id="x3-compositions">
         <Disclosure label="Shipping details" data-testid="click-disclosure"><button type="button">Inside the panel</button></Disclosure>

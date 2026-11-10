@@ -130,6 +130,62 @@ test('CheckboxGroup collects an array in option order, exposes hints and skips a
   await expect(group.getByRole('checkbox', { name: 'Push' })).not.toBeFocused();
 });
 
+test('InputOtp is one labelled field that keeps digits only, handles paste and correction, and reports completion without submitting', async ({ page }) => {
+  await open(page);
+  const field = section(page).getByRole('textbox', { name: 'Verification code', exact: true });
+  await expect(field).toHaveAccessibleDescription('Enter the 6-digit code.');
+  await expect(field).toHaveAttribute('autocomplete', 'one-time-code');
+  await expect(field).toHaveAttribute('inputmode', 'numeric');
+  // Only one tab stop for the whole code.
+  await expect(section(page).getByRole('textbox', { name: 'Verification code', exact: true })).toHaveCount(1);
+  await field.click();
+  await page.keyboard.type('12a-3');
+  await expect(field).toHaveValue('123');
+  await expect(section(page).getByTestId('x3-otp')).toHaveText('123|');
+  await page.keyboard.press('Backspace');
+  await expect(field).toHaveValue('12');
+  // Extra digits are cut off and completion is reported once.
+  await page.keyboard.type('3456789');
+  await expect(field).toHaveValue('123456');
+  await expect(section(page).getByTestId('x3-otp')).toHaveText('123456|123456');
+  await expect(field).not.toHaveAttribute('aria-invalid', 'true');
+  await page.keyboard.press('Backspace');
+  await page.keyboard.type('9');
+  await expect(field).toHaveAttribute('aria-invalid', 'true');
+  await expect(section(page).getByText('That code is not right.')).toBeVisible();
+  await expect(field).toHaveAccessibleDescription(/That code is not right\./);
+  // A pasted code replaces the whole value; non-digits are dropped.
+  await field.evaluate(el => {
+    el.focus();
+    const data = new DataTransfer(); data.setData('text', ' 98-76 54 ');
+    el.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
+  });
+  await expect(field).toHaveValue('987654');
+  // The decorative boxes are not exposed and the active box is a shape, not only a color.
+  const group = field.locator('xpath=..');
+  expect(await group.locator('[aria-hidden="true"] > span').count()).toBe(6);
+  await page.keyboard.press('Shift');
+  await field.focus();
+  expect(await group.evaluate(el => getComputedStyle(el).outlineStyle)).toBe('solid');
+});
+
+test('InputOtp masks, honours read-only and disabled, and keeps its boxes at the minimum target size', async ({ page }) => {
+  await open(page);
+  const masked = section(page).getByLabel('Masked code', { exact: true });
+  await expect(masked).toHaveAttribute('type', 'password');
+  await expect(masked).toHaveValue('12');
+  await expect(masked.locator('xpath=..').locator('[aria-hidden="true"] > span').first()).toHaveText('•');
+  const locked = section(page).getByLabel('Locked code', { exact: true });
+  await locked.focus();
+  await page.keyboard.type('9');
+  await expect(locked).toHaveValue('123456');
+  await expect(section(page).getByLabel('Unavailable code', { exact: true })).toBeDisabled();
+  const slot = section(page).getByRole('textbox', { name: 'Verification code', exact: true }).locator('xpath=..').locator('[aria-hidden="true"] > span').first();
+  const box = await slot.boundingBox();
+  expect(box!.width).toBeGreaterThanOrEqual(24);
+  expect(box!.height).toBeGreaterThanOrEqual(24);
+});
+
 test('the new X3 controls have no serious accessibility violations in light and dark, glass and clean', async ({ page }) => {
   for (const appearance of ['light', 'dark'] as const) for (const surface of ['glass', 'clean'] as const) {
     await open(page, `surface=${surface}&appearance=${appearance}`);

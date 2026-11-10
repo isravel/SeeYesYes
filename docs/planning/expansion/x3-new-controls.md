@@ -34,7 +34,8 @@ Phase: A — Foundations and controls. Dependencies: X1–X2, limited to the con
   - 2026-11-10: Done with automated checks only; no human visual review. A new modal edge panel on four sides and three sizes, following Dialog's structure. The shell's `NavigationDrawer` was not changed or replaced. [Evidence](../../evidence/expansion/X3/SYX-066/review.md)
 - [x] **SYX-070 — Checkbox group.** Provide an array-valued selection group with label, hints, errors and disabled options.
   - 2026-11-10: Done with automated checks only; no human visual review. Fieldset of native checkboxes; array value in option order; hints are descriptions; required not put on every checkbox. [Evidence](../../evidence/expansion/X3/SYX-070/review.md)
-- [ ] **SYX-071 — Input OTP.** Support one-time-code entry, full-code paste, SMS autofill, correction, incomplete/error states and a coherent accessible label.
+- [x] **SYX-071 — Input OTP.** Support one-time-code entry, full-code paste, SMS autofill, correction, incomplete/error states and a coherent accessible label.
+  - 2026-11-10: Done with automated checks only; no human visual review. One native input (numeric, `one-time-code`) with decorative digit boxes behind it; paste replaces the value; no auto-submit. Real SMS autofill and screen readers are untested. [Evidence](../../evidence/expansion/X3/SYX-071/review.md)
 - [ ] **SYX-072 — Combobox.** Provide searchable selection with keyboard navigation, selected value, loading, no results, disabled and error states.
 - [x] **SYX-078 — Kbd.** Provide semantic keyboard shortcut hints with platform-neutral display content.
   - 2026-11-10: Done with automated checks only; no human visual review. Display only; binds nothing. [Evidence](../../evidence/expansion/X3/SYX-078/review.md)

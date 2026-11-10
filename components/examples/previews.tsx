@@ -50,6 +50,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { InputOtp } from '@/components/ui/input-otp';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -131,6 +132,10 @@ function ChipFilters() {
 function CheckboxGroupChannels() {
   return <div className="previewSections"><CheckboxGroup name="preview-channels" label="Notify me by" defaultValue={['email']} options={[{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push', disabled: true }]} /></div>;
 }
+function InputOtpVerify() {
+  const [code, setCode] = useState('');
+  return <div className="previewSections"><InputOtp name="preview-code" label="Verification code" helpText="Enter the 6-digit code we sent you." value={code} onChange={setCode} /><span role="status">{code.length === 6 ? 'Code complete. Check it, then continue.' : ''}</span></div>;
+}
 function DisclosureDetails() { return <div className="previewSections"><Disclosure label="Shipping details"><p>Orders ship within two business days.</p></Disclosure></div>; }
 const faqItems = [{ id: 'shipping', label: 'Shipping', content: 'Orders ship within two business days.' }, { id: 'returns', label: 'Returns', content: 'Return items within thirty days.' }, { id: 'support', label: 'Support', content: 'Write to us any time.' }];
 function AccordionFaq() { return <div className="previewSections"><Accordion items={faqItems} /></div>; }
@@ -153,7 +158,7 @@ export const previewMap = {
   dialogPreview: DialogPreview, menuActions: MenuActions, tabsOverview: TabsOverview, tooltipSave: TooltipSave, tableInvoices: TableInvoices, navigationPreview: NavigationPreview,
   backdropGlass: BackdropGlass, themeSwitcherLabeled: ThemeSwitcherLabeled,
   highlightNote: HighlightNote, levelDifficulty: LevelDifficulty, liveDotStatus: LiveDotStatus, kbdShortcut: KbdShortcut, avatarGroupTeam: AvatarGroupTeam,
-  iconButtonAdd: IconButtonAdd, searchInputMembers: SearchInputMembers, segmentedView: SegmentedView, chipFilters: ChipFilters, checkboxGroupChannels: CheckboxGroupChannels,
+  iconButtonAdd: IconButtonAdd, searchInputMembers: SearchInputMembers, segmentedView: SegmentedView, chipFilters: ChipFilters, checkboxGroupChannels: CheckboxGroupChannels, inputOtpVerify: InputOtpVerify,
   disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
   popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,

@@ -122,3 +122,11 @@ Not covered: human visual review over glass, reduced-transparency rendering in a
 - Browser: `x3-panels` 12 pass, including the ConfirmDialog test (named alert dialog, starts on Cancel, outside press ignored, Escape closes, type-to-confirm, pending, failed with input kept, success).
 - A broad run of 10 related specs had 65 pass and 4 time out (Popover/Drawer axe sweep, X3 controls axe sweep, component-detail, 200% zoom). All four passed when re-run alone, one worker. The cause looks like load, but I did not prove it.
 - Not run: the full browser suite, screen readers, reduced transparency, right-to-left.
+
+## Sixth batch: Input OTP (SYX-071)
+
+- Unit: 661 pass. Type-check, lint (`components`, `tests`, `lib`), component audit (50) and production build pass.
+- Browser: `x3-controls` 11 pass (2 new InputOtp tests plus the existing axe sweep, which covers the new field in light, dark, glass and clean). 54 related tests pass across `keyboard-matrix`, `components-catalog`, `component-detail`, `playground`, `review-matrix`, `x3-compositions`, `x3-display` and `x3-panels`.
+- Not run: the full browser suite, real SMS autofill, screen readers, reduced transparency, right-to-left.
+- Earlier in the session a stale terminal showed failures from `integration`, `theme-controls` and `foundation`. Those are not in the specs run here and were not investigated; they predate this change.
+- Shared files changed: `lib/data/control-contracts.ts`, the `wcag-focus-visible` rule list, `tests/contract.test.ts`, `tests/component-inventory.test.ts`, `tests/browser/keyboard-matrix.spec.ts`, and `tests/fixtures/ControlsFixture.tsx`.

@@ -45,6 +45,7 @@ export type ComponentDefaults = {
 "segmented": { "size": "small" | "medium" | "large" };
 "chip": { "tone": "neutral" | "primary" | "success" | "warning" | "destructive" | "info"; "size": "medium" | "small"; "defaultSelected": boolean; "removing": boolean };
 "checkbox-group": { "orientation": "vertical" | "horizontal"; "size": "small" | "medium" | "large"; "required": boolean };
+"input-otp": { "length": number; "masked": boolean; "defaultValue": string; "size": "small" | "medium" | "large"; "required": boolean };
 "disclosure": { "defaultOpen": boolean; "openOnHover": boolean };
 "accordion": { "mode": "single" | "multiple"; "collapsible": boolean; "headingLevel": 2 | 3 | 4 | 5 | 6 };
 "pagination": { "defaultPage": number; "label": string; "size": "small" | "medium" | "large"; "siblings": number; "previousLabel": string; "nextLabel": string };
@@ -233,6 +234,13 @@ export const contractDefaults: ComponentDefaults = {
   },
   "checkbox-group": {
     "orientation": "vertical",
+    "size": "medium",
+    "required": false
+  },
+  "input-otp": {
+    "length": 6,
+    "masked": false,
+    "defaultValue": "",
     "size": "medium",
     "required": false
   },

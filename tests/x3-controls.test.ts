@@ -6,6 +6,7 @@ import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
+import { InputOtp } from '@/components/ui/input-otp';
 import { registry } from '@/lib/data/registry';
 
 const h = createElement as unknown as (type: unknown, props?: Record<string, unknown> | null, ...children: unknown[]) => ReactElement;
@@ -159,8 +160,53 @@ describe('SYX-070 CheckboxGroup', () => {
   });
 });
 
+describe('SYX-071 InputOtp', () => {
+  const base = { label: 'Verification code' };
+  it('is one labelled numeric text input with one-time-code autofill', () => {
+    const markup = html(h(InputOtp, { ...base, name: 'code' }));
+    expect(markup.match(/<input/g)).toHaveLength(1);
+    expect(markup).toMatch(/autoComplete="one-time-code"/i);
+    expect(markup).toMatch(/inputMode="numeric"/i);
+    expect(markup).toContain('name="code"');
+    expect(markup).toContain('Verification code');
+    expect(markup).toMatch(/<label[^>]*for="[^"]+"/);
+  });
+  it('draws six empty boxes by default, hidden from assistive technology, and any configured length', () => {
+    expect(html(h(InputOtp, base)).match(/class="_slot_/g)).toHaveLength(6);
+    expect(html(h(InputOtp, { ...base, length: 4 })).match(/class="_slot_/g)).toHaveLength(4);
+    expect(html(h(InputOtp, base))).toContain('aria-hidden="true"');
+  });
+  it('shows a partial, complete and over-long value as digits only, cut to the length', () => {
+    expect(html(h(InputOtp, { ...base, defaultValue: '12' }))).toContain('value="12"');
+    expect(html(h(InputOtp, { ...base, defaultValue: '123456' }))).toContain('data-complete="true"');
+    expect(html(h(InputOtp, { ...base, value: '12a3-4 5678', onChange: () => undefined }))).toContain('value="123456"');
+    expect(html(h(InputOtp, { ...base, defaultValue: '12' }))).not.toContain('data-complete');
+  });
+  it('masks the boxes and the field when asked, without changing the value', () => {
+    const markup = html(h(InputOtp, { ...base, defaultValue: '123', masked: true }));
+    expect(markup).toContain('type="password"');
+    expect(markup).toContain('•');
+    expect(markup).toContain('value="123"');
+    expect(html(h(InputOtp, { ...base, defaultValue: '123' }))).not.toContain('•');
+  });
+  it('describes the field by its help and error text and marks it invalid', () => {
+    const markup = html(h(InputOtp, { ...base, helpText: 'Check your texts.', error: 'Wrong code.' }));
+    expect(markup).toContain('Check your texts.');
+    expect(markup).toContain('Wrong code.');
+    expect(markup).toContain('aria-invalid="true"');
+    expect(markup).toMatch(/aria-describedby="[^"]*-help [^"]*-error"/);
+  });
+  it('supports disabled, read-only, required and the three sizes', () => {
+    expect(html(h(InputOtp, { ...base, disabled: true }))).toContain('disabled=""');
+    expect(html(h(InputOtp, { ...base, readOnly: true }))).toMatch(/readOnly=""/i);
+    expect(html(h(InputOtp, { ...base, required: true }))).toContain('required=""');
+    expect(attr(html(h(InputOtp, base)), 'data-size')).toBe('medium');
+    for (const size of ['small', 'large']) expect(attr(html(h(InputOtp, { ...base, size })), 'data-size')).toBe(size);
+  });
+});
+
 describe('X3 control contracts', () => {
-  const ids = ['icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group'];
+  const ids = ['icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp'];
   it('registers each as interactive with keyboard behavior and a recommended example', () => {
     for (const id of ids) {
       const component = registry.components.find(item => item.id === id)!;
@@ -181,5 +227,8 @@ describe('X3 control contracts', () => {
     expect(def('chip', 'tone')).toBe('neutral');
     expect(def('chip', 'size')).toBe('medium');
     expect(def('checkbox-group', 'orientation')).toBe('vertical');
+    expect(def('input-otp', 'length')).toBe(6);
+    expect(def('input-otp', 'masked')).toBe(false);
+    expect(def('input-otp', 'size')).toBe('medium');
   });
 });

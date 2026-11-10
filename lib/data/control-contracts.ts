@@ -119,6 +119,29 @@ const entries: Entry[] = [
     exampleId: 'checkbox-group-channels', previewKey: 'checkboxGroupChannels',
     code: 'import { CheckboxGroup } from "@/components/ui/checkbox-group";\n<CheckboxGroup name="channels" label="Notify me by" defaultValue={["email"]} options={[{ value: "email", label: "Email" }, { value: "sms", label: "Text message", hint: "Carrier rates may apply." }, { value: "push", label: "Push", disabled: true }]} />',
   },
+  {
+    id: 'input-otp', name: 'InputOtp', category: 'form', purpose: 'Enter a one-time numeric code.', shortPurpose: 'Enter a one-time numeric code.', element: 'input',
+    meaning: 'One native text input with a numeric keyboard and one-time-code autofill. The digit boxes are drawn behind it, so the field has a single label, value and error.',
+    anatomy: [{ part: 'root', description: 'Field wrapper with the label, help and error text.' }, { part: 'input', description: 'The one real input. It receives typing, correction, paste and autofill.' }, { part: 'slots', description: 'Decorative digit boxes, hidden from assistive technology. The active box marks where the next digit goes.' }],
+    props: [
+      prop('label', 'string', 'Visible field label and accessible name. Always required.', true), prop('name', 'string', 'Form name. The whole code is submitted as one value.'),
+      prop('length', 'number', 'Number of digits in the code.', false, 6), prop('masked', 'boolean', 'Show dots instead of digits. The value is still entered as digits.', false, false),
+      prop('value', 'string', 'Controlled code. Non-digits are ignored.'), prop('defaultValue', 'string', 'Initial code when uncontrolled.', false, ''),
+      prop('onChange', '(value: string) => void', 'Called with the digits after typing, deleting, paste or autofill.'), prop('onComplete', '(value: string) => void', 'Called once the code reaches its full length. It never submits anything.'),
+      size(sizes, 'medium'), prop('helpText', 'string', 'Instruction shown under the field and used as its description.'), prop('error', 'string', 'Visible validation message, shown as text and used as the field description.'),
+      prop('required', 'boolean', 'Mark the field as required.', false, false), prop('disabled', 'boolean', 'Disable interaction.'), prop('readOnly', 'boolean', 'Allow reading and focus without editing.'),
+      prop('id', 'string', 'Id of the input. Generated when omitted.'), ...common,
+    ],
+    variants: { size: sizes }, themeDefaults: { size: sizes },
+    states: ['empty', 'partial', 'complete', 'paste', 'autofill', 'focus-visible', 'disabled', 'read-only', 'invalid'],
+    tokenIds: ['spacing.target-minimum', 'radius.control', 'color.focus', 'spacing.inline', 'color.border', 'color.surface', 'color.foreground', 'typography.label', 'typography.caption', 'typography.heading', 'typography.weight-medium', 'color.primary', 'color.destructive', 'color.muted'],
+    keyboard: [{ key: 'Digits', behavior: 'Enter the next digit. Other characters are ignored.' }, { key: 'Backspace', behavior: 'Remove the last digit.' }, { key: 'Paste', behavior: 'A pasted code replaces the whole value; non-digits are dropped and extra digits are cut off.' }],
+    requirements: ['Always supply `label`; the boxes are decorative and never the name.', 'Show an error as text; the boxes also turn destructive but color is not the only cue.', 'Keep it one text input so autofill, paste and correction work natively.', 'Do not submit automatically when the code is complete; `onComplete` only reports it.'],
+    prohibitedUsage: ['Building the code from separate inputs per digit.', 'Using it for a password or a PIN that should not be shown in a form value.', 'Submitting on completion without letting the person review or correct the code.'],
+    prefer: ['Use InputOtp for verification codes sent by SMS, email or an authenticator app.'], allowed: ['form-field'],
+    exampleId: 'input-otp-verify', previewKey: 'inputOtpVerify',
+    code: 'import { InputOtp } from "@/components/ui/input-otp";\n<InputOtp name="code" label="Verification code" helpText="Enter the 6-digit code we sent you." />',
+  },
 ];
 
 export const controlComponentContracts: ComponentContract[] = entries.map(entry => ({

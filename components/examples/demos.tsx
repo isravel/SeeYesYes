@@ -50,6 +50,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { InputOtp } from '@/components/ui/input-otp';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -147,6 +148,8 @@ export const demos: Record<string, Demo> = {
   'checkbox-group': { element: as(CheckboxGroup), name: 'CheckboxGroup', states: ['empty', 'some-selected', 'all-selected', 'disabled', 'invalid', 'required', 'help'],
     props: (v, s) => ({ name: 'demo-channels', label: 'Notify me by', orientation: v.orientation, size: v.size, defaultValue: s === 'some-selected' ? ['email'] : s === 'all-selected' ? ['email', 'sms', 'push'] : undefined, disabled: flag(s === 'disabled'), required: flag(s === 'required'), error: s === 'invalid' ? 'Choose at least one.' : undefined, helpText: s === 'help' ? 'You can change this later.' : undefined }),
     extra: () => ({ options: [{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push' }] }), codeExtra: ' options={[{ value: "email", label: "Email" }, { value: "sms", label: "Text message", hint: "Carrier rates may apply." }, { value: "push", label: "Push" }]}' },
+  'input-otp': { element: as(InputOtp), name: 'InputOtp', states: ['empty', 'partial', 'complete', 'invalid', 'disabled', 'read-only'],
+    props: (v, s) => ({ name: 'demo-code', label: 'Verification code', helpText: 'Enter the 6-digit code we sent you.', size: v.size, defaultValue: s === 'partial' ? '123' : s === 'complete' || s === 'read-only' ? '123456' : undefined, error: s === 'invalid' ? 'That code is not right. Check it and try again.' : undefined, disabled: flag(s === 'disabled'), readOnly: flag(s === 'read-only') }) },
   disclosure: { element: as(Disclosure), name: 'Disclosure', states: ['collapsed', 'expanded', 'disabled'], props: (_v, s) => ({ label: 'Shipping details', defaultOpen: flag(s === 'expanded'), disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Orders ship within two business days.</p>, code: '<p>Orders ship within two business days.</p>' }) },
   accordion: { element: as(Accordion), name: 'Accordion', states: ['collapsed', 'expanded', 'disabled'], props: v => ({ mode: v.mode }),
     extra: s => ({ defaultValue: s === 'expanded' ? ['shipping'] : undefined, items: [{ id: 'shipping', label: 'Shipping', content: 'Orders ship within two business days.' }, { id: 'returns', label: 'Returns', content: 'Return items within thirty days.' }, { id: 'support', label: 'Support', content: 'Write to us any time.', disabled: s === 'disabled' }] }), codeExtra: ' items={items}' },
