@@ -5,7 +5,7 @@ import styles from './Button.module.css';
 
 // React Aria's trigger context supplies event handlers, ARIA relationships, and refs.
 // This private adapter shares Button's styles and defaults without exposing Aria props.
-export function InternalTriggerButton({ label, disabled, onPress }: { label: string; disabled?: boolean; onPress?: () => void }) {
+export function InternalTriggerButton({ label, disabled, onPress, variant }: { label: string; disabled?: boolean; onPress?: () => void; variant?: 'destructive' }) {
   const defaults = useComponentDefaults('button');
-  return <AriaButton type="button" className={styles.root} data-variant={defaults.variant} data-size={defaults.size} isDisabled={disabled} onPress={onPress}>{label}</AriaButton>;
+  return <AriaButton type="button" className={styles.root} data-variant={variant ?? defaults.variant} data-size={defaults.size} isDisabled={disabled} onPress={onPress}>{label}</AriaButton>;
 }

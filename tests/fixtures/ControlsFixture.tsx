@@ -40,6 +40,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { Plus } from '@phosphor-icons/react';
 import styles from './OverlayFixture.module.css';
 
@@ -56,6 +57,8 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [failing, setFailing] = useState(false);
   const [page, setPage] = useState(6);
   const [open, setOpen] = useState<string[]>([]);
+  const [confirmed, setConfirmed] = useState('');
+  const [attempts, setAttempts] = useState(0);
   const scoped: Theme = { ...theme, effects: { ...theme.effects, surface } };
   return <main className={styles.main}><h1>Control checks</h1>
     <ThemeScope id="controls-scope" theme={scoped} appearance={appearance} className={styles.scope}>
@@ -140,6 +143,12 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <Drawer triggerLabel="Open left drawer" title="Left filters" side="left" size="small"><p>Left content.</p></Drawer>
         <Drawer triggerLabel="Open bottom drawer" title="Bottom filters" side="bottom"><p>Bottom content.</p></Drawer>
         <Drawer triggerLabel="Open required drawer" title="Required drawer" dismissOnOutsidePress={false} closeOnEscape={false} closeLabel="Finish drawer"><p>Finish this first.</p></Drawer>
+      </section>
+      <section aria-label="Confirm dialogs" id="x3-confirm">
+        <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>
+        <ConfirmDialog triggerLabel="Delete project" title="Delete Orchard?" confirmLabel="Delete project" destructive confirmText="Orchard" onConfirm={() => new Promise<void>(resolve => setTimeout(() => { setConfirmed('deleted'); resolve(); }, 400))}><p>This removes the project for everyone.</p></ConfirmDialog>
+        <ConfirmDialog triggerLabel="Remove member" title="Remove Ada Bell?" confirmLabel="Remove member" errorMessage="Could not remove the member. Try again." confirmText="Ada" onConfirm={async () => { setAttempts(count => count + 1); if (attempts < 1) throw new Error('offline'); setConfirmed('removed'); }}><p>Ada Bell loses access.</p></ConfirmDialog>
+        <p data-testid="x3-confirmed">{confirmed}|{attempts}</p>
       </section>
       <section aria-label="Overlays">
         <Dialog triggerLabel="Open glass dialog" title="Glass dialog" closeLabel="Close glass dialog"><p>Panel over a scrim.</p></Dialog>

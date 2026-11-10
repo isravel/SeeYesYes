@@ -49,6 +49,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -154,6 +155,8 @@ export const demos: Record<string, Demo> = {
     extra: () => ({ items: [{ label: 'Components', href: '/components' }, { label: 'Navigation', href: '/components?category=navigation' }, { label: 'Breadcrumbs', href: '/components/breadcrumbs' }] }), codeExtra: ' items={items}' },
   popover: { element: as(Popover), name: 'Popover', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Filter options', label: 'Filter options', placement: v.placement, disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Filters apply to this list only.</p>, code: '<p>Filters apply to this list only.</p>' }), frame: { padding: 48 } },
   drawer: { element: as(Drawer), name: 'Drawer', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Open filters', title: 'Filters', side: v.side, size: v.size, disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Filters apply to this list only.</p>, code: '<p>Filters apply to this list only.</p>' }) },
+  'confirm-dialog': { element: as(ConfirmDialog), name: 'ConfirmDialog', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Remove member', title: 'Remove Ada Bell?', confirmLabel: 'Remove member', destructive: true, size: v.size, disabled: flag(s === 'disabled') }),
+    extra: () => ({ onConfirm: noop }), codeExtra: ' onConfirm={() => undefined}', children: () => ({ node: <p>Ada Bell loses access to this workspace.</p>, code: '<p>Ada Bell loses access to this workspace.</p>' }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

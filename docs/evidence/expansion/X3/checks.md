@@ -115,3 +115,10 @@ Changes outside the two components:
 - `tests/fixtures/ControlsFixture.tsx` has a new "Popover and drawer" section; `tests/browser/x3-panels.spec.ts` is new.
 
 Not covered: human visual review over glass, reduced-transparency rendering in a browser, screen-reader testing, the full browser suite and the SYX-004 packed-consumer check.
+
+## Fifth batch: Confirm dialog (SYX-019)
+
+- Unit: 653 pass. Type-check, lint (`components`, `tests`, `lib`), component audit (49) and production build pass.
+- Browser: `x3-panels` 12 pass, including the ConfirmDialog test (named alert dialog, starts on Cancel, outside press ignored, Escape closes, type-to-confirm, pending, failed with input kept, success).
+- A broad run of 10 related specs had 65 pass and 4 time out (Popover/Drawer axe sweep, X3 controls axe sweep, component-detail, 200% zoom). All four passed when re-run alone, one worker. The cause looks like load, but I did not prove it.
+- Not run: the full browser suite, screen readers, reduced transparency, right-to-left.

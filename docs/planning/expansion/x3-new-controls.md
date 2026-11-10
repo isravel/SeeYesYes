@@ -18,7 +18,7 @@ Phase: A — Foundations and controls. Dependencies: X1–X2, limited to the con
   - 2026-11-10: Done with automated checks only; no human visual review. Native radios in a radiogroup; no tab semantics; arrow keys and disabled choices checked in the browser. [Evidence](../../evidence/expansion/X3/SYX-016/review.md)
 - [x] **SYX-017 — Icon button.** Compose Button with compact sizing, a required accessible name and optional tooltip.
   - 2026-11-10: Done with automated checks only; no human visual review. Composes Button; label required; pressed is a shape, not only color; optional tooltip never replaces the label. [Evidence](../../evidence/expansion/X3/SYX-017/review.md)
-- [ ] **SYX-019 — Confirm dialog.** Compose Dialog with safe initial focus, pending/error states and optional type-to-confirm; preserve user input after a failed action.
+- [x] **SYX-019 — Confirm dialog.** Compose Dialog with safe initial focus, pending/error states and optional type-to-confirm; preserve user input after a failed action.
 - [ ] **SYX-020 — Toast.** Provide queued confirmations, live-region semantics, dismissal and timed expiry that pauses during interaction; actionable messages allow enough time to respond.
 - [x] **SYX-032 — Disclosure.** Provide an accessible click trigger and optional pointer-hover enhancement; hidden content cannot receive focus.
   - 2026-11-10: Done with automated checks only; no human visual review. Native button with `aria-expanded`/`aria-controls`; collapsed content is `hidden`; hover is a mouse-only opt-in and a click pins it. Height animation not built, only the chevron turn. [Evidence](../../evidence/expansion/X3/SYX-032/review.md)

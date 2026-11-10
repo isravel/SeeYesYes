@@ -142,3 +142,79 @@ test('open Popover and Drawer have no serious accessibility violations in light 
     expect(drawer.violations.filter(v => ['serious', 'critical'].includes(v.impact ?? '')), `drawer ${surface} ${appearance}`).toEqual([]);
   }
 });
+
+const confirmSection = (page: Page) => page.locator('#x3-confirm');
+
+test('ConfirmDialog is a named alert dialog, starts on Cancel, ignores outside presses, and confirms', async ({ page }) => {
+  await open(page);
+  const trigger = confirmSection(page).getByRole('button', { name: 'Archive project' });
+  await trigger.click();
+  const dialog = page.getByRole('alertdialog', { name: 'Archive this project?' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toHaveAccessibleDescription('The project moves to the archive.');
+  await expect(dialog.getByRole('button', { name: 'Cancel' })).toBeFocused();
+  expect(await dialog.evaluate(el => el.closest('[data-theme-scope]')?.id)).toBe('controls-scope');
+  await page.mouse.click(5, 5);
+  await expect(dialog).toBeVisible();
+  expect(await dialog.evaluate(el => el.contains(document.activeElement)), 'focus stays inside after an outside press').toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await expect(page.getByTestId('x3-confirmed')).toHaveText('|0');
+  await trigger.click();
+  await dialog.getByRole('button', { name: 'Archive project' }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await expect(page.getByTestId('x3-confirmed')).toHaveText('archived|0');
+});
+
+test('ConfirmDialog with typing starts on the field, enables Confirm only on an exact match, and shows pending', async ({ page }) => {
+  await open(page);
+  await confirmSection(page).getByRole('button', { name: 'Delete project' }).click();
+  const dialog = page.getByRole('alertdialog', { name: 'Delete Orchard?' });
+  const field = dialog.getByRole('textbox', { name: /Type .Orchard. to confirm/ });
+  const confirm = dialog.getByRole('button', { name: 'Delete project' });
+  await expect(field).toBeFocused();
+  await expect(confirm).toBeDisabled();
+  await field.fill('orchard');
+  await expect(confirm).toBeDisabled();
+  await field.fill('Orchard');
+  await expect(confirm).toBeEnabled();
+  await field.press('Enter');
+  await expect(dialog.getByRole('status')).toHaveText('Working…');
+  expect(await dialog.evaluate(el => el.contains(document.activeElement))).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toHaveCount(0);
+  await expect(page.getByTestId('x3-confirmed')).toHaveText('deleted|0');
+});
+
+test('ConfirmDialog keeps the dialog open and the typed text after a failed action, and succeeds on retry', async ({ page }) => {
+  await open(page);
+  await confirmSection(page).getByRole('button', { name: 'Remove member' }).click();
+  const dialog = page.getByRole('alertdialog', { name: 'Remove Ada Bell?' });
+  const field = dialog.getByRole('textbox');
+  await field.fill('Ada');
+  await dialog.getByRole('button', { name: 'Remove member' }).click();
+  await expect(dialog.getByRole('alert')).toHaveText('Could not remove the member. Try again.');
+  await expect(dialog).toBeVisible();
+  await expect(field).toHaveValue('Ada');
+  await expect(dialog.getByRole('button', { name: 'Remove member' })).toBeFocused();
+  await dialog.getByRole('button', { name: 'Remove member' }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(page.getByTestId('x3-confirmed')).toHaveText('removed|2');
+});
+
+test('ConfirmDialog fits a 320px screen and has no serious accessibility violations', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  for (const appearance of ['light', 'dark'] as const) for (const surface of ['glass', 'clean'] as const) {
+    await open(page, `surface=${surface}&appearance=${appearance}`);
+    await confirmSection(page).getByRole('button', { name: 'Delete project' }).click();
+    const dialog = page.getByRole('alertdialog', { name: 'Delete Orchard?' });
+    await expect(dialog).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    const result = await new AxeBuilder({ page }).include('[role="alertdialog"]').analyze();
+    expect(result.violations.filter(v => ['serious', 'critical'].includes(v.impact ?? '')), `${surface} ${appearance}`).toEqual([]);
+    await dialog.getByRole('button', { name: 'Cancel' }).click();
+  }
+});

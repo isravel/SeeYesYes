@@ -22,6 +22,7 @@ export type ComponentDefaults = {
 "form-field": { "required": boolean };
 "fieldset": { "required": boolean };
 "dialog": { "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
+"confirm-dialog": { "confirmLabel": string; "cancelLabel": string; "destructive": boolean; "errorMessage": string; "pendingLabel": string; "size": "small" | "medium" | "large" };
 "dropdown-menu": {  };
 "tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual"; "variant": "boxed" | "line" };
 "tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number };
@@ -135,6 +136,14 @@ export const contractDefaults: ComponentDefaults = {
     "dismissOnOutsidePress": false,
     "closeOnEscape": true,
     "closeLabel": "Close"
+  },
+  "confirm-dialog": {
+    "confirmLabel": "Confirm",
+    "cancelLabel": "Cancel",
+    "destructive": false,
+    "errorMessage": "Could not finish. Try again.",
+    "pendingLabel": "Working…",
+    "size": "medium"
   },
   "dropdown-menu": {},
   "tabs": {
