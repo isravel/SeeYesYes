@@ -87,3 +87,31 @@ Changes outside the four components:
 - `tests/fixtures/ControlsFixture.tsx` has a new "Disclosure and navigation" section; `keyboard-matrix.spec.ts` lists the four roles.
 
 Not covered: human visual review over glass, reduced-transparency rendering, screen-reader testing, the full browser suite and the SYX-004 packed-consumer check.
+
+## Fourth batch (2026-11-10)
+
+SYX-065 Popover and SYX-066 Drawer. Both wrap React Aria Components, like Dialog.
+
+| Command | Result |
+| --- | --- |
+| `npx vitest run` | 641 tests pass across 44 files, including `tests/x3-overlay.test.ts` (5 tests) and the type-check of every recommended example. Run before the last two edits to the Popover; the three affected files (`x3-overlay`, `contract`, `component-inventory`) were rerun afterwards and pass |
+| `npx tsc --noEmit` | clean |
+| `npx eslint components tests lib` | clean |
+| `npm run audit:components` | All 48 component implementations match their documented props, defaults, CSS tokens and compounds |
+| `npm run build` | passes |
+| `npx playwright test` on `x3-panels` | 8 passed after fixes |
+| `npx playwright test` on `overlays`, `keyboard-matrix`, `components-catalog`, `component-detail`, `playground`, `review-matrix`, `x3-compositions`, `x3-controls`, `x3-display` | 57 passed. The full browser suite was not run |
+
+Failures found on the way:
+
+- **A real component problem.** The first Popover used React Aria's `isNonModal`. A click on the trigger opened it and it closed again in the same gesture (focus went into the panel, then straight back). I could not make it reliable, so Popover is now a normal light-dismiss popover. It is **not** non-modal as the plan asked: while open, the page behind is inert. The contract and review say so.
+- Test defects: the Drawer position checks ran during the slide-in (they now wait for animations to finish); the axe run found no dialog because the Popover had not opened (fixed by the change above); a "page stays reachable" assertion and a toggle assertion no longer apply and were removed.
+- Playwright cannot emulate reduced transparency, so only forced colors is checked in a browser.
+
+Changes outside the two components:
+
+- `lib/data/overlay-contracts.ts` gained two entries and a `noThemeDefaults` flag, so the Drawer's `side` and `size` variants are not offered as theme defaults. `size` still is for Dialog.
+- The `wcag-focus-visible` rule lists `popover` and `drawer`. `tests/contract.test.ts` and `tests/component-inventory.test.ts` list the new IDs, and `keyboard-matrix.spec.ts` the roles.
+- `tests/fixtures/ControlsFixture.tsx` has a new "Popover and drawer" section; `tests/browser/x3-panels.spec.ts` is new.
+
+Not covered: human visual review over glass, reduced-transparency rendering in a browser, screen-reader testing, the full browser suite and the SYX-004 packed-consumer check.

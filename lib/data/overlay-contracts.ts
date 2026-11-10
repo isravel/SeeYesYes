@@ -8,7 +8,7 @@ type Entry = {
   id: string; name: string; purpose: string; shortPurpose: string; element: string;
   props: PropContract[]; tokens: string[]; parts: string[]; states: string[];
   keyboard: ComponentContract['accessibility']['keyboard']; requirements: string[]; avoid: string[];
-  variants?: ComponentContract['variants']; composition?: string[];
+  variants?: ComponentContract['variants']; composition?: string[]; noThemeDefaults?: boolean;
   exampleId: string; previewKey: string; code: string;
 };
 const entries: Entry[] = [
@@ -48,12 +48,30 @@ const entries: Entry[] = [
     requirements: ['Show on focus and hover.', 'Allow Escape dismissal.', 'Keep essential instructions and the action name visible without a tooltip.', 'Portal into the nearest ThemeScope.'], avoid: ['Putting essential instructions or interactive content in a tooltip.'],
     exampleId: 'tooltip-save', previewKey: 'tooltipSave', code: 'import { Tooltip } from "@/components/ui/tooltip";\n<Tooltip triggerLabel="Save preview" content="Only this preview is saved." onPress={() => window.alert("Preview saved for this example.")} />',
   },
+  {
+    id: 'popover', name: 'Popover', purpose: 'Show a small panel of related controls next to its trigger.', shortPurpose: 'Show a panel next to its trigger.', element: 'dialog',
+    props: [prop('triggerLabel', 'string', 'Visible trigger name.', true), prop('label', 'string', 'Accessible name of the panel.', true), prop('children', 'ReactNode | (close: () => void) => ReactNode', 'Panel content; a render function can close the panel.', true), choice('placement', ['bottom', 'top', 'left', 'right'], 'bottom'), prop('disabled', 'boolean', 'Disable the trigger.'), ...openProps],
+    composition: ['button'], variants: { placement: ['bottom', 'top', 'left', 'right'] }, parts: ['trigger', 'popover', 'panel'], states: ['closed', 'open', 'focus-visible', 'disabled'],
+    tokens: ['color.border', 'radius.panel', 'color.surface', 'color.foreground', 'shadow.raised', 'color.glass-tint-dense', 'effect.glass-blur', 'effect.glass-saturation', 'shadow.glass', 'color.glass-edge', 'spacing.stack', 'color.focus'],
+    keyboard: [{ key: 'Enter / Space', behavior: 'Open from the focused trigger and move focus into the panel.' }, { key: 'Tab / Shift+Tab', behavior: 'Move through the panel controls.' }, { key: 'Escape', behavior: 'Close and restore focus to the trigger.' }],
+    requirements: ['Name the panel with `label`; it has dialog semantics because it holds interactive content.', 'Close on Escape and on a press outside, and return focus to the trigger.', 'The page behind is inert while the panel is open; it is light-dismiss, so use Dialog when the task must finish first.', 'Portal into the nearest ThemeScope.', 'Placement flips to stay inside the viewport.', 'Glass uses the denser tint and falls back to a solid surface with reduced transparency, forced colors or no backdrop-filter support.'], avoid: ['Putting a required decision in a popover; use Dialog.', 'Using a popover for a short description with nothing to operate; use Tooltip.'],
+    exampleId: 'popover-filters', previewKey: 'popoverFilters', code: 'import { Popover } from "@/components/ui/popover";\n<Popover triggerLabel="Filter options" label="Filter options"><p>Filters apply to this list only.</p></Popover>',
+  },
+  {
+    id: 'drawer', name: 'Drawer', purpose: 'Open a modal panel from an edge of the screen for a secondary task.', shortPurpose: 'Open a modal edge panel.', element: 'dialog',
+    props: [prop('triggerLabel', 'string', 'Visible trigger name.', true), prop('title', 'string', 'Visible drawer heading and accessible name.', true), prop('children', 'ReactNode | (close: () => void) => ReactNode', 'Panel content; a render function can close the drawer.', true), choice('side', ['right', 'left', 'top', 'bottom'], 'right'), choice('size', ['small', 'medium', 'large'], 'medium'), prop('disabled', 'boolean', 'Disable the trigger.'), ...openProps, { ...prop('dismissOnOutsidePress', 'boolean', 'Allow outside pointer dismissal.'), defaultValue: true }, { ...prop('closeOnEscape', 'boolean', 'Allow Escape dismissal; disable for a required task.'), defaultValue: true }, { ...prop('closeLabel', 'string', 'Visible explicit close action.'), defaultValue: 'Close' }],
+    composition: ['button'], variants: { side: ['right', 'left', 'top', 'bottom'], size: ['small', 'medium', 'large'] }, noThemeDefaults: true, parts: ['trigger', 'overlay', 'panel', 'header', 'title', 'content', 'close action'], states: ['closed', 'open', 'focus-visible', 'disabled', 'reduced-motion'],
+    tokens: ['color.scrim', 'effect.glass-scrim-blur', 'color.surface', 'color.foreground', 'shadow.raised', 'color.border', 'color.glass-tint-dense', 'effect.glass-blur', 'effect.glass-saturation', 'shadow.glass', 'color.glass-edge', 'motion.duration', 'spacing.stack', 'color.focus', 'spacing.inline', 'typography.heading', 'typography.weight-medium'],
+    keyboard: [{ key: 'Enter / Space', behavior: 'Open from the focused trigger.' }, { key: 'Tab / Shift+Tab', behavior: 'Move within the drawer; focus stays contained.' }, { key: 'Escape', behavior: 'Close and restore trigger focus unless closeOnEscape is false.' }],
+    requirements: ['Use a visible title for the drawer name.', 'Keep focus in the drawer and restore it on close.', 'An outside press dismisses by default; required tasks can disable it and Escape, and must offer the close action.', 'The panel is clamped to the viewport and scrolls its own content.', 'The entrance slide stops under reduced motion.', 'Portal into the nearest ThemeScope; glass falls back to a solid surface with reduced transparency, forced colors or no backdrop-filter support.'], avoid: ['Using a drawer for a short confirmation; use Dialog.', 'Silently dismissing a required task.'],
+    exampleId: 'drawer-filters', previewKey: 'drawerFilters', code: 'import { Drawer } from "@/components/ui/drawer";\n<Drawer triggerLabel="Open filters" title="Filters"><p>Filters apply to this list only.</p></Drawer>',
+  },
 ];
 export const overlayComponentContracts: ComponentContract[] = entries.map(entry => ({
   id: entry.id, name: entry.name, publicImport: { module: `@/components/ui/${entry.id}`, exportName: entry.name },
   purpose: entry.purpose, shortPurpose: entry.shortPurpose, category: entry.id === 'tabs' || entry.id === 'dropdown-menu' ? 'navigation' : 'feedback', maturity: 'experimental', interactive: true,
   semantics: { element: entry.element, meaning: entry.purpose }, anatomy: entry.parts.map(part => ({ part, description: `${entry.name} ${part}.` })), props: [...entry.props, prop('className', 'string', 'Additional component class.'), prop('ref', entry.id === 'dialog' ? 'Ref<HTMLElement>' : 'Ref<HTMLDivElement>', 'Root element reference.')],
-  variants: entry.variants ?? {}, compoundVariants: [], themeDefaults: entry.variants?.size ? { size: entry.variants.size } : {}, states: entry.states, tokenIds: entry.tokens,
+  variants: entry.variants ?? {}, compoundVariants: [], themeDefaults: entry.variants?.size && !entry.noThemeDefaults ? { size: entry.variants.size } : {}, states: entry.states, tokenIds: entry.tokens,
   accessibility: { status: 'not-reviewed', requirements: entry.requirements, keyboard: entry.keyboard, ruleIds: ['wcag-focus-visible'] },
   composition: { allowedComponentIds: entry.composition ?? [], constraints: ['React Aria owns focus and ARIA relationships; parent containers own placement.'] },
   prohibitedUsage: entry.avoid, exampleIds: [entry.exampleId], ruleIds: [], aiGuidance: { prefer: [`Use ${entry.name} with the documented keyboard behavior.`], avoid: entry.avoid },

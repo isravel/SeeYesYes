@@ -25,6 +25,8 @@ export type ComponentDefaults = {
 "dropdown-menu": {  };
 "tabs": { "orientation": "horizontal" | "vertical"; "activation": "automatic" | "manual"; "variant": "boxed" | "line" };
 "tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number };
+"popover": { "placement": "bottom" | "top" | "left" | "right" };
+"drawer": { "side": "right" | "left" | "top" | "bottom"; "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
 "table": { "emptyMessage": string; "header": "muted" | "plain"; "rowHover": boolean };
 "navigation": { "triggerLabel": string; "showSkipLink": boolean; "collapsed": boolean };
 "loading-state": { "variant": "spinner" | "skeleton" };
@@ -143,6 +145,16 @@ export const contractDefaults: ComponentDefaults = {
   "tooltip": {
     "placement": "top",
     "delay": 600
+  },
+  "popover": {
+    "placement": "bottom"
+  },
+  "drawer": {
+    "side": "right",
+    "size": "medium",
+    "dismissOnOutsidePress": true,
+    "closeOnEscape": true,
+    "closeLabel": "Close"
   },
   "table": {
     "emptyMessage": "No rows to show.",

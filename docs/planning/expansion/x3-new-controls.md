@@ -28,8 +28,10 @@ Phase: A — Foundations and controls. Dependencies: X1–X2, limited to the con
   - 2026-11-10: Done with automated checks only; no human visual review. Links with `getHref`, buttons otherwise; `aria-current`; stable-length ellipsis list; ends disabled. [Evidence](../../evidence/expansion/X3/SYX-062/review.md)
 - [x] **SYX-063 — Breadcrumbs.** Extract/reuse the existing navigation breadcrumb behavior as a standalone composition with current-page semantics.
   - 2026-11-10: Done with automated checks only; no human visual review. Standalone `nav` with an ordered list; current page is text; the shell Navigation keeps its own breadcrumb markup and was not changed. Truncation/overflow collapse is not built; items wrap. [Evidence](../../evidence/expansion/X3/SYX-063/review.md)
-- [ ] **SYX-065 — Popover.** Provide a trigger-anchored panel with appropriate focus, dismissal, placement and theme inheritance using the installed overlay foundation.
-- [ ] **SYX-066 — Drawer.** Generalize the navigation drawer only as needed for reusable edge panels; retain focus containment, dismissal and return.
+- [x] **SYX-065 — Popover.** Provide a trigger-anchored panel with appropriate focus, dismissal, placement and theme inheritance using the installed overlay foundation.
+  - 2026-11-10: Done with automated checks only; no human visual review. React Aria popover with dialog semantics named by `label`; Escape and outside press close it and focus returns. It is light-dismiss, not non-modal: the page behind is inert while it is open (see review). [Evidence](../../evidence/expansion/X3/SYX-065/review.md)
+- [x] **SYX-066 — Drawer.** Generalize the navigation drawer only as needed for reusable edge panels; retain focus containment, dismissal and return.
+  - 2026-11-10: Done with automated checks only; no human visual review. A new modal edge panel on four sides and three sizes, following Dialog's structure. The shell's `NavigationDrawer` was not changed or replaced. [Evidence](../../evidence/expansion/X3/SYX-066/review.md)
 - [x] **SYX-070 — Checkbox group.** Provide an array-valued selection group with label, hints, errors and disabled options.
   - 2026-11-10: Done with automated checks only; no human visual review. Fieldset of native checkboxes; array value in option order; hints are descriptions; required not put on every checkbox. [Evidence](../../evidence/expansion/X3/SYX-070/review.md)
 - [ ] **SYX-071 — Input OTP.** Support one-time-code entry, full-code paste, SMS autofill, correction, incomplete/error states and a coherent accessible label.

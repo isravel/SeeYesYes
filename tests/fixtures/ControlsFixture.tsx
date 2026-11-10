@@ -38,6 +38,8 @@ import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { Popover } from '@/components/ui/popover';
+import { Drawer } from '@/components/ui/drawer';
 import { Plus } from '@phosphor-icons/react';
 import styles from './OverlayFixture.module.css';
 
@@ -131,6 +133,13 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <Breadcrumbs label="Trail" items={[{ label: 'Components', href: '/components' }, { label: 'Navigation', href: '#navigation' }, { label: 'Breadcrumbs', href: '#breadcrumbs' }]} />
         <Breadcrumbs label="Long trail" separator="chevron" items={[{ label: 'Workspace with a very long name that must wrap', href: '#one' }, { label: 'Another long section name to force wrapping', href: '#two' }, { label: 'Yet another deeply nested destination', href: '#three' }, { label: 'Current page with a long title', href: '#four' }]} />
         <p data-testid="x3-page">{page}|{open.join(',')}</p>
+      </section>
+      <section aria-label="Popover and drawer" id="x3-panels">
+        <Popover triggerLabel="Filter options" label="Filter options">{close => <><label>Name filter <input type="text" /></label><button type="button" onClick={close}>Apply filters</button></>}</Popover>
+        <Drawer triggerLabel="Open right drawer" title="Right filters">{close => <><label>Search <input type="text" /></label><button type="button" onClick={close}>Done</button></>}</Drawer>
+        <Drawer triggerLabel="Open left drawer" title="Left filters" side="left" size="small"><p>Left content.</p></Drawer>
+        <Drawer triggerLabel="Open bottom drawer" title="Bottom filters" side="bottom"><p>Bottom content.</p></Drawer>
+        <Drawer triggerLabel="Open required drawer" title="Required drawer" dismissOnOutsidePress={false} closeOnEscape={false} closeLabel="Finish drawer"><p>Finish this first.</p></Drawer>
       </section>
       <section aria-label="Overlays">
         <Dialog triggerLabel="Open glass dialog" title="Glass dialog" closeLabel="Close glass dialog"><p>Panel over a scrim.</p></Dialog>

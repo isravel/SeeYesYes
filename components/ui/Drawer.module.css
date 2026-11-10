@@ -1,0 +1,29 @@
+.overlay { position: fixed; inset: 0; z-index: 100; display: flex; background: var(--sys-color-scrim); }
+/* Blur of the page behind the drawer, on its own layer so it never takes input and the panel can blur independently. */
+.scrimBlur { position: absolute; inset: 0; pointer-events: none; backdrop-filter: blur(var(--sys-effect-glass-scrim-blur)); }
+.panel { --extent: 24rem; position: relative; box-sizing: border-box; overflow: auto; background: var(--sys-color-surface); color: var(--sys-color-foreground); box-shadow: var(--sys-shadow-raised); }
+.panel[data-size="small"] { --extent: 18rem; }
+.panel[data-size="large"] { --extent: 36rem; }
+.panel[data-side="right"] { margin-inline-start: auto; width: min(var(--extent), 100%); height: 100%; border-left: 1px solid var(--sys-color-border); }
+.panel[data-side="left"] { margin-inline-end: auto; width: min(var(--extent), 100%); height: 100%; border-right: 1px solid var(--sys-color-border); }
+.panel[data-side="top"] { align-self: flex-start; width: 100%; max-height: min(var(--extent), 100%); border-bottom: 1px solid var(--sys-color-border); }
+.panel[data-side="bottom"] { align-self: flex-end; width: 100%; max-height: min(var(--extent), 100%); border-top: 1px solid var(--sys-color-border); }
+.panel[data-surface="glass"] { background: var(--sys-color-glass-tint-dense); backdrop-filter: blur(var(--sys-effect-glass-blur)) saturate(var(--sys-effect-glass-saturation)); box-shadow: var(--sys-shadow-raised), var(--sys-shadow-glass), inset 0 1px 0 var(--sys-color-glass-edge); }
+/* Opaque fallbacks keep drawer content on a solid surface and drop both blurs. */
+@supports not (backdrop-filter: blur(1px)) { .panel[data-surface="glass"] { background: var(--sys-color-surface); } .scrimBlur { display: none; } }
+@media (prefers-reduced-transparency: reduce) { .panel[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } .scrimBlur { display: none; } }
+@media (forced-colors: active) { .panel[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } .scrimBlur { display: none; } }
+@keyframes drawer-in-right { from { transform: translateX(100%); } }
+@keyframes drawer-in-left { from { transform: translateX(-100%); } }
+@keyframes drawer-in-top { from { transform: translateY(-100%); } }
+@keyframes drawer-in-bottom { from { transform: translateY(100%); } }
+.panel[data-entering][data-side="right"] { animation: drawer-in-right var(--sys-motion-duration) ease; }
+.panel[data-entering][data-side="left"] { animation: drawer-in-left var(--sys-motion-duration) ease; }
+.panel[data-entering][data-side="top"] { animation: drawer-in-top var(--sys-motion-duration) ease; }
+.panel[data-entering][data-side="bottom"] { animation: drawer-in-bottom var(--sys-motion-duration) ease; }
+@media (prefers-reduced-motion: reduce) { .panel[data-entering] { animation: none; } }
+.root { display: grid; gap: var(--sys-spacing-stack); padding: var(--sys-spacing-stack); min-width: 0; }
+.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: -3px; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: var(--sys-spacing-inline); }
+.title { margin: 0; font-size: var(--sys-typography-heading); font-weight: var(--sys-typography-weight-medium); }
+.content { min-width: 0; overflow-wrap: anywhere; }
