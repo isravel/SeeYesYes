@@ -42,7 +42,9 @@ Phase 1 shows what an agent could consume. The product does not run an agent or 
 
 ## Optional after required work passes
 
-- Glossy, blur, glass, and layered effects beyond the required clean/depth pair.
+The original Phase 1 boundaries below remain historical scope for that release. The owner approved a separate [component and utility expansion](../planning/component-expansion.md) on 2026-11-09: all 79 requested entries are now planned required expansion scope, including the named motion effects, content patterns and page templates. Use existing SeeYesYes styling and behavior foundations; external-site branding and exact styling are excluded. This does not authorize backend auth, publishing or deployment. The [Naazhi migration](../planning/naazhi-consumer-migration.md) continues independently; the expansion is not a new prerequisite for it.
+
+- For the original Phase 1 release, glossy, blur, glass and layered effects were deferred. The approved expansion now requires the [translucent glass direction](../planning/expansion/visual-direction.md); it is no longer optional expansion scope. Existing clean/depth themes remain compatible.
 - Activity feeds, notification centers, advanced data tables, command interfaces, pricing cards, charts, and rich status surfaces.
 - Shared-element motion and elaborate page transitions.
 - Installable PWA behavior, service workers, and offline caching.

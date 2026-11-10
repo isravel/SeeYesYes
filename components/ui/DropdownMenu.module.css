@@ -1,6 +1,17 @@
 .popover { z-index: 110; min-width: 12rem; max-width: calc(100vw - var(--sys-spacing-stack) * 2); max-height: min(24rem, var(--available-height)); overflow: auto; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-panel); background: var(--sys-color-surface); color: var(--sys-color-foreground); box-shadow: var(--sys-shadow-raised); }
+/* Floating overlays use the denser glass tint so item text stays readable over whatever is behind the menu. */
+.popover[data-surface="glass"] { border-color: color-mix(in oklch, var(--sys-color-border) 45%, transparent); background: var(--sys-color-glass-tint-dense); backdrop-filter: blur(var(--sys-effect-glass-blur)) saturate(var(--sys-effect-glass-saturation)); box-shadow: var(--sys-shadow-raised), var(--sys-shadow-glass), inset 0 1px 0 var(--sys-color-glass-edge); }
+@supports not (backdrop-filter: blur(1px)) { .popover[data-surface="glass"] { background: var(--sys-color-surface); } }
+@media (prefers-reduced-transparency: reduce) { .popover[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } }
+@media (forced-colors: active) { .popover[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } }
 .menu { padding: var(--sys-spacing-inline); }
 .item { display: flex; align-items: center; min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-radius: var(--sys-radius-control); font-size: var(--sys-typography-label); cursor: pointer; overflow-wrap: anywhere; }
+.item[href] { color: inherit; text-decoration: none; }
+.hint { color: var(--sys-color-muted-foreground); }
+.group { display: block; }
+.heading { padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); overflow-wrap: anywhere; }
+.separator { height: 1px; margin: var(--sys-spacing-inline) 0; border: 0; background: var(--sys-color-border); }
+.item[data-tone="destructive"] { color: var(--sys-color-destructive); }
 .item[data-focused], .item[data-hovered] { background: var(--sys-color-muted); }
 .item[data-focus-visible] { outline: 3px solid var(--sys-color-focus); outline-offset: -3px; }
 .item[data-disabled] { opacity: .6; cursor: not-allowed; }

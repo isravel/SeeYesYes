@@ -74,7 +74,7 @@ export function ThemeEditor() {
     setTheme({ ...theme, typography: { ...theme.typography, scale: value } });
     setMessage('Typography scale updated in the draft.');
   }
-  function updateSurfaceEffect(value: 'clean' | 'subtle-depth') {
+  function updateSurfaceEffect(value: 'clean' | 'subtle-depth' | 'glass') {
     setTheme({ ...theme, effects: { ...theme.effects, surface: value } });
     setMessage('Surface effect updated in the draft.');
   }
@@ -193,7 +193,7 @@ export function ThemeEditor() {
           </label>
           <label className={styles.field}>Surface effect
             <Select aria-label="Surface effect" value={theme.effects.surface} onChange={event => updateSurfaceEffect(event.currentTarget.value as typeof theme.effects.surface)}>
-              <option value="clean">Clean</option><option value="subtle-depth">Subtle depth</option>
+              <option value="clean">Clean</option><option value="subtle-depth">Subtle depth</option><option value="glass">Glass</option>
             </Select>
           </label>
           <label className={styles.field}>Motion

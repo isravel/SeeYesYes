@@ -1,5 +1,6 @@
-.root { width: 100%; min-width: 0; min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); color: var(--sys-color-foreground); font: inherit; font-size: var(--sys-typography-label); }
-.root[data-size="small"] { padding-block: calc(var(--sys-spacing-control-block) * .75); font-size: var(--sys-typography-caption); }
+.root { width: 100%; min-width: 0; min-height: var(--input-min-height, var(--sys-spacing-target-minimum)); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); color: var(--sys-color-foreground); font: inherit; font-size: var(--sys-typography-label); }
+/* Small is the compact toolbar size: shorter than the default target, still above the 24px WCAG 2.2 AA minimum. */
+.root[data-size="small"] { --input-min-height: calc(var(--sys-spacing-target-minimum) * .82); padding-block: calc(var(--sys-spacing-control-block) * .6); font-size: var(--sys-typography-caption); }
 .root[data-size="large"] { font-size: var(--sys-typography-heading); }
 .root::placeholder { color: var(--sys-color-muted-foreground); opacity: 1; }
 .root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }

@@ -24,7 +24,7 @@ export const ThemeSchema = z.strictObject({
   colors: z.record(ModeSchema, z.record(ColorRoleSchema, OklchSchema)),
   typography: z.strictObject({ sansFontId: id, monoFontId: id, scale: z.enum(['small', 'default', 'large']) }),
   radius: z.enum(['sharp', 'soft', 'curvy']), density: z.enum(['compact', 'comfortable', 'spacious']),
-  shadows: z.enum(['none', 'soft', 'defined']), effects: z.strictObject({ surface: z.enum(['clean', 'subtle-depth']) }),
+  shadows: z.enum(['none', 'soft', 'defined']), effects: z.strictObject({ surface: z.enum(['clean', 'subtle-depth', 'glass']) }),
   motion: z.enum(['none', 'subtle']), componentDefaults: ComponentDefaultsSchema,
 }).superRefine((theme, ctx) => {
   if ((theme.id === 'custom') !== Boolean(theme.basedOn))
@@ -107,7 +107,7 @@ export const ValidationResultSchema = z.strictObject({
 export const ProjectSchema = z.strictObject({ framework: z.literal('react'), styling: z.literal('css-variables'), guidance: strings.min(1) });
 export const DesignSystemSchema = z.strictObject({
   schemaVersion: z.literal('1.0'), id, name: text, productVersion: text, principles: strings.min(1),
-  fonts: z.array(FontOptionSchema).min(1), defaultThemeId: id, themePresets: z.array(ThemeSchema).length(1),
+  fonts: z.array(FontOptionSchema).min(1), defaultThemeId: id, themePresets: z.array(ThemeSchema).min(1),
   tokens: z.array(TokenDefinitionSchema), components: z.array(ComponentContractSchema), rules: z.array(RuleSchema),
   examples: z.array(ExampleSchema), layouts: z.array(LayoutExampleSchema), project: ProjectSchema,
 });

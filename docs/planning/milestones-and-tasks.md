@@ -2,6 +2,16 @@
 
 This is the implementation plan, not a record of completed implementation. All tasks started open. Completed work is marked below and linked from the evidence log. Milestones are ordered by dependency rather than calendar dates; estimate dates after the foundation is running.
 
+## Active work tracks
+
+| Track | Authoritative tracker | Current direction |
+| --- | --- | --- |
+| Original workspace | M1–M7 and evidence below | Preserve completed evidence; outstanding human accessibility, actual zoom and visual reviews remain open. |
+| Naazhi consumer migration | [Joint migration plan](naazhi-consumer-migration.md) | Continue the existing package → shell → Financial Pulse → settings rollout independently. |
+| Component and utility expansion | [Expansion entry point](component-expansion.md), [status tracker](expansion/tracking.md) | All 79 requested items, four phases and eight milestones (X1–X8), split into task-specific files. Translucent glass is the planned visual direction. Implementation/check/review/release status stays separate. |
+
+The expansion uses the existing SeeYesYes tokens, theme lifecycle, CSS Modules, native controls and React Aria foundation. It adds no external-site identity requirements. Its milestones do not block Naazhi. Shared additions needed by Naazhi can be pulled forward individually and verified through the versioned package workflow. Original M7 and the evaluation/MCP gates below remain intact; expansion work is separately authorized and does not imply those gates passed.
+
 ## Milestone map
 
 | Milestone | Outcome | Depends on | Acceptance coverage |
@@ -175,6 +185,10 @@ Add one entry when a milestone is reviewed. Keep check output and screenshots un
 ## Change handling
 
 Update the owning spec first when a requirement changes, then adjust affected tasks and acceptance checks. Record the reason here. Do not silently promote optional work or lower quality gates to finish a milestone.
+
+Visual and planning update (2026-11-09): the owner requested a modern translucent/blur/glass direction. The [expansion entry point](component-expansion.md) now routes to separate milestone files, [shared visual requirements](expansion/visual-direction.md), delivery rules and one status tracker to reduce per-task context. All 79 inventory IDs and six release tasks are preserved. Glass is planned required presentation, with contrast, fallback, performance and compatibility gates; no runtime implementation or completed review is claimed. Naazhi continues independently.
+
+Scope expansion (2026-11-09): added the [component and utility expansion tracker](component-expansion.md) for the owner's full 79-item list using the existing design system. Four delivery phases cover foundations/controls, motion/media, sections/listings, and templates/release. Existing implementations are reuse baselines, not newly completed tasks. The Naazhi migration continues under its own IDs and status. This updates future scope without changing original Phase 1 acceptance or the MCP evaluation prerequisite.
 
 Final gate review (2026-10-16): the full check, 165 browser tests, and A17 pass on Node 24.22.0. Runtime and bootstrap revision checks now reject unsafe stored values, and the performance command returns a failure exit status when a budget is missed. M7.6 closes. A14 is partial and M7.5 reopens because the recorded 200% zoom check was a viewport proxy; actual browser zoom and human visual review remain unverified. M7.4 and M7.8 remain open. Acceptance requirements and performance budgets are unchanged.
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState, type Ref } from 'react';
 import { TooltipTrigger, Tooltip as AriaTooltip } from 'react-aria-components/Tooltip';
-import { useComponentDefaults } from '@/components/theme/ThemeScope';
+import { useComponentDefaults, useSurface } from '@/components/theme/ThemeScope';
 import { InternalTriggerButton } from './internal-trigger-button';
 import styles from './Tooltip.module.css';
 
@@ -11,6 +11,7 @@ export type TooltipProps = {
 };
 export function Tooltip({ triggerLabel, content, onPress, disabled, placement, delay, className = '', ref }: TooltipProps) {
   const defaults = useComponentDefaults('tooltip');
+  const surface = useSurface();
   const [isOpen, setOpen] = useState(false);
   const frame = useRef<number | null>(null);
   useEffect(() => () => { if (frame.current !== null) cancelAnimationFrame(frame.current); }, []);
@@ -26,6 +27,6 @@ export function Tooltip({ triggerLabel, content, onPress, disabled, placement, d
   }
   return <TooltipTrigger isOpen={isOpen} onOpenChange={changeOpen} delay={delay ?? defaults.delay} closeDelay={100} isDisabled={disabled}>
     <InternalTriggerButton label={triggerLabel} disabled={disabled} onPress={onPress} />
-    <AriaTooltip ref={ref} className={`${styles.root} ${className}`} placement={placement ?? defaults.placement} offset={8}>{content}</AriaTooltip>
+    <AriaTooltip ref={ref} className={`${styles.root} ${className}`} data-surface={surface} placement={placement ?? defaults.placement} offset={8}>{content}</AriaTooltip>
   </TooltipTrigger>;
 }

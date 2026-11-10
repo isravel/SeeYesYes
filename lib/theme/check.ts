@@ -16,7 +16,7 @@ const scales = ['small', 'default', 'large'] as const;
 const radii = ['sharp', 'soft', 'curvy'] as const;
 const densities = ['compact', 'comfortable', 'spacious'] as const;
 const shadowScales = ['none', 'soft', 'defined'] as const;
-const surfaces = ['clean', 'subtle-depth'] as const;
+const surfaces = ['clean', 'subtle-depth', 'glass'] as const;
 const motions = ['none', 'subtle'] as const;
 
 const fail = (path: string, message: string): never => { throw new Error(`Invalid ${path || 'value'}: ${message}`); };

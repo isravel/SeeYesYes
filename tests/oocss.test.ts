@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest';
 const dir = 'components/ui';
 const files = readdirSync(dir).filter(file => file.endsWith('.module.css'));
 const css = (file: string) => readFileSync(`${dir}/${file}`, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
-const selectors = (file: string) => [...css(file).matchAll(/([^{}@]+)\{/g)].flatMap(m => m[1].split(',').map(s => s.trim())).filter(s => s && !/^(from|to|\d+%)/.test(s) && !/^(media|keyframes)\b/.test(s));
+// At-rule preludes (`@media a, b`, `@supports ...`) are skipped whole; only the rules inside them are selectors.
+const selectors = (file: string) => [...css(file).matchAll(/(@[^{}]+|[^{}@]+)\{/g)].filter(m => !m[1].startsWith('@')).flatMap(m => m[1].split(',').map(s => s.trim())).filter(s => s && !/^(from|to|\d+%)/.test(s));
 // Documented geometry exceptions: a pill-shaped switch track is a shape, not a scale step.
 const geometryExceptions = new Set(['Switch.module.css']);
 

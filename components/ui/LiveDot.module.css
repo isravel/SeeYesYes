@@ -1,0 +1,11 @@
+.root { display: inline-flex; align-items: center; gap: var(--sys-spacing-inline); max-width: 100%; color: var(--sys-color-foreground); font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); line-height: 1.25; overflow-wrap: anywhere; }
+.root[data-size="medium"] { --live-dot-size: .75rem; font-size: var(--sys-typography-label); }
+.dot { position: relative; box-sizing: border-box; flex: none; width: var(--live-dot-size, .5rem); height: var(--live-dot-size, .5rem); border-radius: 50%; background: var(--live-dot, var(--sys-color-success)); }
+/* A hollow ring marks inactive, so the two statuses differ by shape as well as color. The ring is a border so it survives forced colors. */
+.root[data-status="inactive"] { --live-dot: var(--sys-color-muted-foreground); }
+.root[data-status="inactive"] .dot { background: transparent; border: 2px solid var(--live-dot); }
+.dot::after { position: absolute; inset: 0; border-radius: 50%; background: inherit; content: ""; opacity: 0; }
+.root[data-animated] .dot::after { animation: ping calc(var(--sys-motion-duration) * 8) cubic-bezier(0, 0, .2, 1) infinite; }
+@keyframes ping { 0% { opacity: .6; transform: scale(1); } 75%, 100% { opacity: 0; transform: scale(2.4); } }
+@media (prefers-reduced-motion: reduce) { .root[data-animated] .dot::after { animation: none; } }
+@media (forced-colors: active) { .dot { background: CanvasText; } .root[data-status="inactive"] .dot { background: transparent; border-color: CanvasText; } .dot::after { display: none; } }

@@ -4,6 +4,8 @@ A design system that humans and AI can understand. Whether agents do better with
 
 M1 builds the shared contract and a working foundation preview. M2.1 adds shared scales and isolated theme scopes. The full workspace is planned in `docs/planning/milestones-and-tasks.md`.
 
+The [component and utility expansion plan](docs/planning/component-expansion.md) routes to small milestone files for all 79 requested items, with a separate [status tracker](docs/planning/expansion/tracking.md). Its planned visual direction is translucent glass using the existing design system. The [Naazhi consumer migration](docs/planning/naazhi-consumer-migration.md) continues as an independent active track.
+
 ## Run locally
 
 Use Node.js 24 LTS and npm.

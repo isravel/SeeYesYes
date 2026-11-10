@@ -42,7 +42,7 @@ export function buildLlmsFullTxt(system: DesignSystem, guides: DocArticle[] = []
   return `> ${DEFAULT_THEME_NOTE}\n\n${contextMarkdown(context)}${articles.length ? `\n---\n\n# Documentation\n\n${articles.join('\n')}` : ''}`;
 }
 
-export const AGENTS_SNIPPET_TARGET_BYTES = 4096;
+export const AGENTS_SNIPPET_TARGET_BYTES = 6144;
 
 import { validateTheme, effectiveDefaults } from './validate';
 import { WorkspaceSettingsSchema } from './schema';

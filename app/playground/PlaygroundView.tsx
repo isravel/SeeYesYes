@@ -71,7 +71,7 @@ export function PlaygroundView() {
           </label>
           <label className={styles.field}>Surface effect
             <Select value={theme.effects.surface} onChange={event => setOverride('surface', event.currentTarget.value as typeof theme.effects.surface)}>
-              <option value="clean">Clean</option><option value="subtle-depth">Subtle depth</option>
+              <option value="clean">Clean</option><option value="subtle-depth">Subtle depth</option><option value="glass">Glass</option>
             </Select>
           </label>
           <label className={styles.field}>Motion

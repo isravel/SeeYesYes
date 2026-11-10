@@ -168,6 +168,8 @@ The early-initialization script changes `<html>` before React hydrates. Add `sup
 
 ## Theme rules
 
+Expansion update (2026-11-09): the [glass direction](../planning/expansion/visual-direction.md) plans an additional effects.surface treatment and glass defaults for fresh expansion/workspace presentation. The clean/subtle-depth rules below describe the existing baseline and remain valid for saved themes. X1 must cover schema/token resolution, exports, bootstrap/cache validation, storage compatibility and scoped portals before the new treatment is implemented or advertised as available. Existing Naazhi settings are not silently changed.
+
 - Appearance is light, dark, or system. System follows operating-system changes during the session.
 - Store separate light and dark semantic color maps. Editing one leaves the other intact.
 - Theme and Playground have their own preview appearance toggle, separate from the workspace preference.

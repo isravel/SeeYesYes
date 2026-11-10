@@ -4,6 +4,8 @@ import { additionalComponentContracts, additionalComponentExamples } from './com
 import { formComponentContracts, formComponentExamples } from './form-contracts';
 import { overlayComponentContracts, overlayComponentExamples } from './overlay-contracts';
 import { feedbackComponentContracts, feedbackComponentExamples } from './feedback-contracts';
+import { displayComponentContracts, displayComponentExamples } from './display-contracts';
+import { controlComponentContracts, controlComponentExamples } from './control-contracts';
 import { structureComponentContracts, structureComponentExamples } from './structure-contracts';
 import { spacingSteps, typeSizes } from '@/lib/theme/scales';
 import { toCssVariable } from '@/lib/theme/resolve';
@@ -27,9 +29,47 @@ export const defaultTheme: Theme = {
   colors: { light, dark }, typography: { sansFontId: 'inter', monoFontId: 'jetbrains-mono', scale: 'default' },
   radius: 'soft', density: 'comfortable', shadows: 'soft', effects: { surface: 'clean' }, motion: 'subtle', componentDefaults: {},
 };
+/** A contained, high-density workspace baseline. Products may derive a custom theme from it. */
+export const softWorkspaceTheme: Theme = {
+  id: 'soft-workspace',
+  palette: {
+    'brand-500': color(0.47, 0.17, 6),
+    'neutral-100': color(0.93, 0.008, 75),
+    'neutral-900': color(0.25, 0.015, 45),
+  },
+  colors: {
+    light: {
+      primary: color(0.47, 0.17, 6), onPrimary: color(1), secondary: color(0.91, 0.008, 75), onSecondary: color(0.25, 0.015, 45),
+      accent: color(0.43, 0.1, 170), onAccent: color(1), background: color(0.955, 0.008, 75), foreground: color(0.25, 0.015, 45),
+      surface: color(0.99, 0.004, 75), muted: color(0.93, 0.008, 75), mutedForeground: color(0.45, 0.015, 45), border: color(0.79, 0.012, 75), focus: color(0.47, 0.17, 6),
+      destructive: color(0.43, 0.16, 25), onDestructive: color(1), success: color(0.38, 0.09, 150), onSuccess: color(1),
+      warning: color(0.82, 0.13, 85), onWarning: color(0.2), info: color(0.43, 0.1, 235), onInfo: color(1),
+    },
+    dark: {
+      primary: color(0.77, 0.12, 6), onPrimary: color(0.19, 0.012, 45), secondary: color(0.29, 0.012, 45), onSecondary: color(0.96, 0.006, 75),
+      accent: color(0.76, 0.09, 170), onAccent: color(0.18), background: color(0.17, 0.008, 45), foreground: color(0.95, 0.006, 75),
+      surface: color(0.22, 0.009, 45), muted: color(0.29, 0.01, 45), mutedForeground: color(0.79, 0.01, 75), border: color(0.43, 0.012, 45), focus: color(0.77, 0.12, 6),
+      destructive: color(0.78, 0.1, 25), onDestructive: color(0.18), success: color(0.8, 0.09, 150), onSuccess: color(0.18),
+      warning: color(0.82, 0.13, 85), onWarning: color(0.18), info: color(0.8, 0.09, 235), onInfo: color(0.18),
+    },
+  },
+  typography: { sansFontId: 'inter', monoFontId: 'jetbrains-mono', scale: 'small' },
+  radius: 'soft', density: 'compact', shadows: 'soft', effects: { surface: 'subtle-depth' }, motion: 'subtle',
+  componentDefaults: { button: { size: 'small' }, card: { variant: 'elevated' } },
+};
+/**
+ * The translucent glass baseline for fresh expansion work. It is a preset, not the default theme:
+ * saved themes and consumer presets keep their current look until a consumer opts in.
+ */
+export const glassTheme: Theme = {
+  ...defaultTheme, id: 'glass', palette: { ...defaultTheme.palette }, effects: { surface: 'glass' },
+};
 const themeToken = (id: string, path: string, category: TokenDefinition['category'], exampleIds: string[] = []): TokenDefinition => ({
   id, cssVariable: toCssVariable(id), category, kind: path.startsWith('palette.') ? 'primitive' : 'semantic',
   purpose: `Shared ${id.replaceAll('.', ' ')} value.`, source: { kind: 'theme', path }, exampleIds,
+});
+const glassToken = (id: string, path: string, category: TokenDefinition['category'], purpose: string): TokenDefinition => ({
+  id, cssVariable: toCssVariable(id), category, kind: 'semantic', purpose, source: { kind: 'theme', path }, exampleIds: [],
 });
 const literal = (id: string, category: TokenDefinition['category'], constant: Extract<TokenDefinition['source'], {kind: 'literal'}>['constant']): TokenDefinition => ({
   id, category, cssVariable: toCssVariable(id), kind: 'primitive', purpose: `Shared ${id.replaceAll('.', ' ')} value.`, source: { kind: 'literal', constant }, exampleIds: [],
@@ -44,6 +84,15 @@ const tokens: TokenDefinition[] = [
   ...Object.entries(spacingSteps).map(([step, value]) => literal(`spacing.${step}`, 'spacing', { type: 'dimension', value: { value, unit: 'rem' } })),
   literal('spacing.target-minimum', 'spacing', { type: 'dimension', value: { value: 2.75, unit: 'rem' } }),
   themeToken('shadow.surface', 'shadows', 'shadow'), themeToken('shadow.raised', 'shadows', 'shadow'), themeToken('effect.surface-depth', 'effects.surface', 'effect'),
+  // Glass surface treatment (SYX-001). Neutral values (opaque tint, no blur, transparent edge) unless the theme selects `glass`.
+  glassToken('color.glass-tint', 'glass.*.tint', 'color', 'Translucent panel fill; opaque unless the theme uses glass.'),
+  glassToken('color.glass-tint-dense', 'glass.*.tint-dense', 'color', 'Denser fill for floating overlays such as dialogs and drawers.'),
+  glassToken('color.glass-edge', 'glass.*.edge', 'color', 'Fine highlight along the top edge of a glass panel.'),
+  glassToken('color.scrim', 'glass.*.scrim', 'color', 'Dimming layer behind modal overlays.'),
+  glassToken('shadow.glass', 'glass.*.elevation', 'shadow', 'Soft depth shadow that separates a glass plane from the background.'),
+  glassToken('effect.glass-blur', 'glass.blur', 'effect', 'Backdrop blur radius for glass panels.'),
+  glassToken('effect.glass-saturation', 'glass.saturation', 'effect', 'Backdrop saturation multiplier for glass panels.'),
+  glassToken('effect.glass-scrim-blur', 'glass.scrim-blur', 'effect', 'Blur of the page behind a modal, separate from the panel blur; zero unless the theme uses glass.'),
   themeToken('motion.duration', 'motion', 'motion'), literal('motion.easing', 'motion', { type: 'cubicBezier', value: [0.2, 0, 0, 1] }),
   literal('typography.weight-medium', 'typography', { type: 'fontWeight', value: 500 }),
   literal('typography.line-height', 'typography', { type: 'number', value: 1.6 }),
@@ -65,7 +114,7 @@ const buttonContract = {
     { part: "indicator", description: "Optional loading indicator." },
   ],
   props: [
-    { name: "variant", type: "ButtonVariant", required: false, defaultValue: "primary", allowedValues: ["primary", "secondary", "ghost", "destructive"], description: "Action emphasis." },
+    { name: "variant", type: "ButtonVariant", required: false, defaultValue: "primary", allowedValues: ["primary", "secondary", "ghost", "destructive", "outline", "soft", "muted", "solid", "danger"], description: "Action emphasis. `solid` renders as primary and `danger` as destructive; they are accepted aliases, not separate styles." },
     { name: "size", type: "ButtonSize", required: false, defaultValue: "medium", allowedValues: ["small", "medium", "large"], description: "Size within the density scale." },
     { name: "type", type: "button | submit | reset", required: false, defaultValue: "button", allowedValues: ["button", "submit", "reset"], description: "Native form behavior." },
     { name: "disabled", type: "boolean", required: false, defaultValue: false, description: "Prevent activation." },
@@ -74,7 +123,7 @@ const buttonContract = {
     { name: "aria-label", type: "string", required: false, description: "Required when visible content has no action text." },
     { name: "onClick", type: "MouseEventHandler<HTMLButtonElement>", required: false, description: "Run the action on native activation." },
   ],
-  variants: { variant: ["primary", "secondary", "ghost", "destructive"], size: ["small", "medium", "large"] },
+  variants: { variant: ["primary", "secondary", "ghost", "destructive", "outline", "soft", "muted"], size: ["small", "medium", "large"] },
   compoundVariants: [
     {
       when: { variant: "ghost", size: "small" },
@@ -83,13 +132,13 @@ const buttonContract = {
     },
   ],
   // Destructive is never a theme default: it changes the meaning of every unmarked action.
-  themeDefaults: { variant: ["primary", "secondary", "ghost"], size: ["small", "medium", "large"] },
+  themeDefaults: { variant: ["primary", "secondary", "ghost", "outline", "soft", "muted"], size: ["small", "medium", "large"] },
   states: ["default", "hover", "focus-visible", "pressed", "disabled", "loading"],
   tokenIds: [
     "color.primary", "color.on-primary",
     "color.secondary", "color.on-secondary",
     "color.destructive", "color.on-destructive",
-    "color.foreground", "color.muted", "color.focus",
+    "color.foreground", "color.muted", "color.focus", "color.border", "color.surface",
     "radius.control", "spacing.target-minimum", "typography.weight-medium",
     "spacing.inline", "spacing.control-block", "spacing.control-inline",
   ],
@@ -135,22 +184,24 @@ const linkContract: ComponentContract = {
   props: [
     { name: 'href', type: 'string', required: true, description: 'A real destination.' },
     { name: 'children', type: 'ReactNode', required: true, description: 'Describe the destination.' },
-    { name: 'variant', type: 'default | subtle', required: false, defaultValue: 'default', allowedValues: ['default', 'subtle'], description: 'Link emphasis.' },
-  ], variants: { variant: ['default', 'subtle'] }, compoundVariants: [], themeDefaults: { variant: ['default', 'subtle'] }, states: ['default', 'hover', 'focus-visible'],
-  tokenIds: ['color.primary', 'color.foreground', 'color.focus', 'radius.control'], accessibility: { status: 'not-reviewed', requirements: ['Use meaningful link text and a real href.', 'Keep focus visible.'], keyboard: [{ key: 'Enter', behavior: 'Follow the link.' }], ruleIds: ['wcag-focus-visible'] },
+    { name: 'variant', type: 'default | subtle | button-primary | button-secondary', required: false, defaultValue: 'default', allowedValues: ['default', 'subtle', 'button-primary', 'button-secondary'], description: 'Text links or button-style navigation. Button variants retain native link semantics.' },
+  ], variants: { variant: ['default', 'subtle', 'button-primary', 'button-secondary'] }, compoundVariants: [], themeDefaults: { variant: ['default', 'subtle', 'button-primary', 'button-secondary'] }, states: ['default', 'hover', 'focus-visible'],
+  tokenIds: ['color.primary', 'color.foreground', 'color.focus', 'radius.control'], accessibility: { status: 'not-reviewed', requirements: ['Use meaningful link text and a real href.', 'Keep focus visible.', 'Disclose when a destination opens in a new tab.'], keyboard: [{ key: 'Enter', behavior: 'Follow the link.' }], ruleIds: ['wcag-focus-visible'] },
   composition: { allowedComponentIds: [], constraints: ['Do not nest links or buttons.'] }, prohibitedUsage: ['Running an action without navigation; use Button.'],
-  exampleIds: ['link-docs'], ruleIds: ['prefer-semantic-link'], aiGuidance: { prefer: ['Use Link for navigation.'], avoid: ['Buttons that only change the URL.'] },
+  exampleIds: ['link-docs', 'link-buttons'], ruleIds: ['prefer-semantic-link'], aiGuidance: { prefer: ['Use Link for navigation.'], avoid: ['Buttons that only change the URL.'] },
 };
 const example = (id: string, title: string, componentIds: string[], code: string, previewKey: string): Example => ({ id, title, componentIds, code, intent: 'recommended', previewKey });
 const examples: Example[] = [
   example('button-save', 'Save settings', ['button'], 'import { Button } from "@/components/ui/button";\n<Button onClick={() => window.alert("Settings saved for this example.")}>Save settings</Button>', 'buttonSave'),
   example('spinner-progress', 'Working with a clear label', ['spinner'], 'import { Spinner } from "@/components/ui/spinner";\n<p role="status"><Spinner /> Preparing your preview…</p>', 'spinnerProgress'),
+  // The overview shows a component's first recommended example, so the original Link example stays first.
   example('link-docs', 'Read the contract', ['link'], 'import { Link } from "@/components/ui/link";\n<Link href="/api/registry">Read the registry</Link>', 'linkDocs'),
+  example('link-buttons', 'Button-style navigation', ['link'], 'import { Link } from "@/components/ui/link";\n<Link href="/docs" variant="button-primary">Read in the app →</Link>\n<Link href="https://example.com" variant="button-secondary" target="_blank" rel="noopener noreferrer">Publisher (opens in a new tab) ↗</Link>', 'linkButtons'),
 ];
 const ruleSeeds: { id: string; category: Rule['category']; severity: Rule['severity']; appliesTo: Rule['appliesTo']; description: string; bad: string; fix: string; correct: string; components: string[]; preview: string }[] = [
   { id: 'component-prefer-existing', category: 'component', severity: 'warning', appliesTo: 'system', description: 'Reuse a shipped component before creating another.', bad: '<button className="newButton">Save</button>', fix: 'Import the existing Button and choose a supported variant.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
   { id: 'token-no-raw-color', category: 'token', severity: 'warning', appliesTo: 'system', description: 'Use semantic tokens instead of raw colors.', bad: '<button style={{ background: "#2244ff" }}>Save</button>', fix: 'Use Button; its variants read the semantic color tokens.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
-  { id: 'wcag-focus-visible', category: 'accessibility', severity: 'error', appliesTo: ['button', 'checkbox', 'copy-button', 'dialog', 'dropdown-menu', 'empty-state', 'error-state', 'input', 'link', 'navigation', 'not-found', 'radio-group', 'select', 'switch', 'tabs', 'textarea', 'tooltip'], description: 'Keep keyboard focus visible and unobscured.', bad: '<button style={{ outline: "none" }}>Save</button>', fix: 'Use the component focus style and never remove the outline without a replacement.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
+  { id: 'wcag-focus-visible', category: 'accessibility', severity: 'error', appliesTo: ['button', 'checkbox', 'checkbox-group', 'chip', 'copy-button', 'dialog', 'dropdown-menu', 'empty-state', 'error-state', 'icon-button', 'input', 'link', 'navigation', 'not-found', 'radio-group', 'search-input', 'segmented', 'select', 'switch', 'tabs', 'textarea', 'theme-switcher', 'tooltip'], description: 'Keep keyboard focus visible and unobscured.', bad: '<button style={{ outline: "none" }}>Save</button>', fix: 'Use the component focus style and never remove the outline without a replacement.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
   { id: 'wcag-contrast', category: 'accessibility', severity: 'error', appliesTo: 'system', description: 'Meet contrast requirements for text and required cues.', bad: '<button style={{ color: "#ddd", background: "#fff" }}>Save</button>', fix: 'Use semantic foreground/background pairs and check both appearances.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
   { id: 'avoid-unnecessary-wrapper', category: 'performance', severity: 'info', appliesTo: 'system', description: 'Add wrappers only when they serve layout or semantics.', bad: '<div><div><div><button>Save</button></div></div></div>', fix: 'Use a single Button when the extra wrappers do no work.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
   { id: 'avoid-custom-button', category: 'component', severity: 'error', appliesTo: ['button'], description: 'Use a native Button for actions.', bad: '<div onClick={save}>Save</div>', fix: 'Replace the clickable div with Button and preserve its action label.', correct: 'button-save', components: ['button'], preview: 'buttonSave' },
@@ -168,7 +219,7 @@ export const registry: DesignSystem = {
   schemaVersion: '1.0', id: 'seeyesyes', name: 'SeeYesYes', productVersion: '0.1.0',
   principles: ['Use the same decisions for people and agents.', 'Choose semantic components and tokens.', 'Keep accessibility part of the contract.', 'Show what is verified and what is still a demo.'],
   fonts: [{ id: 'inter', family: 'Inter', kind: 'sans', source: 'self-hosted' }, { id: 'jetbrains-mono', family: 'JetBrains Mono', kind: 'mono', source: 'self-hosted' }],
-  defaultThemeId: 'default', themePresets: [defaultTheme], tokens,
-  components: [buttonContract, spinnerContract, linkContract, ...additionalComponentContracts, ...formComponentContracts, ...overlayComponentContracts, ...structureComponentContracts, ...feedbackComponentContracts], rules, examples: [...examples, ...additionalComponentExamples, ...formComponentExamples, ...overlayComponentExamples, ...structureComponentExamples, ...feedbackComponentExamples], layouts: layoutExamples,
+  defaultThemeId: 'default', themePresets: [defaultTheme, softWorkspaceTheme, glassTheme], tokens,
+  components: [buttonContract, spinnerContract, linkContract, ...additionalComponentContracts, ...formComponentContracts, ...overlayComponentContracts, ...structureComponentContracts, ...feedbackComponentContracts, ...displayComponentContracts, ...controlComponentContracts], rules, examples: [...examples, ...additionalComponentExamples, ...formComponentExamples, ...overlayComponentExamples, ...structureComponentExamples, ...feedbackComponentExamples, ...displayComponentExamples, ...controlComponentExamples], layouts: layoutExamples,
   project: { framework: 'react', styling: 'css-variables', guidance: ['Import components through their public repository aliases.', 'Use CSS Modules for local structure and semantic variables for appearance.', 'Parents own placement; components own their internal behavior.', 'The local prototype has no published package or project scanner.'] },
 };

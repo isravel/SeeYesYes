@@ -6,7 +6,8 @@ import { validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation
 export const SETTINGS_STORAGE_KEY = 'seeyesyes:settings:v1';
 export const ENVELOPE_VERSION = 1;
 export const CACHE_VERSION = 1;
-export const RESOLVER_VERSION = '1.1';
+// 1.2 added the glass surface tokens and 1.3 the scrim blur; older caches lack them and are rebuilt from the saved theme.
+export const RESOLVER_VERSION = '1.3';
 
 const variableName = /^--sys-[a-z0-9-]+$/;
 const number = '-?(?:\\d+\\.?\\d*|\\.\\d+)';

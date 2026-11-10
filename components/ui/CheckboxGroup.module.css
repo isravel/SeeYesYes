@@ -1,0 +1,7 @@
+.options { display: grid; gap: var(--sys-spacing-inline); }
+.options[data-orientation="horizontal"] { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--sys-spacing-stack); }
+.choice { display: grid; min-width: 0; }
+.option { display: inline-flex; min-height: var(--sys-spacing-target-minimum); align-items: center; gap: var(--sys-spacing-inline); font-size: var(--sys-typography-label); cursor: pointer; }
+.option[data-disabled] { opacity: .6; cursor: not-allowed; }
+/* A hint lines up under its label, past the checkbox and its gap. */
+.hint { margin: 0; padding-inline-start: calc(var(--sys-spacing-target-minimum) + var(--sys-spacing-inline)); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }

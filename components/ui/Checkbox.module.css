@@ -1,7 +1,11 @@
 .root { position: relative; display: inline-grid; width: var(--sys-spacing-target-minimum); height: var(--sys-spacing-target-minimum); flex: none; place-items: center; appearance: none; margin: 0; border: 0; background: transparent; vertical-align: middle; cursor: pointer; }
+/* Neutral swaps the checked fill for the foreground color. */
+.root[data-tone="neutral"] { --checkbox-on: var(--sys-color-foreground); }
 .root::before { width: 1.125rem; height: 1.125rem; border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); content: ""; }
-.root:checked::before { border-color: var(--sys-color-primary); background: var(--sys-color-primary); }
+.root:checked::before, .root:indeterminate::before { border-color: var(--checkbox-on, var(--sys-color-primary)); background: var(--checkbox-on, var(--sys-color-primary)); }
 .root:checked::after { position: absolute; top: calc(50% - .075rem); left: calc(50% - .15rem); width: .3rem; height: .55rem; border-right: 2px solid var(--sys-color-surface); border-bottom: 2px solid var(--sys-color-surface); content: ""; transform: rotate(45deg); }
+/* A dash replaces the check for a mixed selection; a checked, indeterminate box still shows the dash. */
+.root:indeterminate::after { position: absolute; top: calc(50% - 1px); left: calc(50% - .3rem); width: .6rem; height: 2px; border: 0; background: var(--sys-color-surface); content: ""; transform: none; }
 .root[aria-invalid="true"]::before { border-color: var(--sys-color-destructive); }
 .root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: -2px; border-radius: var(--sys-radius-control); }
 .root:disabled { cursor: not-allowed; opacity: .6; }

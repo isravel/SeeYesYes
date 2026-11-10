@@ -14,6 +14,8 @@ export function useThemeSystem() {
   if (!system) throw new Error('The theme system is unavailable outside ThemeLifecycleProvider.');
   return system;
 }
+/** The stores when a ThemeLifecycleProvider is above, otherwise null. Lets reusable controls degrade instead of throwing. */
+export function useOptionalThemeStores() { return useContext(ThemeStoresContext); }
 export function useThemeStores() {
   const stores = useContext(ThemeStoresContext);
   if (!stores) throw new Error('Theme stores are unavailable outside ThemeLifecycleProvider.');

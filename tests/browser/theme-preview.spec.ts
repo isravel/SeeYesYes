@@ -11,8 +11,8 @@ test('draft preview isolates components, appearance, and dialog portals from the
   const editorBefore = await editorButton.evaluate(element => ({ radius: getComputedStyle(element).borderRadius, padding: getComputedStyle(element).paddingInline, background: getComputedStyle(element).backgroundColor }));
   await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('sharp');
   await page.getByRole('combobox', { name: 'Density', exact: true }).selectOption('compact');
-  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
-  await page.getByRole('combobox', { name: 'Input size default' }).selectOption('small');
+  await page.getByRole('combobox', { name: 'Button variant default', exact: true }).selectOption('ghost');
+  await page.getByRole('combobox', { name: 'Input size default', exact: true }).selectOption('small');
   await page.getByRole('spinbutton', { name: 'Lightness' }).fill('0.55');
   await expect(preview.getByRole('button', { name: 'Example action' })).toHaveAttribute('data-variant', 'ghost');
   await expect(preview.getByRole('textbox', { name: 'Display name' })).toHaveAttribute('data-size', 'small');

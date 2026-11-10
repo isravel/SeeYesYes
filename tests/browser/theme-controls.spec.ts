@@ -13,8 +13,10 @@ test('theme controls update shared settings and contract-approved component defa
   await page.getByRole('combobox', { name: 'Surface effect' }).selectOption('subtle-depth');
   await page.getByRole('combobox', { name: 'Motion' }).selectOption('none');
 
-  const variant = page.getByRole('combobox', { name: 'Button variant default' });
-  await expect(variant.locator('option')).toHaveCount(3);
+  const variant = page.getByRole('combobox', { name: 'Button variant default', exact: true });
+  // Button's contract approves six theme defaults since X2 (primary, secondary, ghost, outline, soft, muted); destructive is never one.
+  await expect(variant.locator('option')).toHaveCount(6);
+  await expect(variant.locator('option[value="destructive"]')).toHaveCount(0);
   await variant.selectOption('ghost');
   await expect(page.getByRole('button', { name: 'Example action' })).toHaveAttribute('data-variant', 'ghost');
   await expect(page.getByRole('status').last()).toContainText('button variant default updated');

@@ -1,0 +1,4 @@
+.group { display: inline-flex; align-items: center; gap: calc(var(--sys-spacing-inline) / 2); max-width: 100%; flex-wrap: wrap; color: var(--sys-color-foreground); font-size: var(--kbd-size, var(--sys-typography-caption)); }
+.key { display: inline-block; box-sizing: border-box; min-width: 1.5em; padding: .1em .4em; border: 1px solid var(--sys-color-border); border-bottom-width: 2px; border-radius: var(--sys-radius-control); background: var(--sys-color-muted); color: var(--sys-color-foreground); font-family: var(--sys-typography-mono); font-size: var(--kbd-size, var(--sys-typography-caption)); font-weight: var(--sys-typography-weight-medium); line-height: 1.4; text-align: center; white-space: nowrap; }
+.key[data-size="medium"], .group[data-size="medium"] { --kbd-size: var(--sys-typography-label); }
+.plus { color: inherit; }

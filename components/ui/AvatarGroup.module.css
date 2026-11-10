@@ -1,0 +1,8 @@
+.root { --group-size: 2.5rem; --group-overlap: .625rem; display: inline-flex; align-items: center; min-width: 0; max-width: 100%; }
+.root[data-size="small"] { --group-size: 2rem; --group-overlap: .5rem; }
+.root[data-size="large"] { --group-size: 3rem; --group-overlap: .75rem; }
+/* A gap in the surface color separates neighbors, so the overlap reads on any background. */
+.item { display: inline-flex; flex: none; border-radius: 50%; box-shadow: 0 0 0 2px var(--sys-color-surface); }
+.item + .item { margin-inline-start: calc(var(--group-overlap) * -1); }
+.overflow { display: inline-grid; place-items: center; width: var(--group-size); height: var(--group-size); border-radius: 50%; background: var(--sys-color-muted); color: var(--sys-color-foreground); font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); }
+@media (forced-colors: active) { .item { outline: 2px solid Canvas; } }

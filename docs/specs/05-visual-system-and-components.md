@@ -2,9 +2,9 @@
 
 ## Visual direction
 
-Aim for calm, clear, fast, and human. Use strong typography, generous space, restrained depth, and purposeful hierarchy. Apple, Linear, Arc, and Airbnb are references for craft, not identities to copy.
+Aim for calm, clear, fast, and human. The approved expansion direction is translucent glass: tinted surfaces, backdrop blur, highlighted edges and layered depth, with strong typography and purposeful hierarchy. Use the existing tokens and typography. The [shared glass requirements](../planning/expansion/visual-direction.md) define the planned appearance, compatibility, fallbacks and visual gate.
 
-Avoid generic dashboard filler, default framework styling, noisy gradients, excessive rounded cards, unnecessary borders, heavy glass, emoji icons, Lorem Ipsum, and placeholder interactions.
+Avoid generic dashboard filler, default framework styling, noisy gradients, excessive rounded cards, unnecessary borders, unreadable transparency, emoji icons, Lorem Ipsum, and placeholder interactions. Glass is a required expansion surface direction; keep text and controls crisp and readable.
 
 Use a readable sans-serif for interface and documentation text. Use monospace for code, tokens, and configuration. Choose a consistent type scale and spacing scale before building screens.
 
@@ -16,7 +16,7 @@ Use a readable sans-serif for interface and documentation text. Use monospace fo
 - Radius supports sharp, soft, and curvy personalities.
 - Density supports compact, comfortable, and spacious. It changes control padding, gaps, and row heights consistently without shrinking text or making targets inaccessible.
 - Shadows use none, soft, and defined scales.
-- Required surface effects are clean and subtle depth. See [Theme rules](02-architecture-and-theme.md#theme-rules) for how they combine with shadows.
+- The implemented Phase 1 baseline has clean and subtle-depth surface effects. Expansion X1 plans a first-class glass treatment while keeping saved themes and existing consumers compatible. See [Theme rules](02-architecture-and-theme.md#theme-rules) and the [glass requirements](../planning/expansion/visual-direction.md).
 - Motion uses none or subtle; reduced-motion preference overrides it.
 - Fonts come from the registry allowlist and are self-hosted.
 
@@ -110,6 +110,8 @@ CSS Modules provide class isolation, so full BEM names are not required. Public 
 Keep selectors shallow and component-owned. Avoid IDs, cross-module child overrides, parent-specific component selectors, and routine `!important`. Document any necessary third-party override at its integration boundary.
 
 ## Required component inventory
+
+This table defines the original Phase 1 baseline. The approved [expansion inventory and tracker](../planning/component-expansion.md) adds 79 requested entries across utilities, existing/new controls, motion, reusable sections, listings and page templates. Reuse the token, CSS ownership, naming and accessibility rules in this specification. Extend existing implementations and preserve their callers; the expansion does not replace SeeYesYes's visual identity or introduce a second styling/interaction system.
 
 | Group | Components |
 | --- | --- |

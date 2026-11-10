@@ -16,6 +16,7 @@
  * `--out` defaults to `artifact/`. `--pack-to` additionally runs `npm pack` and copies the
  * resulting tarball into the given directory, which is how a consumer installs a pinned copy.
  */
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
@@ -37,10 +38,14 @@ const entryPoints = [
     .filter(name => name.endsWith('.tsx') && name !== 'internal-trigger-button.tsx')
     .map(name => `components/ui/${name}`),
   'components/theme/ThemeScope.tsx',
+  'components/theme/ThemeLifecycleProvider.tsx',
+  'components/theme/ThemeSwitcher.tsx',
+  'lib/utils/cn.ts',
+  'lib/theme/persistence.ts',
 ];
 
 /** Peer dependencies are resolved by the consumer so there is exactly one copy of each runtime. */
-const peerDependencies = ['react', 'react-dom', 'next', 'zod', 'react-aria-components', '@react-aria/overlays', '@phosphor-icons/react'];
+const peerDependencies = ['react', 'react-dom', 'next', 'zod', 'react-aria-components', '@react-aria/overlays', '@phosphor-icons/react', 'zustand'];
 
 type Args = { out: string; packTo: string | null };
 function parseArgs(argv: string[]): Args {
@@ -181,6 +186,13 @@ function buildIndexModule(controlFiles: string[]): string {
     "export { ThemeScope, useThemeScope, useComponentDefaults } from './components/theme/ThemeScope';",
 
     "export type { ThemeScopeProps } from './components/theme/ThemeScope';",
+    "export { useSurface } from './components/theme/ThemeScope';",
+    "export { ThemeLifecycleProvider, useThemeStores, useThemeSystem } from './components/theme/ThemeLifecycleProvider';",
+    "export { ThemeSwitcher } from './components/theme/ThemeSwitcher';",
+    "export type { ThemeSwitcherProps } from './components/theme/ThemeSwitcher';",
+    "export { cn } from './lib/utils/cn';",
+    "export type { ClassValue } from './lib/utils/cn';",
+    "export { buildThemeBootstrapScript, SETTINGS_STORAGE_KEY } from './lib/theme/persistence';",
     "export type { ThemeSystem, ThemeComponent } from './lib/contract/theme-validation';",
     "export { validateTheme, effectiveDefaults, toThemeSystem } from './lib/contract/theme-validation';",
     "export type { Appearance, Mode, Theme } from './lib/contract/schema';",
@@ -231,7 +243,8 @@ function main(): void {
 
   const { revision, clean } = sourceRevision();
 
-  const version = `${sourcePackage.version}-src.${revision.slice(0, 7)}${clean ? '' : '.dirty'}`;
+  const fingerprint = createHash('sha256').update([...modules, 'lib/data/registry.ts', 'scripts/export-artifact.ts'].sort().map(file => `${file}\n${readFileSync(join(root, file), 'utf8')}`).join('\n')).update(buildThemeSystemModule()).digest('hex').slice(0, 10);
+  const version = `${sourcePackage.version}-src.${revision.slice(0, 7)}${clean ? '' : `.dirty.${fingerprint}`}`;
   const dependencyVersion = (name: string) => sourcePackage.dependencies[name];
   const packageJson = {
     name: '@seeyesyes/ui',
@@ -256,6 +269,7 @@ function main(): void {
       'react-aria-components': `^${(dependencyVersion('react-aria-components') ?? '1.22.0').replace(/^[^\d]*/, '')}`,
       '@react-aria/overlays': `^${(dependencyVersion('@react-aria/overlays') ?? '3.32.0').replace(/^[^\d]*/, '')}`,
       '@phosphor-icons/react': `^${(dependencyVersion('@phosphor-icons/react') ?? '2.1.10').replace(/^[^\d]*/, '')}`,
+      zustand: `^${(dependencyVersion('zustand') ?? '5.0.0').replace(/^[^\d]*/, '')}`,
     },
   };
   writeFileSync(join(args.out, 'package.json'), `${JSON.stringify(packageJson, null, 2)}\n`);

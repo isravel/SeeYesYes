@@ -72,7 +72,7 @@ test('effective defaults under the applied theme are shown only when they differ
   await page.goto('/components/button');
   await expect(page.getByText(/Under the applied theme, defaults differ/)).toHaveCount(0);
   await page.goto('/system/theme');
-  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
+  await page.getByRole('combobox', { name: 'Button variant default', exact: true }).selectOption('ghost');
   await page.getByRole('button', { name: 'Apply to workspace' }).click();
   await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
   await page.goto('/components/button');

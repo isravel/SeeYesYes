@@ -8,11 +8,11 @@ export type TabsItem = { id: string; label: string; content: ReactNode; disabled
 export type TabsProps = {
   label: string; items: TabsItem[]; selectedId?: string; defaultSelectedId?: string;
   onSelectionChange?: (id: string) => void; orientation?: 'horizontal' | 'vertical';
-  activation?: 'automatic' | 'manual'; className?: string; ref?: Ref<HTMLDivElement>;
+  activation?: 'automatic' | 'manual'; variant?: 'boxed' | 'line'; className?: string; ref?: Ref<HTMLDivElement>;
 };
-export function Tabs({ label, items, selectedId, defaultSelectedId, onSelectionChange, orientation, activation, className = '', ref }: TabsProps) {
+export function Tabs({ label, items, selectedId, defaultSelectedId, onSelectionChange, orientation, activation, variant, className = '', ref }: TabsProps) {
   const defaults = useComponentDefaults('tabs');
-  return <AriaTabs ref={ref} className={`${styles.root} ${className}`} selectedKey={selectedId} defaultSelectedKey={defaultSelectedId} onSelectionChange={key => onSelectionChange?.(String(key))} orientation={orientation ?? defaults.orientation} keyboardActivation={activation ?? defaults.activation}>
+  return <AriaTabs ref={ref} className={`${styles.root} ${className}`} data-variant={variant ?? defaults.variant} selectedKey={selectedId} defaultSelectedKey={defaultSelectedId} onSelectionChange={key => onSelectionChange?.(String(key))} orientation={orientation ?? defaults.orientation} keyboardActivation={activation ?? defaults.activation}>
     <TabList className={styles.list} aria-label={label}>
       {items.map(item => <Tab key={item.id} id={item.id} isDisabled={item.disabled} className={styles.tab}>{item.label}</Tab>)}
     </TabList>

@@ -6,10 +6,11 @@ import { componentReadiness } from '@/lib/contract/readiness';
 const roles: Record<string, string> = {
   button: 'button', link: 'link', input: 'textbox', textarea: 'textbox', select: 'combobox', checkbox: 'checkbox', 'radio-group': 'radio',
   switch: 'switch', dialog: 'button', 'dropdown-menu': 'button', tabs: 'tab', tooltip: 'button', navigation: 'link',
-  'empty-state': 'button', 'error-state': 'button', 'not-found': 'link', 'copy-button': 'button',
+  'empty-state': 'button', 'error-state': 'button', 'not-found': 'link', 'copy-button': 'button', 'theme-switcher': 'button',
+  'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox',
 };
-const allowedStops: Record<string, string[]> = { table: ['region'], 'form-field': ['input'] };
-const forcedState: Record<string, string> = { 'empty-state': 'action' };
+const allowedStops: Record<string, string[]> = { table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
+const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable' };
 const focusableInside = 'a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
 async function openDemo(page: Page, id: string, name: string) {
@@ -65,6 +66,7 @@ test('every interactive component is reachable by Tab, named, and shows a visibl
       expect(stops, `${component.id} tab stops`).toEqual(allowedStops[component.id] ?? []);
       if (component.id === 'table') { reach = 'scroll region'; focus = 'yes'; }
       if (component.id === 'form-field') reach = 'wrapped input only';
+      if (component.id === 'fieldset') reach = 'wrapped inputs only';
     }
     rows.push(`| ${component.name} | ${component.interactive ? 'yes' : 'no'} | ${readiness.complete ? 'yes' : 'NO'} | ${reach} | ${named} | ${focus} | ${component.accessibility.keyboard.map(k => k.key).join('; ') || '—'} | ${component.accessibility.status === 'reviewed' ? 'reviewed' : 'not reviewed'} |`);
   }

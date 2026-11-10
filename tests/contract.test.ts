@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { registry, defaultTheme } from '@/lib/data/registry';
+import { registry, defaultTheme, softWorkspaceTheme } from '@/lib/data/registry';
 import { validateRegistry, validateTheme, effectiveDefaults } from '@/lib/contract/validate';
 import { ThemeSchema, LiteralTokenValueSchema, PersistenceEnvelopeSchema, type DesignSystem, type TokenDefinition } from '@/lib/contract/schema';
 import { resolveTokens, formatConstant } from '@/lib/theme/resolve';
@@ -13,7 +13,7 @@ const mutate = (fn: (s: DesignSystem) => void) => { const s = clone(); fn(s); re
 
 describe('registry integrity', () => {
   it('validates the current component inventory and eight rules without React or a DOM', () => {
-    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation', 'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button']);
+    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'backdrop', 'theme-switcher', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'fieldset', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation', 'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button', 'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group']);
     expect(registry.rules).toHaveLength(8);
     expect(typeof globalThis.document).toBe('undefined');
   });
@@ -52,6 +52,12 @@ describe('registry integrity', () => {
 });
 
 describe('theme validation and identity', () => {
+  it('ships the compact soft-workspace preset for product-level theme adapters', () => {
+    expect(registry.themePresets).toContainEqual(softWorkspaceTheme);
+    expect(softWorkspaceTheme).toMatchObject({ id: 'soft-workspace', density: 'compact', effects: { surface: 'subtle-depth' } });
+    expect(softWorkspaceTheme.componentDefaults).toEqual({ button: { size: 'small' }, card: { variant: 'elevated' } });
+    expect(() => validateTheme(softWorkspaceTheme, registry)).not.toThrow();
+  });
   it.each(['radius', 'density', 'motion'] as const)('rejects invalid %s', key => expect(ThemeSchema.safeParse({ ...theme(), [key]: 'unknown' }).success).toBe(false));
   it('validates both modes and all color roles', () => {
     const t = theme();

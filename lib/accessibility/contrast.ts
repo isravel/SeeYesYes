@@ -57,6 +57,17 @@ export function contrastRatio(foreground: Oklch, background: Oklch, mode: Mode =
   return { ratio: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05), mapped: front.mapped || back.mapped };
 }
 
+/** Contrast of a foreground over translucent layers stacked bottom to top on the mode's page backdrop. */
+export function contrastOnLayers(foreground: Oklch, layers: Oklch[], mode: Mode = 'light'): { ratio: number; mapped: boolean } {
+  let rgb: Rgb = mode === 'light' ? [1, 1, 1] : [0, 0, 0];
+  let mapped = false;
+  for (const layer of layers) { const next = composite(layer, rgb); rgb = next.rgb; mapped = mapped || next.mapped; }
+  const front = composite(foreground, rgb);
+  const a = luminance(front.rgb);
+  const b = luminance(rgb);
+  return { ratio: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05), mapped: mapped || front.mapped };
+}
+
 export type ContrastPair = { foreground: keyof Colors; background: keyof Colors; minimum: 3 | 4.5; label: string };
 
 const roles = ['primary', 'secondary', 'accent', 'destructive', 'success', 'warning', 'info'] as const;

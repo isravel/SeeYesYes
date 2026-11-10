@@ -1,0 +1,19 @@
+.root { display: inline-flex; flex-wrap: wrap; align-items: center; gap: calc(var(--sys-spacing-inline) / 2); width: fit-content; max-width: 100%; min-height: 1.75rem; padding-inline: var(--sys-spacing-inline); border: 1px solid var(--chip-border, var(--sys-color-border)); border-radius: var(--sys-radius-control); background: var(--chip-fill, transparent); color: var(--sys-color-foreground); font: inherit; font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); line-height: 1.25; overflow-wrap: anywhere; }
+.root[data-size="medium"] { min-height: 2rem; font-size: var(--sys-typography-label); }
+/* Tones tint the outline and fill. The text stays at the foreground color, so contrast never depends on the tone. */
+.root[data-tone="primary"] { --chip-border: var(--sys-color-primary); --chip-fill: color-mix(in oklch, var(--sys-color-primary) 12%, var(--sys-color-surface)); }
+.root[data-tone="success"] { --chip-border: var(--sys-color-success); --chip-fill: color-mix(in oklch, var(--sys-color-success) 12%, var(--sys-color-surface)); }
+.root[data-tone="warning"] { --chip-border: var(--sys-color-warning); --chip-fill: color-mix(in oklch, var(--sys-color-warning) 18%, var(--sys-color-surface)); }
+.root[data-tone="destructive"] { --chip-border: var(--sys-color-destructive); --chip-fill: color-mix(in oklch, var(--sys-color-destructive) 12%, var(--sys-color-surface)); }
+.root[data-tone="info"] { --chip-border: var(--sys-color-info); --chip-fill: color-mix(in oklch, var(--sys-color-info) 12%, var(--sys-color-surface)); }
+.root[data-invalid] { --chip-border: var(--sys-color-destructive); }
+.root.action { cursor: pointer; }
+.root.action:hover:not(:disabled):not([aria-pressed="true"]) { background: var(--sys-color-muted); }
+.root.action[aria-pressed="true"] { border-color: var(--sys-color-primary); background: var(--sys-color-primary); color: var(--sys-color-on-primary); }
+.root.action:disabled { opacity: .6; cursor: not-allowed; }
+.root:focus-visible, .remove:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.icon { flex: none; }
+.remove { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-inline-end: -.25rem; padding: 0; border: 0; border-radius: var(--sys-radius-control); background: transparent; color: inherit; font-size: .875em; cursor: pointer; }
+.remove:hover:not(:disabled) { background: var(--sys-color-muted); }
+.remove:disabled { opacity: .6; cursor: not-allowed; }
+.error { flex-basis: 100%; color: var(--sys-color-destructive); font-size: var(--sys-typography-caption); font-weight: normal; }

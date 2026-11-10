@@ -1,4 +1,6 @@
 .root { display: block; width: 100%; min-width: 0; min-height: 5rem; padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); background: var(--sys-color-surface); color: var(--sys-color-foreground); font: inherit; font-size: var(--sys-typography-label); resize: vertical; }
+/* Auto-grow sets the height itself; the handle stays so the reader can still make the field taller. */
+.root[data-auto-grow] { overflow-y: hidden; }
 .root[data-size="small"] { font-size: var(--sys-typography-caption); }
 .root[data-size="large"] { font-size: var(--sys-typography-heading); }
 .root::placeholder { color: var(--sys-color-muted-foreground); opacity: 1; }

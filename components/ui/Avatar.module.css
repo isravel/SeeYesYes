@@ -1,4 +1,6 @@
 .root { display: inline-grid; flex: none; place-items: center; width: var(--avatar-size, 2.5rem); height: var(--avatar-size, 2.5rem); overflow: hidden; border-radius: 50%; background: var(--sys-color-muted); color: var(--sys-color-foreground); font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); }
 .root[data-size="small"] { --avatar-size: 2rem; }
 .root[data-size="large"] { --avatar-size: 3rem; }
+/* A gap in the surface color separates the ring from the image on any background. */
+.root[data-ring] { box-shadow: 0 0 0 2px var(--sys-color-surface), 0 0 0 4px var(--sys-color-primary); }
 .image { width: 100%; height: 100%; object-fit: cover; }

@@ -1,0 +1,9 @@
+/* The root creates the stacking context; the layers sit at z-index -1 inside it, behind the children. */
+.root { position: relative; isolation: isolate; min-width: 0; padding: var(--sys-spacing-section) var(--sys-spacing-stack); border-radius: var(--sys-radius-panel); overflow: hidden; }
+/* Layers mix semantic colors into the page background, so they follow the theme and stay restrained in both appearances. */
+.layers { position: absolute; inset: 0; z-index: -1; pointer-events: none; background-color: var(--sys-color-background); background-image: radial-gradient(60% 55% at 12% 8%, color-mix(in oklch, var(--sys-color-primary) 22%, transparent), transparent 70%), radial-gradient(55% 50% at 92% 18%, color-mix(in oklch, var(--sys-color-accent) 18%, transparent), transparent 70%), radial-gradient(70% 60% at 50% 105%, color-mix(in oklch, var(--sys-color-info) 14%, transparent), transparent 70%); }
+/* Content-safe fade: the layers dissolve toward the bottom edge, where long content usually sits. */
+.layers[data-variant="faded"] { mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 100%); }
+/* Without color-mix support the container keeps the plain page background, so nothing depends on the decoration. */
+@supports not (background-image: color-mix(in oklch, red 10%, transparent)) { .layers { background-image: none; } }
+@media (forced-colors: active) { .layers { background-image: none; mask-image: none; } }

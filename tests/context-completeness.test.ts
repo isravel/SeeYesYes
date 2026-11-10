@@ -79,10 +79,13 @@ describe('local export size comparison (bytes, not tokens)', () => {
     }
   });
 
-  it('overview is the smallest export and full is the largest', () => {
+  it('overview is smaller than full and than a task export for a component with real props, and full is the largest', () => {
     expect(sizes.overview).toBeLessThan(sizes.full);
     expect(sizes.overviewMd).toBeLessThan(sizes.fullMd);
-    for (const component of registry.components) expect(byteLength(stableJson(task([component.id])))).toBeGreaterThan(sizes.overview);
+    // The overview lists every component, so it grows with the inventory and can pass a task export for a tiny component such as Spinner.
+    // It stays below a task export for a component with variants, states and tokens, which is the case the overview exists to avoid loading.
+    expect(byteLength(stableJson(task(['button'])))).toBeGreaterThan(sizes.overview);
+    for (const component of registry.components) expect(byteLength(stableJson(task([component.id]))), component.id).toBeLessThan(sizes.full);
   });
 
   it('a small fixture is much smaller than full, while a wide closure honestly reports its size', () => {

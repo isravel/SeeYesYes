@@ -1,7 +1,12 @@
-.root { display: flex; align-items: flex-start; gap: var(--sys-spacing-inline); padding: var(--sys-spacing-stack); border: 1px solid var(--alert-border, var(--sys-color-border)); border-radius: var(--sys-radius-control); background: var(--alert-background, var(--sys-color-info)); color: var(--alert-foreground, var(--sys-color-on-info)); }
+.root { display: flex; align-items: flex-start; gap: var(--sys-spacing-inline); padding: var(--sys-spacing-stack); border: 1px solid var(--alert-border, var(--sys-color-border)); border-radius: var(--sys-radius-control); background: var(--alert-fill, var(--alert-background, var(--sys-color-info))); color: var(--alert-text, var(--alert-foreground, var(--sys-color-on-info))); }
 .root[data-tone="success"] { --alert-background: var(--sys-color-success); --alert-foreground: var(--sys-color-on-success); --alert-border: var(--sys-color-success); }
 .root[data-tone="warning"] { --alert-background: var(--sys-color-warning); --alert-foreground: var(--sys-color-on-warning); --alert-border: var(--sys-color-warning); }
 .root[data-tone="destructive"] { --alert-background: var(--sys-color-destructive); --alert-foreground: var(--sys-color-on-destructive); --alert-border: var(--sys-color-destructive); }
+/* Outline and text keep the message in foreground text on the page and carry the tone in a mix of its color with the foreground, so a pale tone such as warning still reads. */
+.root[data-variant="outline"], .root[data-variant="text"] { --alert-fill: transparent; --alert-text: var(--sys-color-foreground); --alert-accent: color-mix(in oklch, var(--alert-background, var(--sys-color-info)) 55%, var(--sys-color-foreground)); }
+.root[data-variant="outline"] { border-color: var(--alert-accent); }
+.root[data-variant="text"] { border-color: transparent; padding-inline: 0; }
+.root[data-variant="outline"] .icon, .root[data-variant="text"] .icon { color: var(--alert-accent); }
 .icon { flex: none; width: 1.25em; height: 1.25em; }
 .content { min-width: 0; }
 .title { margin: 0 0 var(--sys-spacing-inline); font-weight: var(--sys-typography-weight-medium); }

@@ -1,0 +1,9 @@
+.root { display: inline-flex; align-items: center; gap: var(--sys-spacing-inline); max-width: 100%; color: var(--sys-color-foreground); font-size: var(--sys-typography-caption); font-weight: var(--sys-typography-weight-medium); line-height: 1.25; overflow-wrap: anywhere; }
+/* The dot sits in a border-colored ring so a pale tone such as warning stays visible on a light surface. */
+.dot { flex: none; width: .625rem; height: .625rem; border-radius: 50%; background: var(--level-dot, var(--sys-color-muted-foreground)); box-shadow: 0 0 0 1px var(--sys-color-border); }
+.root[data-tone="success"] { --level-dot: var(--sys-color-success); }
+.root[data-tone="warning"] { --level-dot: var(--sys-color-warning); }
+.root[data-tone="destructive"] { --level-dot: var(--sys-color-destructive); }
+.root[data-tone="info"] { --level-dot: var(--sys-color-info); }
+/* Forced colors drop the tone; the text still names the level. */
+@media (forced-colors: active) { .dot { background: CanvasText; } }

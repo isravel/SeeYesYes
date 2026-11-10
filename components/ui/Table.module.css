@@ -6,3 +6,8 @@
 .root thead { background: var(--sys-color-muted); }
 .root th { font-weight: var(--sys-typography-weight-medium); text-align: start; }
 .root .empty { color: var(--sys-color-muted-foreground); white-space: normal; }
+/* A plain header drops the filled band and quiets the labels, which suits a table inside a glass or already-tinted panel. */
+.root[data-header="plain"] thead { background: transparent; }
+.root[data-header="plain"] thead th { color: var(--sys-color-muted-foreground); }
+/* Hover marks the row under the pointer. It is a pointer aid only; nothing here is clickable, and the empty message row is skipped. */
+.root[data-row-hover] tbody tr:not(.emptyRow):hover { background: var(--sys-color-muted); }

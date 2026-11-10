@@ -1,0 +1,9 @@
+.root { display: grid; min-width: 0; gap: var(--sys-spacing-inline); margin: 0; padding: 0; border: 0; color: var(--sys-color-foreground); }
+.legend { margin-bottom: var(--sys-spacing-inline); padding: 0; font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); }
+.controls { display: grid; min-width: 0; gap: var(--sys-spacing-inline); }
+.hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.root[data-invalid] .legend { color: var(--sys-color-destructive); }
+.root:disabled { opacity: .6; }
+.help, .error { margin: 0; font-size: var(--sys-typography-caption); }
+.help { color: var(--sys-color-muted-foreground); }
+.error { color: var(--sys-color-destructive); }

@@ -21,6 +21,8 @@ const subscribe = (onChange: () => void) => {
   return () => media.removeEventListener('change', onChange);
 };
 export function useThemeScope() { return useContext(ScopeContext); }
+/** The surface treatment of the nearest scope. Components use it to opt into glass without a global selector. */
+export function useSurface(): Theme['effects']['surface'] { return useContext(ScopeContext)?.theme.effects.surface ?? 'clean'; }
 export function useComponentDefaults<K extends keyof ComponentDefaults>(componentId: K): ComponentDefaults[K] {
   const scope = useThemeScope();
   return (scope?.defaults[componentId] ?? contractDefaults[componentId]) as ComponentDefaults[K];

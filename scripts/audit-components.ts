@@ -38,7 +38,8 @@ for (const [index, component] of system.components.entries()) {
     }
     if (prop.defaultValue !== undefined && !initializer && prop.defaultValue !== false && !source.text.includes(`defaults.${prop.name}`)) issues.push(`${component.id}: Default ${prop.name} is not applied by the implementation`);
   }
-  const cssFiles = [...source.text.matchAll(/from ['"](.+\.module\.css)['"]/g)].map(([, file]) => resolve(dirname(paths[index]), file));
+  // Only a component's own stylesheet (imported as `styles`) is audited against its contract. A stylesheet borrowed from another component, such as Link reusing Button's look, stays under the owner's contract.
+  const cssFiles = [...source.text.matchAll(/import styles from ['"](.+\.module\.css)['"]/g)].map(([, file]) => resolve(dirname(paths[index]), file));
   const css = cssFiles.map(file => readFileSync(file, 'utf8')).join('\n');
   issues.push(...auditComponentStyles(component, css, system.tokens).map(issue => `${component.id}: ${issue}`));
   console.log(`${component.id}: ${component.props.length} documented props, ${component.tokenIds.length} CSS tokens, ${component.compoundVariants.length} compounds; ${component.maturity}, ${component.accessibility.status}`);

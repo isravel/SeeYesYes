@@ -1,2 +1,13 @@
 .root { display: grid; gap: var(--sys-spacing-stack); min-width: 0; padding: var(--sys-spacing-stack); background: var(--sys-color-surface); border: 1px solid transparent; border-radius: var(--sys-radius-panel); color: var(--sys-color-foreground); }
 .root[data-variant="outlined"] { border-color: var(--sys-color-border); background: transparent; }
+.root[data-variant="elevated"] { border-color: var(--sys-color-border); box-shadow: var(--sys-shadow-surface); }
+/* Glass is a surface treatment chosen by the theme scope, not a variant. Blur is applied only under glass. */
+.root[data-surface="glass"] { background: var(--sys-color-glass-tint); border-color: color-mix(in oklch, var(--sys-color-border) 45%, transparent); backdrop-filter: blur(var(--sys-effect-glass-blur)) saturate(var(--sys-effect-glass-saturation)); box-shadow: inset 0 1px 0 var(--sys-color-glass-edge), var(--sys-shadow-glass); }
+.root[data-surface="glass"][data-variant="outlined"] { border-color: var(--sys-color-border); background: transparent; backdrop-filter: none; box-shadow: none; }
+.root[data-surface="glass"][data-variant="elevated"] { box-shadow: var(--sys-shadow-surface), inset 0 1px 0 var(--sys-color-glass-edge), var(--sys-shadow-glass); }
+/* A glass Card inside another glass surface keeps its tint and edge but drops its own blur: nested filters cannot see the page and only add paint cost. */
+.root[data-surface="glass"][data-nested] { backdrop-filter: none; }
+/* Opaque fallbacks keep content on a solid surface without backdrop filtering, with reduced transparency, or in forced colors. */
+@supports not (backdrop-filter: blur(1px)) { .root[data-surface="glass"] { background: var(--sys-color-surface); } .root[data-surface="glass"][data-variant="outlined"] { background: transparent; } }
+@media (prefers-reduced-transparency: reduce) { .root[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } .root[data-surface="glass"][data-variant="outlined"] { background: transparent; } }
+@media (forced-colors: active) { .root[data-surface="glass"] { background: var(--sys-color-surface); backdrop-filter: none; } .root[data-surface="glass"][data-variant="outlined"] { background: transparent; } }

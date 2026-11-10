@@ -3,12 +3,20 @@
   gap: var(--sys-spacing-inline); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline);
   min-height: var(--sys-spacing-target-minimum); border: 1px solid transparent; border-radius: var(--sys-radius-control);
   background: var(--button-background, var(--sys-color-primary)); color: var(--button-foreground, var(--sys-color-on-primary));
+  max-width: 100%; text-align: center; text-decoration: none; overflow-wrap: anywhere;
   font: inherit; font-weight: var(--sys-typography-weight-medium); cursor: pointer;
 }
 .root[data-variant="secondary"] { --button-background: var(--sys-color-secondary); --button-foreground: var(--sys-color-on-secondary); }
 .root[data-variant="ghost"] { --button-background: transparent; --button-foreground: var(--sys-color-foreground); }
 .root[data-variant="ghost"]:hover { --button-background: var(--sys-color-muted); }
 .root[data-variant="destructive"] { --button-background: var(--sys-color-destructive); --button-foreground: var(--sys-color-on-destructive); }
+/* Outline, soft and muted keep foreground text on a quiet fill, so they meet text contrast without a brand color behind the label. */
+.root[data-variant="outline"] { --button-background: transparent; --button-foreground: var(--sys-color-foreground); border-color: var(--sys-color-border); }
+.root[data-variant="outline"]:hover { --button-background: var(--sys-color-muted); }
+.root[data-variant="soft"] { --button-background: color-mix(in oklch, var(--sys-color-primary) 16%, var(--sys-color-surface)); --button-foreground: var(--sys-color-foreground); }
+.root[data-variant="soft"]:hover { --button-background: color-mix(in oklch, var(--sys-color-primary) 26%, var(--sys-color-surface)); }
+.root[data-variant="muted"] { --button-background: var(--sys-color-muted); --button-foreground: var(--sys-color-foreground); }
+.root[data-variant="muted"]:hover { --button-background: color-mix(in oklch, var(--sys-color-muted) 85%, var(--sys-color-foreground)); }
 .root[data-size="small"] { font-size: .875em; }
 .root[data-size="large"] { font-size: 1.125em; }
 .root[data-variant="ghost"][data-size="small"] { padding-inline: var(--sys-spacing-inline); }

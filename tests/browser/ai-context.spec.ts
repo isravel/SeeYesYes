@@ -85,7 +85,7 @@ test('full mode includes everything', async ({ page }) => {
 test('exports follow the applied theme and appearance, and ignore an unapplied draft', async ({ page }) => {
   await page.goto('/system/theme');
   await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
-  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
+  await page.getByRole('combobox', { name: 'Button variant default', exact: true }).selectOption('ghost');
   await page.getByRole('combobox', { name: 'Workspace appearance' }).selectOption('dark');
   await expect(page.getByText('Appearance saved.')).toBeVisible();
 
@@ -102,7 +102,7 @@ test('exports follow the applied theme and appearance, and ignore an unapplied d
 
   await page.goto('/system/theme');
   await page.getByRole('combobox', { name: 'Corner shape' }).selectOption('curvy');
-  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
+  await page.getByRole('combobox', { name: 'Button variant default', exact: true }).selectOption('ghost');
   await page.getByRole('button', { name: 'Apply to workspace' }).click();
   await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
   await open();
@@ -220,7 +220,7 @@ test('the AGENTS.md snippet shows its size, copies exactly, and updates after Ap
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(shown);
 
   await page.goto('/system/theme');
-  await page.getByRole('combobox', { name: 'Button variant default' }).selectOption('ghost');
+  await page.getByRole('combobox', { name: 'Button variant default', exact: true }).selectOption('ghost');
   await page.getByRole('button', { name: 'Apply to workspace' }).click();
   await expect(page.getByText('Draft applied to the workspace and saved.')).toBeVisible();
   await page.goto('/ai/context');

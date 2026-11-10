@@ -7,4 +7,8 @@
 .tab[data-disabled] { opacity: .6; cursor: not-allowed; }
 .panel { min-width: 0; padding: var(--sys-spacing-inline); overflow-wrap: anywhere; }
 .root[data-orientation="vertical"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
-.root[data-orientation="vertical"] .list { flex-direction: column; border-bottom: 0; border-right: 1px solid var(--sys-color-border); }
+.root[data-orientation="vertical"] .list { --tab-indicator: inset -3px 0 0 var(--sys-color-primary); flex-direction: column; border-bottom: 0; border-right: 1px solid var(--sys-color-border); }
+/* Boxed is the original look: the selected tab is a filled box. Line keeps text on the page and marks the selection with an edge indicator. */
+.root[data-variant="line"] .list { gap: 0; padding: 0; }
+.root[data-variant="line"] .tab { border-radius: 0; }
+.root[data-variant="line"] .tab[data-selected] { background: transparent; color: var(--sys-color-foreground); font-weight: var(--sys-typography-weight-medium); box-shadow: var(--tab-indicator, inset 0 -3px 0 var(--sys-color-primary)); }

@@ -1,7 +1,8 @@
 'use client';
 import type { ReactNode, Ref } from 'react';
 import { DialogTrigger, ModalOverlay, Modal, Dialog as AriaDialog, Heading } from 'react-aria-components';
-import { useComponentDefaults } from '@/components/theme/ThemeScope';
+import { useComponentDefaults, useSurface } from '@/components/theme/ThemeScope';
+import { GlassLayerContext } from '@/components/theme/glass-layer';
 import { Button } from './button';
 import { InternalTriggerButton } from './internal-trigger-button';
 import styles from './Dialog.module.css';
@@ -15,16 +16,19 @@ export type DialogProps = {
 };
 export function Dialog({ triggerLabel, title, children, size, disabled, isOpen, defaultOpen, onOpenChange, dismissOnOutsidePress, closeOnEscape, closeLabel, className = '', ref }: DialogProps) {
   const defaults = useComponentDefaults('dialog');
+  const surface = useSurface();
   return <DialogTrigger isOpen={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
     <InternalTriggerButton label={triggerLabel} disabled={disabled} />
     <ModalOverlay className={styles.overlay} isDismissable={dismissOnOutsidePress ?? defaults.dismissOnOutsidePress} isKeyboardDismissDisabled={!(closeOnEscape ?? defaults.closeOnEscape)}>
-      <Modal className={styles.modal} data-size={size ?? defaults.size}>
+      {/* A sibling of the panel, not its ancestor: a filtered ancestor would stop the panel from blurring the page, so panel and page blur stay independent. */}
+      {surface === 'glass' && <div className={styles.scrimBlur} aria-hidden="true" />}
+      <Modal className={styles.modal} data-size={size ?? defaults.size} data-surface={surface}>
         <AriaDialog ref={ref} className={`${styles.root} ${className}`}>
-          {({ close }) => <>
+          {({ close }) => <GlassLayerContext.Provider value={true}>
             <Heading slot="title" className={styles.title}>{title}</Heading>
             <div className={styles.content}>{typeof children === 'function' ? children(close) : children}</div>
             <div className={styles.actions}><Button variant="secondary" onClick={close}>{closeLabel ?? defaults.closeLabel}</Button></div>
-          </>}
+          </GlassLayerContext.Provider>}
         </AriaDialog>
       </Modal>
     </ModalOverlay>

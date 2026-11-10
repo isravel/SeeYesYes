@@ -1,0 +1,6 @@
+/* A quiet tint of the brand color behind foreground text, so contrast comes from the text color and not from the tint. */
+.root { padding-inline: .2em; border-radius: min(var(--sys-radius-control), .375em); background: color-mix(in oklch, var(--sys-color-primary) 18%, var(--sys-color-surface)); color: var(--sys-color-foreground); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+/* Selecting the phrase must still be visible against the tint, so selection swaps to the solid brand pair. */
+.root::selection { background: var(--sys-color-primary); color: var(--sys-color-on-primary); }
+@supports not (background: color-mix(in oklch, red 10%, blue)) { .root { background: var(--sys-color-muted); } }
+@media (forced-colors: active) { .root { background: Mark; color: MarkText; } }
