@@ -41,7 +41,11 @@ export type ComponentDefaults = {
 "search-input": { "defaultValue": string; "clearLabel": string; "searching": boolean; "searchingLabel": string; "size": "small" | "medium" | "large" };
 "segmented": { "size": "small" | "medium" | "large" };
 "chip": { "tone": "neutral" | "primary" | "success" | "warning" | "destructive" | "info"; "size": "medium" | "small"; "defaultSelected": boolean; "removing": boolean };
-"checkbox-group": { "orientation": "vertical" | "horizontal"; "size": "small" | "medium" | "large"; "required": boolean }
+"checkbox-group": { "orientation": "vertical" | "horizontal"; "size": "small" | "medium" | "large"; "required": boolean };
+"disclosure": { "defaultOpen": boolean; "openOnHover": boolean };
+"accordion": { "mode": "single" | "multiple"; "collapsible": boolean; "headingLevel": 2 | 3 | 4 | 5 | 6 };
+"pagination": { "defaultPage": number; "label": string; "size": "small" | "medium" | "large"; "siblings": number; "previousLabel": string; "nextLabel": string };
+"breadcrumbs": { "label": string; "separator": "slash" | "chevron" }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -210,5 +214,26 @@ export const contractDefaults: ComponentDefaults = {
     "orientation": "vertical",
     "size": "medium",
     "required": false
+  },
+  "disclosure": {
+    "defaultOpen": false,
+    "openOnHover": false
+  },
+  "accordion": {
+    "mode": "single",
+    "collapsible": true,
+    "headingLevel": 3
+  },
+  "pagination": {
+    "defaultPage": 1,
+    "label": "Pagination",
+    "size": "medium",
+    "siblings": 1,
+    "previousLabel": "Previous",
+    "nextLabel": "Next"
+  },
+  "breadcrumbs": {
+    "label": "Breadcrumbs",
+    "separator": "slash"
   }
 };

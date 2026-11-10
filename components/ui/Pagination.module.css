@@ -1,0 +1,12 @@
+.root { color: var(--sys-color-foreground); font-size: var(--sys-typography-label); }
+.root[data-size="small"] { font-size: var(--sys-typography-caption); }
+.root[data-size="large"] { font-size: var(--sys-typography-heading); }
+.list { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--sys-spacing-inline) / 2); margin: 0; padding: 0; list-style: none; }
+.item { display: inline-flex; align-items: center; justify-content: center; gap: calc(var(--sys-spacing-inline) / 2); box-sizing: border-box; min-width: var(--sys-spacing-target-minimum); min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 1px solid transparent; border-radius: var(--sys-radius-control); background: transparent; color: inherit; font: inherit; text-decoration: none; cursor: pointer; }
+.item:hover:not(:disabled):not([data-disabled]):not([aria-current="page"]) { background: var(--sys-color-muted); }
+/* The current page is a filled shape with heavier text, so it is not marked by color alone. */
+.item[aria-current="page"] { border-color: var(--sys-color-primary); background: var(--sys-color-primary); color: var(--sys-color-on-primary); font-weight: var(--sys-typography-weight-medium); cursor: default; }
+.item:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.item:disabled, .item[data-disabled] { opacity: .6; cursor: not-allowed; }
+.ellipsis { min-width: var(--sys-spacing-target-minimum); color: var(--sys-color-muted-foreground); text-align: center; }
+@media (forced-colors: active) { .item[aria-current="page"] { background: Highlight; color: HighlightText; forced-color-adjust: none; } }

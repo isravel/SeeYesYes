@@ -1,0 +1,10 @@
+.root { color: var(--sys-color-foreground); font-size: var(--sys-typography-label); }
+.heading { margin: 0; font-size: inherit; font-weight: inherit; }
+.trigger { display: flex; width: 100%; box-sizing: border-box; align-items: center; justify-content: space-between; gap: var(--sys-spacing-inline); min-height: var(--sys-spacing-target-minimum); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border: 0; border-radius: var(--sys-radius-control); background: transparent; color: inherit; font: inherit; font-weight: var(--sys-typography-weight-medium); text-align: start; cursor: pointer; }
+.trigger:hover:not(:disabled) { background: var(--sys-color-muted); }
+.trigger:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.trigger:disabled { opacity: .6; cursor: not-allowed; }
+.icon { flex: none; transition: transform var(--sys-motion-duration) ease; }
+.trigger[aria-expanded="true"] .icon { transform: rotate(180deg); }
+.panel { padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); }
+@media (prefers-reduced-motion: reduce) { .icon { transition: none; } }

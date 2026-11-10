@@ -34,6 +34,10 @@ import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
+import { Disclosure } from '@/components/ui/disclosure';
+import { Accordion } from '@/components/ui/accordion';
+import { Pagination } from '@/components/ui/pagination';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Plus } from '@phosphor-icons/react';
 import styles from './OverlayFixture.module.css';
 
@@ -48,6 +52,8 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [picked, setPicked] = useState<string[]>([]);
   const [tags, setTags] = useState(['Archived', 'Draft']);
   const [failing, setFailing] = useState(false);
+  const [page, setPage] = useState(6);
+  const [open, setOpen] = useState<string[]>([]);
   const scoped: Theme = { ...theme, effects: { ...theme.effects, surface } };
   return <main className={styles.main}><h1>Control checks</h1>
     <ThemeScope id="controls-scope" theme={scoped} appearance={appearance} className={styles.scope}>
@@ -113,6 +119,18 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <CheckboxGroup name="channels" label="Notify me by" value={picked} onChange={setPicked} helpText="Choose any." error={picked.length === 0 && message === 'submit' ? 'Choose at least one.' : undefined}
           options={[{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push', disabled: true }]} />
         <p data-testid="x3-picked">{picked.join(',')}|{view}</p>
+      </section>
+      <section aria-label="Disclosure and navigation" id="x3-compositions">
+        <Disclosure label="Shipping details" data-testid="click-disclosure"><button type="button">Inside the panel</button></Disclosure>
+        <Disclosure label="Hover preview" openOnHover data-testid="hover-disclosure"><p>Preview content</p></Disclosure>
+        <Accordion headingLevel={3} items={[{ id: 'one', label: 'Shipping', content: 'Ships fast.' }, { id: 'two', label: 'Returns', content: 'Return in thirty days.' }, { id: 'three', label: 'Support', content: 'Write to us.', disabled: true }]} />
+        <Accordion mode="multiple" value={open} onChange={setOpen} items={[{ id: 'm1', label: 'First multiple', content: 'One.' }, { id: 'm2', label: 'Second multiple', content: 'Two.' }]} />
+        <Accordion collapsible={false} defaultValue={['k1']} items={[{ id: 'k1', label: 'Always one', content: 'Kept open.' }, { id: 'k2', label: 'Other', content: 'Other content.' }]} />
+        <Pagination label="Results pages" pageCount={12} page={page} onPageChange={setPage} />
+        <Pagination label="Linked pages" pageCount={3} defaultPage={2} getHref={target => `#page-${target}`} />
+        <Breadcrumbs label="Trail" items={[{ label: 'Components', href: '/components' }, { label: 'Navigation', href: '#navigation' }, { label: 'Breadcrumbs', href: '#breadcrumbs' }]} />
+        <Breadcrumbs label="Long trail" separator="chevron" items={[{ label: 'Workspace with a very long name that must wrap', href: '#one' }, { label: 'Another long section name to force wrapping', href: '#two' }, { label: 'Yet another deeply nested destination', href: '#three' }, { label: 'Current page with a long title', href: '#four' }]} />
+        <p data-testid="x3-page">{page}|{open.join(',')}</p>
       </section>
       <section aria-label="Overlays">
         <Dialog triggerLabel="Open glass dialog" title="Glass dialog" closeLabel="Close glass dialog"><p>Panel over a scrim.</p></Dialog>

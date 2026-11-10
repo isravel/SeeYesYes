@@ -43,6 +43,10 @@ import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
+import { Disclosure } from '@/components/ui/disclosure';
+import { Accordion } from '@/components/ui/accordion';
+import { Pagination } from '@/components/ui/pagination';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -124,6 +128,16 @@ function ChipFilters() {
 function CheckboxGroupChannels() {
   return <div className="previewSections"><CheckboxGroup name="preview-channels" label="Notify me by" defaultValue={['email']} options={[{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push', disabled: true }]} /></div>;
 }
+function DisclosureDetails() { return <div className="previewSections"><Disclosure label="Shipping details"><p>Orders ship within two business days.</p></Disclosure></div>; }
+const faqItems = [{ id: 'shipping', label: 'Shipping', content: 'Orders ship within two business days.' }, { id: 'returns', label: 'Returns', content: 'Return items within thirty days.' }, { id: 'support', label: 'Support', content: 'Write to us any time.' }];
+function AccordionFaq() { return <div className="previewSections"><Accordion items={faqItems} /></div>; }
+function PaginationResults() {
+  const [page, setPage] = useState(6);
+  return <div className="previewSections"><Pagination label="Example pages" pageCount={12} page={page} onPageChange={setPage} /><span role="status">Showing page {page} of 12.</span></div>;
+}
+function BreadcrumbsTrail() {
+  return <div className="previewSections"><Breadcrumbs label="Example trail" items={[{ label: 'Components', href: '/components' }, { label: 'Navigation', href: '/components?category=navigation' }, { label: 'Breadcrumbs', href: '/components/breadcrumbs' }]} /></div>;
+}
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -134,6 +148,7 @@ export const previewMap = {
   backdropGlass: BackdropGlass, themeSwitcherLabeled: ThemeSwitcherLabeled,
   highlightNote: HighlightNote, levelDifficulty: LevelDifficulty, liveDotStatus: LiveDotStatus, kbdShortcut: KbdShortcut, avatarGroupTeam: AvatarGroupTeam,
   iconButtonAdd: IconButtonAdd, searchInputMembers: SearchInputMembers, segmentedView: SegmentedView, chipFilters: ChipFilters, checkboxGroupChannels: CheckboxGroupChannels,
+  disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

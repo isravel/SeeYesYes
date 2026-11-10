@@ -59,3 +59,31 @@ Changes outside the five components:
 - `tests/fixtures/ControlsFixture.tsx` has a new form-controls section, and `tests/browser/x3-controls.spec.ts` is new.
 
 Not covered: human visual review over glass, reduced-transparency rendering, screen-reader testing, the full browser suite, and the SYX-004 packed-consumer check. Escape inside a SearchInput inside an open Dialog was not run in a browser.
+
+## Third batch (2026-11-10)
+
+SYX-032 Disclosure, SYX-060 Accordion, SYX-062 Pagination and SYX-063 Breadcrumbs. All use native buttons, links and lists.
+
+| Command | Result |
+| --- | --- |
+| `npx vitest run` | 637 tests pass across 44 files, including `tests/x3-composition.test.ts` and the type-check of every recommended example |
+| `npx tsc --noEmit` | clean |
+| `npm run audit:components` | All 46 component implementations match their documented props, defaults, CSS tokens and compounds |
+| `npx eslint .` | clean |
+| `npm run build` | passes |
+| `npx playwright test` on `x3-compositions`, `x3-controls`, `x3-display`, `keyboard-matrix`, `components-catalog`, `component-detail`, `playground`, `review-matrix` | First run: 47 passed, 4 failed, all test defects (below). After the fixes, `x3-compositions` passes (8 tests). The other specs passed in the first run and were not rerun. The full browser suite was not run |
+
+Failures found by the first browser run (all in the new spec or fixture selectors, none in the components):
+
+- A "not focused" check on hidden panel content failed because the element is hidden and so cannot be located. It now checks the active element's text instead.
+- `getByRole('listitem')` counted list items outside the pagination; it now counts `li` inside the nav.
+- A "Trail" name matched "Long trail" too; names are now matched exactly.
+- The forced-colors check read Page 2, which is not rendered when the current page is 6; it now reads Page 5.
+
+Changes outside the four components:
+
+- `lib/data/composition-contracts.ts` is new and registered in `lib/data/registry.ts`. The `wcag-focus-visible` rule lists the four controls.
+- `tests/contract.test.ts` and `tests/component-inventory.test.ts` list the four new IDs.
+- `tests/fixtures/ControlsFixture.tsx` has a new "Disclosure and navigation" section; `keyboard-matrix.spec.ts` lists the four roles.
+
+Not covered: human visual review over glass, reduced-transparency rendering, screen-reader testing, the full browser suite and the SYX-004 packed-consumer check.

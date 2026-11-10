@@ -43,6 +43,10 @@ import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
+import { Disclosure } from '@/components/ui/disclosure';
+import { Accordion } from '@/components/ui/accordion';
+import { Pagination } from '@/components/ui/pagination';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -140,6 +144,12 @@ export const demos: Record<string, Demo> = {
   'checkbox-group': { element: as(CheckboxGroup), name: 'CheckboxGroup', states: ['empty', 'some-selected', 'all-selected', 'disabled', 'invalid', 'required', 'help'],
     props: (v, s) => ({ name: 'demo-channels', label: 'Notify me by', orientation: v.orientation, size: v.size, defaultValue: s === 'some-selected' ? ['email'] : s === 'all-selected' ? ['email', 'sms', 'push'] : undefined, disabled: flag(s === 'disabled'), required: flag(s === 'required'), error: s === 'invalid' ? 'Choose at least one.' : undefined, helpText: s === 'help' ? 'You can change this later.' : undefined }),
     extra: () => ({ options: [{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push' }] }), codeExtra: ' options={[{ value: "email", label: "Email" }, { value: "sms", label: "Text message", hint: "Carrier rates may apply." }, { value: "push", label: "Push" }]}' },
+  disclosure: { element: as(Disclosure), name: 'Disclosure', states: ['collapsed', 'expanded', 'disabled'], props: (_v, s) => ({ label: 'Shipping details', defaultOpen: flag(s === 'expanded'), disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Orders ship within two business days.</p>, code: '<p>Orders ship within two business days.</p>' }) },
+  accordion: { element: as(Accordion), name: 'Accordion', states: ['collapsed', 'expanded', 'disabled'], props: v => ({ mode: v.mode }),
+    extra: s => ({ defaultValue: s === 'expanded' ? ['shipping'] : undefined, items: [{ id: 'shipping', label: 'Shipping', content: 'Orders ship within two business days.' }, { id: 'returns', label: 'Returns', content: 'Return items within thirty days.' }, { id: 'support', label: 'Support', content: 'Write to us any time.', disabled: s === 'disabled' }] }), codeExtra: ' items={items}' },
+  pagination: { element: as(Pagination), name: 'Pagination', states: ['default', 'first', 'last'], props: (v, s) => ({ label: 'Example pages', pageCount: 12, defaultPage: s === 'first' ? 1 : s === 'last' ? 12 : 6, size: v.size }) },
+  breadcrumbs: { element: as(Breadcrumbs), name: 'Breadcrumbs', states: ['default'], props: v => ({ label: 'Example trail', separator: v.separator }),
+    extra: () => ({ items: [{ label: 'Components', href: '/components' }, { label: 'Navigation', href: '/components?category=navigation' }, { label: 'Breadcrumbs', href: '/components/breadcrumbs' }] }), codeExtra: ' items={items}' },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

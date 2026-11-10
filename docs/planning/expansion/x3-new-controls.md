@@ -20,10 +20,14 @@ Phase: A — Foundations and controls. Dependencies: X1–X2, limited to the con
   - 2026-11-10: Done with automated checks only; no human visual review. Composes Button; label required; pressed is a shape, not only color; optional tooltip never replaces the label. [Evidence](../../evidence/expansion/X3/SYX-017/review.md)
 - [ ] **SYX-019 — Confirm dialog.** Compose Dialog with safe initial focus, pending/error states and optional type-to-confirm; preserve user input after a failed action.
 - [ ] **SYX-020 — Toast.** Provide queued confirmations, live-region semantics, dismissal and timed expiry that pauses during interaction; actionable messages allow enough time to respond.
-- [ ] **SYX-032 — Disclosure.** Provide an accessible click trigger and optional pointer-hover enhancement; hidden content cannot receive focus.
-- [ ] **SYX-060 — Accordion.** Compose disclosure sections with single/multiple expansion, linked headings, keyboard access and reduced-motion transitions.
-- [ ] **SYX-062 — Pagination.** Support links or onChange, current-page semantics, ellipsis, boundary states and keyboard access.
-- [ ] **SYX-063 — Breadcrumbs.** Extract/reuse the existing navigation breadcrumb behavior as a standalone composition with current-page semantics.
+- [x] **SYX-032 — Disclosure.** Provide an accessible click trigger and optional pointer-hover enhancement; hidden content cannot receive focus.
+  - 2026-11-10: Done with automated checks only; no human visual review. Native button with `aria-expanded`/`aria-controls`; collapsed content is `hidden`; hover is a mouse-only opt-in and a click pins it. Height animation not built, only the chevron turn. [Evidence](../../evidence/expansion/X3/SYX-032/review.md)
+- [x] **SYX-060 — Accordion.** Compose disclosure sections with single/multiple expansion, linked headings, keyboard access and reduced-motion transitions.
+  - 2026-11-10: Done with automated checks only; no human visual review. Disclosures with headings and named regions; single (collapsible or not) and multiple modes. Arrow-key movement between triggers is not added. [Evidence](../../evidence/expansion/X3/SYX-060/review.md)
+- [x] **SYX-062 — Pagination.** Support links or onChange, current-page semantics, ellipsis, boundary states and keyboard access.
+  - 2026-11-10: Done with automated checks only; no human visual review. Links with `getHref`, buttons otherwise; `aria-current`; stable-length ellipsis list; ends disabled. [Evidence](../../evidence/expansion/X3/SYX-062/review.md)
+- [x] **SYX-063 — Breadcrumbs.** Extract/reuse the existing navigation breadcrumb behavior as a standalone composition with current-page semantics.
+  - 2026-11-10: Done with automated checks only; no human visual review. Standalone `nav` with an ordered list; current page is text; the shell Navigation keeps its own breadcrumb markup and was not changed. Truncation/overflow collapse is not built; items wrap. [Evidence](../../evidence/expansion/X3/SYX-063/review.md)
 - [ ] **SYX-065 — Popover.** Provide a trigger-anchored panel with appropriate focus, dismissal, placement and theme inheritance using the installed overlay foundation.
 - [ ] **SYX-066 — Drawer.** Generalize the navigation drawer only as needed for reusable edge panels; retain focus containment, dismissal and return.
 - [x] **SYX-070 — Checkbox group.** Provide an array-valued selection group with label, hints, errors and disabled options.

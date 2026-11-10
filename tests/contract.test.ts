@@ -13,7 +13,7 @@ const mutate = (fn: (s: DesignSystem) => void) => { const s = clone(); fn(s); re
 
 describe('registry integrity', () => {
   it('validates the current component inventory and eight rules without React or a DOM', () => {
-    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'backdrop', 'theme-switcher', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'fieldset', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation', 'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button', 'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group']);
+    expect(validateRegistry(registry).components.map(c => c.id)).toEqual(['button', 'spinner', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'skeleton', 'backdrop', 'theme-switcher', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch', 'label', 'form-field', 'fieldset', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation', 'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button', 'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'disclosure', 'accordion', 'pagination', 'breadcrumbs']);
     expect(registry.rules).toHaveLength(8);
     expect(typeof globalThis.document).toBe('undefined');
   });

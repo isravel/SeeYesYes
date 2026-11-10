@@ -1,0 +1,2 @@
+.root { border-block: 1px solid var(--sys-color-border); }
+.item + .item { border-top: 1px solid var(--sys-color-border); }

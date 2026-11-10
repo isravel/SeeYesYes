@@ -8,6 +8,7 @@ const roles: Record<string, string> = {
   switch: 'switch', dialog: 'button', 'dropdown-menu': 'button', tabs: 'tab', tooltip: 'button', navigation: 'link',
   'empty-state': 'button', 'error-state': 'button', 'not-found': 'link', 'copy-button': 'button', 'theme-switcher': 'button',
   'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox',
+  disclosure: 'button', accordion: 'button', pagination: 'button', breadcrumbs: 'link',
 };
 const allowedStops: Record<string, string[]> = { table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
 const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable' };
