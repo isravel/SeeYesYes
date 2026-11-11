@@ -128,6 +128,41 @@ test('AvatarGroup overlaps its avatars, names the group, and gives the +N count 
   expect(await group.evaluate(el => el.querySelectorAll('a, button, [tabindex]').length)).toBe(0);
 });
 
+test('AvatarGroup overflow content makes only the +N count a button that opens a named panel and returns focus', async ({ page }) => {
+  await open(page);
+  const group = page.getByRole('group', { name: 'Reviewers with list' });
+  await expect(group.getByRole('img', { name: /more/ })).toHaveCount(0);
+  const trigger = group.getByRole('button', { name: 'Show 2 more' });
+  await expect(trigger).toHaveText('+2');
+  // Only the +N count takes focus; the avatars stay plain images.
+  expect(await group.evaluate(el => el.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])').length)).toBe(1);
+  await expect(group.getByRole('img', { name: 'Maya Chen' })).toBeVisible();
+  const box = await trigger.boundingBox();
+  expect(box!.width).toBeGreaterThanOrEqual(24);
+  expect(box!.height).toBeGreaterThanOrEqual(24);
+  // Hover alone does not open it.
+  await trigger.hover();
+  await expect(page.getByRole('dialog', { name: '2 more' })).toHaveCount(0);
+  // Keyboard: Enter opens, focus moves in, Escape closes and focus returns.
+  await page.keyboard.press('Shift');
+  await trigger.focus();
+  expect(await trigger.evaluate(el => getComputedStyle(el).outlineStyle)).toBe('solid');
+  await page.keyboard.press('Enter');
+  const panel = page.getByRole('dialog', { name: '2 more' });
+  await expect(panel).toBeVisible();
+  await expect(panel.getByText('Jon Ortiz')).toBeVisible();
+  expect(await panel.evaluate(el => el.contains(document.activeElement))).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(panel).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  // Click opens too, and the render-function close button closes it.
+  await trigger.click();
+  await expect(panel).toBeVisible();
+  await panel.getByRole('button', { name: 'Close list' }).click();
+  await expect(panel).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
 test('the display components have no serious accessibility violations in light and dark', async ({ page }) => {
   for (const scheme of ['light', 'dark'] as const) {
     await page.goto(`/internal-checks/controls?surface=glass&appearance=${scheme}`);

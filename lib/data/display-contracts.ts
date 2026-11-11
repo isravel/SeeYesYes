@@ -5,6 +5,8 @@ type Entry = {
   id: string; name: string; category: ComponentContract['category']; purpose: string; shortPurpose: string; element: string; meaning: string;
   props: ComponentContract['props']; variants?: ComponentContract['variants']; tokenIds: string[]; states?: string[];
   requirements: string[]; prohibitedUsage: string[]; prefer?: string[];
+  /** Set only when part of the component is a real control (AvatarGroup's optional overflow button). */
+  keyboard?: ComponentContract['accessibility']['keyboard'];
   exampleId: string; previewKey: string; code: string;
 };
 const prop = (name: string, type: string, description: string, required = false): ComponentContract['props'][number] => ({ name, type, description, required });
@@ -54,11 +56,13 @@ const entries: Entry[] = [
   },
   {
     id: 'avatar-group', name: 'AvatarGroup', category: 'layout', purpose: 'Show several people as overlapping avatars with a +N count.', shortPurpose: 'Show people as overlapping avatars.', element: 'div', meaning: 'A named group of avatars. People beyond the limit collapse into a +N count with its own accessible name.',
-    props: [prop('label', 'string', 'Accessible name for the whole group, such as "Project members".', true), prop('people', 'AvatarGroupPerson[]', 'People in display order, each with `initials`, `alt` and an optional `src`.', true), { ...prop('max', 'number', 'Most avatars to show before the +N count.'), defaultValue: 4 }, choice('size', ['medium', 'small', 'large'], 'Avatar size.'), prop('overflowLabel', '(count: number) => string', 'Accessible name for the +N count. Defaults to "N more".'), ...common, prop('ref', 'Ref<HTMLDivElement>', 'Group element reference.')],
+    props: [prop('label', 'string', 'Accessible name for the whole group, such as "Project members".', true), prop('people', 'AvatarGroupPerson[]', 'People in display order, each with `initials`, `alt` and an optional `src`.', true), { ...prop('max', 'number', 'Most avatars to show before the +N count.'), defaultValue: 4 }, choice('size', ['medium', 'small', 'large'], 'Avatar size.'), prop('overflowLabel', '(count: number) => string', 'Accessible name for the +N count, and for the panel when there is one. Defaults to "N more".'), prop('overflowContent', 'ReactNode | ((close: () => void) => ReactNode)', 'Content for the hidden people, such as a list of names. When supplied, the +N count becomes a real button that opens it in a popover; omit it and the count stays a plain image.'), prop('overflowTriggerLabel', '(count: number) => string', 'Accessible name of the +N button when `overflowContent` is supplied. Defaults to "Show N more".'), ...common, prop('ref', 'Ref<HTMLDivElement>', 'Group element reference.')],
     variants: { size: ['medium', 'small', 'large'] },
-    tokenIds: ['color.surface', 'color.muted', 'color.foreground', 'typography.caption', 'typography.weight-medium'],
-    requirements: ['Name the group; each person keeps their own name from Avatar.', 'Give the +N count a meaningful name, not only the number.', 'The group is not interactive. Put a real button or link beside it when the full list should open.'],
-    prohibitedUsage: ['Using the group as a button without a native control.', 'Leaving the group unnamed.'],
+    tokenIds: ['color.surface', 'color.muted', 'color.foreground', 'color.focus', 'typography.caption', 'typography.weight-medium'],
+    states: ['default', 'overflow-list', 'hover', 'focus-visible'],
+    keyboard: [{ key: 'Enter / Space', behavior: 'On the +N button (only when `overflowContent` is supplied): open the panel of hidden people.' }, { key: 'Tab / Shift+Tab', behavior: 'The +N button is the only tab stop; the avatars never take focus.' }, { key: 'Escape', behavior: 'Close the panel and return focus to the +N button.' }],
+    requirements: ['Name the group; each person keeps their own name from Avatar.', 'Give the +N count a meaningful name, not only the number.', 'By default the group is not interactive and adds no tab stop. Supplying `overflowContent` turns only the +N count into a real button (named by `overflowTriggerLabel`) that opens a popover for the hidden people; the avatars stay non-interactive.', 'Put the full list of hidden people in `overflowContent` as text; the popover is a named dialog and Escape or an outside press closes it and returns focus to the button.'],
+    prohibitedUsage: ['Using the group as a button without a native control.', 'Leaving the group unnamed.', 'Opening the overflow content on hover alone.'],
     exampleId: 'avatar-group-team', previewKey: 'avatarGroupTeam',
     code: 'import { AvatarGroup } from "@/components/ui/avatar-group";\n<AvatarGroup label="Project members" people={[{ initials: "MC", alt: "Maya Chen" }, { initials: "AB", alt: "Ada Bell" }, { initials: "JO", alt: "Jon Ortiz" }, { initials: "LK", alt: "Lena Koh" }, { initials: "TS", alt: "Tariq Shah" }, { initials: "NP", alt: "Nia Park" }]} />',
   },
@@ -66,13 +70,13 @@ const entries: Entry[] = [
 
 export const displayComponentContracts: ComponentContract[] = entries.map(entry => ({
   id: entry.id, name: entry.name, publicImport: { module: `@/components/ui/${entry.id}`, exportName: entry.name },
-  purpose: entry.purpose, shortPurpose: entry.shortPurpose, category: entry.category, maturity: 'experimental', interactive: false,
+  purpose: entry.purpose, shortPurpose: entry.shortPurpose, category: entry.category, maturity: 'experimental', interactive: Boolean(entry.keyboard),
   semantics: { element: entry.element, meaning: entry.meaning }, anatomy: [{ part: 'root', description: entry.meaning }], props: entry.props,
   variants: entry.variants ?? {}, compoundVariants: [],
   themeDefaults: entry.variants?.size ? { size: entry.variants.size } : {}, states: entry.states ?? ['default'], tokenIds: entry.tokenIds,
-  accessibility: { status: 'not-reviewed', requirements: entry.requirements, keyboard: [], ruleIds: [] },
+  accessibility: { status: 'not-reviewed', requirements: entry.requirements, keyboard: entry.keyboard ?? [], ruleIds: entry.keyboard ? ['wcag-focus-visible'] : [] },
   composition: { allowedComponentIds: entry.id === 'avatar-group' ? ['avatar'] : [], constraints: ['Meaning stays in text; decoration is hidden from assistive technology.'] },
-  prohibitedUsage: entry.prohibitedUsage, exampleIds: [entry.exampleId], ruleIds: [],
+  prohibitedUsage: entry.prohibitedUsage, exampleIds: [entry.exampleId], ruleIds: entry.keyboard ? ['wcag-focus-visible'] : [],
   aiGuidance: { prefer: entry.prefer ?? [`Use ${entry.name} for its documented purpose.`], avoid: entry.prohibitedUsage },
 }));
 export const displayComponentExamples: Example[] = entries.map(entry => ({

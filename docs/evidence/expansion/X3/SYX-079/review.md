@@ -8,4 +8,11 @@ Working tree on top of `9acfd3f`, 2026-11-10. See [shared checks](../checks.md).
 - Unit: names the group, shows four avatars and a "2 more" count for six people, no count at exactly `max` or for one person, `max` of zero, an empty list, a fractional and a negative `max`, a custom overflow name, size applied to the group and avatars, and no buttons, links or tab stops.
 - Browser: the group is named, five images are present (four people plus the count), the count has its own name and reads "+2", every item overlaps the previous one, a two-person group shows no count, and the group has no focusable descendants.
 - Not checked: the overlap ring on a glass background.
-- **Left open.** The variation matrix lists an optional overflow trigger with its focus state, and this version does not provide one. The task checkbox stays unchecked until that is built or the matrix is changed.
+
+## Overflow trigger (added later)
+
+- New optional props: `overflowContent` (node, or a function that receives `close`) and `overflowTriggerLabel` (default "Show N more"). Without `overflowContent` nothing changes: the +N count is a plain named image and the group has no tab stop.
+- With `overflowContent` and at least one hidden person, only the +N count becomes a real button. It opens a popover built on the same React Aria popover as `Popover` and borrowing its styles. The panel is a dialog named by `overflowLabel` ("2 more"). Escape or an outside press closes it and returns focus to the button. Hover never opens it. If nobody overflows, no button is rendered.
+- The contract now marks AvatarGroup interactive, lists Enter/Space, Tab and Escape, adds the `focus-visible` and `overflow-list` states and the `color.focus` token, and `wcag-focus-visible` applies to it. The playground has an `overflow-list` state.
+- Unit: one named button when content is supplied, no button when nobody overflows, custom trigger label, closed panel not rendered. Browser: the +N button is the only tab stop in its group, at least 24px, hover does not open, Enter opens and moves focus in, Escape closes and returns focus, click opens and a render-function close button closes it, solid focus outline. The existing axe sweep and 320px test pass.
+- Not checked: the panel with a very long list (it scrolls only if Popover's styles do), right-to-left, screen readers, the overlap ring on glass.

@@ -115,21 +115,33 @@ describe('SYX-079 AvatarGroup', () => {
     expect(attr(markup, 'data-size')).toBe('large');
     expect(markup.match(/data-size="large"/g)!.length).toBeGreaterThan(1);
   });
-  it('is not interactive: no buttons, links or tab stops', () => {
+  it('is not interactive by default: no buttons, links or tab stops', () => {
     const markup = html(h(AvatarGroup, { label: 'Team', people: people(6) }));
     expect(markup).not.toMatch(/<(button|a)[\s>]/);
     expect(markup).not.toContain('tabindex');
+  });
+  it('turns only the +N count into a named button when overflow content is supplied', () => {
+    const markup = html(h(AvatarGroup, { label: 'Team', people: people(6), overflowContent: h('p', null, 'Hidden people') }));
+    expect(markup.match(/<button[\s>]/g)).toHaveLength(1);
+    expect(markup).toContain('aria-label="Show 2 more"');
+    expect(markup).not.toContain('role="img" aria-label="2 more"');
+    expect(markup).not.toContain('Hidden people'); // closed until pressed
+    expect(html(h(AvatarGroup, { label: 'Team', people: people(6), overflowContent: 'x', overflowTriggerLabel: (count: number) => `See ${count} more members` }))).toContain('aria-label="See 2 more members"');
+  });
+  it('has no trigger when nobody overflows, even with overflow content', () => {
+    expect(html(h(AvatarGroup, { label: 'Team', people: people(3), overflowContent: 'x' }))).not.toContain('<button');
   });
 });
 
 describe('X3 display contracts', () => {
   const ids = ['highlight', 'level', 'live-dot', 'kbd', 'avatar-group'];
-  it('registers each component as non-interactive with an example and no keyboard claim', () => {
+  it('registers each component with an example; only AvatarGroup (its optional overflow button) is interactive and documents keys', () => {
     for (const id of ids) {
       const component = registry.components.find(item => item.id === id)!;
       expect(component, id).toBeDefined();
-      expect(component.interactive, id).toBe(false);
-      expect(component.accessibility.keyboard, id).toEqual([]);
+      expect(component.interactive, id).toBe(id === 'avatar-group');
+      if (id === 'avatar-group') expect(component.accessibility.keyboard.map(k => k.key)).toEqual(['Enter / Space', 'Tab / Shift+Tab', 'Escape']);
+      else expect(component.accessibility.keyboard, id).toEqual([]);
       expect(component.accessibility.status, id).toBe('not-reviewed');
       expect(registry.examples.some(example => example.intent === 'recommended' && example.componentIds.includes(id)), id).toBe(true);
     }

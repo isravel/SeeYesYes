@@ -130,3 +130,10 @@ Not covered: human visual review over glass, reduced-transparency rendering in a
 - Not run: the full browser suite, real SMS autofill, screen readers, reduced transparency, right-to-left.
 - Earlier in the session a stale terminal showed failures from `integration`, `theme-controls` and `foundation`. Those are not in the specs run here and were not investigated; they predate this change.
 - Shared files changed: `lib/data/control-contracts.ts`, the `wcag-focus-visible` rule list, `tests/contract.test.ts`, `tests/component-inventory.test.ts`, `tests/browser/keyboard-matrix.spec.ts`, and `tests/fixtures/ControlsFixture.tsx`.
+
+## Seventh batch: Avatar group overflow trigger (SYX-079)
+
+- Unit: 663 pass. Type-check, lint (`components`, `tests`, `lib`), component audit (50) and production build pass.
+- Browser: `x3-display` 10 pass (1 new), plus `keyboard-matrix`, `components-catalog` and `component-detail` (24 in all). Chromium had to be reinstalled first; the first run failed only because the browser binary was missing.
+- Shared files changed: `lib/data/display-contracts.ts` (an optional `keyboard` entry makes a display component interactive), the `wcag-focus-visible` rule list, `tests/x3-display.test.ts`, `tests/component-inventory.test.ts`, `tests/browser/keyboard-matrix.spec.ts` and `tests/fixtures/ControlsFixture.tsx`.
+- Not run: the full browser suite, screen readers, reduced transparency, right-to-left.

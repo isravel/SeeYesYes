@@ -7,11 +7,11 @@ const roles: Record<string, string> = {
   button: 'button', link: 'link', input: 'textbox', textarea: 'textbox', select: 'combobox', checkbox: 'checkbox', 'radio-group': 'radio',
   switch: 'switch', dialog: 'button', 'dropdown-menu': 'button', tabs: 'tab', tooltip: 'button', navigation: 'link',
   'empty-state': 'button', 'error-state': 'button', 'not-found': 'link', 'copy-button': 'button', 'theme-switcher': 'button',
-  'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox', 'input-otp': 'textbox',
+  'avatar-group': 'button', 'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox', 'input-otp': 'textbox',
   disclosure: 'button', accordion: 'button', pagination: 'button', breadcrumbs: 'link', popover: 'button', drawer: 'button', 'confirm-dialog': 'button',
 };
 const allowedStops: Record<string, string[]> = { table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
-const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable' };
+const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable', 'avatar-group': 'overflow-list' };
 const focusableInside = 'a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
 async function openDemo(page: Page, id: string, name: string) {

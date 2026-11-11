@@ -8,7 +8,7 @@ const required = ['button', 'link', 'card', 'badge', 'separator', 'avatar', 'ale
   'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button', 'backdrop', 'theme-switcher',
   'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog'];
 // Listed as interactive in the visual-system spec.
-const specInteractive = ['icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
+const specInteractive = ['avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
 // Feedback patterns that contain an action, retry, link, or copy control, so the spec's own rule makes them interactive.
 const interactivePatterns = ['empty-state', 'error-state', 'not-found', 'copy-button', 'theme-switcher'];
 

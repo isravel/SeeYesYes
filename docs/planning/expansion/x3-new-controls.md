@@ -39,8 +39,8 @@ Phase: A — Foundations and controls. Dependencies: X1–X2, limited to the con
 - [ ] **SYX-072 — Combobox.** Provide searchable selection with keyboard navigation, selected value, loading, no results, disabled and error states.
 - [x] **SYX-078 — Kbd.** Provide semantic keyboard shortcut hints with platform-neutral display content.
   - 2026-11-10: Done with automated checks only; no human visual review. Display only; binds nothing. [Evidence](../../evidence/expansion/X3/SYX-078/review.md)
-- [ ] **SYX-079 — Avatar group.** Compose overlapping avatars with an accessible group label and meaningful +N overflow content.
-  - 2026-11-10: Implemented and checked (group name, +N with its own name, overlap, max edge cases). Open: the matrix's optional overflow trigger is not built. [Evidence](../../evidence/expansion/X3/SYX-079/review.md)
+- [x] **SYX-079 — Avatar group.** Compose overlapping avatars with an accessible group label and meaningful +N overflow content.
+  - 2026-11-10: Implemented and checked (group name, +N with its own name, overlap, max edge cases). Optional overflow trigger added in a later batch (`overflowContent`): the +N count becomes a button that opens a popover. Automated evidence only. [Evidence](../../evidence/expansion/X3/SYX-079/review.md)
 
 ## Variation matrix
 

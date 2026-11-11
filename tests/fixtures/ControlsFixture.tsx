@@ -110,6 +110,7 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <p><LiveDot animated data-testid="live-animated">Live now</LiveDot> <LiveDot status="inactive" size="medium">Offline</LiveDot> <LiveDot data-testid="live-static">Scheduled</LiveDot></p>
         <p id="kbd-line">Press <Kbd keys={['Ctrl', 'K']} /> to search, or <Kbd size="medium">Esc</Kbd> to close.</p>
         <AvatarGroup label="Project members" data-testid="group" people={[{ initials: 'MC', alt: 'Maya Chen' }, { initials: 'AB', alt: 'Ada Bell' }, { initials: 'JO', alt: 'Jon Ortiz' }, { initials: 'LK', alt: 'Lena Koh' }, { initials: 'TS', alt: 'Tariq Shah' }, { initials: 'NP', alt: 'Nia Park' }]} />
+        <AvatarGroup label="Reviewers with list" max={2} overflowContent={close => <><ul><li>Jon Ortiz</li><li>Lena Koh</li></ul><button type="button" onClick={close}>Close list</button></>} people={[{ initials: 'MC', alt: 'Maya Chen' }, { initials: 'AB', alt: 'Ada Bell' }, { initials: 'JO', alt: 'Jon Ortiz' }, { initials: 'LK', alt: 'Lena Koh' }]} />
         <AvatarGroup label="Two reviewers" size="small" people={[{ initials: 'MC', alt: 'Maya Chen' }, { initials: 'AB', alt: 'Ada Bell' }]} />
       </section>
       <section aria-label="Form controls" id="x3-controls">
