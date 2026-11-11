@@ -52,6 +52,7 @@ import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
+import { Toast } from '@/components/ui/toast';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -153,6 +154,7 @@ function BreadcrumbsTrail() {
 function PopoverFilters() { return <div className="previewSections"><Popover triggerLabel="Filter options" label="Filter options"><p>Filters apply to this list only.</p></Popover></div>; }
 function DrawerFilters() { return <div className="previewSections"><Drawer triggerLabel="Open filters" title="Filters"><p>Filters apply to this list only.</p></Drawer></div>; }
 function ConfirmDialogDelete() { return <div className="previewSections"><ConfirmDialog triggerLabel="Remove member" title="Remove Ada Bell?" confirmLabel="Remove member" destructive onConfirm={() => undefined}><p>Ada Bell loses access to this workspace.</p></ConfirmDialog></div>; }
+function ToastSaved() { return <div className="previewSections"><Toast triggerLabel="Save changes" tone="success" message="Changes saved." /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -164,7 +166,7 @@ export const previewMap = {
   highlightNote: HighlightNote, levelDifficulty: LevelDifficulty, liveDotStatus: LiveDotStatus, kbdShortcut: KbdShortcut, avatarGroupTeam: AvatarGroupTeam,
   iconButtonAdd: IconButtonAdd, searchInputMembers: SearchInputMembers, segmentedView: SegmentedView, chipFilters: ChipFilters, checkboxGroupChannels: CheckboxGroupChannels, inputOtpVerify: InputOtpVerify, comboboxCountry: ComboboxCountry,
   disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
-  popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete,
+  popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete, toastSaved: ToastSaved,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { Theme } from '@/lib/contract/schema';
 import { ThemeScope } from '@/components/theme/ThemeScope';
 import { Alert } from '@/components/ui/alert';
@@ -36,6 +36,7 @@ import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
+import { Toast } from '@/components/ui/toast';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -64,6 +65,10 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [open, setOpen] = useState<string[]>([]);
   const [confirmed, setConfirmed] = useState('');
   const [attempts, setAttempts] = useState(0);
+  const [undone, setUndone] = useState(0);
+  const [toastTries, setToastTries] = useState(0);
+  // A toast keeps the action it was queued with, so the attempt count lives in a ref rather than in a stale closure.
+  const toastCalls = useRef(0);
   const scoped: Theme = { ...theme, effects: { ...theme.effects, surface } };
   return <main className={styles.main}><h1>Control checks</h1>
     <ThemeScope id="controls-scope" theme={scoped} appearance={appearance} className={styles.scope}>
@@ -161,6 +166,18 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <Drawer triggerLabel="Open left drawer" title="Left filters" side="left" size="small"><p>Left content.</p></Drawer>
         <Drawer triggerLabel="Open bottom drawer" title="Bottom filters" side="bottom"><p>Bottom content.</p></Drawer>
         <Drawer triggerLabel="Open required drawer" title="Required drawer" dismissOnOutsidePress={false} closeOnEscape={false} closeLabel="Finish drawer"><p>Finish this first.</p></Drawer>
+      </section>
+      <section aria-label="Toasts" id="x3-toasts">
+        <Toast triggerLabel="Show info toast" message="Saved to drafts." />
+        <Toast triggerLabel="Show success toast" tone="success" title="Done" message="Project archived." />
+        <Toast triggerLabel="Show warning toast" tone="warning" message="Storage is almost full." timeout={1200} />
+        <Toast triggerLabel="Show error toast" tone="destructive" message="Could not sync." timeout={1200} />
+        <Toast triggerLabel="Show quick toast" message="Quick note." timeout={600} />
+        <Toast triggerLabel="Show undo toast" tone="success" message="Member removed." actionLabel="Undo" onAction={() => setUndone(count => count + 1)} />
+        <Toast triggerLabel="Show retry toast" tone="destructive" message="Upload failed." actionLabel="Retry" actionErrorMessage="Still offline. Try again." onAction={async () => { toastCalls.current += 1; setToastTries(toastCalls.current); if (toastCalls.current < 2) throw new Error('offline'); }} />
+        <Toast triggerLabel="Show top toast" message="Top note." position="top-end" />
+        <Toast triggerLabel="Unavailable toast" message="Never shown." disabled />
+        <p data-testid="x3-toast">{undone}|{toastTries}</p>
       </section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>

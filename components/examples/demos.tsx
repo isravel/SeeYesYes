@@ -52,6 +52,7 @@ import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
+import { Toast } from '@/components/ui/toast';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -164,6 +165,7 @@ export const demos: Record<string, Demo> = {
   drawer: { element: as(Drawer), name: 'Drawer', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Open filters', title: 'Filters', side: v.side, size: v.size, disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Filters apply to this list only.</p>, code: '<p>Filters apply to this list only.</p>' }) },
   'confirm-dialog': { element: as(ConfirmDialog), name: 'ConfirmDialog', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Remove member', title: 'Remove Ada Bell?', confirmLabel: 'Remove member', destructive: true, size: v.size, disabled: flag(s === 'disabled') }),
     extra: () => ({ onConfirm: noop }), codeExtra: ' onConfirm={() => undefined}', children: () => ({ node: <p>Ada Bell loses access to this workspace.</p>, code: '<p>Ada Bell loses access to this workspace.</p>' }) },
+  toast: { element: as(Toast), name: 'Toast', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Save changes', message: 'Changes saved.', tone: v.tone, position: v.position, disabled: flag(s === 'disabled') }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

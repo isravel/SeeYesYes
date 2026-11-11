@@ -28,6 +28,7 @@ export type ComponentDefaults = {
 "tooltip": { "placement": "top" | "bottom" | "left" | "right"; "delay": number };
 "popover": { "placement": "bottom" | "top" | "left" | "right" };
 "drawer": { "side": "right" | "left" | "top" | "bottom"; "size": "small" | "medium" | "large"; "dismissOnOutsidePress": boolean; "closeOnEscape": boolean; "closeLabel": string };
+"toast": { "tone": "info" | "success" | "warning" | "destructive"; "position": "bottom-center" | "bottom-end" | "top-center" | "top-end"; "actionErrorMessage": string; "timeout": number };
 "table": { "emptyMessage": string; "header": "muted" | "plain"; "rowHover": boolean };
 "navigation": { "triggerLabel": string; "showSkipLink": boolean; "collapsed": boolean };
 "loading-state": { "variant": "spinner" | "skeleton" };
@@ -166,6 +167,12 @@ export const contractDefaults: ComponentDefaults = {
     "dismissOnOutsidePress": true,
     "closeOnEscape": true,
     "closeLabel": "Close"
+  },
+  "toast": {
+    "tone": "info",
+    "position": "bottom-center",
+    "actionErrorMessage": "That did not work. Try again.",
+    "timeout": 5000
   },
   "table": {
     "emptyMessage": "No rows to show.",
