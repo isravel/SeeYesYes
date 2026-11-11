@@ -1,0 +1,17 @@
+.root { --menu-toggle-size: 1.25rem; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: var(--sys-spacing-target-minimum); min-height: var(--sys-spacing-target-minimum); padding: 0; border: 0; border-radius: var(--sys-radius-control); background: transparent; color: var(--sys-color-foreground); cursor: pointer; }
+.root[data-size="small"] { --menu-toggle-size: 1rem; }
+.root[data-size="large"] { --menu-toggle-size: 1.5rem; }
+.root:hover:not(:disabled) { background: var(--sys-color-muted); }
+.root:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.root:disabled { opacity: .6; cursor: not-allowed; }
+.bars { position: relative; display: block; width: var(--menu-toggle-size); height: var(--menu-toggle-size); }
+.bar { position: absolute; inset-inline: 0; top: calc(50% - 1px); height: 2px; border-radius: 1px; background: currentColor; }
+.bar:nth-child(1) { transform: translateY(calc(var(--menu-toggle-size) * -.3)); }
+.bar:nth-child(3) { transform: translateY(calc(var(--menu-toggle-size) * .3)); }
+/* Expanded, the outer bars cross into a close mark and the middle bar goes, so the state is a shape. */
+.root[aria-expanded="true"] .bar:nth-child(1) { transform: rotate(45deg); }
+.root[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+.root[aria-expanded="true"] .bar:nth-child(3) { transform: rotate(-45deg); }
+.root[data-animated] .bar { transition: transform var(--sys-motion-duration) ease, opacity var(--sys-motion-duration) ease; }
+@media (prefers-reduced-motion: reduce) { .root[data-animated] .bar { transition: none; } }
+@media (forced-colors: active) { .bar { background: CanvasText; forced-color-adjust: none; } }

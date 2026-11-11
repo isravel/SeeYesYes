@@ -1,0 +1,6 @@
+.root { position: relative; }
+/* The glint is a 1px gradient ring cut out of the border box by a mask, so it never covers the fill or the text. At rest the gradient sits off to one side and shows nothing. */
+.root[data-animated]::before { content: ""; position: absolute; inset: -1px; padding: 1px; border-radius: inherit; background: linear-gradient(110deg, transparent 35%, var(--sys-color-accent) 50%, transparent 65%) 100% 0 / 300% 100% no-repeat; -webkit-mask: linear-gradient(Canvas 0 0) content-box, linear-gradient(Canvas 0 0); -webkit-mask-composite: xor; mask: linear-gradient(Canvas 0 0) content-box, linear-gradient(Canvas 0 0); mask-composite: exclude; pointer-events: none; animation: glint calc(var(--sys-motion-duration) * 16) linear infinite; }
+@keyframes glint { to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .root[data-animated]::before { animation: none; } }
+@media (forced-colors: active) { .root[data-animated]::before { display: none; } }

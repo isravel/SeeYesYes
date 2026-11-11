@@ -53,6 +53,10 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
 import { Toast } from '@/components/ui/toast';
+import { AnimatedBadge } from '@/components/ui/animated-badge';
+import { ShinyText } from '@/components/ui/shiny-text';
+import { RotatingWord } from '@/components/ui/rotating-word';
+import { MenuToggle } from '@/components/ui/menu-toggle';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -166,6 +170,10 @@ export const demos: Record<string, Demo> = {
   'confirm-dialog': { element: as(ConfirmDialog), name: 'ConfirmDialog', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Remove member', title: 'Remove Ada Bell?', confirmLabel: 'Remove member', destructive: true, size: v.size, disabled: flag(s === 'disabled') }),
     extra: () => ({ onConfirm: noop }), codeExtra: ' onConfirm={() => undefined}', children: () => ({ node: <p>Ada Bell loses access to this workspace.</p>, code: '<p>Ada Bell loses access to this workspace.</p>' }) },
   toast: { element: as(Toast), name: 'Toast', states: ['closed', 'disabled'], props: (v, s) => ({ triggerLabel: 'Save changes', message: 'Changes saved.', tone: v.tone, position: v.position, disabled: flag(s === 'disabled') }) },
+  'animated-badge': { element: as(AnimatedBadge), name: 'AnimatedBadge', states: ['static', 'animating'], props: (_v, s) => ({ tone: 'primary', animated: flag(s === 'animating') }), children: () => text('New') },
+  'shiny-text': { element: as(ShinyText), name: 'ShinyText', states: ['static', 'animating'], props: (_v, s) => ({ animated: flag(s === 'animating') }), children: () => text('Ship faster'), frame: { padding: 8 } },
+  'rotating-word': { element: as(RotatingWord), name: 'RotatingWord', states: ['static', 'cycling'], props: (_v, s) => ({ animated: flag(s === 'cycling') }), extra: () => ({ words: ['teams', 'designers', 'agents'] }), codeExtra: ' words={["teams", "designers", "agents"]}', frame: { padding: 8 } },
+  'menu-toggle': { element: as(MenuToggle), name: 'MenuToggle', states: ['collapsed', 'expanded', 'disabled'], props: (v, s) => ({ label: 'Menu', size: v.size, defaultExpanded: flag(s === 'expanded'), disabled: flag(s === 'disabled') }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

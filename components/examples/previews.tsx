@@ -53,6 +53,10 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
 import { Toast } from '@/components/ui/toast';
+import { AnimatedBadge } from '@/components/ui/animated-badge';
+import { ShinyText } from '@/components/ui/shiny-text';
+import { RotatingWord } from '@/components/ui/rotating-word';
+import { MenuToggle } from '@/components/ui/menu-toggle';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -155,6 +159,13 @@ function PopoverFilters() { return <div className="previewSections"><Popover tri
 function DrawerFilters() { return <div className="previewSections"><Drawer triggerLabel="Open filters" title="Filters"><p>Filters apply to this list only.</p></Drawer></div>; }
 function ConfirmDialogDelete() { return <div className="previewSections"><ConfirmDialog triggerLabel="Remove member" title="Remove Ada Bell?" confirmLabel="Remove member" destructive onConfirm={() => undefined}><p>Ada Bell loses access to this workspace.</p></ConfirmDialog></div>; }
 function ToastSaved() { return <div className="previewSections"><Toast triggerLabel="Save changes" tone="success" message="Changes saved." /></div>; }
+function AnimatedBadgeNew() { return <div className="previewSections"><AnimatedBadge animated tone="primary">New</AnimatedBadge></div>; }
+function ShinyTextHeadline() { return <div className="previewSections"><h3>Ship <ShinyText animated>faster</ShinyText> with one system</h3></div>; }
+function RotatingWordHeadline() { return <div className="previewSections"><h3>Built for <RotatingWord animated words={['teams', 'designers', 'agents']} /></h3></div>; }
+function MenuToggleNav() {
+  const [open, setOpen] = useState(false);
+  return <div className="previewSections"><MenuToggle label="Menu" controls="preview-menu" expanded={open} onExpandedChange={setOpen} /><p id="preview-menu" hidden={!open}>Overview, Components, Tokens</p></div>;
+}
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -167,6 +178,7 @@ export const previewMap = {
   iconButtonAdd: IconButtonAdd, searchInputMembers: SearchInputMembers, segmentedView: SegmentedView, chipFilters: ChipFilters, checkboxGroupChannels: CheckboxGroupChannels, inputOtpVerify: InputOtpVerify, comboboxCountry: ComboboxCountry,
   disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
   popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete, toastSaved: ToastSaved,
+  animatedBadgeNew: AnimatedBadgeNew, shinyTextHeadline: ShinyTextHeadline, rotatingWordHeadline: RotatingWordHeadline, menuToggleNav: MenuToggleNav,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

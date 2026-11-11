@@ -51,7 +51,11 @@ export type ComponentDefaults = {
 "disclosure": { "defaultOpen": boolean; "openOnHover": boolean };
 "accordion": { "mode": "single" | "multiple"; "collapsible": boolean; "headingLevel": 2 | 3 | 4 | 5 | 6 };
 "pagination": { "defaultPage": number; "label": string; "size": "small" | "medium" | "large"; "siblings": number; "previousLabel": string; "nextLabel": string };
-"breadcrumbs": { "label": string; "separator": "slash" | "chevron" }
+"breadcrumbs": { "label": string; "separator": "slash" | "chevron" };
+"animated-badge": { "animated": boolean };
+"shiny-text": { "animated": boolean };
+"rotating-word": { "animated": boolean; "interval": number; "paused": boolean };
+"menu-toggle": { "defaultExpanded": boolean; "size": "medium" | "small" | "large"; "animated": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -280,5 +284,21 @@ export const contractDefaults: ComponentDefaults = {
   "breadcrumbs": {
     "label": "Breadcrumbs",
     "separator": "slash"
+  },
+  "animated-badge": {
+    "animated": false
+  },
+  "shiny-text": {
+    "animated": false
+  },
+  "rotating-word": {
+    "animated": false,
+    "interval": 3000,
+    "paused": false
+  },
+  "menu-toggle": {
+    "defaultExpanded": false,
+    "size": "medium",
+    "animated": true
   }
 };

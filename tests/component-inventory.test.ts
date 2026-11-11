@@ -6,9 +6,10 @@ import { componentReadiness } from '@/lib/contract/readiness';
 const required = ['button', 'link', 'card', 'badge', 'separator', 'avatar', 'alert', 'progress', 'spinner', 'skeleton', 'input', 'textarea', 'select', 'checkbox',
   'radio-group', 'switch', 'label', 'form-field', 'fieldset', 'dialog', 'dropdown-menu', 'tabs', 'tooltip', 'table', 'navigation',
   'loading-state', 'empty-state', 'error-state', 'not-found', 'copy-button', 'backdrop', 'theme-switcher',
-  'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast'];
+  'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast',
+  'animated-badge', 'shiny-text', 'rotating-word', 'menu-toggle'];
 // Listed as interactive in the visual-system spec.
-const specInteractive = ['avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
+const specInteractive = ['avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast', 'menu-toggle', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
 // Feedback patterns that contain an action, retry, link, or copy control, so the spec's own rule makes them interactive.
 const interactivePatterns = ['empty-state', 'error-state', 'not-found', 'copy-button', 'theme-switcher'];
 

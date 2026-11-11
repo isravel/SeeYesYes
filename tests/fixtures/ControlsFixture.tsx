@@ -37,6 +37,10 @@ import { CheckboxGroup } from '@/components/ui/checkbox-group';
 import { InputOtp } from '@/components/ui/input-otp';
 import { Combobox } from '@/components/ui/combobox';
 import { Toast } from '@/components/ui/toast';
+import { AnimatedBadge } from '@/components/ui/animated-badge';
+import { ShinyText } from '@/components/ui/shiny-text';
+import { RotatingWord } from '@/components/ui/rotating-word';
+import { MenuToggle } from '@/components/ui/menu-toggle';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -67,6 +71,8 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [attempts, setAttempts] = useState(0);
   const [undone, setUndone] = useState(0);
   const [toastTries, setToastTries] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [wordsPaused, setWordsPaused] = useState(false);
   // A toast keeps the action it was queued with, so the attempt count lives in a ref rather than in a stale closure.
   const toastCalls = useRef(0);
   const scoped: Theme = { ...theme, effects: { ...theme.effects, surface } };
@@ -178,6 +184,17 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <Toast triggerLabel="Show top toast" message="Top note." position="top-end" />
         <Toast triggerLabel="Unavailable toast" message="Never shown." disabled />
         <p data-testid="x3-toast">{undone}|{toastTries}</p>
+      </section>
+      <section aria-label="Effects" id="x4-effects">
+        <p><AnimatedBadge animated tone="primary" data-testid="badge-animated">Featured</AnimatedBadge> <AnimatedBadge data-testid="badge-static" tone="success">Ready</AnimatedBadge></p>
+        <p id="shiny-line">Ship <ShinyText animated data-testid="shiny-animated">faster</ShinyText> with <ShinyText data-testid="shiny-static">one system</ShinyText></p>
+        <h2 id="rotating-line">Built for <RotatingWord animated interval={1000} paused={wordsPaused} words={['teams', 'designers', 'a very long word indeed']} data-testid="rotating" /></h2>
+        <p>Plain <RotatingWord words={['alpha', 'beta']} data-testid="rotating-static" /> and one <RotatingWord words={['solo']} animated data-testid="rotating-solo" /></p>
+        <Button onClick={() => setWordsPaused(value => !value)}>{wordsPaused ? 'Resume words' : 'Pause words'}</Button>
+        <MenuToggle label="Site menu" controls="x4-menu" expanded={menuOpen} onExpandedChange={setMenuOpen} />
+        <MenuToggle label="Small menu" size="small" defaultExpanded animated={false} />
+        <MenuToggle label="Unavailable menu" size="large" disabled />
+        <nav id="x4-menu" aria-label="Site" hidden={!menuOpen}><a href="#x4-effects">Overview</a></nav>
       </section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>

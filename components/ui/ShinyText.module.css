@@ -1,0 +1,9 @@
+.root { overflow-wrap: anywhere; }
+/* The gradient starts and ends in the inherited color, so the text stays readable at every point of the sweep. Only the text fill is hidden, never `color`, which keeps contrast tools and fallbacks working. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .root[data-animated] { background: linear-gradient(110deg, currentColor 40%, var(--sys-color-primary) 50%, currentColor 60%) 100% 0 / 250% 100% no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shine calc(var(--sys-motion-duration) * 16) linear infinite; }
+}
+@keyframes shine { to { background-position: 0 0; } }
+/* Without motion the sweep has nothing to show, so the text returns to its plain fill. */
+@media (prefers-reduced-motion: reduce) { .root[data-animated] { background: none; -webkit-text-fill-color: currentColor; animation: none; } }
+@media (forced-colors: active) { .root[data-animated] { background: none; -webkit-text-fill-color: currentColor; animation: none; } }
