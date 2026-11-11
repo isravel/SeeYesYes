@@ -137,3 +137,10 @@ Not covered: human visual review over glass, reduced-transparency rendering in a
 - Browser: `x3-display` 10 pass (1 new), plus `keyboard-matrix`, `components-catalog` and `component-detail` (24 in all). Chromium had to be reinstalled first; the first run failed only because the browser binary was missing.
 - Shared files changed: `lib/data/display-contracts.ts` (an optional `keyboard` entry makes a display component interactive), the `wcag-focus-visible` rule list, `tests/x3-display.test.ts`, `tests/component-inventory.test.ts`, `tests/browser/keyboard-matrix.spec.ts` and `tests/fixtures/ControlsFixture.tsx`.
 - Not run: the full browser suite, screen readers, reduced transparency, right-to-left.
+
+## Eighth batch: Combobox (SYX-072)
+
+- Unit: 670 pass. Type-check, lint, component audit (51) and production build pass.
+- Browser: `x3-controls` gained 2 Combobox tests. The typing test was flaky before hydration, so it now retries until the field holds the text; 16 repeated runs of the Combobox tests passed. Related specs run with it are listed in the commit message.
+- Shared files changed: `lib/data/control-contracts.ts`, the `wcag-focus-visible` rule list, `tests/contract.test.ts`, `tests/component-inventory.test.ts`, `tests/browser/keyboard-matrix.spec.ts`, `tests/fixtures/ControlsFixture.tsx`, previews and demos.
+- Not run: the full browser suite, screen readers, reduced transparency, right-to-left, touch devices.

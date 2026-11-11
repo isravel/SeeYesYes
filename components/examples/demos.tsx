@@ -51,6 +51,7 @@ import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { InputOtp } from '@/components/ui/input-otp';
+import { Combobox } from '@/components/ui/combobox';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -150,6 +151,9 @@ export const demos: Record<string, Demo> = {
     extra: () => ({ options: [{ value: 'email', label: 'Email' }, { value: 'sms', label: 'Text message', hint: 'Carrier rates may apply.' }, { value: 'push', label: 'Push' }] }), codeExtra: ' options={[{ value: "email", label: "Email" }, { value: "sms", label: "Text message", hint: "Carrier rates may apply." }, { value: "push", label: "Push" }]}' },
   'input-otp': { element: as(InputOtp), name: 'InputOtp', states: ['empty', 'partial', 'complete', 'invalid', 'disabled', 'read-only'],
     props: (v, s) => ({ name: 'demo-code', label: 'Verification code', helpText: 'Enter the 6-digit code we sent you.', size: v.size, defaultValue: s === 'partial' ? '123' : s === 'complete' || s === 'read-only' ? '123456' : undefined, error: s === 'invalid' ? 'That code is not right. Check it and try again.' : undefined, disabled: flag(s === 'disabled'), readOnly: flag(s === 'read-only') }) },
+  combobox: { element: as(Combobox), name: 'Combobox', states: ['empty', 'filled', 'loading', 'invalid', 'disabled', 'read-only'],
+    props: (v, s) => ({ name: 'demo-country', label: 'Country', placeholder: 'Search countries', helpText: 'Type to filter, then choose one.', size: v.size, defaultValue: s === 'filled' || s === 'read-only' ? 'jp' : undefined, loading: flag(s === 'loading'), error: s === 'invalid' ? 'Choose a country from the list.' : undefined, disabled: flag(s === 'disabled'), readOnly: flag(s === 'read-only') }),
+    extra: () => ({ options: [{ value: 'in', label: 'India', group: 'Asia' }, { value: 'jp', label: 'Japan', group: 'Asia' }, { value: 'fr', label: 'France', group: 'Europe' }] }), codeExtra: ' options={[{ value: "in", label: "India", group: "Asia" }, { value: "jp", label: "Japan", group: "Asia" }, { value: "fr", label: "France", group: "Europe" }]}' },
   disclosure: { element: as(Disclosure), name: 'Disclosure', states: ['collapsed', 'expanded', 'disabled'], props: (_v, s) => ({ label: 'Shipping details', defaultOpen: flag(s === 'expanded'), disabled: flag(s === 'disabled') }), children: () => ({ node: <p>Orders ship within two business days.</p>, code: '<p>Orders ship within two business days.</p>' }) },
   accordion: { element: as(Accordion), name: 'Accordion', states: ['collapsed', 'expanded', 'disabled'], props: v => ({ mode: v.mode }),
     extra: s => ({ defaultValue: s === 'expanded' ? ['shipping'] : undefined, items: [{ id: 'shipping', label: 'Shipping', content: 'Orders ship within two business days.' }, { id: 'returns', label: 'Returns', content: 'Return items within thirty days.' }, { id: 'support', label: 'Support', content: 'Write to us any time.', disabled: s === 'disabled' }] }), codeExtra: ' items={items}' },

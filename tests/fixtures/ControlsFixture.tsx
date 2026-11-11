@@ -35,6 +35,7 @@ import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
 import { InputOtp } from '@/components/ui/input-otp';
+import { Combobox } from '@/components/ui/combobox';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -58,6 +59,7 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
   const [failing, setFailing] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpDone, setOtpDone] = useState('');
+  const [country, setCountry] = useState<string | null>(null);
   const [page, setPage] = useState(6);
   const [open, setOpen] = useState<string[]>([]);
   const [confirmed, setConfirmed] = useState('');
@@ -133,6 +135,13 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <InputOtp label="Locked code" defaultValue="123456" readOnly />
         <InputOtp label="Unavailable code" disabled />
         <p data-testid="x3-otp">{otp}|{otpDone}</p>
+        <Combobox name="country" label="Country" placeholder="Search countries" helpText="Type to filter." value={country} onChange={setCountry}
+          options={[{ value: 'in', label: 'India', group: 'Asia' }, { value: 'jp', label: 'Japan', group: 'Asia' }, { value: 'fr', label: 'France', group: 'Europe' }, { value: 'de', label: 'Germany', group: 'Europe', disabled: true }]} />
+        <Combobox label="Searching country" loading options={[]} />
+        <Combobox label="Locked country" defaultValue="jp" readOnly options={[{ value: 'jp', label: 'Japan' }]} />
+        <Combobox label="Unavailable country" disabled options={[{ value: 'jp', label: 'Japan' }]} />
+        <Combobox label="Invalid country" error="Choose a country from the list." options={[{ value: 'jp', label: 'Japan' }]} />
+        <p data-testid="x3-country">{country ?? 'none'}</p>
       </section>
       <section aria-label="Disclosure and navigation" id="x3-compositions">
         <Disclosure label="Shipping details" data-testid="click-disclosure"><button type="button">Inside the panel</button></Disclosure>

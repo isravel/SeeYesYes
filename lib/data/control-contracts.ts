@@ -142,6 +142,29 @@ const entries: Entry[] = [
     exampleId: 'input-otp-verify', previewKey: 'inputOtpVerify',
     code: 'import { InputOtp } from "@/components/ui/input-otp";\n<InputOtp name="code" label="Verification code" helpText="Enter the 6-digit code we sent you." />',
   },
+  {
+    id: 'combobox', name: 'Combobox', category: 'form', purpose: 'Search a list and choose one option.', shortPurpose: 'Search a list and choose one option.', element: 'input',
+    meaning: 'A text input with role combobox and a popup listbox. Typing filters the options; only a listed option can be chosen, so free text is never submitted.',
+    anatomy: [{ part: 'root', description: 'Field wrapper with the label, help and error text.' }, { part: 'input', description: 'The text input that holds the query and receives focus.' }, { part: 'trigger', description: 'Button that shows the options, kept out of the tab order.' }, { part: 'listbox', description: 'Popup list of options, optionally in labelled groups.' }, { part: 'status', description: 'Loading and empty messages.' }],
+    props: [
+      prop('label', 'string', 'Visible field label and accessible name. Always required.', true), prop('options', 'ComboboxOption[]', 'Options with a `value`, `label`, optional `group` and optional `disabled`.', true), prop('name', 'string', 'Form name. The chosen option\'s value is submitted, never the typed text.'),
+      prop('value', 'string | null', 'Controlled chosen value.'), prop('defaultValue', 'string | null', 'Initial chosen value when uncontrolled. Nothing is chosen when omitted.'), prop('onChange', '(value: string | null) => void', 'Called when an option is chosen or the choice is cleared.'),
+      prop('inputValue', 'string', 'Controlled query text.'), prop('defaultInputValue', 'string', 'Initial query text. Empty, or the chosen option\'s label, when omitted.'), prop('onInputChange', '(text: string) => void', 'Called as the query changes, for example to run a server search.'),
+      prop('filter', 'boolean', 'Filter options by the query. Set false when the caller filters `options` itself.', false, true), prop('placeholder', 'string', 'Hint shown when the query is empty. It never replaces `label`.'),
+      prop('loading', 'boolean', 'Show progress and announce loading; the list says so instead of "No results".', false, false), prop('loadingLabel', 'string', 'Loading message.', false, 'Loading…'), prop('emptyLabel', 'string', 'Message when no option matches.', false, 'No results'),
+      size(sizes, 'medium'), prop('helpText', 'string', 'Instruction shown under the field and used as its description.'), prop('error', 'string', 'Visible validation message, shown as text and used as the field description.'),
+      prop('required', 'boolean', 'Mark the field as required.', false, false), prop('disabled', 'boolean', 'Disable interaction.'), prop('readOnly', 'boolean', 'Allow reading and focus without editing.'), prop('id', 'string', 'Id of the field. Generated when omitted.'), ...common,
+    ],
+    variants: { size: sizes }, themeDefaults: { size: sizes },
+    states: ['empty', 'filled', 'open', 'loading', 'no-results', 'focus-visible', 'hover', 'focused', 'selected', 'disabled', 'read-only', 'invalid'],
+    tokenIds: ['spacing.control-inline', 'spacing.control-block', 'spacing.stack', 'spacing.target-minimum', 'radius.control', 'radius.panel', 'color.focus', 'spacing.inline', 'color.border', 'color.surface', 'color.foreground', 'color.muted', 'color.muted-foreground', 'color.primary', 'color.destructive', 'typography.label', 'typography.caption', 'typography.weight-medium', 'shadow.raised', 'color.glass-tint-dense', 'effect.glass-blur', 'effect.glass-saturation', 'shadow.glass', 'color.glass-edge'],
+    keyboard: [{ key: 'Type', behavior: 'Filter the options and open the list.' }, { key: 'ArrowDown', behavior: 'Open the list, then move to the next option.' }, { key: 'ArrowUp', behavior: 'Move to the previous option.' }, { key: 'Enter', behavior: 'Choose the highlighted option and close the list.' }, { key: 'Escape', behavior: 'Close the list; a second press clears the query.' }],
+    requirements: ['Always supply `label`; a placeholder is not a name.', 'Show an error as text; the field also turns destructive but color is not the only cue.', 'Show loading and no-results as text in the list, never as an empty popup.', 'Only listed options can be chosen; do not submit typed free text.'],
+    prohibitedUsage: ['Using it for a handful of options that need no search; use Select.', 'Treating typed text that matches nothing as a chosen value.', 'Hiding the loading state while a search is running.'],
+    prefer: ['Use Combobox to pick one item from a long or searchable list.'], allowed: ['form-field'],
+    exampleId: 'combobox-country', previewKey: 'comboboxCountry',
+    code: 'import { Combobox } from "@/components/ui/combobox";\n<Combobox name="country" label="Country" placeholder="Search countries" options={[{ value: "in", label: "India", group: "Asia" }, { value: "jp", label: "Japan", group: "Asia" }, { value: "fr", label: "France", group: "Europe" }]} />',
+  },
 ];
 
 export const controlComponentContracts: ComponentContract[] = entries.map(entry => ({

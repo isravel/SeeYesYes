@@ -156,7 +156,8 @@ test('ConfirmDialog is a named alert dialog, starts on Cancel, ignores outside p
   expect(await dialog.evaluate(el => el.closest('[data-theme-scope]')?.id)).toBe('controls-scope');
   await page.mouse.click(5, 5);
   await expect(dialog).toBeVisible();
-  expect(await dialog.evaluate(el => el.contains(document.activeElement)), 'focus stays inside after an outside press').toBe(true);
+  // Focus containment puts focus back asynchronously after the press, so wait for it rather than reading it once.
+  await expect.poll(() => dialog.evaluate(el => el.contains(document.activeElement)), { message: 'focus stays inside after an outside press' }).toBe(true);
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(trigger).toBeFocused();

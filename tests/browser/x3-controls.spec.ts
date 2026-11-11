@@ -186,6 +186,71 @@ test('InputOtp masks, honours read-only and disabled, and keeps its boxes at the
   expect(box!.height).toBeGreaterThanOrEqual(24);
 });
 
+test('Combobox filters while typing, groups options, picks with the keyboard and restores the choice for unmatched text', async ({ page }) => {
+  await open(page);
+  const field = section(page).getByRole('combobox', { name: 'Country', exact: true });
+  await expect(field).toHaveAccessibleDescription('Type to filter.');
+  await expect(field).toHaveAttribute('aria-expanded', 'false');
+  // Typing can land before the page has hydrated, so retry until the field actually holds the text and the list opens.
+  await expect(async () => {
+    await field.fill('');
+    await field.click();
+    await page.keyboard.type('an');
+    await expect(field).toHaveValue('an', { timeout: 1000 });
+    await expect(field).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 });
+  }).toPass({ timeout: 10000 });
+  const list = page.getByRole('listbox', { name: 'Suggestions Country', exact: true });
+  await expect(list).toBeVisible();
+  await expect(field).toHaveAttribute('aria-expanded', 'true');
+  // "an" matches Japan, France and Germany in two groups; Germany is disabled but still listed.
+  await expect(list.getByRole('option')).toHaveText(['Japan', 'France', 'Germany']);
+  await expect(list.getByRole('option', { name: 'Germany' })).toHaveAttribute('aria-disabled', 'true');
+  await expect(list.getByRole('group')).toHaveCount(2);
+  // ArrowDown moves to Japan, then France; Enter chooses it.
+  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('Enter');
+  await expect(field).toHaveValue('France');
+  await expect(section(page).getByTestId('x3-country')).toHaveText('fr');
+  await expect(list).toHaveCount(0);
+  // Text that matches nothing shows the empty message, and leaving the field restores the choice.
+  await field.fill('zzz');
+  await expect(page.getByRole('listbox')).toContainText('No results');
+  await page.keyboard.press('Tab');
+  await expect(field).toHaveValue('France');
+  await expect(section(page).getByTestId('x3-country')).toHaveText('fr');
+  // Escape closes the list and focus stays in the field.
+  await field.focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(field).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('listbox')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('listbox')).toHaveCount(0);
+  await expect(field).toBeFocused();
+});
+
+test('Combobox shows loading as text, honours read-only and disabled, and marks an error', async ({ page }) => {
+  await open(page);
+  const searching = section(page).getByRole('combobox', { name: 'Searching country', exact: true });
+  // Closed: the status region announces the loading state. Open: the list says so, and the page behind is hidden from assistive technology.
+  await expect(section(page).getByRole('status').filter({ hasText: 'Loading…' })).toHaveCount(1);
+  await searching.focus();
+  await page.keyboard.type('a');
+  await expect(page.getByRole('listbox')).toContainText('Loading…');
+  await page.keyboard.press('Escape');
+  const locked = section(page).getByRole('combobox', { name: 'Locked country', exact: true });
+  await expect(locked).toHaveValue('Japan');
+  await locked.focus();
+  await page.keyboard.type('x');
+  await expect(locked).toHaveValue('Japan');
+  await expect(section(page).getByRole('combobox', { name: 'Unavailable country', exact: true })).toBeDisabled();
+  const invalid = section(page).getByRole('combobox', { name: 'Invalid country', exact: true });
+  await expect(invalid).toHaveAttribute('aria-invalid', 'true');
+  await expect(invalid).toHaveAccessibleDescription('Choose a country from the list.');
+  const box = await section(page).getByRole('combobox', { name: 'Country', exact: true }).boundingBox();
+  expect(box!.height).toBeGreaterThanOrEqual(43);
+});
+
 test('the new X3 controls have no serious accessibility violations in light and dark, glass and clean', async ({ page }) => {
   for (const appearance of ['light', 'dark'] as const) for (const surface of ['glass', 'clean'] as const) {
     await open(page, `surface=${surface}&appearance=${appearance}`);

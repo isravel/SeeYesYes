@@ -7,6 +7,7 @@ import { Segmented } from '@/components/ui/segmented';
 import { Chip } from '@/components/ui/chip';
 import { CheckboxGroup } from '@/components/ui/checkbox-group';
 import { InputOtp } from '@/components/ui/input-otp';
+import { Combobox } from '@/components/ui/combobox';
 import { registry } from '@/lib/data/registry';
 
 const h = createElement as unknown as (type: unknown, props?: Record<string, unknown> | null, ...children: unknown[]) => ReactElement;
@@ -205,8 +206,48 @@ describe('SYX-071 InputOtp', () => {
   });
 });
 
+describe('SYX-072 Combobox', () => {
+  const options = [{ value: 'in', label: 'India', group: 'Asia' }, { value: 'jp', label: 'Japan', group: 'Asia' }, { value: 'fr', label: 'France', group: 'Europe' }];
+  const base = { label: 'Country', options };
+  it('is one labelled combobox input, closed by default, with a show-options button outside the tab order', () => {
+    const markup = html(h(Combobox, { ...base, placeholder: 'Search countries' }));
+    expect(markup.match(/<input/g)).toHaveLength(1);
+    expect(markup).toMatch(/role="combobox"/);
+    expect(markup).toContain('aria-expanded="false"');
+    expect(markup).toContain('Country');
+    expect(markup).toContain('placeholder="Search countries"');
+    expect(markup).toContain('aria-label="Show Country options"');
+    expect(markup).toContain('tabindex="-1"');
+  });
+  it('starts empty and shows the label of a chosen value', () => {
+    expect(html(h(Combobox, base))).toMatch(/value=""/);
+    expect(html(h(Combobox, { ...base, defaultValue: 'jp' }))).toContain('value="Japan"');
+    expect(html(h(Combobox, { ...base, value: 'fr', onChange: () => undefined }))).toContain('value="France"');
+  });
+  it('submits the chosen option value under name, never the typed text', () => {
+    const markup = html(h(Combobox, { ...base, name: 'country', defaultValue: 'jp' }));
+    expect(markup).toMatch(/<input[^>]*name="country"[^>]*value="jp"|<input[^>]*value="jp"[^>]*name="country"/);
+  });
+  it('describes the field by its help and error text and marks it invalid', () => {
+    const markup = html(h(Combobox, { ...base, helpText: 'Type to filter.', error: 'Choose a country.' }));
+    expect(markup).toContain('Type to filter.');
+    expect(markup).toContain('Choose a country.');
+    expect(markup).toContain('aria-invalid="true"');
+    expect(markup).toMatch(/aria-describedby="[^"]+"/);
+  });
+  it('announces loading as text and supports disabled, read-only, required and the three sizes', () => {
+    expect(html(h(Combobox, { ...base, loading: true }))).toContain('Loading…');
+    expect(html(h(Combobox, base))).not.toContain('Loading…');
+    expect(html(h(Combobox, { ...base, disabled: true }))).toContain('disabled=""');
+    expect(html(h(Combobox, { ...base, readOnly: true }))).toMatch(/readOnly=""/i);
+    expect(html(h(Combobox, { ...base, required: true }))).toContain('aria-required="true"');
+    expect(attr(html(h(Combobox, base)), 'data-size')).toBe('medium');
+    for (const size of ['small', 'large']) expect(attr(html(h(Combobox, { ...base, size })), 'data-size')).toBe(size);
+  });
+});
+
 describe('X3 control contracts', () => {
-  const ids = ['icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp'];
+  const ids = ['icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox'];
   it('registers each as interactive with keyboard behavior and a recommended example', () => {
     for (const id of ids) {
       const component = registry.components.find(item => item.id === id)!;
