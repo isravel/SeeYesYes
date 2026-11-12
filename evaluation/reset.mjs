@@ -16,7 +16,7 @@ const out = resolve(args.includes('--out') ? args[args.indexOf('--out') + 1] : j
 /** Shipped component source and the files it imports. The test suite recomputes this closure and checks it matches. */
 export const componentSources = [
   'components/ui', 'components/theme/ThemeScope.tsx', 'components/theme/ThemeScope.module.css', 'components/theme/glass-layer.ts',
-  'lib/utils/auto-grow.ts', 'lib/utils/merge-refs.ts', 'lib/contract/schema.ts', 'lib/contract/theme-validation.ts', 'lib/generated/component-defaults.ts', 'lib/routes.ts', 'lib/utils/cn.ts', 'lib/theme/check.ts', 'lib/theme/resolve.ts', 'lib/theme/scales.ts', 'app/tokens.css',
+  'lib/utils/auto-grow.ts', 'lib/utils/merge-refs.ts', 'lib/utils/share.ts', 'lib/contract/schema.ts', 'lib/contract/theme-validation.ts', 'lib/generated/component-defaults.ts', 'lib/routes.ts', 'lib/utils/cn.ts', 'lib/theme/check.ts', 'lib/theme/resolve.ts', 'lib/theme/scales.ts', 'app/tokens.css',
 ];
 const dependencies = ['next', 'react', 'react-dom', 'react-aria-components', '@react-aria/overlays', '@phosphor-icons/react', 'zod'];
 const devDependencies = ['typescript', '@types/react', '@types/react-dom', '@types/node'];

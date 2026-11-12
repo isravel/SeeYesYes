@@ -4,15 +4,20 @@ Read [delivery rules](delivery.md) and [visual direction](visual-direction.md), 
 
 Phase: C — Sections and listings. Dependencies: X1–X3; individual X4 effects only when a section enables them.
 
-- [ ] **SYX-035 — Share buttons.** Provide LinkedIn, X, WhatsApp and copy-link actions; encode content safely, preserve existing URL parameters/hash and support via=share attribution with copy failure feedback.
+- [x] **SYX-035 — Share buttons.** Provide LinkedIn, X, WhatsApp and copy-link actions; encode content safely, preserve existing URL parameters/hash and support via=share attribution with copy failure feedback.
+  - 2026-11-12: Done with automated checks only; no human visual review. Link-based LinkedIn, X and WhatsApp targets plus a Copy link button; address keeps its parameters and hash and gains `via=share` (opt out with `attribution`); every value percent-encoded; web addresses only; copy failure reported in text. Share URL formats were not checked against the live networks. [Evidence](../../evidence/expansion/X5/SYX-035/review.md)
 - [ ] **SYX-036 — Navbar.** Provide sticky/inline glass navigation with scroll-aware surface separation, grouped links and a mobile menu; retain landmarks, current destination and focus behavior.
-- [ ] **SYX-037 — Footer.** Provide identity content and up to four link columns using the existing spacing and separator tokens.
+- [x] **SYX-037 — Footer.** Provide identity content and up to four link columns using the existing spacing and separator tokens.
+  - 2026-11-12: Done with automated checks only; no human visual review. Footer landmark with supplied identity, up to four link columns in one named navigation, optional legal line; soft top edge from the border token. [Evidence](../../evidence/expansion/X5/SYX-037/review.md)
 - [ ] **SYX-038 — Hero.** Compose badge, headline, lead, optional Highlight, primary/secondary actions and media from existing primitives.
-- [ ] **SYX-039 — Section head.** Provide a responsive heading, subtitle and optional View all link using the typography scale.
+- [x] **SYX-039 — Section head.** Provide a responsive heading, subtitle and optional View all link using the typography scale.
+  - 2026-11-12: Done with automated checks only; no human visual review. Heading at the page's chosen level, optional subtitle, View all link only with a destination and named by its heading. [Evidence](../../evidence/expansion/X5/SYX-039/review.md)
 - [ ] **SYX-045 — Feature bento.** Provide a responsive feature grid, including a three-over-four example, with logical reading order and optional title badges.
 - [ ] **SYX-046 — Testimonials.** Provide portrait-video stories and review cards with captions, playback controls and supplied attribution; do not invent endorsements.
-- [ ] **SYX-047 — Stat strip.** Provide responsive value/label groups; values and their meaning come from the consumer.
-- [ ] **SYX-048 — CTA panel.** Provide an emphasized closing panel with one main action and optional decorative texture through system tokens.
+- [x] **SYX-047 — Stat strip.** Provide responsive value/label groups; values and their meaning come from the consumer.
+  - 2026-11-12: Done with automated checks only; no human visual review. Description list with the label read before the value, consumer-owned values, explicit missing-value text, no counting animation. [Evidence](../../evidence/expansion/X5/SYX-047/review.md)
+- [x] **SYX-048 — CTA panel.** Provide an emphasized closing panel with one main action and optional decorative texture through system tokens.
+  - 2026-11-12: Done with automated checks only; no human visual review. A Card with one supplied action, a soft tint and optional texture (off by default, removed in forced colors). [Evidence](../../evidence/expansion/X5/SYX-048/review.md)
 - [ ] **SYX-049 — App badges.** Provide slots for official App Store/Google Play badge assets with accessible destination links.
 - [ ] **SYX-050 — Instructor.** Provide reusable profile name, bio, social links and portrait composition; content stays consumer-owned.
 

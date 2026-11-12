@@ -61,7 +61,12 @@ export type ComponentDefaults = {
 "tilt-card": { "tilt": boolean; "maxTilt": number; "depth": boolean };
 "card-swap": { "defaultIndex": number; "autoplay": boolean; "interval": number };
 "carousel": { "autoplay": boolean; "interval": number; "edgeFade": boolean; "peek": boolean };
-"media-frame": { "kind": "image" | "video"; "ratio": "16:9" | "4:3" | "1:1" | "3:2" | "21:9"; "fit": "cover" | "contain"; "hover": "none" | "zoom" | "color"; "vignette": boolean }
+"media-frame": { "kind": "image" | "video"; "ratio": "16:9" | "4:3" | "1:1" | "3:2" | "21:9"; "fit": "cover" | "contain"; "hover": "none" | "zoom" | "color"; "vignette": boolean };
+"share-buttons": { "label": string; "copyLink": boolean; "attribution": boolean; "size": "medium" | "small" | "large"; "copiedMessage": string; "copyFailedMessage": string };
+"footer": { "label": string };
+"section-head": { "level": 2 | 3 | 4; "viewAllLabel": string };
+"stat-strip": { "missingLabel": string };
+"cta-panel": { "level": 2 | 3 | 4; "texture": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -337,5 +342,27 @@ export const contractDefaults: ComponentDefaults = {
     "fit": "cover",
     "hover": "none",
     "vignette": false
+  },
+  "share-buttons": {
+    "label": "Share",
+    "copyLink": true,
+    "attribution": true,
+    "size": "medium",
+    "copiedMessage": "Link copied.",
+    "copyFailedMessage": "Could not copy the link. Select the address and copy it by hand."
+  },
+  "footer": {
+    "label": "Footer"
+  },
+  "section-head": {
+    "level": 2,
+    "viewAllLabel": "View all"
+  },
+  "stat-strip": {
+    "missingLabel": "Not provided"
+  },
+  "cta-panel": {
+    "level": 2,
+    "texture": false
   }
 };

@@ -1,0 +1,8 @@
+.root { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--sys-spacing-inline) var(--sys-spacing-stack); min-width: 0; }
+.text { display: grid; gap: calc(var(--sys-spacing-inline) / 2); min-width: 0; }
+/* The size follows the heading level the page chose, on the shared type scale. */
+.heading { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.root[data-level="2"] .heading { font-size: var(--sys-typography-title); }
+.subtitle { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); }
+.viewAll { flex: none; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }

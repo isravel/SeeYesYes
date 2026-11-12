@@ -47,6 +47,11 @@ import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
 import { Carousel } from '@/components/ui/carousel';
+import { ShareButtons } from '@/components/ui/share-buttons';
+import { Footer } from '@/components/ui/footer';
+import { SectionHead } from '@/components/ui/section-head';
+import { StatStrip } from '@/components/ui/stat-strip';
+import { CtaPanel } from '@/components/ui/cta-panel';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -224,6 +229,24 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" data-testid="media-ok" />
         <MediaFrame src="/sample-media.svg" alt="Square hillside" ratio="1:1" fit="contain" hover="zoom" vignette data-testid="media-square" />
         <MediaFrame src="/missing-media.png" alt="Missing picture" caption="Nothing loaded" data-testid="media-broken" />
+      </section>
+      <section aria-label="Page sections" id="x5-sections">
+        <SectionHead heading="Featured guides" subtitle="Start with the basics." viewAllHref="/docs" level={2} data-testid="head-link" />
+        <SectionHead heading="Plain heading" level={3} data-testid="head-plain" />
+        <SectionHead heading="A much longer section heading that has to wrap onto several lines on a narrow screen" subtitle="With a subtitle that is also fairly long so it wraps too." viewAllHref="/docs" viewAllLabel="See every guide" level={3} data-testid="head-long" />
+        <ShareButtons url="https://example.com/guide?lang=en&ref=a%26b#install" title="Guide: A & B" data-testid="share" />
+        <ShareButtons url="/docs?tab=one#top" attribution={false} size="small" label="Share this page" data-testid="share-relative" />
+        <ShareButtons url="mailto:team@example.com" size="large" label="Share unavailable" data-testid="share-unavailable" />
+        <StatStrip data-testid="stats" items={[{ id: 'members', label: 'Team members', value: '24' }, { id: 'projects', label: 'Active projects', value: '9' }, { id: 'regions', label: 'Regions' }, { id: 'long', label: 'A label that is long enough to wrap in a narrow column', value: '1,234,567' }]} />
+        <CtaPanel heading="Ready to start?" description="Create a workspace in a minute." action={<Button>Create workspace</Button>} level={2} data-testid="cta" />
+        <CtaPanel heading="Textured panel" texture level={3} action={<Button variant="outline">Read the guide</Button>} data-testid="cta-texture" />
+        <Footer data-testid="footer" identity={<p>Acme helps teams ship consistent interfaces.</p>} legal="© Acme" columns={[
+          { id: 'product', heading: 'Product', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] },
+          { id: 'company', heading: 'Company', links: [{ label: 'Publisher site', href: 'https://example.com', external: true }] },
+          { id: 'legal', heading: 'Legal', links: [{ label: 'Terms of service and a very long policy name that must wrap', href: '#terms' }] },
+          { id: 'extra', heading: 'More', links: [{ label: 'Status', href: '#status' }] },
+          { id: 'hidden', heading: 'Fifth column', links: [{ label: 'Never shown', href: '#never' }] },
+        ]} />
       </section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>

@@ -32,7 +32,7 @@ const entries: Entry[] = [
     code: 'import { AnimatedBadge } from "@/components/ui/animated-badge";\n<AnimatedBadge animated tone="primary">New</AnimatedBadge>',
   },
   {
-    id: 'shiny-text', name: 'ShinyText', category: 'layout', purpose: 'Sweep a soft highlight across one short passage of text.', shortPurpose: 'Text with optional shimmer.', element: 'span',
+    id: 'shiny-text', name: 'ShinyText', category: 'layout', purpose: 'Sweep a soft highlight across one short passage of text.', shortPurpose: 'Text with an optional sweeping highlight.', element: 'span',
     meaning: 'Ordinary inline text. When animated, a highlight sweeps across it; the words stay in the inherited color and stay selectable.',
     props: [prop('animated', 'boolean', 'Run the sweep. Off by default; removed by reduced motion and forced colors.', false, false), prop('children', 'ReactNode', 'The passage to highlight.', true), ...common, prop('ref', 'Ref<HTMLSpanElement>', 'Root element reference.')],
     tokenIds: ['color.primary', 'motion.duration'], states: ['static', 'animating', 'reduced-motion'],
@@ -43,7 +43,7 @@ const entries: Entry[] = [
     code: 'import { ShinyText } from "@/components/ui/shiny-text";\n<h2>Ship <ShinyText animated>faster</ShinyText> with one system</h2>',
   },
   {
-    id: 'rotating-word', name: 'RotatingWord', category: 'layout', purpose: 'Cycle one headline word through a list without moving the text around it.', shortPurpose: 'Headline word that can cycle.', element: 'span',
+    id: 'rotating-word', name: 'RotatingWord', category: 'layout', purpose: 'Cycle one headline word through a list without moving the text around it.', shortPurpose: 'Headline word that can cycle a list.', element: 'span',
     meaning: 'A word in a headline. Every word occupies the same space, so the line never changes width, and one visually hidden phrase is what assistive technology reads.',
     props: [
       prop('words', 'string[]', 'The words in display order. One word is static text; an empty list renders nothing.', true),
@@ -60,7 +60,7 @@ const entries: Entry[] = [
     code: 'import { RotatingWord } from "@/components/ui/rotating-word";\n<h2>Built for <RotatingWord animated words={["teams", "designers", "agents"]} /></h2>',
   },
   {
-    id: 'menu-toggle', name: 'MenuToggle', category: 'navigation', purpose: 'Open and close a menu or panel with a button whose bars turn into a close mark.', shortPurpose: 'Bars-to-close menu button.', element: 'button',
+    id: 'menu-toggle', name: 'MenuToggle', category: 'navigation', purpose: 'Open and close a menu or panel with a button whose bars turn into a close mark.', shortPurpose: 'Show or hide a menu with a bars-to-close button.', element: 'button',
     meaning: 'A native button with a fixed accessible name and `aria-expanded`. The bars turn into a close mark when expanded, so the state is a shape and not only a color.',
     props: [
       prop('label', 'string', 'Accessible name. It stays the same whether the menu is open or closed; `aria-expanded` carries the state.', true),
@@ -154,7 +154,7 @@ const entries: Entry[] = [
     code: 'import { CardSwap } from "@/components/ui/card-swap";\n<CardSwap label="Highlights" items={[{ id: "a", content: <p>First</p> }, { id: "b", content: <p>Second</p> }]} />',
   },
   {
-    id: 'carousel', name: 'Carousel', category: 'layout', purpose: 'Scroll through a row of slides that snap into place, with Previous and Next buttons and optional autoplay.', shortPurpose: 'Snap-scrolling row of slides.', element: 'div',
+    id: 'carousel', name: 'Carousel', category: 'layout', purpose: 'Scroll through a row of slides that snap into place, with Previous and Next buttons and optional autoplay.', shortPurpose: 'Scroll-snap row of slides with buttons.', element: 'div',
     meaning: 'A named region holding a sideways-scrolling row of slides. The browser does the scrolling and snapping, so swipe, trackpad, scrollbar and the arrow keys on the focused row work natively. Previous and Next buttons and a status line ("Slide 2 of 5") follow where the row actually is. There is no loop.',
     props: [
       prop('label', 'string', 'Accessible name of the carousel.', true),
@@ -165,7 +165,7 @@ const entries: Entry[] = [
       prop('peek', 'boolean', 'Make slides narrower so the start of the next one shows, hinting that the row scrolls.', false, false),
       prop('onIndexChange', '(index: number) => void', 'Called with the index of the slide at the start of the row whenever scrolling settles on a different one.'), ...common, prop('ref', 'Ref<HTMLDivElement>', 'Root element reference.'),
     ],
-    tokenIds: ['spacing.inline', 'spacing.stack', 'color.focus', 'color.muted-foreground', 'typography.caption'], states: ['first', 'middle', 'last', 'paused', 'focus-visible', 'reduced-motion'],
+    tokenIds: ['spacing.inline', 'spacing.stack', 'color.focus', 'color.muted-foreground', 'typography.caption'], states: ['manual', 'autoplay', 'first', 'middle', 'last', 'paused', 'focus-visible', 'reduced-motion'],
     keyboard: [
       { key: 'Tab', behavior: 'Moves to the scrolling row, then through any controls inside the slides, then Previous slide, Next slide and, with autoplay, the pause button. A control in an off-screen slide scrolls into view when it takes focus.' },
       { key: 'ArrowLeft / ArrowRight', behavior: 'Scroll the focused row sideways; it snaps to a slide. This is the browser\'s own scrolling.' },

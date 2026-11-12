@@ -1,0 +1,12 @@
+.root { min-width: 0; }
+/* The tint and the texture sit behind the content inside the Card's own stacking context, so the Card keeps its surface, blur and fallbacks. */
+.panel { position: relative; isolation: isolate; overflow: hidden; }
+.panel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, color-mix(in oklch, var(--sys-color-primary) 14%, transparent), transparent 70%); pointer-events: none; }
+.panel[data-texture]::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--sys-color-foreground) 14%, transparent) 1px, transparent 0); background-size: 1rem 1rem; -webkit-mask-image: linear-gradient(to bottom left, black, transparent 70%); mask-image: linear-gradient(to bottom left, black, transparent 70%); pointer-events: none; }
+.body { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sys-spacing-stack); min-width: 0; }
+.text { display: grid; flex: 1 1 16rem; gap: var(--sys-spacing-inline); min-width: 0; }
+.heading { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.root[data-level="2"] .heading { font-size: var(--sys-typography-title); }
+.description { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); }
+.action { flex: none; max-width: 100%; }
+@media (forced-colors: active) { .panel::before, .panel[data-texture]::after { display: none; } }

@@ -63,6 +63,11 @@ import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
 import { Carousel } from '@/components/ui/carousel';
+import { ShareButtons } from '@/components/ui/share-buttons';
+import { Footer } from '@/components/ui/footer';
+import { SectionHead } from '@/components/ui/section-head';
+import { StatStrip } from '@/components/ui/stat-strip';
+import { CtaPanel } from '@/components/ui/cta-panel';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -178,6 +183,11 @@ function TiltCardFeature() { return <div className="previewSections"><TiltCard t
 function CardSwapHighlights() { return <div className="previewSections"><CardSwap label="Highlights" items={[{ id: 'fast', content: <p>Fast to set up.</p> }, { id: 'accessible', content: <p>Accessible by default.</p> }, { id: 'themed', content: <p>Themed from one place.</p> }]} /></div>; }
 function MediaFrameFigure() { return <div className="previewSections"><MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" /></div>; }
 function CarouselCards() { return <div className="previewSections"><Carousel label="Featured" peek items={[{ id: 'setup', content: <Card><h3>Set up</h3><p>Install and theme in minutes.</p></Card> }, { id: 'build', content: <Card><h3>Build</h3><p>Compose pages from tested parts.</p></Card> }, { id: 'ship', content: <Card><h3>Ship</h3><p>Check contrast and keyboard use first.</p></Card> }, { id: 'learn', content: <Card><h3>Learn</h3><p>Read the rules behind each choice.</p></Card> }]} /></div>; }
+function ShareButtonsArticle() { return <div className="previewSections"><ShareButtons url="https://example.com/guides/getting-started" title="Getting started" /></div>; }
+function FooterSite() { return <div className="previewSections"><Footer identity={<p>Acme helps teams ship consistent interfaces.</p>} columns={[{ id: 'product', heading: 'Product', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] }, { id: 'company', heading: 'Company', links: [{ label: 'Publisher site', href: 'https://example.com', external: true }] }]} legal="© Acme" /></div>; }
+function SectionHeadGuides() { return <div className="previewSections"><SectionHead heading="Featured guides" subtitle="Start with the basics." viewAllHref="/docs" /></div>; }
+function StatStripNumbers() { return <div className="previewSections"><StatStrip items={[{ id: 'members', label: 'Team members', value: '24' }, { id: 'projects', label: 'Active projects', value: '9' }, { id: 'regions', label: 'Regions' }]} /></div>; }
+function CtaPanelStart() { return <div className="previewSections"><CtaPanel heading="Ready to start?" description="Create a workspace in a minute." action={<Button>Create workspace</Button>} /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -192,6 +202,7 @@ export const previewMap = {
   popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete, toastSaved: ToastSaved,
   animatedBadgeNew: AnimatedBadgeNew, shinyTextHeadline: ShinyTextHeadline, rotatingWordHeadline: RotatingWordHeadline, menuToggleNav: MenuToggleNav,
   logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure, carouselCards: CarouselCards,
+  shareButtonsArticle: ShareButtonsArticle, footerSite: FooterSite, sectionHeadGuides: SectionHeadGuides, statStripNumbers: StatStripNumbers, ctaPanelStart: CtaPanelStart,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

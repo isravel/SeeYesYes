@@ -1,0 +1,6 @@
+.root { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; }
+/* The label comes first in the document and the value first on screen, so the reading order says what a number means before the number. */
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: calc(var(--sys-spacing-inline) / 2); min-width: 0; margin: 0; padding-inline-start: var(--sys-spacing-stack); border-inline-start: 1px solid var(--sys-color-border); }
+.label { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-label); overflow-wrap: anywhere; }
+.value { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-title); font-weight: var(--sys-typography-weight-medium); line-height: 1.1; overflow-wrap: anywhere; }
+.stat[data-missing] .value { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); font-weight: normal; }
