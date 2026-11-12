@@ -60,6 +60,7 @@ export type ComponentDefaults = {
 "fancy-arrow": { "placement": "inline" | "top-start" | "top-end" | "bottom-start" | "bottom-end"; "direction": "right" | "down" | "left" | "up" };
 "tilt-card": { "tilt": boolean; "maxTilt": number; "depth": boolean };
 "card-swap": { "defaultIndex": number; "autoplay": boolean; "interval": number };
+"carousel": { "autoplay": boolean; "interval": number; "edgeFade": boolean; "peek": boolean };
 "media-frame": { "kind": "image" | "video"; "ratio": "16:9" | "4:3" | "1:1" | "3:2" | "21:9"; "fit": "cover" | "contain"; "hover": "none" | "zoom" | "color"; "vignette": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
@@ -323,6 +324,12 @@ export const contractDefaults: ComponentDefaults = {
     "defaultIndex": 0,
     "autoplay": false,
     "interval": 5000
+  },
+  "carousel": {
+    "autoplay": false,
+    "interval": 3000,
+    "edgeFade": false,
+    "peek": false
   },
   "media-frame": {
     "kind": "image",

@@ -44,6 +44,21 @@ Failures found in this batch, all fixed: TiltCard applied a perspective transfor
 
 Human visual review over glass, reduced-transparency rendering, screen readers, the full browser suite, the SYX-004 packed-consumer check, and touch devices.
 
+## Third batch: Carousel
+
+SYX-044. Built on native CSS scroll-snap. No new dependency; the evaluation and reason are in `SYX-044/review.md`.
+
+| Command | Result |
+| --- | --- |
+| `npm run typecheck` | clean (62 components, 71 examples) |
+| `npx eslint components lib tests` | clean |
+| `npm run audit:components` | All 62 component implementations match their documented props, literal defaults, direct CSS tokens and styled compounds |
+| `npx vitest run` | 732 pass |
+| `npm run build` | passes |
+| `npx playwright test` on `x4-effects` (18), `keyboard-matrix`, `components-catalog`, `component-detail`, `component-controls`, `glass-theme`, `console` | 44 pass. The full browser suite was not run |
+
+Registered in `lib/data/effect-contracts.ts` and the focus rule list in `lib/data/registry.ts`; previews, demos, the controls fixture, `tests/contract.test.ts`, `tests/component-inventory.test.ts` and the keyboard matrix role map were updated. Carousel's row is a named focusable group, so the matrix expects the `group` role.
+
 ## Remaining X4
 
-SYX-044 Carousel. Carousel needs an evaluation of the platform and installed tools before any dependency is chosen.
+All 10 tasks are checked on automated evidence. Open for signoff: human visual review over glass, reduced-transparency rendering, screen-reader and real touch testing, the SYX-004 packed-consumer check, the full browser suite, and real Logo and FancyArrow assets in place of the placeholders.

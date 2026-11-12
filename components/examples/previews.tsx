@@ -62,6 +62,7 @@ import { FancyArrow } from '@/components/ui/fancy-arrow';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Carousel } from '@/components/ui/carousel';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -176,6 +177,7 @@ function FancyArrowHint() { return <div className="previewSections"><p>Start her
 function TiltCardFeature() { return <div className="previewSections"><TiltCard tilt><h3>Featured</h3><p>Move a mouse over the card to lean it.</p></TiltCard></div>; }
 function CardSwapHighlights() { return <div className="previewSections"><CardSwap label="Highlights" items={[{ id: 'fast', content: <p>Fast to set up.</p> }, { id: 'accessible', content: <p>Accessible by default.</p> }, { id: 'themed', content: <p>Themed from one place.</p> }]} /></div>; }
 function MediaFrameFigure() { return <div className="previewSections"><MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" /></div>; }
+function CarouselCards() { return <div className="previewSections"><Carousel label="Featured" peek items={[{ id: 'setup', content: <Card><h3>Set up</h3><p>Install and theme in minutes.</p></Card> }, { id: 'build', content: <Card><h3>Build</h3><p>Compose pages from tested parts.</p></Card> }, { id: 'ship', content: <Card><h3>Ship</h3><p>Check contrast and keyboard use first.</p></Card> }, { id: 'learn', content: <Card><h3>Learn</h3><p>Read the rules behind each choice.</p></Card> }]} /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -189,7 +191,7 @@ export const previewMap = {
   disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
   popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete, toastSaved: ToastSaved,
   animatedBadgeNew: AnimatedBadgeNew, shinyTextHeadline: ShinyTextHeadline, rotatingWordHeadline: RotatingWordHeadline, menuToggleNav: MenuToggleNav,
-  logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure,
+  logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure, carouselCards: CarouselCards,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

@@ -32,7 +32,7 @@ const entries: Entry[] = [
     code: 'import { AnimatedBadge } from "@/components/ui/animated-badge";\n<AnimatedBadge animated tone="primary">New</AnimatedBadge>',
   },
   {
-    id: 'shiny-text', name: 'ShinyText', category: 'layout', purpose: 'Sweep a soft highlight across one short passage of text.', shortPurpose: 'Text with an optional sweeping highlight.', element: 'span',
+    id: 'shiny-text', name: 'ShinyText', category: 'layout', purpose: 'Sweep a soft highlight across one short passage of text.', shortPurpose: 'Text with optional shimmer.', element: 'span',
     meaning: 'Ordinary inline text. When animated, a highlight sweeps across it; the words stay in the inherited color and stay selectable.',
     props: [prop('animated', 'boolean', 'Run the sweep. Off by default; removed by reduced motion and forced colors.', false, false), prop('children', 'ReactNode', 'The passage to highlight.', true), ...common, prop('ref', 'Ref<HTMLSpanElement>', 'Root element reference.')],
     tokenIds: ['color.primary', 'motion.duration'], states: ['static', 'animating', 'reduced-motion'],
@@ -43,7 +43,7 @@ const entries: Entry[] = [
     code: 'import { ShinyText } from "@/components/ui/shiny-text";\n<h2>Ship <ShinyText animated>faster</ShinyText> with one system</h2>',
   },
   {
-    id: 'rotating-word', name: 'RotatingWord', category: 'layout', purpose: 'Cycle one headline word through a list without moving the text around it.', shortPurpose: 'Headline word that can cycle a list.', element: 'span',
+    id: 'rotating-word', name: 'RotatingWord', category: 'layout', purpose: 'Cycle one headline word through a list without moving the text around it.', shortPurpose: 'Headline word that can cycle.', element: 'span',
     meaning: 'A word in a headline. Every word occupies the same space, so the line never changes width, and one visually hidden phrase is what assistive technology reads.',
     props: [
       prop('words', 'string[]', 'The words in display order. One word is static text; an empty list renders nothing.', true),
@@ -60,7 +60,7 @@ const entries: Entry[] = [
     code: 'import { RotatingWord } from "@/components/ui/rotating-word";\n<h2>Built for <RotatingWord animated words={["teams", "designers", "agents"]} /></h2>',
   },
   {
-    id: 'menu-toggle', name: 'MenuToggle', category: 'navigation', purpose: 'Open and close a menu or panel with a button whose bars turn into a close mark.', shortPurpose: 'Show or hide a menu with a bars-to-close button.', element: 'button',
+    id: 'menu-toggle', name: 'MenuToggle', category: 'navigation', purpose: 'Open and close a menu or panel with a button whose bars turn into a close mark.', shortPurpose: 'Bars-to-close menu button.', element: 'button',
     meaning: 'A native button with a fixed accessible name and `aria-expanded`. The bars turn into a close mark when expanded, so the state is a shape and not only a color.',
     props: [
       prop('label', 'string', 'Accessible name. It stays the same whether the menu is open or closed; `aria-expanded` carries the state.', true),
@@ -152,6 +152,30 @@ const entries: Entry[] = [
     prefer: ['Use CardSwap to show a few related highlights in one spot. Use Carousel-style navigation for long lists.'], allowed: ['card', 'button'],
     exampleId: 'card-swap-highlights', previewKey: 'cardSwapHighlights',
     code: 'import { CardSwap } from "@/components/ui/card-swap";\n<CardSwap label="Highlights" items={[{ id: "a", content: <p>First</p> }, { id: "b", content: <p>Second</p> }]} />',
+  },
+  {
+    id: 'carousel', name: 'Carousel', category: 'layout', purpose: 'Scroll through a row of slides that snap into place, with Previous and Next buttons and optional autoplay.', shortPurpose: 'Snap-scrolling row of slides.', element: 'div',
+    meaning: 'A named region holding a sideways-scrolling row of slides. The browser does the scrolling and snapping, so swipe, trackpad, scrollbar and the arrow keys on the focused row work natively. Previous and Next buttons and a status line ("Slide 2 of 5") follow where the row actually is. There is no loop.',
+    props: [
+      prop('label', 'string', 'Accessible name of the carousel.', true),
+      prop('items', 'CarouselItem[]', 'The slides in reading order, each with a stable `id` and `content`. An empty list renders nothing.', true),
+      prop('autoplay', 'boolean', 'Move to the next slide on a timer. Off by default. Pauses on mouse hover, focus and touch, adds a pause button, stops on the last slide, and never runs under reduced motion.', false, false),
+      prop('interval', 'number', 'Milliseconds each slide stays when `autoplay` is on. Never less than 3000.', false, 3000),
+      prop('edgeFade', 'boolean', 'Soften an edge of the row, only where more slides lie beyond it. Decoration; removed in forced colors.', false, false),
+      prop('peek', 'boolean', 'Make slides narrower so the start of the next one shows, hinting that the row scrolls.', false, false),
+      prop('onIndexChange', '(index: number) => void', 'Called with the index of the slide at the start of the row whenever scrolling settles on a different one.'), ...common, prop('ref', 'Ref<HTMLDivElement>', 'Root element reference.'),
+    ],
+    tokenIds: ['spacing.inline', 'spacing.stack', 'color.focus', 'color.muted-foreground', 'typography.caption'], states: ['first', 'middle', 'last', 'paused', 'focus-visible', 'reduced-motion'],
+    keyboard: [
+      { key: 'Tab', behavior: 'Moves to the scrolling row, then through any controls inside the slides, then Previous slide, Next slide and, with autoplay, the pause button. A control in an off-screen slide scrolls into view when it takes focus.' },
+      { key: 'ArrowLeft / ArrowRight', behavior: 'Scroll the focused row sideways; it snaps to a slide. This is the browser\'s own scrolling.' },
+      { key: 'Enter', behavior: 'Activates the focused button.' }, { key: 'Space', behavior: 'Activates the focused button.' },
+    ],
+    requirements: ['Scrolling is native scroll-snap; no scripted drag handler replaces it, so touch swipe, momentum and the scrollbar keep working.', 'Previous and Next are real buttons with fixed names; each is disabled at its end because there is no loop. Focus moves to the other button when the one holding it is disabled.', 'Autoplay is off by default; when on it pauses on mouse hover, focus and touch, has a visible pause button, never runs faster than every 3 seconds, stops on the last slide and does not run under reduced motion.', 'The status line follows the real scroll position, and stops announcing while autoplay runs.', 'Every slide stays in the document in reading order and is reachable by scrolling, so nothing is hidden from assistive technology.', 'Slides are laid out left to right; the row does not mirror in right-to-left languages yet.'],
+    prohibitedUsage: ['Putting the only copy of important content on a slide that people must swipe to find.', 'Autoplay for content people must read in full.', 'Using a carousel for two or three short items; lay them out in a row or grid.', 'Replacing the buttons with a scripted drag handler.'],
+    prefer: ['Use Carousel for a longer row of cards or images. Use CardSwap for a few related highlights stacked in one spot.'], allowed: ['card', 'button', 'media-frame'],
+    exampleId: 'carousel-cards', previewKey: 'carouselCards',
+    code: 'import { Carousel } from "@/components/ui/carousel";\n<Carousel label="Featured" items={[{ id: "a", content: <p>First</p> }, { id: "b", content: <p>Second</p> }, { id: "c", content: <p>Third</p> }]} />',
   },
   {
     id: 'media-frame', name: 'MediaFrame', category: 'layout', purpose: 'Show an image or video in a frame of fixed proportions with a caption and failure fallback.', shortPurpose: 'Image or video in a fixed-ratio frame.', element: 'figure',

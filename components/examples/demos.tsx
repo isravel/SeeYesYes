@@ -62,6 +62,7 @@ import { FancyArrow } from '@/components/ui/fancy-arrow';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Carousel } from '@/components/ui/carousel';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -185,6 +186,9 @@ export const demos: Record<string, Demo> = {
   'card-swap': { element: as(CardSwap), name: 'CardSwap', states: ['front'], props: () => ({ label: 'Highlights' }),
     extra: () => ({ items: [{ id: 'fast', content: <p>Fast to set up.</p> }, { id: 'accessible', content: <p>Accessible by default.</p> }, { id: 'themed', content: <p>Themed from one place.</p> }] }),
     codeExtra: ' items={[{ id: "fast", content: <p>Fast to set up.</p> }, { id: "accessible", content: <p>Accessible by default.</p> }]}' },
+  carousel: { element: as(Carousel), name: 'Carousel', states: ['first'], props: () => ({ label: 'Featured', peek: true }),
+    extra: () => ({ items: [{ id: 'setup', content: <Card><h3>Set up</h3><p>Install and theme in minutes.</p></Card> }, { id: 'build', content: <Card><h3>Build</h3><p>Compose pages from tested parts.</p></Card> }, { id: 'ship', content: <Card><h3>Ship</h3><p>Check contrast and keyboard use first.</p></Card> }] }),
+    codeExtra: ' items={[{ id: "setup", content: <p>Set up</p> }, { id: "build", content: <p>Build</p> }, { id: "ship", content: <p>Ship</p> }]}' },
   'media-frame': { element: as(MediaFrame), name: 'MediaFrame', states: ['loaded', 'error'], props: (v, s) => ({ src: s === 'error' ? '/unavailable-media.png' : '/sample-media.svg', alt: 'A green hillside under a pale sky', ratio: v.ratio, fit: v.fit, hover: v.hover, caption: 'Hillside at midday' }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };

@@ -1,0 +1,17 @@
+.root { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }
+/* The browser owns scrolling and snapping, so touch swipe, momentum, trackpad and the arrow keys on the focused row need no script. Smooth movement is turned off below for reduced motion, and applies to the buttons and the keys alike. */
+.track { position: relative; display: flex; gap: var(--sys-spacing-inline); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: thin; }
+.slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+.root[data-peek] .slide { flex-basis: 85%; }
+/* The fade is added only on an edge with more slides beyond it. */
+.root[data-fade] { --carousel-fade-start: 2.5rem; --carousel-fade-end: 2.5rem; }
+.root[data-fade][data-at-start] { --carousel-fade-start: 0rem; }
+.root[data-fade][data-at-end] { --carousel-fade-end: 0rem; }
+.root[data-fade] .track { -webkit-mask-image: linear-gradient(to right, transparent, black var(--carousel-fade-start), black calc(100% - var(--carousel-fade-end)), transparent); mask-image: linear-gradient(to right, transparent, black var(--carousel-fade-start), black calc(100% - var(--carousel-fade-end)), transparent); }
+/* A mask would clip the focus ring, so the fade steps aside while the row has keyboard focus. */
+.track:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }
+.root[data-fade] .track:focus-visible { -webkit-mask-image: none; mask-image: none; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline); }
+.status { margin-inline: auto; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+@media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }
+@media (forced-colors: active) { .root[data-fade] .track { -webkit-mask-image: none; mask-image: none; } }

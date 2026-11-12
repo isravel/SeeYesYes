@@ -46,6 +46,7 @@ import { FancyArrow } from '@/components/ui/fancy-arrow';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Carousel } from '@/components/ui/carousel';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -216,6 +217,10 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <TiltCard data-testid="tilt-off"><h3>Plain card</h3><p>No tilt.</p></TiltCard>
         <CardSwap label="Highlights" data-testid="swap" items={[{ id: 'fast', content: <><h3>Fast</h3><Button>Fast action</Button></> }, { id: 'accessible', content: <h3>Accessible</h3> }, { id: 'themed', content: <h3>Themed with a much longer heading that wraps onto several lines in a narrow card</h3> }]} />
         <CardSwap label="Auto highlights" autoplay interval={3000} data-testid="swap-auto" items={[{ id: 'one', content: <h3>One</h3> }, { id: 'two', content: <h3>Two</h3> }]} />
+        <Carousel label="Featured" data-testid="carousel" items={[{ id: 'one', content: <Card><h3>One</h3><Button>One action</Button></Card> }, { id: 'two', content: <Card><h3>Two</h3></Card> }, { id: 'three', content: <Card><h3>Three</h3></Card> }, { id: 'four', content: <Card><h3>Four</h3><Button>Four action</Button></Card> }]} />
+        <Carousel label="Auto featured" autoplay edgeFade peek data-testid="carousel-auto" items={[{ id: 'a', content: <Card><h3>Alpha</h3></Card> }, { id: 'b', content: <Card><h3>Beta</h3></Card> }, { id: 'c', content: <Card><h3>Gamma</h3></Card> }]} />
+        <Carousel label="Single" data-testid="carousel-one" items={[{ id: 'only', content: <Card><h3>Only slide</h3></Card> }]} />
+        <Carousel label="Empty" data-testid="carousel-empty" items={[]} />
         <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" data-testid="media-ok" />
         <MediaFrame src="/sample-media.svg" alt="Square hillside" ratio="1:1" fit="contain" hover="zoom" vignette data-testid="media-square" />
         <MediaFrame src="/missing-media.png" alt="Missing picture" caption="Nothing loaded" data-testid="media-broken" />

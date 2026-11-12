@@ -22,7 +22,8 @@ Phase: B — Motion and media. Dependencies: X1–X2 and any X3 controls used; n
   - 2026-11-12: Done with automated checks only; no human visual review. Figure with reserved ratio, cover or contain, caption, text fallback on failure, opt-in hover and vignette removed by reduced motion. [Evidence](../../evidence/expansion/X4/SYX-033/review.md)
 - [x] **SYX-034 — Rotating word.** Reserve stable headline space, keep an understandable accessible phrase and support static/reduced-motion content.
   - 2026-11-11: Done with automated checks only; no human visual review. Stable width, one hidden phrase read, opt-in cycling that pauses on hover, `paused` and reduced motion. [Evidence](../../evidence/expansion/X4/SYX-034/review.md)
-- [ ] **SYX-044 — Carousel.** Evaluate the platform and installed tools before selecting a dependency. Support optional 3-second autoplay, hover/focus pause, visible pause/resume, manual navigation, touch and reduced motion.
+- [x] **SYX-044 — Carousel.** Evaluate the platform and installed tools before selecting a dependency. Support optional 3-second autoplay, hover/focus pause, visible pause/resume, manual navigation, touch and reduced motion.
+  - 2026-11-12: Done with automated checks only; no human visual review. Native CSS scroll-snap row with Previous and Next, a status that follows the real scroll position, no loop, opt-in autoplay (3 second minimum; pauses on hover, focus and touch; visible pause button; stops on the last slide), opt-in edge fade and peek, static under reduced motion. Evaluated the platform and installed tools: no carousel library is installed and none was needed, so no dependency was added. [Evidence](../../evidence/expansion/X4/SYX-044/review.md)
 
 ## Variation matrix
 

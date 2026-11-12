@@ -10,6 +10,7 @@ import { FancyArrow } from '@/components/ui/fancy-arrow';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { CardSwap } from '@/components/ui/card-swap';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Carousel } from '@/components/ui/carousel';
 import { registry } from '@/lib/data/registry';
 
 const h = createElement as unknown as (type: unknown, props?: Record<string, unknown> | null, ...children: unknown[]) => ReactElement;
@@ -226,16 +227,57 @@ describe('SYX-033 MediaFrame', () => {
   });
 });
 
+describe('SYX-044 Carousel', () => {
+  const items = [{ id: 'a', content: h('p', null, 'First') }, { id: 'b', content: h('p', null, 'Second') }, { id: 'c', content: h('p', null, 'Third') }];
+  it('is a named carousel region holding every slide in order, none hidden', () => {
+    const markup = html(h(Carousel, { label: 'Featured', items }));
+    expect(markup).toContain('role="region"');
+    expect(markup).toContain('aria-roledescription="carousel"');
+    expect(markup).toContain('aria-label="Featured"');
+    expect(markup.indexOf('First')).toBeLessThan(markup.indexOf('Second'));
+    expect(markup.indexOf('Second')).toBeLessThan(markup.indexOf('Third'));
+    expect(markup).toContain('aria-label="2 of 3"');
+    expect(markup).not.toContain('inert');
+    expect(markup).not.toContain('aria-hidden');
+  });
+  it('has a keyboard-focusable scrolling row, fixed-name buttons and a status line, with Previous disabled at the start', () => {
+    const markup = html(h(Carousel, { label: 'Featured', items }));
+    expect(markup).toContain('tabindex="0"');
+    expect(markup).toContain('Previous slide');
+    expect(markup).toContain('Next slide');
+    expect(markup).toContain('Slide 1 of 3');
+    expect(markup).toMatch(/<button[^>]*disabled=""[^>]*>Previous slide/);
+    expect(markup).not.toMatch(/<button[^>]*disabled=""[^>]*>Next slide/);
+    expect(markup).not.toContain('Pause autoplay');
+  });
+  it('offers a pause button only with autoplay and never cycles before hydration', () => {
+    const markup = html(h(Carousel, { label: 'Featured', items, autoplay: true }));
+    expect(markup).toContain('Pause autoplay');
+    expect(markup).not.toContain('data-cycling');
+  });
+  it('marks edge fade and peek only when asked', () => {
+    expect(html(h(Carousel, { label: 'Featured', items }))).not.toMatch(/data-fade|data-peek/);
+    const markup = html(h(Carousel, { label: 'Featured', items, edgeFade: true, peek: true }));
+    expect(markup).toContain('data-fade="true"');
+    expect(markup).toContain('data-peek="true"');
+  });
+  it('shows no controls for one slide and nothing for none', () => {
+    expect(html(h(Carousel, { label: 'One', items: items.slice(0, 1) }))).not.toContain('Next slide');
+    expect(html(h(Carousel, { label: 'None', items: [] }))).toBe('');
+  });
+});
+
 describe('X4 second batch contracts', () => {
-  const ids = ['logo', 'fancy-arrow', 'tilt-card', 'card-swap', 'media-frame'];
-  it('registers each with a recommended example; only CardSwap is interactive', () => {
+  const ids = ['logo', 'fancy-arrow', 'tilt-card', 'card-swap', 'carousel', 'media-frame'];
+  it('registers each with a recommended example; only CardSwap and Carousel are interactive', () => {
     for (const id of ids) {
       expect(get(id), id).toBeDefined();
       expect(registry.examples.some(example => example.intent === 'recommended' && example.componentIds.includes(id)), id).toBe(true);
-      expect(get(id).interactive, id).toBe(id === 'card-swap');
-      expect(get(id).accessibility.keyboard.length > 0, id).toBe(id === 'card-swap');
+      expect(get(id).interactive, id).toBe(id === 'card-swap' || id === 'carousel');
+      expect(get(id).accessibility.keyboard.length > 0, id).toBe(id === 'card-swap' || id === 'carousel');
     }
     expect(registry.rules.find(rule => rule.id === 'wcag-focus-visible')!.appliesTo).toContain('card-swap');
+    expect(registry.rules.find(rule => rule.id === 'wcag-focus-visible')!.appliesTo).toContain('carousel');
   });
   it('keeps every effect opt-in with the planned defaults', () => {
     expect(prop('logo', 'animated').defaultValue).toBe(false);
@@ -243,6 +285,9 @@ describe('X4 second batch contracts', () => {
     expect(prop('tilt-card', 'depth').defaultValue).toBe(false);
     expect(prop('card-swap', 'autoplay').defaultValue).toBe(false);
     expect(prop('card-swap', 'defaultIndex').defaultValue).toBe(0);
+    expect(prop('carousel', 'autoplay').defaultValue).toBe(false);
+    expect(prop('carousel', 'interval').defaultValue).toBe(3000);
+    expect(prop('carousel', 'edgeFade').defaultValue).toBe(false);
     expect(prop('media-frame', 'ratio').defaultValue).toBe('16:9');
     expect(prop('media-frame', 'fit').defaultValue).toBe('cover');
     expect(prop('media-frame', 'hover').defaultValue).toBe('none');
