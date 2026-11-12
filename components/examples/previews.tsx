@@ -57,6 +57,11 @@ import { AnimatedBadge } from '@/components/ui/animated-badge';
 import { ShinyText } from '@/components/ui/shiny-text';
 import { RotatingWord } from '@/components/ui/rotating-word';
 import { MenuToggle } from '@/components/ui/menu-toggle';
+import { Logo } from '@/components/ui/logo';
+import { FancyArrow } from '@/components/ui/fancy-arrow';
+import { TiltCard } from '@/components/ui/tilt-card';
+import { CardSwap } from '@/components/ui/card-swap';
+import { MediaFrame } from '@/components/ui/media-frame';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -166,6 +171,11 @@ function MenuToggleNav() {
   const [open, setOpen] = useState(false);
   return <div className="previewSections"><MenuToggle label="Menu" controls="preview-menu" expanded={open} onExpandedChange={setOpen} /><p id="preview-menu" hidden={!open}>Overview, Components, Tokens</p></div>;
 }
+function LogoHeader() { return <div className="previewSections"><Logo label="Acme" src="/sample-mark.svg" wordmark="Acme" /></div>; }
+function FancyArrowHint() { return <div className="previewSections"><p>Start here <FancyArrow src="/sample-arrow.svg" /></p></div>; }
+function TiltCardFeature() { return <div className="previewSections"><TiltCard tilt><h3>Featured</h3><p>Move a mouse over the card to lean it.</p></TiltCard></div>; }
+function CardSwapHighlights() { return <div className="previewSections"><CardSwap label="Highlights" items={[{ id: 'fast', content: <p>Fast to set up.</p> }, { id: 'accessible', content: <p>Accessible by default.</p> }, { id: 'themed', content: <p>Themed from one place.</p> }]} /></div>; }
+function MediaFrameFigure() { return <div className="previewSections"><MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -179,6 +189,7 @@ export const previewMap = {
   disclosureDetails: DisclosureDetails, accordionFaq: AccordionFaq, paginationResults: PaginationResults, breadcrumbsTrail: BreadcrumbsTrail,
   popoverFilters: PopoverFilters, drawerFilters: DrawerFilters, confirmDialogDelete: ConfirmDialogDelete, toastSaved: ToastSaved,
   animatedBadgeNew: AnimatedBadgeNew, shinyTextHeadline: ShinyTextHeadline, rotatingWordHeadline: RotatingWordHeadline, menuToggleNav: MenuToggleNav,
+  logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

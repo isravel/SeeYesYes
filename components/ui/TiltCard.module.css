@@ -1,0 +1,8 @@
+/* --tilt-x and --tilt-y are the pointer position from -1 to 1, set by the component. At rest both are 0 and the card lies flat. */
+.root[data-tilt] { transition: transform var(--sys-motion-duration) var(--sys-motion-easing); }
+.root[data-tilt][data-leaning] { transform: perspective(60rem) rotateX(calc(var(--tilt-y, 0) * var(--tilt-max, 8deg) * -1)) rotateY(calc(var(--tilt-x, 0) * var(--tilt-max, 8deg))); transition: transform var(--sys-motion-duration) var(--sys-motion-easing); }
+.root[data-depth] [data-tilt-layer] { transform: translate(calc(var(--tilt-x, 0) * .5rem), calc(var(--tilt-y, 0) * .5rem)); transition: transform var(--sys-motion-duration) var(--sys-motion-easing); }
+@media (prefers-reduced-motion: reduce) {
+  .root[data-tilt], .root[data-tilt][data-leaning] { transform: none; transition: none; }
+  .root[data-depth] [data-tilt-layer] { transform: none; transition: none; }
+}

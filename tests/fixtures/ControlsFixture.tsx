@@ -41,6 +41,11 @@ import { AnimatedBadge } from '@/components/ui/animated-badge';
 import { ShinyText } from '@/components/ui/shiny-text';
 import { RotatingWord } from '@/components/ui/rotating-word';
 import { MenuToggle } from '@/components/ui/menu-toggle';
+import { Logo } from '@/components/ui/logo';
+import { FancyArrow } from '@/components/ui/fancy-arrow';
+import { TiltCard } from '@/components/ui/tilt-card';
+import { CardSwap } from '@/components/ui/card-swap';
+import { MediaFrame } from '@/components/ui/media-frame';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -195,6 +200,25 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <MenuToggle label="Small menu" size="small" defaultExpanded animated={false} />
         <MenuToggle label="Unavailable menu" size="large" disabled />
         <nav id="x4-menu" aria-label="Site" hidden={!menuOpen}><a href="#x4-effects">Overview</a></nav>
+      </section>
+      <section aria-label="Media and cards" id="x4-media">
+        <p>
+          <Logo label="Acme" src="/sample-mark.svg" wordmark="Acme" data-testid="logo-image" />{' '}
+          <Logo label="Acme" mark={<svg viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="5" fill="currentColor" /></svg>} size="large" animated data-testid="logo-inline" />{' '}
+          <Logo label="Broken brand" src="/missing-mark.svg" data-testid="logo-broken" />{' '}
+          <Logo label="Label only" size="small" data-testid="logo-text" />
+        </p>
+        <div id="arrow-area" style={{ position: 'relative', minHeight: 96 }}>
+          <p>Start here <FancyArrow src="/sample-arrow.svg" data-testid="arrow-inline" /> <FancyArrow src="/sample-arrow.svg" alt="Next step" direction="down" data-testid="arrow-named" /> <FancyArrow src="/missing-arrow.svg" data-testid="arrow-broken" /></p>
+          <FancyArrow src="/sample-arrow.svg" placement="bottom-end" direction="left" data-testid="arrow-corner" />
+        </div>
+        <TiltCard tilt depth data-testid="tilt-on"><h3>Tilting card</h3><p data-tilt-layer>Layer text.</p><Button>Inside action</Button></TiltCard>
+        <TiltCard data-testid="tilt-off"><h3>Plain card</h3><p>No tilt.</p></TiltCard>
+        <CardSwap label="Highlights" data-testid="swap" items={[{ id: 'fast', content: <><h3>Fast</h3><Button>Fast action</Button></> }, { id: 'accessible', content: <h3>Accessible</h3> }, { id: 'themed', content: <h3>Themed with a much longer heading that wraps onto several lines in a narrow card</h3> }]} />
+        <CardSwap label="Auto highlights" autoplay interval={3000} data-testid="swap-auto" items={[{ id: 'one', content: <h3>One</h3> }, { id: 'two', content: <h3>Two</h3> }]} />
+        <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" caption="Hillside at midday" data-testid="media-ok" />
+        <MediaFrame src="/sample-media.svg" alt="Square hillside" ratio="1:1" fit="contain" hover="zoom" vignette data-testid="media-square" />
+        <MediaFrame src="/missing-media.png" alt="Missing picture" caption="Nothing loaded" data-testid="media-broken" />
       </section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>

@@ -1,0 +1,13 @@
+/* Width is the caller's: set it with a style or class on the arrow. Height follows the art's own ratio. */
+.root { display: inline-flex; flex: none; width: 4rem; max-width: 100%; color: var(--sys-color-muted-foreground); line-height: 0; pointer-events: none; }
+.root[data-placement="top-start"] { position: absolute; inset-block-start: 0; inset-inline-start: 0; }
+.root[data-placement="top-end"] { position: absolute; inset-block-start: 0; inset-inline-end: 0; }
+.root[data-placement="bottom-start"] { position: absolute; inset-block-end: 0; inset-inline-start: 0; }
+.root[data-placement="bottom-end"] { position: absolute; inset-block-end: 0; inset-inline-end: 0; }
+.art { display: block; width: 100%; }
+.image { display: block; width: 100%; height: auto; }
+.art svg { display: block; width: 100%; height: auto; }
+.root[data-direction="down"] .art { transform: rotate(90deg); }
+.root[data-direction="up"] .art { transform: rotate(-90deg); }
+.root[data-direction="left"] .art { transform: scaleX(-1); }
+.text { font-size: var(--sys-typography-caption); line-height: 1.25; overflow-wrap: anywhere; }

@@ -55,7 +55,12 @@ export type ComponentDefaults = {
 "animated-badge": { "animated": boolean };
 "shiny-text": { "animated": boolean };
 "rotating-word": { "animated": boolean; "interval": number; "paused": boolean };
-"menu-toggle": { "defaultExpanded": boolean; "size": "medium" | "small" | "large"; "animated": boolean }
+"menu-toggle": { "defaultExpanded": boolean; "size": "medium" | "small" | "large"; "animated": boolean };
+"logo": { "size": "medium" | "small" | "large"; "animated": boolean };
+"fancy-arrow": { "placement": "inline" | "top-start" | "top-end" | "bottom-start" | "bottom-end"; "direction": "right" | "down" | "left" | "up" };
+"tilt-card": { "tilt": boolean; "maxTilt": number; "depth": boolean };
+"card-swap": { "defaultIndex": number; "autoplay": boolean; "interval": number };
+"media-frame": { "kind": "image" | "video"; "ratio": "16:9" | "4:3" | "1:1" | "3:2" | "21:9"; "fit": "cover" | "contain"; "hover": "none" | "zoom" | "color"; "vignette": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -300,5 +305,30 @@ export const contractDefaults: ComponentDefaults = {
     "defaultExpanded": false,
     "size": "medium",
     "animated": true
+  },
+  "logo": {
+    "size": "medium",
+    "animated": false
+  },
+  "fancy-arrow": {
+    "placement": "inline",
+    "direction": "right"
+  },
+  "tilt-card": {
+    "tilt": false,
+    "maxTilt": 8,
+    "depth": false
+  },
+  "card-swap": {
+    "defaultIndex": 0,
+    "autoplay": false,
+    "interval": 5000
+  },
+  "media-frame": {
+    "kind": "image",
+    "ratio": "16:9",
+    "fit": "cover",
+    "hover": "none",
+    "vignette": false
   }
 };

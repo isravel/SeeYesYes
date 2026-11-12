@@ -6,15 +6,20 @@ Phase: B — Motion and media. Dependencies: X1–X2 and any X3 controls used; n
 
 - [x] **SYX-025 — Animated badge.** Provide an optional border-glint treatment using system accent/motion tokens and a static fallback.
   - 2026-11-11: Done with automated checks only; no human visual review. Border glint on a Badge; static by default, removed by reduced motion and forced colors. [Evidence](../../evidence/expansion/X4/SYX-025/review.md)
-- [ ] **SYX-026 — Logo.** Provide a reusable identity/wordmark slot and optional motion treatment for supplied assets; do not create or copy another brand identity.
+- [x] **SYX-026 — Logo.** Provide a reusable identity/wordmark slot and optional motion treatment for supplied assets; do not create or copy another brand identity.
+  - 2026-11-12: Done with automated checks only; no human visual review. Slot for a supplied image or inline mark with a fixed name; falls back to text if the image fails; opt-in mark motion. No real identity asset was supplied, so only a neutral placeholder is used in the fixture and demo. [Evidence](../../evidence/expansion/X4/SYX-026/review.md)
 - [x] **SYX-027 — Menu toggle.** Provide a named expanded/collapsed control with an optional bar-to-close transition and reduced-motion fallback.
   - 2026-11-11: Done with automated checks only; no human visual review. Native button, fixed name, `aria-expanded`; bars turn into a close mark, reduced motion swaps instantly. [Evidence](../../evidence/expansion/X4/SYX-027/review.md)
 - [x] **SYX-028 — Shiny text.** Provide optional text shimmer with readable static text and guidance to use sparingly.
   - 2026-11-11: Done with automated checks only; no human visual review. Gradient text sweep that never changes `color`; plain under reduced motion and forced colors. [Evidence](../../evidence/expansion/X4/SYX-028/review.md)
-- [ ] **SYX-029 — Fancy arrow.** Render a supplied decorative arrow asset with configurable placement and an accessible text alternative only when meaningful.
-- [ ] **SYX-030 — Tilt card.** Provide opt-in pointer tilt and layer depth; preserve normal reading and activation on touch and keyboard.
-- [ ] **SYX-031 — Card swap.** Provide an optional stacked-card transition with stable reading order, accessible controls and a static reduced-motion alternative.
-- [ ] **SYX-033 — Media frame.** Provide responsive media sizing, aspect ratios, optional hover treatment, captions and failure fallback.
+- [x] **SYX-029 — Fancy arrow.** Render a supplied decorative arrow asset with configurable placement and an accessible text alternative only when meaningful.
+  - 2026-11-12: Done with automated checks only; no human visual review. Decorative by default (hidden, unfocusable, ignores the pointer); named only with `alt`; inline or corner placement. No real arrow asset was supplied; a neutral placeholder is used in the fixture and demo. [Evidence](../../evidence/expansion/X4/SYX-029/review.md)
+- [x] **SYX-030 — Tilt card.** Provide opt-in pointer tilt and layer depth; preserve normal reading and activation on touch and keyboard.
+  - 2026-11-12: Done with automated checks only; no human visual review. Opt-in mouse and pen tilt with layer depth; ignores touch and focus; no fake button semantics; removed by reduced motion. [Evidence](../../evidence/expansion/X4/SYX-030/review.md)
+- [x] **SYX-031 — Card swap.** Provide an optional stacked-card transition with stable reading order, accessible controls and a static reduced-motion alternative.
+  - 2026-11-12: Done with automated checks only; no human visual review. Stack with stable reading order (back cards `inert`), Previous and Next, status line; opt-in autoplay with hover and focus pause, a visible pause button and a 3 second minimum; static under reduced motion. [Evidence](../../evidence/expansion/X4/SYX-031/review.md)
+- [x] **SYX-033 — Media frame.** Provide responsive media sizing, aspect ratios, optional hover treatment, captions and failure fallback.
+  - 2026-11-12: Done with automated checks only; no human visual review. Figure with reserved ratio, cover or contain, caption, text fallback on failure, opt-in hover and vignette removed by reduced motion. [Evidence](../../evidence/expansion/X4/SYX-033/review.md)
 - [x] **SYX-034 — Rotating word.** Reserve stable headline space, keep an understandable accessible phrase and support static/reduced-motion content.
   - 2026-11-11: Done with automated checks only; no human visual review. Stable width, one hidden phrase read, opt-in cycling that pauses on hover, `paused` and reduced motion. [Evidence](../../evidence/expansion/X4/SYX-034/review.md)
 - [ ] **SYX-044 — Carousel.** Evaluate the platform and installed tools before selecting a dependency. Support optional 3-second autoplay, hover/focus pause, visible pause/resume, manual navigation, touch and reduced motion.

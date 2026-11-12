@@ -1,0 +1,11 @@
+.root { --logo-size: 2rem; display: inline-flex; align-items: center; gap: var(--sys-spacing-inline); max-width: 100%; color: var(--sys-color-foreground); font-weight: var(--sys-typography-weight-medium); }
+.root[data-size="small"] { --logo-size: 1.5rem; }
+.root[data-size="large"] { --logo-size: 2.5rem; }
+.mark { display: inline-flex; flex: none; height: var(--logo-size); }
+.image { display: block; width: auto; height: 100%; max-width: 100%; object-fit: contain; }
+.mark svg { display: block; width: auto; height: 100%; }
+.wordmark { min-width: 0; font-size: calc(var(--logo-size) * .6); line-height: 1.1; overflow-wrap: anywhere; }
+/* The motion is on the mark only and is slow and small; the wordmark never moves. */
+.root[data-animated] .mark { animation: breathe calc(var(--sys-motion-duration) * 20) ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .root[data-animated] .mark { animation: none; } }

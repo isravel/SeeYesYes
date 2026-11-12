@@ -1,0 +1,13 @@
+.root { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }
+/* Every card shares one grid cell, so the stack is as tall as the tallest card whichever one is in front. The padding leaves room for the edges of the cards behind. */
+.stack { display: grid; padding-block-end: calc(var(--sys-spacing-inline) * 2); }
+/* Cards behind are narrower, not shorter, so a fixed strip of each shows below the front card whatever its height. */
+.card { grid-area: 1 / 1; align-content: start; opacity: 0; transform: translateY(calc(var(--sys-spacing-inline) * 2)) scale(.9, 1); visibility: hidden; transition: transform var(--sys-motion-duration) var(--sys-motion-easing), opacity var(--sys-motion-duration) var(--sys-motion-easing); }
+.card[data-position="0"] { z-index: 3; opacity: 1; transform: none; visibility: visible; }
+.card[data-position="1"] { z-index: 2; opacity: 1; transform: translateY(var(--sys-spacing-inline)) scale(.95, 1); visibility: visible; }
+.card[data-position="2"] { z-index: 1; opacity: 1; transform: translateY(calc(var(--sys-spacing-inline) * 2)) scale(.9, 1); visibility: visible; }
+/* A card behind shows only its edge. Its content is hidden here as well as inert in the document. */
+.card:not([data-position="0"]) > * { visibility: hidden; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline); }
+.status { margin-inline: auto; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }

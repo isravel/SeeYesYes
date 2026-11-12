@@ -57,6 +57,11 @@ import { AnimatedBadge } from '@/components/ui/animated-badge';
 import { ShinyText } from '@/components/ui/shiny-text';
 import { RotatingWord } from '@/components/ui/rotating-word';
 import { MenuToggle } from '@/components/ui/menu-toggle';
+import { Logo } from '@/components/ui/logo';
+import { FancyArrow } from '@/components/ui/fancy-arrow';
+import { TiltCard } from '@/components/ui/tilt-card';
+import { CardSwap } from '@/components/ui/card-swap';
+import { MediaFrame } from '@/components/ui/media-frame';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -174,6 +179,13 @@ export const demos: Record<string, Demo> = {
   'shiny-text': { element: as(ShinyText), name: 'ShinyText', states: ['static', 'animating'], props: (_v, s) => ({ animated: flag(s === 'animating') }), children: () => text('Ship faster'), frame: { padding: 8 } },
   'rotating-word': { element: as(RotatingWord), name: 'RotatingWord', states: ['static', 'cycling'], props: (_v, s) => ({ animated: flag(s === 'cycling') }), extra: () => ({ words: ['teams', 'designers', 'agents'] }), codeExtra: ' words={["teams", "designers", "agents"]}', frame: { padding: 8 } },
   'menu-toggle': { element: as(MenuToggle), name: 'MenuToggle', states: ['collapsed', 'expanded', 'disabled'], props: (v, s) => ({ label: 'Menu', size: v.size, defaultExpanded: flag(s === 'expanded'), disabled: flag(s === 'disabled') }) },
+  logo: { element: as(Logo), name: 'Logo', states: ['static', 'animating'], props: (v, s) => ({ label: 'Acme', src: '/sample-mark.svg', wordmark: 'Acme', size: v.size, animated: flag(s === 'animating') }), frame: { padding: 8 } },
+  'fancy-arrow': { element: as(FancyArrow), name: 'FancyArrow', states: ['decorative', 'named'], props: (v, s) => ({ src: '/sample-arrow.svg', placement: v.placement, direction: v.direction, alt: s === 'named' ? 'Next step' : undefined }), frame: { position: 'relative', minHeight: 96, minWidth: 160, padding: 8 } },
+  'tilt-card': { element: as(TiltCard), name: 'TiltCard', states: ['rest', 'tilting'], props: (_v, s) => ({ tilt: flag(s === 'tilting') }), children: () => ({ node: <><h3>Featured</h3><p>Move a mouse over the card to lean it.</p></>, code: '<h3>Featured</h3>\n  <p>Move a mouse over the card to lean it.</p>' }) },
+  'card-swap': { element: as(CardSwap), name: 'CardSwap', states: ['front'], props: () => ({ label: 'Highlights' }),
+    extra: () => ({ items: [{ id: 'fast', content: <p>Fast to set up.</p> }, { id: 'accessible', content: <p>Accessible by default.</p> }, { id: 'themed', content: <p>Themed from one place.</p> }] }),
+    codeExtra: ' items={[{ id: "fast", content: <p>Fast to set up.</p> }, { id: "accessible", content: <p>Accessible by default.</p> }]}' },
+  'media-frame': { element: as(MediaFrame), name: 'MediaFrame', states: ['loaded', 'error'], props: (v, s) => ({ src: s === 'error' ? '/unavailable-media.png' : '/sample-media.svg', alt: 'A green hillside under a pale sky', ratio: v.ratio, fit: v.fit, hover: v.hover, caption: 'Hillside at midday' }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 
