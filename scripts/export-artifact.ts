@@ -47,7 +47,7 @@ const entryPoints = [
 ];
 
 /** Peer dependencies are resolved by the consumer so there is exactly one copy of each runtime. */
-const peerDependencies = ['react', 'react-dom', 'next', 'zod', 'react-aria-components', '@react-aria/overlays', '@phosphor-icons/react', 'zustand'];
+const peerDependencies = ['react', 'react-dom', 'next', 'zod', 'react-aria-components', 'react-aria', '@phosphor-icons/react', 'zustand'];
 
 type Args = { out: string; packTo: string | null };
 function parseArgs(argv: string[]): Args {
@@ -272,7 +272,8 @@ function main(): void {
       next: '>=15.0.0',
       zod: `^${(dependencyVersion('zod') ?? '4.0.0').replace(/^[^\d]*/, '')}`,
       'react-aria-components': `^${(dependencyVersion('react-aria-components') ?? '1.22.0').replace(/^[^\d]*/, '')}`,
-      '@react-aria/overlays': `^${(dependencyVersion('@react-aria/overlays') ?? '3.32.0').replace(/^[^\d]*/, '')}`,
+      // react-aria-components pins this exact version; sharing one copy keeps a single portal context.
+      'react-aria': `^${(dependencyVersion('react-aria') ?? '3.53.0').replace(/^[^\d]*/, '')}`,
       '@phosphor-icons/react': `^${(dependencyVersion('@phosphor-icons/react') ?? '2.1.10').replace(/^[^\d]*/, '')}`,
       zustand: `^${(dependencyVersion('zustand') ?? '5.0.0').replace(/^[^\d]*/, '')}`,
     },

@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useEffect, useMemo, useRef, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react';
-import { UNSAFE_PortalProvider } from '@react-aria/overlays';
+import { UNSAFE_PortalProvider } from 'react-aria/PortalProvider';
 import type { Appearance, Mode, Theme } from '@/lib/contract/schema';
 import { effectiveDefaults, validateTheme, type ThemeSystem } from '@/lib/contract/theme-validation';
 import { cssVariables, resolveTokens } from '@/lib/theme/resolve';
