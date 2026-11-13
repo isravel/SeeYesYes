@@ -37,14 +37,21 @@ Observed:
 - Install and `next build` succeed. Tokens load. Appearance changes to dark and survives a reload; the saved appearance was already on the root element at the first readystate event.
 - `/listing` and `/sign-in` return 200. The listing shows 6 course cards. Submitting an empty sign-in form shows "Enter your email address."
 - **Peer finding:** with the default install, a dialog opened inside a nested light `ThemeScope` rendered in the dark root scope, not in the nested one, and the glass blur was `blur(0px)`. After forcing one copy of `react-aria` (npm `overrides`), the same dialog rendered inside the nested scope with `blur(20px) saturate(1.4)`. My reading is that two copies of `react-aria` gave `@react-aria/overlays` and `react-aria-components` separate portal contexts. I did not isolate the cause beyond that before/after difference, and I did not capture the tree from before the override.
-- **Unresolved:** the consumer's browser console logged 404 responses (2 on the first run, 6 on the last). My attempt to identify the URLs failed because the server had been stopped. Not explained.
+- **Console 404s (explained):** they were Next link prefetches (`/forgot?_rsc=…`, `/sign-up?_rsc=…`) from the sign-in template's links. The scratch consumer only defines `/`, `/listing` and `/sign-in`, so these come from my fixture, not the package. Integrators must provide those routes or pass their own hrefs.
+
+### Follow-up: single portal context (fixed in source, verified in a packed consumer)
+
+- Change: `ThemeScope` and the generated contract probe now import `UNSAFE_PortalProvider` from `react-aria/PortalProvider`, and the artifact declares the peer `react-aria` instead of `@react-aria/overlays`. `react-aria-components` resolves the same `react-aria` copy, so one portal context is shared. The `@react-aria/overlays` dependency was removed from the source `package.json`.
+- Verification: `npm run generate` and `npm run check` passed (EXIT=0). A tarball from the committed tree (`…src.033883b`, `workingTreeClean: true`) was installed with `npm ci` and **no overrides**. There is one `react-aria` copy in `node_modules`, and the dialog opened in the nested scope renders inside `div#nested[scope][light]`, not the dark root scope.
+- Glass check on the fixed build: an ancestor of the dialog inside the nested scope computes `backdrop-filter: blur(20px) saturate(1.4)`, as in the override run.
+- Not verified: the full 314-test browser suite after this change.
 
 Not done: a missing-peer failure test, an SSR hydration-mismatch check, an opt-in glass consumer, the Naazhi package workflow, and a rerun of the packed consumer on a clean (committed) tree.
 
 ## Blocking release
 
 1. SYX-001 (visual gate) and SYX-004 (packed-consumer check) remain open in X1. The packed run above is evidence for SYX-004 but does not tick it: the artifact came from a dirty tree and the 404 console errors are unexplained.
-2. The `react-aria` duplication needs a decision: document a required dedupe/override in the consumer setup, or change how the artifact declares `@react-aria/overlays`.
+2. ~~`react-aria` duplication~~ Fixed in source (see follow-up above). Still needs the full browser suite and the glass-blur check on the fixed build.
 3. Human visual, keyboard, screen-reader and 200% zoom reviews for X1–X7 are all pending.
 4. Full browser suite re-run, performance run, and a Node 22/24 run are pending.
 5. Original M7 human reviews, evaluation and MCP gates remain open as recorded in the main plan.
