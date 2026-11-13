@@ -304,7 +304,7 @@ test.describe('SYX-021 menu links, groups, separators, empty state and narrow vi
     await open(page);
     let menu = await openMenu(page, 'Open grouped menu');
     await menu.getByRole('menuitem', { name: 'Open', exact: true }).click();
-    await expect(page.locator('p[role="status"]')).toHaveText('open');
+    await expect(page.getByTestId('menu-status')).toHaveText('open');
     menu = await openMenu(page, 'Open grouped menu');
     const external = menu.getByRole('menuitem', { name: /Publisher site/ });
     expect(await external.evaluate(el => el.tagName)).toBe('A');
@@ -316,7 +316,7 @@ test.describe('SYX-021 menu links, groups, separators, empty state and narrow vi
     await expect(internal).toHaveAttribute('href', '/docs');
     await expect(internal).not.toHaveAttribute('target', /.+/);
     await page.keyboard.press('Escape');
-    await expect(page.locator('p[role="status"]')).toHaveText('open');
+    await expect(page.getByTestId('menu-status')).toHaveText('open');
   });
 
   test('Enter on a link item navigates and does not report an action', async ({ page }) => {

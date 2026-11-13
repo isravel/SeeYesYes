@@ -1,0 +1,556 @@
+
+Running 314 tests using 5 workers
+
+[1/314] tests/browser/a11y-audit.spec.ts:48:1 › every route and relevant state has no serious or critical automated accessibility findings, in both appearances
+[2/314] tests/browser/component-controls.spec.ts:6:1 › variant and state controls change the real component and its matching code
+[3/314] tests/browser/agent-files.spec.ts:9:1 › /llms.txt and /llms-full.txt are served as text, generated from the registry and default theme
+[4/314] tests/browser/accessibility.spec.ts:5:1 › three separate sections, with honest labels and no conformance claim
+[5/314] tests/browser/ai-context.spec.ts:11:1 › overview is selected first and shows identity, labels, and the whole catalog in all three views
+[6/314] tests/browser/component-controls.spec.ts:32:1 › copy returns the generated code for the current selection
+[7/314] tests/browser/accessibility.spec.ts:22:1 › contrast is measured from the applied theme and a failing theme is shown as failing
+[8/314] tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree
+[9/314] tests/browser/component-controls.spec.ts:41:1 › initial selection follows the applied theme default
+[10/314] tests/browser/accessibility.spec.ts:47:1 › each section shows its own error with Retry, and the others keep working
+  1) tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree 
+
+    Error: locator.check: Error: strict mode violation: getByRole('checkbox', { name: /Dialog/ }) resolved to 2 elements:
+        1) <input type="checkbox" data-size="medium" data-tone="primary" class="QfBj-G_root "/> aka getByRole('checkbox', { name: 'Dialog Open a focused modal' })
+        2) <input type="checkbox" data-size="medium" data-tone="primary" class="QfBj-G_root "/> aka getByRole('checkbox', { name: 'ConfirmDialog Confirm a' })
+
+    Call log:
+      - waiting for getByRole('checkbox', { name: /Dialog/ })
+
+
+      37 |
+      38 |   await page.getByRole('searchbox', { name: 'Find components' }).fill('dialog');
+    > 39 |   await page.getByRole('checkbox', { name: /Dialog/ }).check();
+         |                                                        ^
+      40 |   await page.getByRole('searchbox', { name: 'Find components' }).fill('zzz');
+      41 |   await expect(page.getByText(/No components match/)).toBeVisible();
+      42 |   await page.getByRole('button', { name: 'Clear search' }).click();
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/ai-context.spec.ts:39:56
+
+    Error Context: test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[11/314] tests/browser/component-controls.spec.ts:50:1 › every component preview responds to every variant option and forced state
+[12/314] tests/browser/accessibility.spec.ts:59:1 › each section shows its own empty state in the empty scenario, and contrast still shows
+[13/314] tests/browser/ai-context.spec.ts:72:1 › full mode includes everything
+[14/314] tests/browser/accessibility.spec.ts:68:1 › fits 320px and 1280px with no serious axe findings
+[15/314] tests/browser/ai-context.spec.ts:85:1 › exports follow the applied theme and appearance, and ignore an unapplied draft
+[16/314] tests/browser/component-detail.spec.ts:6:1 › every component has a detail route with every required section
+[17/314] tests/browser/ai-context.spec.ts:117:1 › loading, error, and missing-data states offer Retry, and the page fits and passes axe
+[18/314] tests/browser/agent-files.spec.ts:26:1 › the AI Context screen links the agent files and says they use the default theme
+[19/314] tests/browser/agent-files.spec.ts:34:1 › Copy for LLM copies the component task export under the applied theme and reports the result
+[20/314] tests/browser/agent-files.spec.ts:58:1 › Copy for LLM reports a clipboard failure
+[21/314] tests/browser/ai-context.spec.ts:143:1 › copy and download deliver exactly the displayed export, with byte counts
+[22/314] tests/browser/components-catalog.spec.ts:3:1 › catalog shows contract-derived counts, filters, and honest review status
+[23/314] tests/browser/components-catalog.spec.ts:37:1 › empty and error scenarios offer a next action and a retry
+[24/314] tests/browser/ai-context.spec.ts:174:1 › the settings download is the applied WorkspaceSettings without a cache
+[25/314] tests/browser/components-catalog.spec.ts:51:1 › catalog fits 320px and desktop in both appearances
+[26/314] tests/browser/ai-context.spec.ts:191:1 › copy and download failures and empty selections give clear feedback
+[27/314] tests/browser/console.spec.ts:12:1 › visiting every view, in both appearances, logs no errors
+[28/314] tests/browser/ai-context.spec.ts:208:1 › the AGENTS.md snippet shows its size, copies exactly, and updates after Apply
+[29/314] tests/browser/content-claims.spec.ts:20:1 › rendered pages make no unqualified claims about certification, compliance, packages, hosting, scanning, or AI results
+[30/314] tests/browser/data-states.spec.ts:44:5 › Tokens › shows a named loading state, then the content
+[31/314] tests/browser/data-states.spec.ts:55:5 › Tokens › shows an error with Retry for a failed request and recovers on retry
+[32/314] tests/browser/data-states.spec.ts:66:5 › Tokens › shows an error with Retry when the network fails, and recovers
+[33/314] tests/browser/component-detail.spec.ts:22:1 › detail content comes from the contract, with import, defaults, tokens, and violations
+[34/314] tests/browser/data-states.spec.ts:74:5 › Tokens › the demo error scenario stays an error and keeps offering Retry
+[35/314] tests/browser/data-states.spec.ts:44:5 › Components › shows a named loading state, then the content
+[36/314] tests/browser/component-detail.spec.ts:33:1 › catalog cards link to detail and breadcrumbs lead back
+[37/314] tests/browser/data-states.spec.ts:55:5 › Components › shows an error with Retry for a failed request and recovers on retry
+[38/314] tests/browser/component-detail.spec.ts:41:1 › unknown components are a 404 in every scenario, and recoverable errors offer Retry
+[39/314] tests/browser/data-states.spec.ts:66:5 › Components › shows an error with Retry when the network fails, and recovers
+[40/314] tests/browser/component-detail.spec.ts:57:1 › detail fits 320px and desktop in both appearances
+[41/314] tests/browser/data-states.spec.ts:74:5 › Components › the demo error scenario stays an error and keeps offering Retry
+[42/314] tests/browser/data-states.spec.ts:44:5 › Rules › shows a named loading state, then the content
+[43/314] tests/browser/data-states.spec.ts:55:5 › Rules › shows an error with Retry for a failed request and recovers on retry
+[44/314] tests/browser/data-states.spec.ts:66:5 › Rules › shows an error with Retry when the network fails, and recovers
+[45/314] tests/browser/data-states.spec.ts:74:5 › Rules › the demo error scenario stays an error and keeps offering Retry
+[46/314] tests/browser/component-detail.spec.ts:71:1 › effective defaults under the applied theme are shown only when they differ from the contract
+[47/314] tests/browser/data-states.spec.ts:44:5 › Validation › shows a named loading state, then the content
+[48/314] tests/browser/component-detail.spec.ts:82:1 › token links show applied values and the mode in effect, and rules and constraints come from the contract
+[49/314] tests/browser/data-states.spec.ts:55:5 › Validation › shows an error with Retry for a failed request and recovers on retry
+[50/314] tests/browser/component-detail.spec.ts:106:1 › the structured contract is the registry record and copies with feedback
+[51/314] tests/browser/data-states.spec.ts:66:5 › Validation › shows an error with Retry when the network fails, and recovers
+[52/314] tests/browser/docs.spec.ts:10:1 › the index lists hand-written guides apart from generated reference
+[53/314] tests/browser/docs.spec.ts:20:1 › search finds text and headings, deep links to the heading, and recovers from no match
+[54/314] tests/browser/data-states.spec.ts:74:5 › Validation › the demo error scenario stays an error and keeps offering Retry
+[55/314] tests/browser/docs.spec.ts:45:1 › every article renders with anchored headings, a contents list, and valid links
+[56/314] tests/browser/data-states.spec.ts:44:5 › Accessibility › shows a named loading state, then the content
+[57/314] tests/browser/data-states.spec.ts:55:5 › Accessibility › shows an error with Retry for a failed request and recovers on retry
+[58/314] tests/browser/data-states.spec.ts:66:5 › Accessibility › shows an error with Retry when the network fails, and recovers
+[59/314] tests/browser/data-states.spec.ts:74:5 › Accessibility › the demo error scenario stays an error and keeps offering Retry
+[60/314] tests/browser/data-states.spec.ts:44:5 › Layouts › shows a named loading state, then the content
+[61/314] tests/browser/data-states.spec.ts:55:5 › Layouts › shows an error with Retry for a failed request and recovers on retry
+  2) tests/browser/content-claims.spec.ts:20:1 › rendered pages make no unqualified claims about certification, compliance, packages, hosting, scanning, or AI results 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "/components/card-swap: <CardSwap label=\"Highlights\" items={[{ id: \"fast\", content: <p>Fast to set up.</p> }, { id: \"accessible\", content: <p>Accessible by default.</p> }]} />",
+    + ]
+
+      27 |     for (const sentence of unlimited(await page.locator('main').innerText())) offenders.push(`${path}: ${sentence}`);
+      28 |   }
+    > 29 |   expect(offenders).toEqual([]);
+         |                     ^
+      30 | });
+      31 |
+      32 | test('agent files, exports, and the README make no unqualified claims either', async ({ request }) => {
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/content-claims.spec.ts:29:21
+
+    Error Context: test-results/content-claims-rendered-pa-0e777-ting-scanning-or-AI-results/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/content-claims-rendered-pa-0e777-ting-scanning-or-AI-results/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/content-claims-rendered-pa-0e777-ting-scanning-or-AI-results/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[62/314] tests/browser/data-states.spec.ts:66:5 › Layouts › shows an error with Retry when the network fails, and recovers
+[63/314] tests/browser/content-claims.spec.ts:32:1 › agent files, exports, and the README make no unqualified claims either
+  3) tests/browser/content-claims.spec.ts:32:1 › agent files, exports, and the README make no unqualified claims either 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "/llms-full.txt: <FeatureBento label=\"Highlights\" items={[{ id: \"tokens\", title: \"Shared tokens\", description: \"One source for color and spacing.\", href: \"/system/tokens\" }, { id: \"a11y\", title: \"Accessible by default\", badge: \"Built in\" }, { id: \"docs\", title: \"Readable contracts\" }]} />",
+    + ]
+
+      35 |   const { readFileSync } = await import('node:fs');
+      36 |   for (const sentence of unlimited(readFileSync('README.md', 'utf8'))) offenders.push(`README.md: ${sentence}`);
+    > 37 |   expect(offenders).toEqual([]);
+         |                     ^
+      38 | });
+      39 |
+      40 | test('every component is labeled with its real maturity and review status, never as reviewed or stable without evidence', async ({ page }) => {
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/content-claims.spec.ts:37:21
+
+    Error Context: test-results/content-claims-agent-files-4af15-o-unqualified-claims-either/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/content-claims-agent-files-4af15-o-unqualified-claims-either/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/content-claims-agent-files-4af15-o-unqualified-claims-either/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[64/314] tests/browser/data-states.spec.ts:74:5 › Layouts › the demo error scenario stays an error and keeps offering Retry
+[65/314] tests/browser/content-claims.spec.ts:40:1 › every component is labeled with its real maturity and review status, never as reviewed or stable without evidence
+[66/314] tests/browser/data-states.spec.ts:44:5 › AI Context › shows a named loading state, then the content
+[67/314] tests/browser/console.spec.ts:27:1 › the core journeys log no errors: configure and apply, export, search, and recover
+[68/314] tests/browser/docs.spec.ts:57:1 › reference articles are registry summaries linking to the canonical screens
+[69/314] tests/browser/data-states.spec.ts:55:5 › AI Context › shows an error with Retry for a failed request and recovers on retry
+[70/314] tests/browser/docs.spec.ts:67:1 › Copy for LLM copies the article Markdown with site-root links and reports the result
+[71/314] tests/browser/docs.spec.ts:78:1 › Copy for LLM reports a clipboard failure
+[72/314] tests/browser/docs.spec.ts:84:1 › unknown articles are a 404 with recovery
+[73/314] tests/browser/data-states.spec.ts:66:5 › AI Context › shows an error with Retry when the network fails, and recovers
+[74/314] tests/browser/foundation.spec.ts:6:1 › seed preview hydrates, handles native activation, and has no serious axe findings
+[75/314] tests/browser/docs.spec.ts:90:1 › documentation fits narrow and wide viewports in both appearances with no serious axe findings
+[76/314] tests/browser/data-states.spec.ts:74:5 › AI Context › the demo error scenario stays an error and keeps offering Retry
+[77/314] tests/browser/data-states.spec.ts:44:5 › Component Detail › shows a named loading state, then the content
+  4) tests/browser/foundation.spec.ts:6:1 › seed preview hydrates, handles native activation, and has no serious axe findings 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('heading', { level: 1 })
+    Expected: "Overview"
+    Error: strict mode violation: getByRole('heading', { level: 1 }) resolved to 2 elements:
+        1) <h1>Overview</h1> aka getByRole('heading', { name: 'Overview' })
+        2) <h1 class="MWgFwW_heading">…</h1> aka getByRole('heading', { name: 'Ship a consistent interface' })
+
+    Call log:
+      - Expect "toHaveText" getByRole('heading', { level: 1 }) with timeout 5000ms
+      - waiting for getByRole('heading', { level: 1 })
+
+
+      10 |   await page.goto('/');
+      11 |   await revealPreviews(page);
+    > 12 |   await expect(page.getByRole('heading', {level: 1})).toHaveText('Overview');
+         |                                                       ^
+      13 |   await expect(page.getByRole('textbox', {name: 'Notes', exact: true})).toHaveAttribute('rows', '3');
+      14 |   await page.getByRole('button', {name: 'Save settings'}).focus();
+      15 |   await page.keyboard.press('Enter');
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/foundation.spec.ts:12:55
+
+    Error Context: test-results/foundation-seed-preview-hy-f57ed-has-no-serious-axe-findings/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/foundation-seed-preview-hy-f57ed-has-no-serious-axe-findings/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/foundation-seed-preview-hy-f57ed-has-no-serious-axe-findings/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[78/314] tests/browser/data-states.spec.ts:55:5 › Component Detail › shows an error with Retry for a failed request and recovers on retry
+[79/314] tests/browser/getting-started.spec.ts:5:1 › every step is present, the commands copy, and the example really runs
+[80/314] tests/browser/getting-started.spec.ts:27:1 › every link on the page leads somewhere real, including the context export step
+[81/314] tests/browser/foundation.spec.ts:23:1 › foundation fits 320px and desktop in both appearances
+[82/314] tests/browser/data-states.spec.ts:66:5 › Component Detail › shows an error with Retry when the network fails, and recovers
+[83/314] tests/browser/getting-started.spec.ts:37:1 › makes no claim about a package, installer, or hosted site that exists
+[84/314] tests/browser/data-states.spec.ts:74:5 › Component Detail › the demo error scenario stays an error and keeps offering Retry
+[85/314] tests/browser/getting-started.spec.ts:44:1 › fits narrow and wide viewports in both appearances with no serious axe findings
+[86/314] tests/browser/data-states.spec.ts:83:1 › empty scenarios give a next action
+[87/314] tests/browser/glass-theme.spec.ts:9:1 › the default workspace stays clean: no blur, opaque tint
+[88/314] tests/browser/glass-theme.spec.ts:17:1 › a saved glass theme applies before paint and survives reload
+[89/314] tests/browser/foundation.spec.ts:36:1 › production mock endpoints recover by scenario and remain read-only
+[90/314] tests/browser/integration.spec.ts:5:1 › feedback examples expose useful names, status, and recovery actions
+[91/314] tests/browser/glass-theme.spec.ts:30:1 › a cache from the previous resolver is rebuilt, keeping the saved glass theme
+[92/314] tests/browser/glass-theme.spec.ts:40:1 › Card and Dialog use backdrop blur under glass and an opaque surface without blur, in a nested scope
+[93/314] tests/browser/glass-theme.spec.ts:66:1 › ThemeSwitcher keeps one stable name, exposes the current choice, and changes the workspace
+[94/314] tests/browser/integration.spec.ts:38:1 › workspace and representative content fit the required widths in both appearances
+[95/314] tests/browser/data-states.spec.ts:93:1 › the detail empty (missing-data) scenario is an error with Retry, never an empty list
+[96/314] tests/browser/glass-theme.spec.ts:84:1 › Backdrop decoration is hidden from assistive technology and never takes pointer input
+[97/314] tests/browser/data-states.spec.ts:100:1 › search with no matches offers Clear filters and recovers
+[98/314] tests/browser/keyboard-matrix.spec.ts:49:1 › every interactive component is reachable by Tab, named, and shows a visible focus indicator
+[99/314] tests/browser/data-states.spec.ts:112:1 › Component Detail recovers when the linked registry request fails
+[100/314] tests/browser/data-states.spec.ts:121:1 › the registry request waits for the component and is skipped when the component fails
+[101/314] tests/browser/data-states.spec.ts:130:1 › unknown component IDs are a 404 with recovery in every scenario
+  5) tests/browser/content-claims.spec.ts:40:1 › every component is labeled with its real maturity and review status, never as reviewed or stable without evidence 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('heading', { level: 1 }).locator('xpath=ancestor::header')
+    Expected substring: "Experimental"
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('heading', { level: 1 }).locator('xpath=ancestor::header') with timeout 5000ms
+      - waiting for getByRole('heading', { level: 1 }).locator('xpath=ancestor::header')
+      - Test timeout of 30000ms exceeded.
+
+
+      42 |     await page.goto(`/components/${component.id}`);
+      43 |     const header = page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::header');
+    > 44 |     await expect(header).toContainText(component.maturity === 'stable' ? 'Stable' : 'Experimental');
+         |                          ^
+      45 |     await expect(header).toContainText(component.accessibility.status === 'reviewed' ? 'Accessibility reviewed' : 'Not reviewed');
+      46 |   }
+      47 |   await page.goto('/accessibility');
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/content-claims.spec.ts:44:26
+
+    Error Context: test-results/content-claims-every-compo-10e24--or-stable-without-evidence/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/content-claims-every-compo-10e24--or-stable-without-evidence/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/content-claims-every-compo-10e24--or-stable-without-evidence/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[102/314] tests/browser/integration.spec.ts:54:1 › 200% zoom layout proxy reflows to a 640px viewport without page overflow
+[103/314] tests/browser/layouts.spec.ts:8:1 › all seven layouts render real primitives, each in its own theme scope with component links
+[104/314] tests/browser/content-claims.spec.ts:51:1 › the product states that the agent evaluation has not produced results
+[105/314] tests/browser/integration.spec.ts:65:1 › reduced motion removes nonessential animation and transition time
+[106/314] tests/browser/menu-example.spec.ts:27:1 › Overview preview shows groups, separators, links and a destructive action, and reports actions
+[107/314] tests/browser/layouts.spec.ts:26:1 › density switches inside one preview without touching other previews or the workspace
+[108/314] tests/browser/overlays.spec.ts:9:1 › modal traps focus, inherits its scope, blocks outside dismissal, and restores trigger focus
+[109/314] tests/browser/layouts.spec.ts:44:1 › the interactive layouts respond locally and say nothing is stored
+[110/314] tests/browser/overlays.spec.ts:38:1 › menu skips disabled items, runs an action, and restores focus on selection or Escape
+[111/314] tests/browser/menu-example.spec.ts:38:1 › Overview preview link item navigates instead of reporting an action
+[112/314] tests/browser/layouts.spec.ts:72:1 › previews adapt to their own width and the page fits narrow and wide viewports in both appearances
+[113/314] tests/browser/overlays.spec.ts:58:1 › tabs connect panels and support automatic and manual keyboard activation
+[114/314] tests/browser/overlays.spec.ts:78:1 › tooltip opens on hover and focus, inherits its scope, and dismisses with Escape
+[115/314] tests/browser/menu-example.spec.ts:46:1 › Playground renders the same menu inside the preview scope
+[116/314] tests/browser/overlays.spec.ts:99:1 › workspace overlays stay within mobile and desktop viewports in both appearances
+[117/314] tests/browser/layouts.spec.ts:89:1 › layouts have no serious axe findings in both densities
+[118/314] tests/browser/menu-example.spec.ts:56:1 › Playground code shows the groups, links and destructive item
+[119/314] tests/browser/overview.spec.ts:5:1 › coverage is calculated from the registry and kept apart from demo results
+[120/314] tests/browser/overview.spec.ts:26:1 › the demo health panel fails and recovers on its own without taking the page down
+[121/314] tests/browser/overview.spec.ts:40:1 › links lead to the real screens and the page has no serious axe findings
+[122/314] tests/browser/playground.spec.ts:9:1 › Playground starts from the applied theme, changes only its own preview, and resets
+[123/314] tests/browser/overlays.spec.ts:136:1 › workspace tooltip opens through normal keyboard tab navigation
+[124/314] tests/browser/playground.spec.ts:35:1 › settings survive client navigation but not a refresh, and never reach the Theme draft or applied theme
+[125/314] tests/browser/review-matrix.spec.ts:6:1 › no page-level overflow at 320, 768, 1280, and 1920px in both appearances (A14)
+[126/314] tests/browser/playground.spec.ts:47:1 › the Playground follows the applied theme until you override a setting
+[127/314] tests/browser/rules.spec.ts:4:1 › rules list every rule with examples, applicability, and an honest auto-fix note
+[128/314] tests/browser/playground.spec.ts:57:1 › component, variant, and state controls change the real preview and its code
+[129/314] tests/browser/playground.spec.ts:75:1 › overlays portal into the Playground scope and inherit its settings, not the workspace
+[130/314] tests/browser/rules.spec.ts:28:1 › category and severity filters combine, and an empty result recovers
+[131/314] tests/browser/playground.spec.ts:105:1 › fits narrow and wide viewports in both appearances with no serious axe findings
+[132/314] tests/browser/rules.spec.ts:44:1 › component detail links its rules to the Rules screen
+[133/314] tests/browser/structure.spec.ts:5:1 › desktop navigation, page title, headings, breadcrumbs, and skip target agree
+[134/314] tests/browser/rules.spec.ts:51:1 › the registry request waits for rules, and its failure keeps the list with a retry
+[135/314] tests/browser/structure.spec.ts:20:1 › mobile drawer contains focus, restores it on Escape, and closes into a selected destination
+[136/314] tests/browser/theme-appearance.spec.ts:9:1 › first paint follows the OS mode at load, then hydration keeps the same values
+[137/314] tests/browser/structure.spec.ts:51:1 › table preserves native headers, empty text, and contained keyboard scrolling
+[138/314] tests/browser/theme-appearance.spec.ts:37:1 › a stale or corrupt cache renders defaults first, then validated settings or a notice
+[139/314] tests/browser/structure.spec.ts:72:1 › navigation and tables fit mobile and desktop in both appearances
+[140/314] tests/browser/theme-appearance.spec.ts:48:1 › corrupt saved settings fall back to defaults with a notice and can be replaced by Apply
+[141/314] tests/browser/theme-appearance.spec.ts:59:1 › changing workspace appearance leaves an open draft alone, persists, and Apply keeps it
+[142/314] tests/browser/theme-appearance.spec.ts:81:1 › appearance and theme saved from two tabs preserve each other
+[143/314] tests/browser/theme-bootstrap.spec.ts:5:1 › validated saved theme is applied before hydration using the current appearance
+[144/314] tests/browser/theme-controls.spec.ts:3:1 › theme controls update shared settings and contract-approved component defaults
+[145/314] tests/browser/theme-editor.spec.ts:3:1 › theme editor changes one mode at a time and applies palette suggestions explicitly
+[146/314] tests/browser/theme-lifecycle.spec.ts:3:1 › apply, discard, reset, navigation, and refresh follow the theme lifecycle
+[147/314] tests/browser/theme-preview.spec.ts:4:1 › draft preview isolates components, appearance, and dialog portals from the workspace
+[148/314] tests/browser/theme-lifecycle.spec.ts:49:1 › blocked storage keeps applied changes session-only
+[149/314] tests/browser/theme-lifecycle.spec.ts:61:1 › contrast warnings follow the draft and never block Apply
+[150/314] tests/browser/theme-scope.spec.ts:3:1 › SSR keeps workspace variables off html; hydration follows OS changes
+[151/314] tests/browser/theme-scope.spec.ts:17:1 › nearest scope controls defaults and geometry without changing the workspace
+[152/314] tests/browser/theme-scope.spec.ts:51:1 › React Aria portals inherit the nearest nested scope
+[153/314] tests/browser/theme-tabs.spec.ts:3:1 › two tabs: a stale draft is rejected, tabs adopt the latest theme, and Discard recovers
+[154/314] tests/browser/theme-preview.spec.ts:54:1 › theme preview and dialog fit mobile and desktop in both appearances
+[155/314] tests/browser/theme-tabs.spec.ts:38:1 › without Web Locks the tab reads saved settings but stays session-only
+[156/314] tests/browser/tokens.spec.ts:4:1 › tokens follow the applied theme, filter, mark the mode in effect, and copy values
+[157/314] tests/browser/theme-tabs.spec.ts:55:1 › reduced motion removes motion inside the theme preview scope too
+[158/314] tests/browser/validation.spec.ts:8:1 › every scenario is labeled as demo data and its counts follow the selected report
+[159/314] tests/browser/tokens.spec.ts:51:1 › applied changes show up on Tokens, drafts do not, and the draft survives navigating there
+[160/314] tests/browser/validation.spec.ts:23:1 › status and category filters combine, with no-match recovery
+[161/314] tests/browser/keyboard-matrix.spec.ts:88:1 › native controls respond to the keys their contracts list
+[162/314] tests/browser/tokens.spec.ts:76:1 › design token downloads follow the applied theme, validate, and list exclusions honestly
+[163/314] tests/browser/validation.spec.ts:41:1 › a result opens its rule, example, and a copyable suggested fix
+[164/314] tests/browser/validation.spec.ts:67:1 › the finding list is keyboard operable and the screen has no serious axe findings at 320px and 1280px
+[165/314] tests/browser/views.spec.ts:22:1 › every view has one title, one h1, one main landmark, a marked current destination, and a working skip link
+[166/314] tests/browser/x2-controls.spec.ts:10:1 › every Button variant renders, the aliases match their targets, and loading or disabled blocks activation
+[167/314] tests/browser/x2-controls.spec.ts:44:1 › Card, Dialog panel and menu blur under glass, a nested Card does not stack a second blur, and clean stays opaque
+[168/314] tests/browser/keyboard-matrix.spec.ts:147:1 › Dialog, Dropdown Menu, Tabs, and Tooltip keep their keyboard behavior in their own previews
+[169/314] tests/browser/x2-controls.spec.ts:55:1 › Avatar falls back to its initials, keeping its name, when the image fails, and the ring is applied
+[170/314] tests/browser/x2-controls.spec.ts:67:1 › toolbar Input and Select share the compact size and keep read-only and focus states
+[171/314] tests/browser/views.spec.ts:46:1 › every view fits narrow and wide viewports in both appearances with no serious accessibility findings
+[172/314] tests/browser/x2-controls.spec.ts:84:1 › Dialog under glass: named modal, panel and page blur are separate layers, Escape closes and returns focus
+[173/314] tests/browser/x3-compositions.spec.ts:10:1 › Disclosure toggles by click, Enter and Space, and collapsed content cannot take focus
+[174/314] tests/browser/x3-compositions.spec.ts:36:1 › Disclosure hover previews with a mouse, a click keeps it open, and keyboard never depends on hover
+[175/314] tests/browser/x2-controls.spec.ts:110:1 › Dialog keeps an opaque panel without backdrop blur when forced colors are active
+[176/314] tests/browser/x3-compositions.spec.ts:60:1 › Accordion keeps one section open in single mode, lets several open in multiple mode, and keeps the last one open when not collapsible
+[177/314] tests/browser/x2-controls.spec.ts:120:1 › menu uses the glass surface, marks destructive items, supports arrow keys and returns focus
+[178/314] tests/browser/x2-controls.spec.ts:140:1 › Tooltip opens on focus with a short label, dismisses with Escape and uses the glass surface
+[179/314] tests/browser/x3-controls.spec.ts:10:1 › IconButton is named by its label, toggles aria-pressed, and shows a tooltip on keyboard focus
+[180/314] tests/browser/x3-compositions.spec.ts:90:1 › Pagination marks the current page, moves by click and keyboard, and disables the ends
+[181/314] tests/browser/x2-controls.spec.ts:152:1 › Tabs: line and boxed render, a disabled tab is skipped, and vertical tabs use the arrow keys they expect
+[182/314] tests/browser/x3-compositions.spec.ts:119:1 › Pagination with getHref uses real links and marks the current one
+[183/314] tests/browser/x3-controls.spec.ts:37:1 › SearchInput shows the clear button only with text, clears by click and by Escape, and returns focus
+[184/314] tests/browser/x2-controls.spec.ts:175:1 › Table keeps semantic headers, scrolls inside its region on a narrow screen and shows the row hover
+[185/314] tests/browser/x3-compositions.spec.ts:129:1 › Breadcrumbs link the ancestors, leave the current page as text, and wrap on a narrow screen
+[186/314] tests/browser/x3-controls.spec.ts:60:1 › SearchInput reports searching as text and keeps the field editable
+[187/314] tests/browser/x2-controls.spec.ts:189:1 › auto-grow Textarea grows to the maximum then scrolls, shrinks back, and a fixed one stays put; manual size is kept
+[188/314] tests/browser/x3-compositions.spec.ts:144:1 › the new X3 compositions have no serious accessibility violations in light and dark, glass and clean
+[189/314] tests/browser/x3-controls.spec.ts:68:1 › Segmented is one tab stop, moves and selects with arrow keys, and skips a disabled choice
+[190/314] tests/browser/x2-controls.spec.ts:216:1 › Field wires the label, help and error, and Fieldset and RadioGroup name their groups with option messages
+[191/314] tests/browser/x3-controls.spec.ts:89:1 › Chip keeps static, selectable and removable behavior separate, and keeps a chip whose removal failed
+[192/314] tests/browser/x2-controls.spec.ts:237:1 › feedback: alerts carry text and roles, Progress is determinate or indeterminate, and Skeleton stops animating with reduced motion
+[193/314] tests/browser/x3-controls.spec.ts:113:1 › CheckboxGroup collects an array in option order, exposes hints and skips a disabled option
+[194/314] tests/browser/x2-controls.spec.ts:257:1 › the whole control page has no serious or critical accessibility violations in light and dark
+[195/314] tests/browser/x3-controls.spec.ts:133:1 › InputOtp is one labelled field that keeps digits only, handles paste and correction, and reports completion without submitting
+[196/314] tests/browser/x3-compositions.spec.ts:152:1 › forced colors keep the current page distinguishable
+[197/314] tests/browser/x3-display.spec.ts:29:1 › Highlight is a native mark whose text keeps contrast over its tint, and the words still read without it
+[198/314] tests/browser/x3-controls.spec.ts:172:1 › InputOtp masks, honours read-only and disabled, and keeps its boxes at the minimum target size
+[199/314] tests/browser/review-matrix.spec.ts:21:1 › 200% zoom stays usable: a 640px layout viewport reflows without overflow and keeps its controls reachable (A14)
+[200/314] tests/browser/x3-controls.spec.ts:189:1 › Combobox filters while typing, groups options, picks with the keyboard and restores the choice for unmatched text
+[201/314] tests/browser/x3-display.spec.ts:45:1 › Highlight uses system mark colors when forced colors are active
+[202/314] tests/browser/x3-display.spec.ts:53:1 › Level shows its text and a decorative dot for every tone, and the dot never carries the meaning
+[203/314] tests/browser/x3-controls.spec.ts:232:1 › Combobox shows loading as text, honours read-only and disabled, and marks an error
+[204/314] tests/browser/x3-display.spec.ts:70:1 › LiveDot differs by shape as well as color, and animates only when asked
+[205/314] tests/browser/x3-controls.spec.ts:254:1 › the new X3 controls have no serious accessibility violations in light and dark, glass and clean
+[206/314] tests/browser/x2-controls.spec.ts:266:1 › nothing on the control page overflows a 320px viewport
+[207/314] tests/browser/review-matrix.spec.ts:40:1 › every radius and density combination renders the preview without overflow, at narrow and wide widths, in both appearances
+[208/314] tests/browser/x3-display.spec.ts:87:1 › LiveDot stops its ping under reduced motion and in forced colors
+[209/314] tests/browser/x2-controls.spec.ts:281:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › groups are named, separators are not focusable, and empty groups and edge separators are dropped
+[210/314] tests/browser/x3-display.spec.ts:98:1 › Kbd renders native keys with a hidden separator, and long sequences wrap instead of overflowing at 320px
+[211/314] tests/browser/x2-controls.spec.ts:303:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an action item calls onAction; a link item does not and renders a real anchor
+[212/314] tests/browser/x3-display.spec.ts:113:1 › AvatarGroup overlaps its avatars, names the group, and gives the +N count its own name
+[213/314] tests/browser/x3-display.spec.ts:131:1 › AvatarGroup overflow content makes only the +N count a button that opens a named panel and returns focus
+  6) tests/browser/x2-controls.spec.ts:303:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an action item calls onAction; a link item does not and renders a real anchor 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('p[role="status"]')
+    Expected: "open"
+    Error: strict mode violation: locator('p[role="status"]') resolved to 4 elements:
+        1) <p role="status" class="VGdvjW_count">10 results</p> aka getByTestId('listing-head').getByText('results')
+        2) <p role="status" class="qcwAUW_status"></p> aka locator('.qcwAUW_status')
+        3) <p role="status" data-testid="listing-state">page 1 of 3; view grid; sort title; level any; re…</p> aka getByTestId('listing-state')
+        4) <p role="status">open</p> aka getByText('open', { exact: true })
+
+    Call log:
+      - Expect "toHaveText" locator('p[role="status"]') with timeout 5000ms
+      - waiting for locator('p[role="status"]')
+
+
+      305 |     let menu = await openMenu(page, 'Open grouped menu');
+      306 |     await menu.getByRole('menuitem', { name: 'Open', exact: true }).click();
+    > 307 |     await expect(page.locator('p[role="status"]')).toHaveText('open');
+          |                                                    ^
+      308 |     menu = await openMenu(page, 'Open grouped menu');
+      309 |     const external = menu.getByRole('menuitem', { name: /Publisher site/ });
+      310 |     expect(await external.evaluate(el => el.tagName)).toBe('A');
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/x2-controls.spec.ts:307:52
+
+    Error Context: test-results/x2-controls-SYX-021-menu-l-8cbea-t-and-renders-a-real-anchor/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/x2-controls-SYX-021-menu-l-8cbea-t-and-renders-a-real-anchor/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/x2-controls-SYX-021-menu-l-8cbea-t-and-renders-a-real-anchor/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[214/314] tests/browser/review-matrix.spec.ts:60:1 › representative combinations are captured as screenshots
+[215/314] tests/browser/x3-display.spec.ts:166:1 › the display components have no serious accessibility violations in light and dark
+[216/314] tests/browser/x3-controls.spec.ts:262:1 › the new X3 controls stay on the page at 320px and wrap instead of overflowing
+[217/314] tests/browser/x3-controls.spec.ts:270:1 › forced colors keep the selected segment and the pressed icon button distinguishable
+[218/314] tests/browser/x2-controls.spec.ts:322:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › Enter on a link item navigates and does not report an action
+[219/314] tests/browser/x3-panels.spec.ts:12:1 › Popover opens from the keyboard, is named and scoped, and returns focus on Escape
+[220/314] tests/browser/review-matrix.spec.ts:72:1 › Button, Input, and Card keep the same internal styles standalone, nested, and in an overlay under the same theme
+[221/314] tests/browser/x3-display.spec.ts:175:1 › the display components stay on the page at 320px
+[222/314] tests/browser/x3-panels.spec.ts:27:1 › Popover closes on a press outside and from its own close action
+[223/314] tests/browser/x4-effects.spec.ts:14:1 › AnimatedBadge keeps its label and fill, and only glints when asked, never under reduced motion or forced colors
+[224/314] tests/browser/x2-controls.spec.ts:330:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an empty menu shows its message in the named menu and closes with focus returned
+[225/314] tests/browser/x3-panels.spec.ts:41:1 › Drawer is a named modal that contains focus, closes with Escape or an outside press, and returns focus
+[226/314] tests/browser/x2-controls.spec.ts:343:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › at 320px the popover stays inside the viewport, a long label wraps, and the page does not scroll sideways
+[227/314] tests/browser/x4-effects.spec.ts:31:1 › ShinyText stays readable text: static by default, swept only when asked, and plain under reduced motion and forced colors
+[228/314] tests/browser/x2-controls.spec.ts:364:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › the open menu has no serious or critical accessibility violations
+[229/314] tests/browser/x4-effects.spec.ts:55:1 › RotatingWord reserves the widest word, reads one phrase, cycles after hydration, and stops on pause, hover and reduced motion
+[230/314] tests/browser/x5-sections.spec.ts:12:1 › ShareButtons links every network with the attributed address, encoded, in a new tab
+[231/314] tests/browser/x3-panels.spec.ts:66:1 › Drawer docks to its edge, stays inside the viewport, and a required drawer ignores Escape and outside presses
+[232/314] tests/browser/x5-sections.spec.ts:35:1 › ShareButtons resolves a relative address in the browser and leaves it unattributed on request
+[233/314] tests/browser/x6-listings.spec.ts:17:1 › the listing shows a count, the first page in source order, and a pagination control
+[234/314] tests/browser/x5-sections.spec.ts:45:1 › Copy link copies the attributed address and reports success in text
+[235/314] tests/browser/x3-panels.spec.ts:98:1 › Drawer fits a 320px screen without horizontal overflow
+[236/314] tests/browser/x6-listings.spec.ts:26:1 › searching narrows the results, updates the count and returns to page 1
+[237/314] tests/browser/x5-sections.spec.ts:54:1 › Copy link reports failure in text when the clipboard is unavailable or refuses
+[238/314] tests/browser/x6-listings.spec.ts:36:1 › changing a filter or the sort returns to page 1, and changing the view keeps the page and the selection
+[239/314] tests/browser/x3-panels.spec.ts:111:1 › Drawer entrance animation stops under reduced motion
+[240/314] tests/browser/x3-panels.spec.ts:121:1 › forced colors give the drawer and popover a solid surface
+[241/314] tests/browser/x5-sections.spec.ts:65:1 › ShareButtons never opens anything on load and disables every control for an address that is not a web link
+[242/314] tests/browser/x6-listings.spec.ts:54:1 › grid and list views keep the same cards mounted, so the focused link stays focused
+[243/314] tests/browser/x5-sections.spec.ts:76:1 › ShareButtons controls follow the size prop and keep a usable target
+[244/314] tests/browser/x3-panels.spec.ts:133:1 › open Popover and Drawer have no serious accessibility violations in light and dark, glass and clean
+[245/314] tests/browser/x6-listings.spec.ts:70:1 › no matches offers Clear filters, which clears the search and filters, resets the page and keeps the sort and view
+  7) tests/browser/x4-effects.spec.ts:55:1 › RotatingWord reserves the widest word, reads one phrase, cycles after hydration, and stops on pause, hover and reduced motion 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      66 |   expect(await page.getByTestId('rotating').locator('[data-active]').count()).toBe(1);
+      67 |   // Only the active word is visible.
+    > 68 |   expect(await page.getByTestId('rotating').locator('[aria-hidden="true"] > span').evaluateAll(els => els.filter(el => getComputedStyle(el).visibility === 'visible').length)).toBe(1);
+         |                                                                                                                                                                                ^
+      69 |   // The page-level pause control stops it.
+      70 |   await effects(page).getByRole('button', { name: 'Pause words' }).click();
+      71 |   const held = await activeWord(page);
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/x4-effects.spec.ts:68:176
+
+    Error Context: test-results/x4-effects-RotatingWord-re-3828b-se-hover-and-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/x4-effects-RotatingWord-re-3828b-se-hover-and-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/x4-effects-RotatingWord-re-3828b-se-hover-and-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[246/314] tests/browser/x6-listings.spec.ts:87:1 › Clear filters stays focusable and does nothing when nothing is active
+[247/314] tests/browser/x5-sections.spec.ts:84:1 › ShareButtons tab order runs through the networks then Copy link, each with a focus ring
+[248/314] tests/browser/x5-sections.spec.ts:96:1 › SectionHead uses the chosen heading level and names each View all link by its heading
+[249/314] tests/browser/x6-listings.spec.ts:107:1 › loading, error with retry, and results are each shown on their own
+[250/314] tests/browser/x5-sections.spec.ts:109:1 › SectionHead wraps the link below a long heading without overflowing
+[251/314] tests/browser/x6-listings.spec.ts:121:1 › the toolbar keeps every control reachable by keyboard and in a logical order
+[252/314] tests/browser/x4-effects.spec.ts:94:1 › MenuToggle keeps one name, reports its state, turns bars into a close mark, and works from the keyboard
+[253/314] tests/browser/x5-sections.spec.ts:120:1 › StatStrip reads each label before its value, labels a missing value and shows only supplied figures
+[254/314] tests/browser/x6-listings.spec.ts:137:1 › cards have one details link each, whole-card targets, and their text without effects
+[255/314] tests/browser/x5-sections.spec.ts:132:1 › StatStrip stacks to one column at 320px and spreads across a wide screen
+[256/314] tests/browser/x6-listings.spec.ts:151:1 › CourseCard shows the supplied price text, struck-through original, rating label and omits what is absent
+[257/314] tests/browser/x4-effects.spec.ts:127:1 › MenuToggle swaps instantly under reduced motion and shows a visible focus ring
+[258/314] tests/browser/x5-sections.spec.ts:142:1 › CtaPanel offers one action, keeps its text readable over the tint, and adds texture only when asked
+[259/314] tests/browser/x4-effects.spec.ts:146:1 › Logo is one named image: supplied image and wordmark are decoration, a failed image falls back to text, motion is opt-in
+[260/314] tests/browser/x6-listings.spec.ts:169:1 › EventCard keeps date and place as text, holds the poster proportions, and shows text for a failed poster
+[261/314] tests/browser/views.spec.ts:68:1 › the navigation reaches every view, and the mobile drawer contains focus and restores it
+[262/314] tests/browser/x3-panels.spec.ts:148:1 › ConfirmDialog is a named alert dialog, starts on Cancel, ignores outside presses, and confirms
+[263/314] tests/browser/x6-listings.spec.ts:182:1 › CohortCard keeps its content with tilt and texture on, and ignores keyboard focus for tilt
+[264/314] tests/browser/x5-sections.spec.ts:158:1 › CtaPanel drops its decoration in forced colors
+[265/314] tests/browser/x4-effects.spec.ts:172:1 › FancyArrow is decoration unless named: hidden, never focusable, ignores the pointer, and drops out when its image fails
+[266/314] tests/browser/x3-panels.spec.ts:172:1 › ConfirmDialog with typing starts on the field, enables Confirm only on an exact match, and shows pending
+[267/314] tests/browser/x5-sections.spec.ts:167:1 › Footer is the contentinfo landmark with one named navigation, at most four columns and no stray headings
+[268/314] tests/browser/x4-effects.spec.ts:188:1 › TiltCard leans only with a mouse, never on touch or focus, stays a plain Card otherwise, and keeps its action working
+[269/314] tests/browser/x6-listings.spec.ts:197:1 › the listing fits 320px without horizontal scrolling and a wide card list lays out in columns
+[270/314] tests/browser/x3-panels.spec.ts:193:1 › ConfirmDialog keeps the dialog open and the typed text after a failed action, and succeeds on retry
+[271/314] tests/browser/x5-sections.spec.ts:183:1 › Footer links are tabbable in column order with a visible focus ring, and the top edge is a line
+[272/314] tests/browser/x6-listings.spec.ts:208:1 › forced colors drops the cohort texture but keeps the listing readable
+[273/314] tests/browser/x4-effects.spec.ts:224:1 › TiltCard ignores touch pointers
+[274/314] tests/browser/x6-listings.spec.ts:219:1 › the listing kit has no serious accessibility violations in light and dark, glass and clean
+[275/314] tests/browser/x3-panels.spec.ts:209:1 › ConfirmDialog fits a 320px screen and has no serious accessibility violations
+[276/314] tests/browser/x5-sections.spec.ts:197:1 › sections fit a 320px screen without horizontal scrolling
+[277/314] tests/browser/x4-effects.spec.ts:234:1 › CardSwap keeps reading order, exposes only the front card, swaps by button and keyboard, and holds its height
+[278/314] tests/browser/x5-sections.spec.ts:209:1 › Navbar renders one named navigation, marks the current page and skips empty groups
+[279/314] tests/browser/x4-effects.spec.ts:268:1 › CardSwap autoplay is opt-in, pauses on hover, focus and its button, and never runs under reduced motion
+[280/314] tests/browser/views.spec.ts:107:1 › unknown routes are a 404 with recovery inside the shell
+[281/314] tests/browser/x5-sections.spec.ts:224:1 › Navbar menu starts closed on a narrow screen, opens, and Escape closes it and returns focus
+[282/314] tests/browser/x5-sections.spec.ts:242:1 › Hero puts text first, splits only when media is supplied and never overflows
+[283/314] tests/browser/x6-listings.spec.ts:227:1 › the component pages for the listing kit show a live preview
+[284/314] tests/browser/x5-sections.spec.ts:259:1 › FeatureBento keeps reading order, names links by feature and lays three over four
+[285/314] tests/browser/x3-panels.spec.ts:226:1 › Toast announces by urgency, names its tone, and a toast without an action expires
+[286/314] tests/browser/x5-sections.spec.ts:276:1 › Testimonials never autoplay, show captions, pause others and say when a video fails
+[287/314] tests/browser/x5-sections.spec.ts:286:1 › AppBadges link each store by name, keep their own proportions and say when an image fails
+[288/314] tests/browser/x3-panels.spec.ts:250:1 › Toast pauses its timer while hovered or focused, and closes from its close button and Escape
+[289/314] tests/browser/x5-sections.spec.ts:299:1 › Instructor shows a heading, stacks on narrow screens and replaces a failed portrait with the name
+[290/314] tests/browser/views.spec.ts:121:1 › very long content wraps instead of overflowing
+[291/314] tests/browser/x6-listings.spec.ts:235:1 › the listing keeps the page free of console errors
+[292/314] tests/browser/x5-sections.spec.ts:317:1 › sections have no serious accessibility violations in light and dark, glass and clean
+[293/314] tests/browser/x7-templates.spec.ts:12:1 › sign-in checks the fields in order, focuses the first problem and never says why a sign-in failed
+[294/314] tests/browser/views.spec.ts:138:1 › every copy action puts something useful on the clipboard and reports it
+[295/314] tests/browser/x7-templates.spec.ts:28:1 › the password starts hidden, can be shown, and is never stored
+[296/314] tests/browser/x3-panels.spec.ts:272:1 › Toast with an action stays until dismissed, runs the action once, and reports a failed action as text
+[297/314] tests/browser/x7-templates.spec.ts:38:1 › sign-up asks for the minimum length and rejects a short password
+[298/314] tests/browser/x7-templates.spec.ts:48:1 › forgot-password shows the same neutral screen and moves focus to its heading
+[299/314] tests/browser/x5-sections.spec.ts:325:1 › the component pages for the sections show a live preview and their states
+[300/314] tests/browser/x7-templates.spec.ts:60:1 › the listing template searches, filters and pages, and clearing keeps the sort
+[301/314] tests/browser/x3-panels.spec.ts:294:1 › Toast sits at the bottom centre by default, can move to the top end, and stays inside a 320px screen
+[302/314] tests/browser/x7-templates.spec.ts:72:1 › the events template keeps poster text, searches by place and paginates
+[303/314] tests/browser/x7-templates.spec.ts:79:1 › the page shell preview is one named region and its links come from one configuration
+[304/314] tests/browser/x4-effects.spec.ts:302:1 › MediaFrame reserves its ratio before and after load, captions the figure, and shows text when the media fails
+[305/314] tests/browser/x3-panels.spec.ts:327:1 › open toasts have no serious accessibility violations in light and dark, glass and clean
+[306/314] tests/browser/x7-templates.spec.ts:86:1 › the landing template outline never skips a heading level
+[307/314] tests/browser/x5-sections.spec.ts:333:1 › sections keep the page free of console errors
+[308/314] tests/browser/x7-templates.spec.ts:94:1 › templates fit 320px in both appearances
+[309/314] tests/browser/x4-effects.spec.ts:334:1 › Carousel scrolls natively, snaps to slides, follows its real position, and has no loop
+[310/314] tests/browser/x4-effects.spec.ts:377:1 › Carousel tab order runs the row, its controls, then Previous and Next, and shows a focus ring
+[311/314] tests/browser/x4-effects.spec.ts:395:1 › Carousel autoplay is opt-in, pauses on hover, focus and its button, stops on the last slide, and never runs under reduced motion
+[312/314] tests/browser/x4-effects.spec.ts:445:1 › Carousel edge fade appears only where more slides lie beyond, and one slide or none adds no controls
+[313/314] tests/browser/x4-effects.spec.ts:473:1 › effects fit a 320px screen without horizontal scrolling
+[314/314] tests/browser/x4-effects.spec.ts:481:1 › effects have no serious accessibility violations in light and dark, glass and clean
+  7 failed
+    tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree 
+    tests/browser/content-claims.spec.ts:20:1 › rendered pages make no unqualified claims about certification, compliance, packages, hosting, scanning, or AI results 
+    tests/browser/content-claims.spec.ts:32:1 › agent files, exports, and the README make no unqualified claims either 
+    tests/browser/content-claims.spec.ts:40:1 › every component is labeled with its real maturity and review status, never as reviewed or stable without evidence 
+    tests/browser/foundation.spec.ts:6:1 › seed preview hydrates, handles native activation, and has no serious axe findings 
+    tests/browser/x2-controls.spec.ts:303:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an action item calls onAction; a link item does not and renders a real anchor 
+    tests/browser/x4-effects.spec.ts:55:1 › RotatingWord reserves the widest word, reads one phrase, cycles after hydration, and stops on pause, hover and reduced motion 
+  307 passed (6.8m)
+exit=1

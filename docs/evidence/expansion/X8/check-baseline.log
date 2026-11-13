@@ -1,0 +1,266 @@
+
+> seeyesyes@0.1.0 check
+> npm run typecheck && npm run audit:components && npm run lint && npm test && npm run build
+
+
+> seeyesyes@0.1.0 typecheck
+> npm run generate && tsc --noEmit
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 81 components, 65 tokens, 8 rules, and 90 examples.
+
+> seeyesyes@0.1.0 audit:components
+> node --import tsx scripts/audit-components.ts
+
+button: 8 documented props, 17 CSS tokens, 1 compounds; experimental, not-reviewed
+spinner: 1 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+link: 3 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+card: 2 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+badge: 3 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+separator: 2 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+avatar: 5 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+alert: 4 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+progress: 4 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+skeleton: 3 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+backdrop: 4 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+theme-switcher: 5 documented props, 16 CSS tokens, 0 compounds; experimental, not-reviewed
+input: 7 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+textarea: 9 documented props, 13 CSS tokens, 0 compounds; experimental, not-reviewed
+select: 6 documented props, 12 CSS tokens, 0 compounds; experimental, not-reviewed
+checkbox: 8 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+radio-group: 11 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+switch: 7 documented props, 12 CSS tokens, 0 compounds; experimental, not-reviewed
+label: 3 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+form-field: 6 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+fieldset: 6 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+dialog: 13 documented props, 17 CSS tokens, 0 compounds; experimental, not-reviewed
+confirm-dialog: 17 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+dropdown-menu: 9 documented props, 23 CSS tokens, 0 compounds; experimental, not-reviewed
+tabs: 10 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+tooltip: 8 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+popover: 10 documented props, 12 CSS tokens, 0 compounds; experimental, not-reviewed
+drawer: 14 documented props, 17 CSS tokens, 0 compounds; experimental, not-reviewed
+toast: 12 documented props, 19 CSS tokens, 0 compounds; experimental, not-reviewed
+table: 8 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+navigation: 10 documented props, 24 CSS tokens, 0 compounds; experimental, not-reviewed
+loading-state: 4 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+empty-state: 4 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+error-state: 5 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+not-found: 6 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+copy-button: 6 documented props, 3 CSS tokens, 0 compounds; experimental, not-reviewed
+highlight: 3 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+level: 4 documented props, 10 CSS tokens, 0 compounds; experimental, not-reviewed
+live-dot: 6 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+kbd: 5 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+avatar-group: 9 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+icon-button: 9 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+search-input: 13 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+segmented: 9 documented props, 16 CSS tokens, 0 compounds; experimental, not-reviewed
+chip: 12 documented props, 16 CSS tokens, 0 compounds; experimental, not-reviewed
+checkbox-group: 13 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+input-otp: 16 documented props, 14 CSS tokens, 0 compounds; experimental, not-reviewed
+combobox: 22 documented props, 24 CSS tokens, 0 compounds; experimental, not-reviewed
+disclosure: 10 documented props, 11 CSS tokens, 0 compounds; experimental, not-reviewed
+accordion: 9 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+pagination: 13 documented props, 15 CSS tokens, 0 compounds; experimental, not-reviewed
+breadcrumbs: 5 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+animated-badge: 6 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+shiny-text: 4 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+rotating-word: 7 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+menu-toggle: 10 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+logo: 8 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+fancy-arrow: 7 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+tilt-card: 7 documented props, 2 CSS tokens, 0 compounds; experimental, not-reviewed
+card-swap: 8 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+carousel: 9 documented props, 5 CSS tokens, 0 compounds; experimental, not-reviewed
+media-frame: 13 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+share-buttons: 11 documented props, 3 CSS tokens, 0 compounds; experimental, not-reviewed
+footer: 6 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+section-head: 7 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+stat-strip: 4 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+cta-panel: 7 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+navbar: 11 documented props, 18 CSS tokens, 0 compounds; experimental, not-reviewed
+hero: 9 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+feature-bento: 6 documented props, 7 CSS tokens, 0 compounds; experimental, not-reviewed
+testimonials: 5 documented props, 12 CSS tokens, 0 compounds; experimental, not-reviewed
+app-badges: 5 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+instructor: 8 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+listing-head: 9 documented props, 8 CSS tokens, 0 compounds; experimental, not-reviewed
+toolbar: 10 documented props, 4 CSS tokens, 0 compounds; experimental, not-reviewed
+card-grid: 14 documented props, 1 CSS tokens, 0 compounds; experimental, not-reviewed
+list-card: 9 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+clear-filters: 7 documented props, 6 CSS tokens, 0 compounds; experimental, not-reviewed
+course-card: 15 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+event-card: 13 documented props, 10 CSS tokens, 0 compounds; experimental, not-reviewed
+cohort-card: 13 documented props, 9 CSS tokens, 0 compounds; experimental, not-reviewed
+All 81 component implementations match their documented props, literal defaults, direct CSS tokens, and styled compounds.
+
+> seeyesyes@0.1.0 lint
+> eslint .
+
+
+> seeyesyes@0.1.0 test
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/Users/raj-7718/Documents/Product/SeeYesYes[39m
+
+ [32m✓[39m tests/oocss.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 272[2mms[22m[39m
+ [32m✓[39m tests/context-views.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 224[2mms[22m[39m
+ [32m✓[39m tests/theme-bootstrap.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 316[2mms[22m[39m
+ [32m✓[39m tests/contract.test.ts [2m([22m[2m52 tests[22m[2m)[22m[33m 406[2mms[22m[39m
+ [32m✓[39m tests/adapter.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 492[2mms[22m[39m
+ [32m✓[39m tests/style-ownership.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m tests/export-files.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+ [32m✓[39m tests/agent-files.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m tests/design-tokens.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+ [32m✓[39m tests/evaluation-fixture.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 857[2mms[22m[39m
+   [32m✓[39m fixture app (E2) [2m(6)[22m
+     [33m[2m✓[22m[39m resets to a clean copy each time, discarding anything an earlier run left behind[33m 428[2mms[22m[39m
+ [32m✓[39m tests/theme-writer.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 78[2mms[22m[39m
+ [32m✓[39m tests/context-completeness.test.ts [2m([22m[2m87 tests[22m[2m)[22m[33m 1446[2mms[22m[39m
+   [32m✓[39m local export size comparison (bytes, not tokens) [2m(4)[22m
+     [33m[2m✓[22m[39m overview is smaller than full and than a task export for a component with real props, and full is the largest[33m 343[2mms[22m[39m
+     [33m[2m✓[22m[39m a small fixture is much smaller than full, while a wide closure honestly reports its size[33m 306[2mms[22m[39m
+ [32m✓[39m tests/validation-fixtures.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m tests/theme-persistence.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+ [32m✓[39m tests/evaluation-score.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 532[2mms[22m[39m
+ [32m✓[39m tests/x3-display.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/evaluation-tasks.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m tests/theme-check.test.ts [2m([22m[2m65 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/x4-effects.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/glass-theme.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/x6-listings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m tests/scales.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m tests/x5-sections.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m tests/x3-composition.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/docs.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m tests/x7-templates.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+ [32m✓[39m tests/x3-controls.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 82[2mms[22m[39m
+ [32m✓[39m tests/implementation-audit.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/component-catalog.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m tests/theme-scope.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/accessibility-evidence.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/component-playground.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 221[2mms[22m[39m
+ [32m✓[39m tests/component-inventory.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/token-browse.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/getting-started.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/link-buttons.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/x3-overlay.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/theme-contrast.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/x2-controls.test.ts [2m([22m[2m54 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m tests/navigation-compact.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/x3-confirm.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/coverage.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/validation-browse.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/utils-cn.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/layouts.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/rules-browse.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/playground.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/routes.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/shell.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/x3-toast.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/example-code.test.ts [2m([22m[2m85 tests[22m[2m)[22m[33m 35497[2mms[22m[39m
+   [32m✓[39m registry example code [2m(85)[22m
+     [33m[2m✓[22m[39m button-save type-checks against the shipped components[33m 899[2mms[22m[39m
+     [33m[2m✓[22m[39m spinner-progress type-checks against the shipped components[33m 619[2mms[22m[39m
+     [33m[2m✓[22m[39m link-docs type-checks against the shipped components[33m 459[2mms[22m[39m
+     [33m[2m✓[22m[39m link-buttons type-checks against the shipped components[33m 432[2mms[22m[39m
+     [33m[2m✓[22m[39m card-profile type-checks against the shipped components[33m 464[2mms[22m[39m
+     [33m[2m✓[22m[39m badge-status type-checks against the shipped components[33m 437[2mms[22m[39m
+     [33m[2m✓[22m[39m separator-sections type-checks against the shipped components[33m 437[2mms[22m[39m
+     [33m[2m✓[22m[39m avatar-member type-checks against the shipped components[33m 495[2mms[22m[39m
+     [33m[2m✓[22m[39m alert-recovery type-checks against the shipped components[33m 3182[2mms[22m[39m
+     [33m[2m✓[22m[39m progress-upload type-checks against the shipped components[33m 385[2mms[22m[39m
+     [33m[2m✓[22m[39m backdrop-glass type-checks against the shipped components[33m 576[2mms[22m[39m
+     [33m[2m✓[22m[39m theme-switcher-labeled type-checks against the shipped components[33m 962[2mms[22m[39m
+     [33m[2m✓[22m[39m dialog-preview type-checks against the shipped components[33m 404[2mms[22m[39m
+     [33m[2m✓[22m[39m confirm-dialog-delete type-checks against the shipped components[33m 435[2mms[22m[39m
+     [33m[2m✓[22m[39m menu-actions type-checks against the shipped components[33m 383[2mms[22m[39m
+     [33m[2m✓[22m[39m tabs-overview type-checks against the shipped components[33m 393[2mms[22m[39m
+     [33m[2m✓[22m[39m tooltip-save type-checks against the shipped components[33m 368[2mms[22m[39m
+     [33m[2m✓[22m[39m popover-filters type-checks against the shipped components[33m 426[2mms[22m[39m
+     [33m[2m✓[22m[39m drawer-filters type-checks against the shipped components[33m 405[2mms[22m[39m
+     [33m[2m✓[22m[39m toast-saved type-checks against the shipped components[33m 889[2mms[22m[39m
+     [33m[2m✓[22m[39m navigation-preview type-checks against the shipped components[33m 404[2mms[22m[39m
+     [33m[2m✓[22m[39m error-registry type-checks against the shipped components[33m 794[2mms[22m[39m
+     [33m[2m✓[22m[39m avatar-group-team type-checks against the shipped components[33m 376[2mms[22m[39m
+     [33m[2m✓[22m[39m search-input-members type-checks against the shipped components[33m 822[2mms[22m[39m
+     [33m[2m✓[22m[39m chip-filters type-checks against the shipped components[33m 800[2mms[22m[39m
+     [33m[2m✓[22m[39m combobox-country type-checks against the shipped components[33m 902[2mms[22m[39m
+     [33m[2m✓[22m[39m disclosure-details type-checks against the shipped components[33m 844[2mms[22m[39m
+     [33m[2m✓[22m[39m accordion-faq type-checks against the shipped components[33m 759[2mms[22m[39m
+     [33m[2m✓[22m[39m pagination-results type-checks against the shipped components[33m 753[2mms[22m[39m
+     [33m[2m✓[22m[39m share-buttons-article type-checks against the shipped components[33m 769[2mms[22m[39m
+     [33m[2m✓[22m[39m toolbar-controls type-checks against the shipped components[33m 830[2mms[22m[39m
+     [33m[2m✓[22m[39m card-grid-results type-checks against the shipped components[33m 756[2mms[22m[39m
+     [33m[2m✓[22m[39m course-card-complete type-checks against the shipped components[33m 747[2mms[22m[39m
+     [33m[2m✓[22m[39m event-card-complete type-checks against the shipped components[33m 884[2mms[22m[39m
+     [33m[2m✓[22m[39m catches a deliberately wrong example, so the check is not vacuous[33m 494[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m51 passed[39m[22m[90m (51)[39m
+[2m      Tests [22m [1m[32m892 passed[39m[22m[90m (892)[39m
+[2m   Start at [22m 16:37:34
+[2m   Duration [22m 36.22s[2m (import 49%, tests 44%, transform 6%)[22m
+
+
+> seeyesyes@0.1.0 build
+> npm run generate && next build
+
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 81 components, 65 tokens, 8 rules, and 90 examples.
+▲ Next.js 16.4.6 (Turbopack)
+✓ Running next.config.ts took 63ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 777ms
+  Running TypeScript ...
+  Finished TypeScript in 2.7s ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/24) ...
+  Generating static pages using 9 workers (6/24) 
+  Generating static pages using 9 workers (12/24) 
+  Generating static pages using 9 workers (18/24) 
+✓ Generating static pages using 9 workers (24/24) in 1055ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /accessibility
+├ ƒ /ai/context
+├ ƒ /api/[...path]
+├ ƒ /components
+├ ƒ /components/[component]
+├ ○ /docs
+├   /docs/[slug]
+│ ├ ● /docs/concepts
+│ ├ ● /docs/configuration
+│ ├ ● /docs/context
+│ └ ● [+5 more paths]
+├ ○ /getting-started
+├ ƒ /internal-checks/controls
+├ ƒ /internal-checks/overlays
+├ ƒ /internal-checks/structure
+├ ƒ /internal-checks/theme-scopes
+├ ƒ /layouts
+├ ○ /llms-full.txt
+├ ○ /llms.txt
+├ ○ /playground
+├ ƒ /system/rules
+├ ○ /system/theme
+├ ƒ /system/tokens
+└ ƒ /validation
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+exit=0

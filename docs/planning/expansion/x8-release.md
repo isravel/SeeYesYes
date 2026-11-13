@@ -2,6 +2,8 @@
 
 Read [delivery rules](delivery.md) and [visual direction](visual-direction.md), then this file only. Read dependency contracts or public APIs as needed; do not load every milestone. Update [tracking](tracking.md) when reviewing this milestone.
 
+Status (2026-11-13): started, nothing checked. Partial results and blockers are in the [X8 evidence](../../evidence/expansion/X8/review.md): R01–R04 partly verified, R05 not performed, R06 not approved.
+
 Phase: D — Templates and release. Runs incrementally with X1–X7; the final gate requires all required tasks and relevant reviews.
 
 - [ ] **SYX-R01 — Package boundary.** Verify exports, styles, types, peer compatibility, install instructions and SSR/client boundaries. Keep workspace routes, demo-only data and consumer domain logic outside reusable exports. Verify a clean packed install without sibling source imports or copied private CSS.

@@ -1,0 +1,5 @@
+
+> seeyesyes@0.1.0 generate
+> node --import tsx scripts/generate.ts
+
+Validated 81 components, 65 tokens, 8 rules, and 90 examples.

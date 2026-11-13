@@ -1,0 +1,115 @@
+
+Running 78 tests using 5 workers
+
+[1/78] tests/browser/a11y-audit.spec.ts:48:1 › every route and relevant state has no serious or critical automated accessibility findings, in both appearances
+[2/78] tests/browser/x2-controls.spec.ts:10:1 › every Button variant renders, the aliases match their targets, and loading or disabled blocks activation
+[3/78] tests/browser/content-claims.spec.ts:20:1 › rendered pages make no unqualified claims about certification, compliance, packages, hosting, scanning, or AI results
+[4/78] tests/browser/ai-context.spec.ts:11:1 › overview is selected first and shows identity, labels, and the whole catalog in all three views
+[5/78] tests/browser/foundation.spec.ts:6:1 › seed preview hydrates, handles native activation, and has no serious axe findings
+[6/78] tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree
+[7/78] tests/browser/x2-controls.spec.ts:44:1 › Card, Dialog panel and menu blur under glass, a nested Card does not stack a second blur, and clean stays opaque
+[8/78] tests/browser/foundation.spec.ts:23:1 › foundation fits 320px and desktop in both appearances
+[9/78] tests/browser/x2-controls.spec.ts:55:1 › Avatar falls back to its initials, keeping its name, when the image fails, and the ring is applied
+  1) tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree 
+
+    Error: locator.uncheck: Error: strict mode violation: getByRole('checkbox', { name: /Dialog/ }) resolved to 2 elements:
+        1) <input checked type="checkbox" data-size="medium" data-tone="primary" class="QfBj-G_root "/> aka getByRole('checkbox', { name: 'Dialog Open a focused modal' })
+        2) <input type="checkbox" data-size="medium" data-tone="primary" class="QfBj-G_root "/> aka getByRole('checkbox', { name: 'ConfirmDialog Confirm a' })
+
+    Call log:
+      - waiting for getByRole('checkbox', { name: /Dialog/ })
+
+
+      66 |
+      67 |   // Unchecking everything returns to the empty state.
+    > 68 |   await page.getByRole('checkbox', { name: /Dialog/ }).uncheck();
+         |                                                        ^
+      69 |   await expect(page.getByRole('heading', { name: 'Select a component to export' })).toBeVisible();
+      70 | });
+      71 |
+        at /Users/raj-7718/Documents/Product/SeeYesYes/tests/browser/ai-context.spec.ts:68:56
+
+    Error Context: test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/ai-context-task-mode-needs-cfd62-s-and-the-three-views-agree/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[10/78] tests/browser/x2-controls.spec.ts:67:1 › toolbar Input and Select share the compact size and keep read-only and focus states
+[11/78] tests/browser/ai-context.spec.ts:72:1 › full mode includes everything
+[12/78] tests/browser/x2-controls.spec.ts:84:1 › Dialog under glass: named modal, panel and page blur are separate layers, Escape closes and returns focus
+[13/78] tests/browser/x2-controls.spec.ts:110:1 › Dialog keeps an opaque panel without backdrop blur when forced colors are active
+[14/78] tests/browser/ai-context.spec.ts:85:1 › exports follow the applied theme and appearance, and ignore an unapplied draft
+[15/78] tests/browser/x2-controls.spec.ts:120:1 › menu uses the glass surface, marks destructive items, supports arrow keys and returns focus
+[16/78] tests/browser/foundation.spec.ts:36:1 › production mock endpoints recover by scenario and remain read-only
+[17/78] tests/browser/x4-effects.spec.ts:14:1 › AnimatedBadge keeps its label and fill, and only glints when asked, never under reduced motion or forced colors
+[18/78] tests/browser/x2-controls.spec.ts:140:1 › Tooltip opens on focus with a short label, dismisses with Escape and uses the glass surface
+[19/78] tests/browser/x2-controls.spec.ts:152:1 › Tabs: line and boxed render, a disabled tab is skipped, and vertical tabs use the arrow keys they expect
+[20/78] tests/browser/x4-effects.spec.ts:31:1 › ShinyText stays readable text: static by default, swept only when asked, and plain under reduced motion and forced colors
+[21/78] tests/browser/ai-context.spec.ts:117:1 › loading, error, and missing-data states offer Retry, and the page fits and passes axe
+[22/78] tests/browser/x4-effects.spec.ts:55:1 › RotatingWord reserves the widest word, reads one phrase, cycles after hydration, and stops on pause, hover and reduced motion
+[23/78] tests/browser/x2-controls.spec.ts:175:1 › Table keeps semantic headers, scrolls inside its region on a narrow screen and shows the row hover
+[24/78] tests/browser/x2-controls.spec.ts:189:1 › auto-grow Textarea grows to the maximum then scrolls, shrinks back, and a fixed one stays put; manual size is kept
+[25/78] tests/browser/x2-controls.spec.ts:216:1 › Field wires the label, help and error, and Fieldset and RadioGroup name their groups with option messages
+[26/78] tests/browser/x2-controls.spec.ts:237:1 › feedback: alerts carry text and roles, Progress is determinate or indeterminate, and Skeleton stops animating with reduced motion
+[27/78] tests/browser/x2-controls.spec.ts:257:1 › the whole control page has no serious or critical accessibility violations in light and dark
+[28/78] tests/browser/ai-context.spec.ts:143:1 › copy and download deliver exactly the displayed export, with byte counts
+[29/78] tests/browser/x4-effects.spec.ts:95:1 › MenuToggle keeps one name, reports its state, turns bars into a close mark, and works from the keyboard
+[30/78] tests/browser/ai-context.spec.ts:174:1 › the settings download is the applied WorkspaceSettings without a cache
+[31/78] tests/browser/x4-effects.spec.ts:128:1 › MenuToggle swaps instantly under reduced motion and shows a visible focus ring
+[32/78] tests/browser/x2-controls.spec.ts:266:1 › nothing on the control page overflows a 320px viewport
+[33/78] tests/browser/x4-effects.spec.ts:147:1 › Logo is one named image: supplied image and wordmark are decoration, a failed image falls back to text, motion is opt-in
+[34/78] tests/browser/x2-controls.spec.ts:281:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › groups are named, separators are not focusable, and empty groups and edge separators are dropped
+[35/78] tests/browser/ai-context.spec.ts:191:1 › copy and download failures and empty selections give clear feedback
+[36/78] tests/browser/x4-effects.spec.ts:173:1 › FancyArrow is decoration unless named: hidden, never focusable, ignores the pointer, and drops out when its image fails
+[37/78] tests/browser/x2-controls.spec.ts:303:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an action item calls onAction; a link item does not and renders a real anchor
+[38/78] tests/browser/x4-effects.spec.ts:189:1 › TiltCard leans only with a mouse, never on touch or focus, stays a plain Card otherwise, and keeps its action working
+[39/78] tests/browser/ai-context.spec.ts:208:1 › the AGENTS.md snippet shows its size, copies exactly, and updates after Apply
+[40/78] tests/browser/x2-controls.spec.ts:322:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › Enter on a link item navigates and does not report an action
+[41/78] tests/browser/x4-effects.spec.ts:225:1 › TiltCard ignores touch pointers
+[42/78] tests/browser/x2-controls.spec.ts:330:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › an empty menu shows its message in the named menu and closes with focus returned
+[43/78] tests/browser/x5-sections.spec.ts:12:1 › ShareButtons links every network with the attributed address, encoded, in a new tab
+[44/78] tests/browser/x4-effects.spec.ts:235:1 › CardSwap keeps reading order, exposes only the front card, swaps by button and keyboard, and holds its height
+[45/78] tests/browser/x2-controls.spec.ts:343:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › at 320px the popover stays inside the viewport, a long label wraps, and the page does not scroll sideways
+[46/78] tests/browser/x5-sections.spec.ts:35:1 › ShareButtons resolves a relative address in the browser and leaves it unattributed on request
+[47/78] tests/browser/x2-controls.spec.ts:364:3 › SYX-021 menu links, groups, separators, empty state and narrow viewport › the open menu has no serious or critical accessibility violations
+[48/78] tests/browser/x5-sections.spec.ts:45:1 › Copy link copies the attributed address and reports success in text
+[49/78] tests/browser/x4-effects.spec.ts:269:1 › CardSwap autoplay is opt-in, pauses on hover, focus and its button, and never runs under reduced motion
+[50/78] tests/browser/x5-sections.spec.ts:54:1 › Copy link reports failure in text when the clipboard is unavailable or refuses
+[51/78] tests/browser/x5-sections.spec.ts:65:1 › ShareButtons never opens anything on load and disables every control for an address that is not a web link
+[52/78] tests/browser/x5-sections.spec.ts:76:1 › ShareButtons controls follow the size prop and keep a usable target
+[53/78] tests/browser/x5-sections.spec.ts:84:1 › ShareButtons tab order runs through the networks then Copy link, each with a focus ring
+[54/78] tests/browser/x5-sections.spec.ts:96:1 › SectionHead uses the chosen heading level and names each View all link by its heading
+[55/78] tests/browser/x5-sections.spec.ts:109:1 › SectionHead wraps the link below a long heading without overflowing
+[56/78] tests/browser/x5-sections.spec.ts:120:1 › StatStrip reads each label before its value, labels a missing value and shows only supplied figures
+[57/78] tests/browser/x5-sections.spec.ts:132:1 › StatStrip stacks to one column at 320px and spreads across a wide screen
+[58/78] tests/browser/x5-sections.spec.ts:142:1 › CtaPanel offers one action, keeps its text readable over the tint, and adds texture only when asked
+[59/78] tests/browser/x5-sections.spec.ts:158:1 › CtaPanel drops its decoration in forced colors
+[60/78] tests/browser/x5-sections.spec.ts:167:1 › Footer is the contentinfo landmark with one named navigation, at most four columns and no stray headings
+[61/78] tests/browser/x5-sections.spec.ts:183:1 › Footer links are tabbable in column order with a visible focus ring, and the top edge is a line
+[62/78] tests/browser/x5-sections.spec.ts:197:1 › sections fit a 320px screen without horizontal scrolling
+[63/78] tests/browser/x5-sections.spec.ts:209:1 › Navbar renders one named navigation, marks the current page and skips empty groups
+[64/78] tests/browser/x5-sections.spec.ts:224:1 › Navbar menu starts closed on a narrow screen, opens, and Escape closes it and returns focus
+[65/78] tests/browser/x5-sections.spec.ts:242:1 › Hero puts text first, splits only when media is supplied and never overflows
+[66/78] tests/browser/x5-sections.spec.ts:259:1 › FeatureBento keeps reading order, names links by feature and lays three over four
+[67/78] tests/browser/x5-sections.spec.ts:276:1 › Testimonials never autoplay, show captions, pause others and say when a video fails
+[68/78] tests/browser/x5-sections.spec.ts:286:1 › AppBadges link each store by name, keep their own proportions and say when an image fails
+[69/78] tests/browser/x5-sections.spec.ts:299:1 › Instructor shows a heading, stacks on narrow screens and replaces a failed portrait with the name
+[70/78] tests/browser/x5-sections.spec.ts:317:1 › sections have no serious accessibility violations in light and dark, glass and clean
+[71/78] tests/browser/x4-effects.spec.ts:303:1 › MediaFrame reserves its ratio before and after load, captions the figure, and shows text when the media fails
+[72/78] tests/browser/x4-effects.spec.ts:329:1 › effects fit a 320px screen without horizontal scrolling
+[73/78] tests/browser/x4-effects.spec.ts:337:1 › effects have no serious accessibility violations in light and dark, glass and clean
+[74/78] tests/browser/x5-sections.spec.ts:325:1 › the component pages for the sections show a live preview and their states
+[75/78] tests/browser/content-claims.spec.ts:32:1 › agent files, exports, and the README make no unqualified claims either
+[76/78] tests/browser/content-claims.spec.ts:40:1 › every component is labeled with its real maturity and review status, never as reviewed or stable without evidence
+[77/78] tests/browser/x5-sections.spec.ts:333:1 › sections keep the page free of console errors
+[78/78] tests/browser/content-claims.spec.ts:52:1 › the product states that the agent evaluation has not produced results
+  1 failed
+    tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree 
+  77 passed (3.0m)
+exit=1

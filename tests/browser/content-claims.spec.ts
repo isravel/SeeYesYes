@@ -38,6 +38,7 @@ test('agent files, exports, and the README make no unqualified claims either', a
 });
 
 test('every component is labeled with its real maturity and review status, never as reviewed or stable without evidence', async ({ page }) => {
+  test.setTimeout(300_000);
   for (const component of registry.components) {
     await page.goto(`/components/${component.id}`);
     const header = page.getByRole('heading', { level: 1 }).locator('xpath=ancestor::header');

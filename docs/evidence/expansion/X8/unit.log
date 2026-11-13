@@ -1,0 +1,140 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/Users/raj-7718/Documents/Product/SeeYesYes[39m
+
+ [32m✓[39m tests/oocss.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 345[2mms[22m[39m
+ [32m✓[39m tests/context-views.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 402[2mms[22m[39m
+ [32m✓[39m tests/theme-bootstrap.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 561[2mms[22m[39m
+   [32m✓[39m bootstrap allowlist and resolver [2m(2)[22m
+     [33m[2m✓[22m[39m accepts every value the resolver can emit, across all scale and effect combinations[33m 508[2mms[22m[39m
+ [32m✓[39m tests/contract.test.ts [2m([22m[2m52 tests[22m[2m)[22m[33m 797[2mms[22m[39m
+ [32m✓[39m tests/adapter.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 839[2mms[22m[39m
+ [32m✓[39m tests/export-files.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 156[2mms[22m[39m
+ [32m✓[39m tests/theme-writer.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 111[2mms[22m[39m
+ [32m✓[39m tests/design-tokens.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+ [32m✓[39m tests/theme-persistence.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 100[2mms[22m[39m
+ [32m✓[39m tests/evaluation-fixture.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1629[2mms[22m[39m
+   [32m✓[39m fixture app (E2) [2m(6)[22m
+     [33m[2m✓[22m[39m resets to a clean copy each time, discarding anything an earlier run left behind[33m 876[2mms[22m[39m
+ [32m✓[39m tests/validation-fixtures.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m tests/context-completeness.test.ts [2m([22m[2m87 tests[22m[2m)[22m[33m 2467[2mms[22m[39m
+   [32m✓[39m local export size comparison (bytes, not tokens) [2m(4)[22m
+     [33m[2m✓[22m[39m a single-component task export is smaller than the full export, in JSON and Markdown[33m 583[2mms[22m[39m
+     [33m[2m✓[22m[39m overview is smaller than full and than a task export for a component with real props, and full is the largest[33m 461[2mms[22m[39m
+     [33m[2m✓[22m[39m a small fixture is much smaller than full, while a wide closure honestly reports its size[33m 505[2mms[22m[39m
+ [32m✓[39m tests/evaluation-tasks.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m tests/agent-files.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32m✓[39m tests/evaluation-score.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 975[2mms[22m[39m
+   [32m✓[39m scoring a run [2m(2)[22m
+     [33m[2m✓[22m[39m scores only the files a run changed or added[33m 380[2mms[22m[39m
+ [32m✓[39m tests/theme-check.test.ts [2m([22m[2m65 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m tests/style-ownership.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m tests/x3-display.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/x4-effects.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/glass-theme.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/scales.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m tests/x6-listings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+ [32m✓[39m tests/x7-templates.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 85[2mms[22m[39m
+ [32m✓[39m tests/x5-sections.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m tests/docs.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/component-catalog.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m tests/x3-controls.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 127[2mms[22m[39m
+ [32m✓[39m tests/theme-scope.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m tests/x3-composition.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 88[2mms[22m[39m
+ [32m✓[39m tests/component-playground.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 448[2mms[22m[39m
+   [32m✓[39m live demos [2m(3)[22m
+     [33m[2m✓[22m[39m render every variant option and forced state for real, and the code matches the selection[33m 435[2mms[22m[39m
+ [32m✓[39m tests/implementation-audit.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/accessibility-evidence.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/navigation-compact.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/link-buttons.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/component-inventory.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/coverage.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/theme-contrast.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/x2-controls.test.ts [2m([22m[2m54 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m tests/getting-started.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/playground.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/token-browse.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/x3-confirm.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m tests/x3-overlay.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/routes.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/rules-browse.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/validation-browse.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/layouts.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/utils-cn.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/shell.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/x3-toast.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/example-code.test.ts [2m([22m[2m85 tests[22m[2m)[22m[33m 50430[2mms[22m[39m
+   [32m✓[39m registry example code [2m(85)[22m
+     [33m[2m✓[22m[39m button-save type-checks against the shipped components[33m 1498[2mms[22m[39m
+     [33m[2m✓[22m[39m spinner-progress type-checks against the shipped components[33m 1067[2mms[22m[39m
+     [33m[2m✓[22m[39m link-docs type-checks against the shipped components[33m 682[2mms[22m[39m
+     [33m[2m✓[22m[39m link-buttons type-checks against the shipped components[33m 752[2mms[22m[39m
+     [33m[2m✓[22m[39m card-profile type-checks against the shipped components[33m 679[2mms[22m[39m
+     [33m[2m✓[22m[39m badge-status type-checks against the shipped components[33m 681[2mms[22m[39m
+     [33m[2m✓[22m[39m separator-sections type-checks against the shipped components[33m 851[2mms[22m[39m
+     [33m[2m✓[22m[39m avatar-member type-checks against the shipped components[33m 761[2mms[22m[39m
+     [33m[2m✓[22m[39m alert-recovery type-checks against the shipped components[33m 4724[2mms[22m[39m
+     [33m[2m✓[22m[39m progress-upload type-checks against the shipped components[33m 324[2mms[22m[39m
+     [33m[2m✓[22m[39m skeleton-list type-checks against the shipped components[33m 318[2mms[22m[39m
+     [33m[2m✓[22m[39m backdrop-glass type-checks against the shipped components[33m 551[2mms[22m[39m
+     [33m[2m✓[22m[39m theme-switcher-labeled type-checks against the shipped components[33m 1444[2mms[22m[39m
+     [33m[2m✓[22m[39m input-email type-checks against the shipped components[33m 318[2mms[22m[39m
+     [33m[2m✓[22m[39m select-role type-checks against the shipped components[33m 420[2mms[22m[39m
+     [33m[2m✓[22m[39m switch-notifications type-checks against the shipped components[33m 327[2mms[22m[39m
+     [33m[2m✓[22m[39m label-name type-checks against the shipped components[33m 350[2mms[22m[39m
+     [33m[2m✓[22m[39m form-field-email type-checks against the shipped components[33m 336[2mms[22m[39m
+     [33m[2m✓[22m[39m fieldset-contact type-checks against the shipped components[33m 305[2mms[22m[39m
+     [33m[2m✓[22m[39m dialog-preview type-checks against the shipped components[33m 544[2mms[22m[39m
+     [33m[2m✓[22m[39m confirm-dialog-delete type-checks against the shipped components[33m 567[2mms[22m[39m
+     [33m[2m✓[22m[39m menu-actions type-checks against the shipped components[33m 534[2mms[22m[39m
+     [33m[2m✓[22m[39m tabs-overview type-checks against the shipped components[33m 496[2mms[22m[39m
+     [33m[2m✓[22m[39m tooltip-save type-checks against the shipped components[33m 451[2mms[22m[39m
+     [33m[2m✓[22m[39m popover-filters type-checks against the shipped components[33m 504[2mms[22m[39m
+     [33m[2m✓[22m[39m drawer-filters type-checks against the shipped components[33m 585[2mms[22m[39m
+     [33m[2m✓[22m[39m toast-saved type-checks against the shipped components[33m 1193[2mms[22m[39m
+     [33m[2m✓[22m[39m table-invoices type-checks against the shipped components[33m 341[2mms[22m[39m
+     [33m[2m✓[22m[39m navigation-preview type-checks against the shipped components[33m 444[2mms[22m[39m
+     [33m[2m✓[22m[39m empty-projects type-checks against the shipped components[33m 343[2mms[22m[39m
+     [33m[2m✓[22m[39m error-registry type-checks against the shipped components[33m 1094[2mms[22m[39m
+     [33m[2m✓[22m[39m not-found-component type-checks against the shipped components[33m 334[2mms[22m[39m
+     [33m[2m✓[22m[39m copy-context type-checks against the shipped components[33m 303[2mms[22m[39m
+     [33m[2m✓[22m[39m live-dot-status type-checks against the shipped components[33m 305[2mms[22m[39m
+     [33m[2m✓[22m[39m kbd-shortcut type-checks against the shipped components[33m 377[2mms[22m[39m
+     [33m[2m✓[22m[39m avatar-group-team type-checks against the shipped components[33m 481[2mms[22m[39m
+     [33m[2m✓[22m[39m icon-button-add type-checks against the shipped components[33m 363[2mms[22m[39m
+     [33m[2m✓[22m[39m search-input-members type-checks against the shipped components[33m 1288[2mms[22m[39m
+     [33m[2m✓[22m[39m segmented-view type-checks against the shipped components[33m 590[2mms[22m[39m
+     [33m[2m✓[22m[39m chip-filters type-checks against the shipped components[33m 1328[2mms[22m[39m
+     [33m[2m✓[22m[39m checkbox-group-channels type-checks against the shipped components[33m 415[2mms[22m[39m
+     [33m[2m✓[22m[39m input-otp-verify type-checks against the shipped components[33m 432[2mms[22m[39m
+     [33m[2m✓[22m[39m combobox-country type-checks against the shipped components[33m 2048[2mms[22m[39m
+     [33m[2m✓[22m[39m disclosure-details type-checks against the shipped components[33m 1084[2mms[22m[39m
+     [33m[2m✓[22m[39m accordion-faq type-checks against the shipped components[33m 1099[2mms[22m[39m
+     [33m[2m✓[22m[39m pagination-results type-checks against the shipped components[33m 1128[2mms[22m[39m
+     [33m[2m✓[22m[39m animated-badge-new type-checks against the shipped components[33m 362[2mms[22m[39m
+     [33m[2m✓[22m[39m logo-header type-checks against the shipped components[33m 302[2mms[22m[39m
+     [33m[2m✓[22m[39m tilt-card-feature type-checks against the shipped components[33m 319[2mms[22m[39m
+     [33m[2m✓[22m[39m carousel-cards type-checks against the shipped components[33m 346[2mms[22m[39m
+     [33m[2m✓[22m[39m share-buttons-article type-checks against the shipped components[33m 1076[2mms[22m[39m
+     [33m[2m✓[22m[39m cta-panel-start type-checks against the shipped components[33m 365[2mms[22m[39m
+     [33m[2m✓[22m[39m navbar-site type-checks against the shipped components[33m 352[2mms[22m[39m
+     [33m[2m✓[22m[39m hero-landing type-checks against the shipped components[33m 415[2mms[22m[39m
+     [33m[2m✓[22m[39m feature-bento-highlights type-checks against the shipped components[33m 339[2mms[22m[39m
+     [33m[2m✓[22m[39m testimonials-voices type-checks against the shipped components[33m 316[2mms[22m[39m
+     [33m[2m✓[22m[39m app-badges-stores type-checks against the shipped components[33m 316[2mms[22m[39m
+     [33m[2m✓[22m[39m instructor-profile type-checks against the shipped components[33m 327[2mms[22m[39m
+     [33m[2m✓[22m[39m toolbar-controls type-checks against the shipped components[33m 1346[2mms[22m[39m
+     [33m[2m✓[22m[39m card-grid-results type-checks against the shipped components[33m 1114[2mms[22m[39m
+     [33m[2m✓[22m[39m list-card-result type-checks against the shipped components[33m 317[2mms[22m[39m
+     [33m[2m✓[22m[39m clear-filters-active type-checks against the shipped components[33m 345[2mms[22m[39m
+     [33m[2m✓[22m[39m course-card-complete type-checks against the shipped components[33m 974[2mms[22m[39m
+     [33m[2m✓[22m[39m event-card-complete type-checks against the shipped components[33m 1024[2mms[22m[39m
+     [33m[2m✓[22m[39m cohort-card-complete type-checks against the shipped components[33m 395[2mms[22m[39m
+     [33m[2m✓[22m[39m catches a deliberately wrong example, so the check is not vacuous[33m 648[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m51 passed[39m[22m[90m (51)[39m
+[2m      Tests [22m [1m[32m892 passed[39m[22m[90m (892)[39m
+[2m   Start at [22m 17:41:00
+[2m   Duration [22m 51.32s[2m (import 50%, tests 44%, transform 5%)[22m
+
+exit=0

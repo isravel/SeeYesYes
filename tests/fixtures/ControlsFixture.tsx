@@ -303,7 +303,7 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         ]} />
         <DropdownMenu triggerLabel="Open empty menu" items={[]} onAction={setMessage} />
         <Tooltip triggerLabel="Glass tooltip trigger" content="Short label" delay={0} onPress={() => setMessage('pressed')} />
-        <p role="status">{message}</p>
+        <p role="status" data-testid="menu-status">{message}</p>
       </section>
     </ThemeScope>
   </main>;

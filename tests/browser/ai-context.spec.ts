@@ -36,7 +36,7 @@ test('task mode needs a selection, explains dependencies, and the three views ag
   await expect(page.getByRole('heading', { name: 'Select a component to export' })).toBeVisible();
 
   await page.getByRole('searchbox', { name: 'Find components' }).fill('dialog');
-  await page.getByRole('checkbox', { name: /Dialog/ }).check();
+  await page.getByRole('checkbox', { name: /^Dialog\b/ }).check();
   await page.getByRole('searchbox', { name: 'Find components' }).fill('zzz');
   await expect(page.getByText(/No components match/)).toBeVisible();
   await page.getByRole('button', { name: 'Clear search' }).click();
@@ -65,7 +65,7 @@ test('task mode needs a selection, explains dependencies, and the three views ag
   expect(markdown).toContain(`Requested: dialog`);
 
   // Unchecking everything returns to the empty state.
-  await page.getByRole('checkbox', { name: /Dialog/ }).uncheck();
+  await page.getByRole('checkbox', { name: /^Dialog\b/ }).uncheck();
   await expect(page.getByRole('heading', { name: 'Select a component to export' })).toBeVisible();
 });
 

@@ -1,0 +1,14 @@
+
+Running 9 tests using 1 worker
+
+[1/9] tests/browser/ai-context.spec.ts:11:1 › overview is selected first and shows identity, labels, and the whole catalog in all three views
+[2/9] tests/browser/ai-context.spec.ts:33:1 › task mode needs a selection, explains dependencies, and the three views agree
+[3/9] tests/browser/ai-context.spec.ts:72:1 › full mode includes everything
+[4/9] tests/browser/ai-context.spec.ts:85:1 › exports follow the applied theme and appearance, and ignore an unapplied draft
+[5/9] tests/browser/ai-context.spec.ts:117:1 › loading, error, and missing-data states offer Retry, and the page fits and passes axe
+[6/9] tests/browser/ai-context.spec.ts:143:1 › copy and download deliver exactly the displayed export, with byte counts
+[7/9] tests/browser/ai-context.spec.ts:174:1 › the settings download is the applied WorkspaceSettings without a cache
+[8/9] tests/browser/ai-context.spec.ts:191:1 › copy and download failures and empty selections give clear feedback
+[9/9] tests/browser/ai-context.spec.ts:208:1 › the AGENTS.md snippet shows its size, copies exactly, and updates after Apply
+  9 passed (24.4s)
+exit=0

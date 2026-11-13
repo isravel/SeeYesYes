@@ -183,7 +183,7 @@ const entries: Entry[] = [
     prefer: ['Use FeatureBento for three to seven highlights. Use Card for a single group and Carousel for a scrolling row.'], allowed: ['card', 'badge', 'link', 'media-frame'],
     constraints: ['The three-over-four pattern applies from 961px; below that every layout is the same auto-fit grid.'],
     exampleId: 'feature-bento-highlights', previewKey: 'featureBentoHighlights', exampleComponentIds: ['feature-bento'],
-    code: 'import { FeatureBento } from "@/components/ui/feature-bento";\n<FeatureBento label="Highlights" items={[{ id: "tokens", title: "Shared tokens", description: "One source for color and spacing.", href: "/system/tokens" }, { id: "a11y", title: "Accessible by default", badge: "Built in" }, { id: "docs", title: "Readable contracts" }]} />',
+    code: 'import { FeatureBento } from "@/components/ui/feature-bento";\n<FeatureBento label="Highlights" items={[{ id: "tokens", title: "Shared tokens", description: "One source for color and spacing.", href: "/system/tokens" }, { id: "a11y", title: "Keyboard friendly", badge: "Built in" }, { id: "docs", title: "Readable contracts" }]} />',
   },
   {
     id: 'testimonials', name: 'Testimonials', category: 'data', purpose: 'Show stories and reviews that you supply, as portrait videos with captions or quotes with their authors.', shortPurpose: 'Supplied stories and reviews.', element: 'ul',
