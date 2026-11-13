@@ -68,6 +68,12 @@ import { Footer } from '@/components/ui/footer';
 import { SectionHead } from '@/components/ui/section-head';
 import { StatStrip } from '@/components/ui/stat-strip';
 import { CtaPanel } from '@/components/ui/cta-panel';
+import { Navbar } from '@/components/ui/navbar';
+import { Hero } from '@/components/ui/hero';
+import { FeatureBento } from '@/components/ui/feature-bento';
+import { Testimonials } from '@/components/ui/testimonials';
+import { AppBadges } from '@/components/ui/app-badges';
+import { Instructor } from '@/components/ui/instructor';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -188,6 +194,12 @@ function FooterSite() { return <div className="previewSections"><Footer identity
 function SectionHeadGuides() { return <div className="previewSections"><SectionHead heading="Featured guides" subtitle="Start with the basics." viewAllHref="/docs" /></div>; }
 function StatStripNumbers() { return <div className="previewSections"><StatStrip items={[{ id: 'members', label: 'Team members', value: '24' }, { id: 'projects', label: 'Active projects', value: '9' }, { id: 'regions', label: 'Regions' }]} /></div>; }
 function CtaPanelStart() { return <div className="previewSections"><CtaPanel heading="Ready to start?" description="Create a workspace in a minute." action={<Button>Create workspace</Button>} /></div>; }
+function NavbarSite() { return <div className="previewSections"><Navbar label="Main" brand={<Logo label="Acme" wordmark="Acme" />} currentHref="/docs" groups={[{ id: 'main', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] }]} actions={<Button>Get started</Button>} sticky={false} /></div>; }
+function HeroLanding() { return <div className="previewSections"><Hero heading={<>Ship a <Highlight>consistent</Highlight> interface</>} lead="Reusable parts that keep every screen accessible." actions={<Button>Get started</Button>} /></div>; }
+function FeatureBentoHighlights() { return <div className="previewSections"><FeatureBento label="Highlights" items={[{ id: 'tokens', title: 'Shared tokens', description: 'One source for color and spacing.', href: '/system/tokens' }, { id: 'a11y', title: 'Accessible by default', badge: 'Built in' }, { id: 'docs', title: 'Readable contracts' }]} /></div>; }
+function TestimonialsVoices() { return <div className="previewSections"><Testimonials items={[{ kind: 'review', id: 'review-1', quote: 'Setup took an afternoon.', author: { name: 'Priya Nair', role: 'Engineering lead' } }, { kind: 'story', id: 'story-1', src: '/sample-story.webm', title: 'How we adopted it', author: { name: 'Sam Okoye' }, captions: { src: '/sample-captions.vtt', srclang: 'en' } }]} /></div>; }
+function AppBadgesStores() { return <div className="previewSections"><AppBadges badges={[{ id: 'ios', store: 'app-store', href: 'https://example.com/ios', src: '/sample-badge.svg' }, { id: 'android', store: 'google-play', href: 'https://example.com/android', src: '/sample-badge.svg' }]} /></div>; }
+function InstructorProfile() { return <div className="previewSections"><Instructor name="Maya Chen" role="Lead instructor" bio={<p>Maya teaches interface design.</p>} portrait={{ src: '/sample-avatar.svg', alt: 'Portrait of Maya Chen' }} socials={[{ id: 'site', label: 'Website', href: 'https://example.com' }]} /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -203,6 +215,7 @@ export const previewMap = {
   animatedBadgeNew: AnimatedBadgeNew, shinyTextHeadline: ShinyTextHeadline, rotatingWordHeadline: RotatingWordHeadline, menuToggleNav: MenuToggleNav,
   logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure, carouselCards: CarouselCards,
   shareButtonsArticle: ShareButtonsArticle, footerSite: FooterSite, sectionHeadGuides: SectionHeadGuides, statStripNumbers: StatStripNumbers, ctaPanelStart: CtaPanelStart,
+  navbarSite: NavbarSite, heroLanding: HeroLanding, featureBentoHighlights: FeatureBentoHighlights, testimonialsVoices: TestimonialsVoices, appBadgesStores: AppBadgesStores, instructorProfile: InstructorProfile,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };

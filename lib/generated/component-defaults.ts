@@ -66,7 +66,13 @@ export type ComponentDefaults = {
 "footer": { "label": string };
 "section-head": { "level": 2 | 3 | 4; "viewAllLabel": string };
 "stat-strip": { "missingLabel": string };
-"cta-panel": { "level": 2 | 3 | 4; "texture": boolean }
+"cta-panel": { "level": 2 | 3 | 4; "texture": boolean };
+"navbar": { "label": string; "sticky": boolean; "menuLabel": string; "defaultMenuOpen": boolean };
+"hero": { "level": 1 | 2; "layout": "auto" | "centered" | "split" };
+"feature-bento": { "layout": "grid" | "three-over-four"; "level": 3 | 2 | 4 };
+"testimonials": { "label": string; "unavailableLabel": string };
+"app-badges": { "label": string; "size": "medium" | "small" | "large" };
+"instructor": { "level": 3 | 2 | 4 }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -364,5 +370,30 @@ export const contractDefaults: ComponentDefaults = {
   "cta-panel": {
     "level": 2,
     "texture": false
+  },
+  "navbar": {
+    "label": "Main",
+    "sticky": true,
+    "menuLabel": "Menu",
+    "defaultMenuOpen": false
+  },
+  "hero": {
+    "level": 1,
+    "layout": "auto"
+  },
+  "feature-bento": {
+    "layout": "grid",
+    "level": 3
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "unavailableLabel": "This video could not be loaded."
+  },
+  "app-badges": {
+    "label": "Get the app",
+    "size": "medium"
+  },
+  "instructor": {
+    "level": 3
   }
 };

@@ -22,6 +22,25 @@ Failures found in this batch, all fixed:
 
 Other edits were found in the working tree that were not made by this batch and were committed with it, after the full unit suite, type, lint, audit and build passed with them in place: Carousel's `states` list gained `manual` and `autoplay`; four `shortPurpose` strings in `lib/data/effect-contracts.ts` were reworded; `AGENTS_SNIPPET_TARGET_BYTES` in `lib/contract/agent-files.ts` went from 6144 to 8192; `lib/utils/share.ts` was added to `evaluation/reset.mjs`; and share-buttons, footer and section-head were added to the inventory, contract and keyboard-matrix tests. Their origin is unconfirmed (another tool was running in this workspace).
 
+## Second batch: Navbar, Hero, FeatureBento, Testimonials, AppBadges, Instructor
+
+SYX-036, 038, 045, 046, 049 and 050. No new dependency. New placeholder files in `public/`: `sample-badge.svg`, `sample-story.webm` (a tiny placeholder video) and `sample-captions.vtt`.
+
+| Command | Result |
+| --- | --- |
+| `npm run typecheck` | clean (73 components, 82 examples) |
+| `npx eslint .` | clean |
+| `npm run audit:components` | All 73 component implementations match their documented props, literal defaults, direct CSS tokens and styled compounds |
+| `npx vitest run` | 804 pass across 49 files, including `tests/x5-sections.test.ts` (50) and the type-check of every recommended example |
+| `npm run build` | passes |
+| `npx playwright test` on `x5-sections`, `keyboard-matrix`, `components-catalog`, `component-detail`, `console` | 42 pass (26 `x5-sections`, plus the others), run against the build made after the last source edit. The full browser suite was not run |
+
+Notes:
+
+- The audit requires a styled state to be listed in `states`; the Navbar toggle's hide rule was written so it is not read as a `hover` or `disabled` selector.
+- The keyboard matrix checks Testimonials' focus target by element (`video`), because a native video has no ARIA role.
+- Official App Store and Google Play badge artwork was not added or checked; the preview uses a neutral placeholder.
+
 ## Shared files changed
 
 `lib/data/section-contracts.ts` (new), `lib/data/registry.ts` (registration and the focus rule list), `lib/utils/share.ts` (new), generated files, previews and demos, the controls fixture (new "Page sections" block), `tests/component-inventory.test.ts`, `tests/contract.test.ts`, `tests/browser/keyboard-matrix.spec.ts`, and the regenerated component review matrix.
@@ -32,4 +51,4 @@ Human visual review over glass, reduced-transparency rendering, screen readers, 
 
 ## Remaining X5
 
-SYX-036 Navbar, 038 Hero, 045 Feature bento, 046 Testimonials, 049 App badges and 050 Instructor.
+None of the 11 tasks is open. Milestone signoff stays open for human visual review, the packed-consumer check and the gaps above. Also not covered for the second batch: Navbar tint over busy content and touch use, caption quality and real video playback in Testimonials, and real official store badges.

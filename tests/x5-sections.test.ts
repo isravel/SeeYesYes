@@ -6,6 +6,12 @@ import { Footer } from '@/components/ui/footer';
 import { SectionHead } from '@/components/ui/section-head';
 import { StatStrip } from '@/components/ui/stat-strip';
 import { CtaPanel } from '@/components/ui/cta-panel';
+import { Navbar } from '@/components/ui/navbar';
+import { Hero } from '@/components/ui/hero';
+import { FeatureBento } from '@/components/ui/feature-bento';
+import { Testimonials } from '@/components/ui/testimonials';
+import { AppBadges } from '@/components/ui/app-badges';
+import { Instructor } from '@/components/ui/instructor';
 import { resolveShareUrl, shareHref } from '@/lib/utils/share';
 import { registry } from '@/lib/data/registry';
 
@@ -249,5 +255,156 @@ describe('X5 section contracts', () => {
   it('does not let a theme default change a section beyond control size', () => {
     expect(get('share-buttons').themeDefaults).toEqual({ size: ['medium', 'small', 'large'] });
     for (const id of ['footer', 'section-head', 'stat-strip', 'cta-panel']) expect(get(id).themeDefaults, id).toEqual({});
+  });
+});
+
+describe('SYX-036 Navbar', () => {
+  const groups = [{ id: 'main', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] }, { id: 'empty', links: [] }, { id: 'more', label: 'More', links: [{ label: 'Publisher', href: 'https://example.com', external: true }] }];
+  it('renders one named navigation in a header, marks the current page and skips empty groups', () => {
+    const out = html(h(Navbar, { label: 'Primary', groups, currentHref: '/docs' }));
+    expect(out).toMatch(/^<header/);
+    expect(out.match(/<nav /g)).toHaveLength(1);
+    expect(out).toContain('aria-label="Primary"');
+    expect(out.match(/aria-current="page"/g)).toHaveLength(1);
+    expect(out.match(/<ul /g)).toHaveLength(2);
+    expect(out).toContain('rel="noopener noreferrer"');
+    expect(out).toContain('(opens in a new tab)');
+  });
+  it('starts with the menu closed, collapsed and controlled, unless asked to open', () => {
+    const closed = html(h(Navbar, { groups }));
+    expect(closed).toContain('aria-expanded="false"');
+    expect(closed).not.toContain('data-open');
+    expect(html(h(Navbar, { groups, defaultMenuOpen: true }))).toContain('aria-expanded="true"');
+  });
+  it('is sticky by default, never marked scrolled on the server, and can be inline', () => {
+    expect(html(h(Navbar, { groups }))).toContain('data-sticky="true"');
+    expect(html(h(Navbar, { groups }))).not.toContain('data-scrolled');
+    expect(html(h(Navbar, { groups, sticky: false }))).not.toContain('data-sticky');
+  });
+});
+
+describe('SYX-038 Hero', () => {
+  it('puts text first, then actions, then media, and writes no copy of its own', () => {
+    const out = html(h(Hero, { heading: 'Build', lead: 'Lead text', actions: h('a', { href: '/x' }, 'Go'), media: h('div', null, 'media') }));
+    expect(out).toMatch(/<h1[^>]*>Build<\/h1>/);
+    expect(out.indexOf('Build')).toBeLessThan(out.indexOf('Lead text'));
+    expect(out.indexOf('Lead text')).toBeLessThan(out.indexOf('Go'));
+    expect(out.indexOf('Go')).toBeLessThan(out.indexOf('media'));
+    expect(html(h(Hero, { heading: 'Only' })).replace(/<[^>]+>/g, '')).toBe('Only');
+  });
+  it('splits only when media is supplied and not forced centered, and honors the level', () => {
+    const media = h('div', null, 'm');
+    expect(html(h(Hero, { heading: 'A', media }))).toContain('data-layout="split"');
+    expect(html(h(Hero, { heading: 'A' }))).toContain('data-layout="centered"');
+    expect(html(h(Hero, { heading: 'A', layout: 'split' }))).toContain('data-layout="centered"');
+    expect(html(h(Hero, { heading: 'A', media, layout: 'centered' }))).toContain('data-layout="centered"');
+    expect(html(h(Hero, { heading: 'A', level: 2 }))).toMatch(/<h2/);
+  });
+});
+
+describe('SYX-045 FeatureBento', () => {
+  const items = Array.from({ length: 8 }, (_, index) => ({ id: `f${index}`, title: `Feature ${index}` }));
+  it('keeps the supplied order, one heading per cell at the chosen level', () => {
+    const out = html(h(FeatureBento, { items, level: 4 }));
+    expect(out.match(/<h4/g)).toHaveLength(8);
+    expect(out.indexOf('Feature 0')).toBeLessThan(out.indexOf('Feature 7'));
+  });
+  it('marks three-over-four rows by position in each run of seven', () => {
+    const rows = [...html(h(FeatureBento, { items, layout: 'three-over-four' })).matchAll(/data-row="(\w+)"/g)].map(match => match[1]);
+    expect(rows).toEqual(['top', 'top', 'top', 'bottom', 'bottom', 'bottom', 'bottom', 'top']);
+    expect(html(h(FeatureBento, { items }))).not.toContain('data-row');
+  });
+  it('shows a badge and a link only when supplied, and names the link by its feature', () => {
+    const out = html(h(FeatureBento, { items: [{ id: 'a', title: 'Alpha', badge: 'New', href: '/a' }, { id: 'b', title: 'Beta' }] }));
+    expect(out).toContain('New');
+    expect(out.match(/<a /g)).toHaveLength(1);
+    expect(out).toContain('Learn more');
+    expect(out).toContain(' about Alpha');
+    expect(html(h(FeatureBento, { items: [] }))).toBe('');
+  });
+});
+
+describe('SYX-046 Testimonials', () => {
+  const captions = { src: '/c.vtt', srclang: 'en' };
+  const items = [
+    { kind: 'review', id: 'r', quote: 'Setup was quick.', author: { name: 'Priya Nair', role: 'Lead' }, source: 'Survey' },
+    { kind: 'story', id: 's', src: '/s.webm', title: 'Adoption', author: { name: 'Sam Okoye' }, captions },
+  ];
+  it('renders only supplied words, with the author beside each quote', () => {
+    const out = html(h(Testimonials, { items }));
+    expect(out).toContain('Setup was quick.');
+    expect(out).toContain('Priya Nair');
+    expect(out).toContain('Survey');
+    expect(out).toContain('>PN<');
+    expect(out).not.toMatch(/stars?|rating|verified/i);
+  });
+  it('renders a paused video with controls and default captions, and never autoplays', () => {
+    const out = html(h(Testimonials, { items }));
+    expect(out).toMatch(/<video[^>]*controls/);
+    expect(out).not.toMatch(/autoplay|loop|muted/i);
+    expect(out).toMatch(/<track[^>]*kind="captions"[^>]*default/);
+  });
+  it('renders nothing for an empty list', () => { expect(html(h(Testimonials, { items: [] }))).toBe(''); });
+});
+
+describe('SYX-049 AppBadges', () => {
+  const badges = [{ id: 'ios', store: 'app-store', href: 'https://example.com/ios', src: '/b.svg' }, { id: 'play', store: 'google-play', href: 'https://example.com/play', src: '/b.svg' }];
+  it('links only the supplied stores, named by store, with decorative images', () => {
+    const out = html(h(AppBadges, { badges: badges.slice(0, 1) }));
+    expect(out.match(/<a /g)).toHaveLength(1);
+    expect(out).toContain('aria-label="Download on the App Store"');
+    expect(out).toContain('href="https://example.com/ios"');
+    expect(out).toContain('alt=""');
+    expect(out).not.toContain('Google Play');
+    expect(html(h(AppBadges, { badges }))).toContain('aria-label="Get it on Google Play"');
+  });
+  it('lets a label override the name, defaults to medium, and renders nothing when empty', () => {
+    expect(html(h(AppBadges, { badges: [{ ...badges[0], label: 'Get the iPhone app' }] }))).toContain('aria-label="Get the iPhone app"');
+    expect(html(h(AppBadges, { badges }))).toContain('data-size="medium"');
+    expect(html(h(AppBadges, { badges: [] }))).toBe('');
+  });
+});
+
+describe('SYX-050 Instructor', () => {
+  it('shows the name as a heading and leaves out every part that is not supplied', () => {
+    const out = html(h(Instructor, { name: 'Maya Chen' }));
+    expect(out).toMatch(/<h3[^>]*>Maya Chen<\/h3>/);
+    expect(out).not.toMatch(/<img|<ul|<p/);
+    expect(out).not.toContain('data-portrait');
+  });
+  it('renders portrait, role, bio and new-tab links when supplied, at the chosen level', () => {
+    const out = html(h(Instructor, { name: 'Maya Chen', level: 2, role: 'Lead', bio: h('p', null, 'Teaches design.'), portrait: { src: '/p.svg', alt: 'Portrait of Maya' }, socials: [{ id: 'w', label: 'Website', href: 'https://example.com' }] }));
+    expect(out).toMatch(/<h2/);
+    expect(out).toContain('Lead');
+    expect(out).toContain('Teaches design.');
+    expect(out).toContain('Portrait of Maya');
+    expect(out).toContain('target="_blank"');
+    expect(out).toContain('(opens in a new tab)');
+  });
+});
+
+describe('X5 second batch contracts', () => {
+  const second = ['navbar', 'hero', 'feature-bento', 'testimonials', 'app-badges', 'instructor'];
+  it('registers each with a recommended example that imports it', () => {
+    for (const id of second) {
+      expect(get(id), id).toBeDefined();
+      const recommended = registry.examples.filter(example => example.intent === 'recommended' && example.componentIds.includes(id));
+      expect(recommended[0].code, id).toContain(`@/components/ui/${id}`);
+    }
+  });
+  it('marks as interactive exactly the sections that render a control or link of their own', () => {
+    for (const id of second) expect(get(id).interactive, id).toBe(id !== 'hero');
+    const rule = registry.rules.find(item => item.id === 'wcag-focus-visible')!.appliesTo;
+    for (const id of second.filter(item => item !== 'hero')) expect(rule, id).toContain(id);
+  });
+  it('keeps the planned defaults', () => {
+    expect(prop('navbar', 'sticky').defaultValue).toBe(true);
+    expect(prop('navbar', 'defaultMenuOpen').defaultValue).toBe(false);
+    expect(prop('hero', 'level').defaultValue).toBe(1);
+    expect(prop('hero', 'layout').defaultValue).toBe('auto');
+    expect(prop('feature-bento', 'level').defaultValue).toBe(3);
+    expect(prop('feature-bento', 'layout').defaultValue).toBe('grid');
+    expect(prop('app-badges', 'size').defaultValue).toBe('medium');
+    expect(prop('instructor', 'level').defaultValue).toBe(3);
   });
 });

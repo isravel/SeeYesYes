@@ -206,6 +206,114 @@ test('sections fit a 320px screen without horizontal scrolling', async ({ page }
   expect(link.x + link.width).toBeLessThanOrEqual(320);
 });
 
+test('Navbar renders one named navigation, marks the current page and skips empty groups', async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 800 });
+  await open(page);
+  const bar = share(page, 'navbar');
+  await expect(bar.getByRole('navigation', { name: 'Fixture main' })).toHaveCount(1);
+  await expect(bar.getByRole('link', { name: 'Docs' })).toHaveAttribute('aria-current', 'page');
+  await expect(bar.getByRole('link', { name: 'Components' })).not.toHaveAttribute('aria-current', 'page');
+  await expect(bar.getByRole('list')).toHaveCount(2);
+  await expect(bar.getByRole('link', { name: /Publisher site/ })).toHaveAttribute('target', '_blank');
+  await expect(bar.getByRole('link', { name: /Publisher site/ })).toHaveAccessibleName('Publisher site (opens in a new tab)');
+  // On wide screens the links are always visible and the menu button is not.
+  await expect(bar.getByRole('button', { name: 'Menu' })).toBeHidden();
+  await expect(bar.getByRole('link', { name: 'Components' })).toBeVisible();
+});
+
+test('Navbar menu starts closed on a narrow screen, opens, and Escape closes it and returns focus', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await open(page);
+  const bar = share(page, 'navbar');
+  const button = bar.getByRole('button', { name: 'Menu' });
+  await expect(button).toHaveAttribute('aria-expanded', 'false');
+  await expect(bar.getByRole('link', { name: 'Components' })).toBeHidden();
+  await button.click();
+  await expect(button).toHaveAttribute('aria-expanded', 'true');
+  await expect(bar.getByRole('link', { name: 'Components' })).toBeVisible();
+  await bar.getByRole('link', { name: 'Components' }).focus();
+  await page.keyboard.press('Escape');
+  await expect(button).toHaveAttribute('aria-expanded', 'false');
+  await expect(button).toBeFocused();
+  await expect(bar.getByRole('link', { name: 'Components' })).toBeHidden();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('Hero puts text first, splits only when media is supplied and never overflows', async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 800 });
+  await open(page);
+  await expect(share(page, 'hero-centered').getByRole('heading', { level: 2 })).toContainText('consistent');
+  expect(await share(page, 'hero-centered').getAttribute('data-layout')).toBe('centered');
+  expect(await share(page, 'hero-split').getAttribute('data-layout')).toBe('split');
+  expect(await share(page, 'hero-forced').getAttribute('data-layout')).toBe('centered');
+  const text = (await share(page, 'hero-split').getByRole('heading').boundingBox())!;
+  const media = (await share(page, 'hero-split').locator('img').boundingBox())!;
+  expect(media.x).toBeGreaterThan(text.x + text.width - 1);
+  await page.setViewportSize({ width: 320, height: 800 });
+  const narrowText = (await share(page, 'hero-split').getByRole('heading').boundingBox())!;
+  const narrowMedia = (await share(page, 'hero-split').locator('img').boundingBox())!;
+  expect(narrowMedia.y).toBeGreaterThan(narrowText.y);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('FeatureBento keeps reading order, names links by feature and lays three over four', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await open(page);
+  const bento = share(page, 'bento');
+  await expect(bento).toHaveAccessibleName('Fixture highlights');
+  const titles = await bento.getByRole('heading', { level: 3 }).allTextContents();
+  expect(titles.slice(0, 3)).toEqual(['Shared tokens', 'Accessible by default', 'Readable contracts']);
+  await expect(bento.getByRole('link', { name: 'Read more about Readable contracts' })).toHaveAttribute('href', '/docs');
+  const boxes = await bento.getByRole('listitem').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return { y: Math.round(r.y), w: Math.round(r.width) }; }));
+  expect(boxes[0].y).toBe(boxes[2].y);
+  expect(boxes[3].y).toBeGreaterThan(boxes[0].y);
+  expect(boxes[3].y).toBe(boxes[6].y);
+  expect(boxes[0].w).toBeGreaterThan(boxes[3].w);
+  await page.setViewportSize({ width: 320, height: 800 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('Testimonials never autoplay, show captions, pause others and say when a video fails', async ({ page }) => {
+  await open(page);
+  const voices = share(page, 'voices');
+  await expect(voices.getByText('Setup took an afternoon.')).toBeVisible();
+  await expect(voices.getByText('Priya Nair')).toBeVisible();
+  const video = voices.locator('video').first();
+  expect(await video.evaluate((el: HTMLVideoElement) => ({ paused: el.paused, controls: el.controls, autoplay: el.autoplay, track: el.querySelector('track')?.getAttribute('kind') }))).toEqual({ paused: true, controls: true, autoplay: false, track: 'captions' });
+  await expect(voices.getByText('This video could not be loaded.')).toBeVisible();
+});
+
+test('AppBadges link each store by name, keep their own proportions and say when an image fails', async ({ page }) => {
+  await open(page);
+  const badges = share(page, 'badges');
+  await expect(badges).toHaveAccessibleName('Get the app');
+  await expect(badges.getByRole('link', { name: 'Download on the App Store' })).toHaveAttribute('href', 'https://example.com/ios');
+  await expect(badges.getByRole('link', { name: 'Get Acme on Google Play' })).toBeVisible();
+  const image = badges.getByRole('link', { name: 'Download on the App Store' }).locator('img');
+  const box = (await image.boundingBox())!;
+  expect(Math.round(box.width / box.height * 100)).toBe(Math.round(160 / 48 * 100));
+  await expect(badges.getByRole('link', { name: 'Broken badge' })).toContainText('Broken badge');
+  await expect(badges.getByRole('link', { name: 'Broken badge' }).locator('img')).toHaveCount(0);
+});
+
+test('Instructor shows a heading, stacks on narrow screens and replaces a failed portrait with the name', async ({ page }) => {
+  await page.setViewportSize({ width: 1000, height: 800 });
+  await open(page);
+  const profile = share(page, 'instructor');
+  await expect(profile.getByRole('heading', { level: 3, name: 'Maya Chen' })).toBeVisible();
+  await expect(profile.getByRole('link', { name: 'Website (opens in a new tab)' })).toHaveAttribute('target', '_blank');
+  await expect(profile.getByRole('img', { name: 'Portrait of Maya Chen' })).toBeVisible();
+  const side = { image: (await profile.getByRole('img').boundingBox())!, name: (await profile.getByRole('heading').boundingBox())! };
+  expect(side.name.x).toBeGreaterThan(side.image.x + side.image.width - 1);
+  await expect(share(page, 'instructor-text').getByRole('heading', { name: 'Text Only' })).toBeVisible();
+  await expect(share(page, 'instructor-text').getByRole('link')).toHaveCount(0);
+  await expect(share(page, 'instructor-broken').getByRole('img')).toHaveCount(0);
+  await page.setViewportSize({ width: 320, height: 800 });
+  const stacked = { image: (await profile.getByRole('img').boundingBox())!, name: (await profile.getByRole('heading').boundingBox())! };
+  expect(stacked.name.y).toBeGreaterThan(stacked.image.y);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
 test('sections have no serious accessibility violations in light and dark, glass and clean', async ({ page }) => {
   for (const appearance of ['light', 'dark'] as const) for (const surface of ['glass', 'clean'] as const) {
     await open(page, `surface=${surface}&appearance=${appearance}`);
@@ -215,7 +323,7 @@ test('sections have no serious accessibility violations in light and dark, glass
 });
 
 test('the component pages for the sections show a live preview and their states', async ({ page }) => {
-  for (const [id, name] of [['share-buttons', 'ShareButtons'], ['footer', 'Footer'], ['section-head', 'SectionHead'], ['stat-strip', 'StatStrip'], ['cta-panel', 'CtaPanel']]) {
+  for (const [id, name] of [['share-buttons', 'ShareButtons'], ['footer', 'Footer'], ['section-head', 'SectionHead'], ['stat-strip', 'StatStrip'], ['cta-panel', 'CtaPanel'], ['navbar', 'Navbar'], ['hero', 'Hero'], ['feature-bento', 'FeatureBento'], ['testimonials', 'Testimonials'], ['app-badges', 'AppBadges'], ['instructor', 'Instructor']]) {
     await page.goto(`/components/${id}`);
     await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
     await expect(page.getByTestId('component-preview')).toBeVisible({ timeout: 15_000 });

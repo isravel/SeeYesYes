@@ -1,0 +1,16 @@
+.root { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; list-style: none; }
+.item { display: grid; min-width: 0; }
+.media { min-width: 0; overflow: hidden; border-radius: var(--sys-radius-control); }
+.head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline); min-width: 0; }
+.title { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.description { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); overflow-wrap: anywhere; }
+.description > :first-child { margin-block-start: 0; }
+.description > :last-child { margin-block-end: 0; }
+.link { width: fit-content; max-width: 100%; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* Three over four: a twelve-column grid where the first three of every seven cells span four columns and the other four span three. Below this width the auto-fit grid above stacks them in the same order. */
+@media (min-width: 961px) {
+  .root[data-layout="three-over-four"] { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .root[data-layout="three-over-four"] .item[data-row="top"] { grid-column: span 4; }
+  .root[data-layout="three-over-four"] .item[data-row="bottom"] { grid-column: span 3; }
+}

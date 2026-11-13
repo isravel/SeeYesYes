@@ -1,0 +1,10 @@
+.root { --badge-height: 2.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline) var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; list-style: none; }
+.root[data-size="small"] { --badge-height: 2.25rem; }
+.root[data-size="large"] { --badge-height: 3.25rem; }
+.item { display: flex; min-width: 0; max-width: 100%; }
+.link { display: inline-flex; align-items: center; justify-content: center; min-height: var(--badge-height); max-width: 100%; border-radius: var(--sys-radius-control); color: var(--sys-color-foreground); text-decoration: none; }
+.link:hover { opacity: .85; }
+.link:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+/* The image keeps its own proportions: only the height is set. */
+.image { display: block; width: auto; max-width: 100%; height: var(--badge-height); }
+.fallback { padding-inline: var(--sys-spacing-control-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); font-size: var(--sys-typography-label); line-height: var(--badge-height); text-decoration: underline; }

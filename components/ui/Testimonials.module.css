@@ -1,0 +1,17 @@
+.root { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 22rem)); justify-content: start; gap: var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; list-style: none; }
+.item { display: grid; min-width: 0; }
+.story, .review { display: grid; gap: var(--sys-spacing-stack); min-width: 0; margin: 0; }
+/* Stories are portrait: the frame holds nine-by-sixteen so the page does not jump while the video loads. */
+.frame { position: relative; aspect-ratio: 9 / 16; overflow: hidden; border-radius: var(--sys-radius-control); background: var(--sys-color-muted); }
+.video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.video:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: -3px; }
+.fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: var(--sys-spacing-stack); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-label); text-align: center; }
+.caption { display: grid; gap: calc(var(--sys-spacing-inline) / 2); min-width: 0; }
+.title { color: var(--sys-color-foreground); font-size: var(--sys-typography-body); font-weight: var(--sys-typography-weight-medium); overflow-wrap: anywhere; }
+.quote { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-body); line-height: var(--sys-typography-line-height); overflow-wrap: anywhere; }
+.quote > :first-child { margin-block-start: 0; }
+.quote > :last-child { margin-block-end: 0; }
+.byline { display: flex; align-items: center; gap: var(--sys-spacing-inline); min-width: 0; }
+.who { display: grid; min-width: 0; }
+.name { color: var(--sys-color-foreground); font-size: var(--sys-typography-label); font-weight: var(--sys-typography-weight-medium); overflow-wrap: anywhere; }
+.role { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); overflow-wrap: anywhere; }

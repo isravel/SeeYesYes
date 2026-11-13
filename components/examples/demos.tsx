@@ -68,6 +68,12 @@ import { Footer } from '@/components/ui/footer';
 import { SectionHead } from '@/components/ui/section-head';
 import { StatStrip } from '@/components/ui/stat-strip';
 import { CtaPanel } from '@/components/ui/cta-panel';
+import { Navbar } from '@/components/ui/navbar';
+import { Hero } from '@/components/ui/hero';
+import { FeatureBento } from '@/components/ui/feature-bento';
+import { Testimonials } from '@/components/ui/testimonials';
+import { AppBadges } from '@/components/ui/app-badges';
+import { Instructor } from '@/components/ui/instructor';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -205,6 +211,25 @@ export const demos: Record<string, Demo> = {
     codeExtra: ' items={[{ id: "members", label: "Team members", value: "24" }, { id: "projects", label: "Active projects", value: "9" }]}' },
   'cta-panel': { element: as(CtaPanel), name: 'CtaPanel', states: ['default', 'textured'], props: (_v, s) => ({ heading: 'Ready to start?', description: 'Create a workspace in a minute.', texture: flag(s === 'textured') }),
     extra: () => ({ action: <Button>Create project</Button> }) },
+  navbar: { element: as(Navbar), name: 'Navbar', states: ['default', 'menu-open'], props: (_v, s) => ({ label: 'Main', currentHref: '/docs', sticky: false, defaultMenuOpen: flag(s === 'menu-open') }),
+    extra: () => ({ brand: <Logo label="Acme" wordmark="Acme" />, groups: [{ id: 'main', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] }], actions: <Button>Get started</Button> }),
+    codeExtra: ' brand={<Link href="/">Acme</Link>} groups={[{ id: "main", links: [{ label: "Docs", href: "/docs" }] }]}' },
+  hero: { element: as(Hero), name: 'Hero', states: ['centered', 'split'], props: (v) => ({ heading: 'Ship a consistent interface', lead: 'Reusable parts that keep every screen accessible.', layout: v.layout }),
+    extra: (s) => ({ actions: <Button>Get started</Button>, ...(s === 'split' ? { media: <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" /> } : {}) }) },
+  'feature-bento': { element: as(FeatureBento), name: 'FeatureBento', states: ['static', 'with-link'], props: (v) => ({ label: 'Highlights', layout: v.layout }),
+    extra: (s) => ({ items: [{ id: 'tokens', title: 'Shared tokens', description: 'One source for color and spacing.', href: s === 'with-link' ? '/system/tokens' : undefined }, { id: 'a11y', title: 'Accessible by default', badge: 'Built in' }, { id: 'docs', title: 'Readable contracts' }] }),
+    codeExtra: ' items={[{ id: "tokens", title: "Shared tokens" }, { id: "docs", title: "Readable contracts" }]}' },
+  testimonials: { element: as(Testimonials), name: 'Testimonials', states: ['story', 'review', 'video-unavailable'], props: () => ({}),
+    extra: (s) => ({ items: [
+      ...(s === 'review' ? [] : [{ kind: 'story', id: 'story-1', src: s === 'video-unavailable' ? '/unavailable-story.webm' : '/sample-story.webm', title: 'How we adopted it', author: { name: 'Sam Okoye' }, captions: { src: '/sample-captions.vtt', srclang: 'en' } }]),
+      { kind: 'review', id: 'review-1', quote: 'Setup took an afternoon.', author: { name: 'Priya Nair', role: 'Engineering lead' } },
+    ] }),
+    codeExtra: ' items={[{ kind: "review", id: "review-1", quote: "Setup took an afternoon.", author: { name: "Priya Nair" } }]}' },
+  'app-badges': { element: as(AppBadges), name: 'AppBadges', states: ['default', 'image-unavailable'], props: (v) => ({ size: v.size }),
+    extra: (s) => ({ badges: [{ id: 'ios', store: 'app-store', href: 'https://example.com/ios', src: s === 'image-unavailable' ? '/unavailable-badge.svg' : '/sample-badge.svg' }, { id: 'android', store: 'google-play', href: 'https://example.com/android', src: '/sample-badge.svg' }] }),
+    codeExtra: ' badges={[{ id: "ios", store: "app-store", href: "https://example.com/ios", src: "/sample-badge.svg" }]}' },
+  instructor: { element: as(Instructor), name: 'Instructor', states: ['with-portrait', 'text-only', 'portrait-unavailable'], props: () => ({ name: 'Maya Chen', role: 'Lead instructor' }),
+    extra: (s) => ({ bio: <p>Maya teaches interface design.</p>, socials: [{ id: 'site', label: 'Website', href: 'https://example.com' }], ...(s === 'text-only' ? {} : { portrait: { src: s === 'portrait-unavailable' ? '/unavailable-portrait.png' : '/sample-avatar.svg', alt: 'Portrait of Maya Chen' } }) }) },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

@@ -9,9 +9,10 @@ const roles: Record<string, string> = {
   'empty-state': 'button', 'error-state': 'button', 'not-found': 'link', 'copy-button': 'button', 'theme-switcher': 'button',
   'avatar-group': 'button', 'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox', 'input-otp': 'textbox', combobox: 'combobox',
   disclosure: 'button', accordion: 'button', pagination: 'button', breadcrumbs: 'link', popover: 'button', drawer: 'button', 'confirm-dialog': 'button', toast: 'button', 'menu-toggle': 'button', 'card-swap': 'button', carousel: 'group', 'share-buttons': 'link', footer: 'link', 'section-head': 'link', 'cta-panel': 'button',
+  navbar: 'link', 'feature-bento': 'link', testimonials: 'video', 'app-badges': 'link', instructor: 'link',
 };
-const allowedStops: Record<string, string[]> = { table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
-const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable', 'avatar-group': 'overflow-list' };
+const allowedStops: Record<string, string[]> = { hero: ['button'], table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
+const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable', 'avatar-group': 'overflow-list', 'feature-bento': 'with-link' };
 const focusableInside = 'a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
 async function openDemo(page: Page, id: string, name: string) {
@@ -56,7 +57,9 @@ test('every interactive component is reachable by Tab, named, and shows a visibl
       const presses = await tabIntoPreview(page);
       expect(presses, `${component.id} should be reachable by Tab`).toBeGreaterThan(0);
       const focused = page.locator('[data-testid="component-preview"] :focus');
-      await expect(focused, `${component.id} role`).toHaveRole(roles[component.id] as 'button');
+      // A native video with controls has no ARIA role of its own, so it is checked by element.
+      if (roles[component.id] === 'video') expect(await focused.evaluate(el => el.tagName.toLowerCase()), `${component.id} element`).toBe('video');
+      else await expect(focused, `${component.id} role`).toHaveRole(roles[component.id] as 'button');
       await expect(focused, `${component.id} accessible name`).toHaveAccessibleName(/\S/);
       expect(await hasFocusIndicator(page), `${component.id} focus indicator`).toBe(true);
       [reach, named, focus] = ['yes', 'yes', 'yes'];

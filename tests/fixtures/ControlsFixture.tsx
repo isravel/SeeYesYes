@@ -52,6 +52,12 @@ import { Footer } from '@/components/ui/footer';
 import { SectionHead } from '@/components/ui/section-head';
 import { StatStrip } from '@/components/ui/stat-strip';
 import { CtaPanel } from '@/components/ui/cta-panel';
+import { Navbar } from '@/components/ui/navbar';
+import { Hero } from '@/components/ui/hero';
+import { FeatureBento } from '@/components/ui/feature-bento';
+import { Testimonials } from '@/components/ui/testimonials';
+import { AppBadges } from '@/components/ui/app-badges';
+import { Instructor } from '@/components/ui/instructor';
 import { Disclosure } from '@/components/ui/disclosure';
 import { Accordion } from '@/components/ui/accordion';
 import { Pagination } from '@/components/ui/pagination';
@@ -247,6 +253,33 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
           { id: 'extra', heading: 'More', links: [{ label: 'Status', href: '#status' }] },
           { id: 'hidden', heading: 'Fifth column', links: [{ label: 'Never shown', href: '#never' }] },
         ]} />
+        <Navbar data-testid="navbar" sticky={false} label="Fixture main" brand={<a href="/">Acme</a>} currentHref="/docs" actions={<Button>Get started</Button>} groups={[
+          { id: 'main', links: [{ label: 'Components', href: '/components' }, { label: 'Docs', href: '/docs' }] },
+          { id: 'more', label: 'More', links: [{ label: 'Publisher site', href: 'https://example.com', external: true }, { label: 'Empty', href: '/empty' }] },
+          { id: 'none', links: [] },
+        ]} />
+        <Hero data-testid="hero-centered" level={2} badge={<Badge>New</Badge>} heading={<>Ship a <Highlight>consistent</Highlight> interface with an unreasonably long heading that has to wrap</>} lead="Reusable parts that keep every screen accessible." actions={<Button>Get started</Button>} />
+        <Hero data-testid="hero-split" level={2} heading="Split hero" lead="Text first, media second." media={<MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" />} />
+        <Hero data-testid="hero-forced" level={2} heading="Forced centered" layout="centered" media={<MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" />} />
+        <FeatureBento data-testid="bento" label="Fixture highlights" level={3} layout="three-over-four" items={[
+          { id: 'f1', title: 'Shared tokens', description: 'One source for color and spacing.', href: '/system/tokens' },
+          { id: 'f2', title: 'Accessible by default', badge: 'Built in' },
+          { id: 'f3', title: 'Readable contracts', href: '/docs', linkLabel: 'Read more' },
+          { id: 'f4', title: 'Four' }, { id: 'f5', title: 'Five' }, { id: 'f6', title: 'Six' }, { id: 'f7', title: 'Seven' }, { id: 'f8', title: 'Eight' },
+        ]} />
+        <Testimonials data-testid="voices" items={[
+          { kind: 'review', id: 'r1', quote: 'Setup took an afternoon.', author: { name: 'Priya Nair', role: 'Engineering lead' }, source: 'Customer survey' },
+          { kind: 'story', id: 's1', src: '/sample-story.webm', title: 'How we adopted it', author: { name: 'Sam Okoye' }, captions: { src: '/sample-captions.vtt', srclang: 'en' } },
+          { kind: 'story', id: 's2', src: '/missing-story.webm', title: 'Broken story', author: { name: 'Lee Park' }, captions: { src: '/sample-captions.vtt', srclang: 'en' } },
+        ]} />
+        <AppBadges data-testid="badges" size="large" badges={[
+          { id: 'ios', store: 'app-store', href: 'https://example.com/ios', src: '/sample-badge.svg' },
+          { id: 'android', store: 'google-play', href: 'https://example.com/android', src: '/sample-badge.svg', label: 'Get Acme on Google Play' },
+          { id: 'broken', store: 'app-store', href: 'https://example.com/broken', src: '/missing-badge.svg', label: 'Broken badge' },
+        ]} />
+        <Instructor data-testid="instructor" level={3} name="Maya Chen" role="Lead instructor" bio={<p>Maya teaches interface design.</p>} portrait={{ src: '/sample-avatar.svg', alt: 'Portrait of Maya Chen' }} socials={[{ id: 'site', label: 'Website', href: 'https://example.com' }]} />
+        <Instructor data-testid="instructor-broken" level={3} name="Broken Portrait" portrait={{ src: '/missing-portrait.png', alt: 'Missing portrait' }} />
+        <Instructor data-testid="instructor-text" level={3} name="Text Only" />
       </section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>
