@@ -1,0 +1,16 @@
+/* The card is the query container: media goes beside the text once the card itself is wide, wherever it is placed. */
+.root { position: relative; container-type: inline-size; min-width: 0; }
+.layout { display: grid; gap: var(--sys-spacing-stack); align-items: start; min-width: 0; }
+.media { min-width: 0; overflow: hidden; border-radius: var(--sys-radius-control); }
+.body { display: grid; gap: var(--sys-spacing-inline); min-width: 0; }
+.title { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.meta { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-label); overflow-wrap: anywhere; }
+.description { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); overflow-wrap: anywhere; }
+.description > :first-child { margin-block-start: 0; }
+.description > :last-child { margin-block-end: 0; }
+/* The one link stretches over the whole card, so the card is a single target and nothing else inside is clickable. */
+.link { width: fit-content; max-width: 100%; }
+.link::after { content: ""; position: absolute; inset: 0; }
+.root:has(.link:focus-visible) { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@container (min-width: 30rem) { .layout[data-media] { grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); } }

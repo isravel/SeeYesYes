@@ -72,7 +72,15 @@ export type ComponentDefaults = {
 "feature-bento": { "layout": "grid" | "three-over-four"; "level": 3 | 2 | 4 };
 "testimonials": { "label": string; "unavailableLabel": string };
 "app-badges": { "label": string; "size": "medium" | "small" | "large" };
-"instructor": { "level": 3 | 2 | 4 }
+"instructor": { "level": 3 | 2 | 4 };
+"listing-head": { "level": 2 | 3 | 4; "loading": boolean; "loadingLabel": string };
+"toolbar": { "label": string; "pending": boolean; "pendingLabel": string };
+"card-grid": { "view": "grid" | "list"; "status": "ready" | "loading" | "error"; "label": string; "loadingLabel": string; "retryLabel": string; "filtered": boolean };
+"list-card": { "level": 3 | 2 | 4; "linkLabel": string };
+"clear-filters": { "label": string; "appearance": "text" | "button" };
+"course-card": { "level": 3 | 2 | 4; "linkLabel": string; "layout": "grid" | "list"; "priceLabel": string; "originalPriceLabel": string };
+"event-card": { "level": 3 | 2 | 4; "linkLabel": string };
+"cohort-card": { "level": 3 | 2 | 4; "statusTone": "neutral" | "primary" | "success" | "warning" | "destructive"; "toolsLabel": string; "linkLabel": string; "tilt": boolean; "texture": boolean }
 };
 export const contractDefaults: ComponentDefaults = {
   "button": {
@@ -395,5 +403,50 @@ export const contractDefaults: ComponentDefaults = {
   },
   "instructor": {
     "level": 3
+  },
+  "listing-head": {
+    "level": 2,
+    "loading": false,
+    "loadingLabel": "Loading results…"
+  },
+  "toolbar": {
+    "label": "Filter and sort",
+    "pending": false,
+    "pendingLabel": "Updating results…"
+  },
+  "card-grid": {
+    "view": "grid",
+    "status": "ready",
+    "label": "Results",
+    "loadingLabel": "Loading results…",
+    "retryLabel": "Retry",
+    "filtered": false
+  },
+  "list-card": {
+    "level": 3,
+    "linkLabel": "View details"
+  },
+  "clear-filters": {
+    "label": "Clear filters",
+    "appearance": "text"
+  },
+  "course-card": {
+    "level": 3,
+    "linkLabel": "View course",
+    "layout": "grid",
+    "priceLabel": "Price",
+    "originalPriceLabel": "Original price"
+  },
+  "event-card": {
+    "level": 3,
+    "linkLabel": "View event"
+  },
+  "cohort-card": {
+    "level": 3,
+    "statusTone": "neutral",
+    "toolsLabel": "Tools",
+    "linkLabel": "View cohort",
+    "tilt": false,
+    "texture": false
   }
 };

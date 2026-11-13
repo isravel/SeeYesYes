@@ -10,9 +10,11 @@ const roles: Record<string, string> = {
   'avatar-group': 'button', 'icon-button': 'button', 'search-input': 'searchbox', segmented: 'radio', chip: 'button', 'checkbox-group': 'checkbox', 'input-otp': 'textbox', combobox: 'combobox',
   disclosure: 'button', accordion: 'button', pagination: 'button', breadcrumbs: 'link', popover: 'button', drawer: 'button', 'confirm-dialog': 'button', toast: 'button', 'menu-toggle': 'button', 'card-swap': 'button', carousel: 'group', 'share-buttons': 'link', footer: 'link', 'section-head': 'link', 'cta-panel': 'button',
   navbar: 'link', 'feature-bento': 'link', testimonials: 'video', 'app-badges': 'link', instructor: 'link',
+  'card-grid': 'link', 'list-card': 'link', 'clear-filters': 'button', 'course-card': 'link', 'event-card': 'link', 'cohort-card': 'link',
 };
-const allowedStops: Record<string, string[]> = { hero: ['button'], table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
-const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable', 'avatar-group': 'overflow-list', 'feature-bento': 'with-link' };
+// The Toolbar demo's stops are the controls placed in its slots (search, sort, two view radios, clear); the Toolbar adds none.
+const allowedStops: Record<string, string[]> = { hero: ['button'], toolbar: ['input', 'select', 'input', 'input', 'button'], table: ['region'], 'form-field': ['input'], fieldset: ['input', 'input'] };
+const forcedState: Record<string, string> = { 'empty-state': 'action', chip: 'selectable', 'avatar-group': 'overflow-list', 'feature-bento': 'with-link', 'list-card': 'linked' };
 const focusableInside = 'a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])';
 
 async function openDemo(page: Page, id: string, name: string) {
@@ -71,6 +73,7 @@ test('every interactive component is reachable by Tab, named, and shows a visibl
       if (component.id === 'table') { reach = 'scroll region'; focus = 'yes'; }
       if (component.id === 'form-field') reach = 'wrapped input only';
       if (component.id === 'fieldset') reach = 'wrapped inputs only';
+      if (component.id === 'toolbar') reach = 'slotted controls only';
     }
     rows.push(`| ${component.name} | ${component.interactive ? 'yes' : 'no'} | ${readiness.complete ? 'yes' : 'NO'} | ${reach} | ${named} | ${focus} | ${component.accessibility.keyboard.map(k => k.key).join('; ') || '—'} | ${component.accessibility.status === 'reviewed' ? 'reviewed' : 'not reviewed'} |`);
   }

@@ -9,9 +9,10 @@ const required = ['button', 'link', 'card', 'badge', 'separator', 'avatar', 'ale
   'highlight', 'level', 'live-dot', 'kbd', 'avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast',
   'animated-badge', 'shiny-text', 'rotating-word', 'menu-toggle', 'logo', 'fancy-arrow', 'tilt-card', 'card-swap', 'media-frame', 'carousel',
   'share-buttons', 'footer', 'section-head', 'stat-strip', 'cta-panel',
-  'navbar', 'hero', 'feature-bento', 'testimonials', 'app-badges', 'instructor'];
+  'navbar', 'hero', 'feature-bento', 'testimonials', 'app-badges', 'instructor',
+  'listing-head', 'toolbar', 'card-grid', 'list-card', 'clear-filters', 'course-card', 'event-card', 'cohort-card'];
 // Listed as interactive in the visual-system spec.
-const specInteractive = ['avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast', 'menu-toggle', 'card-swap', 'carousel', 'share-buttons', 'footer', 'section-head', 'cta-panel', 'navbar', 'feature-bento', 'testimonials', 'app-badges', 'instructor', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
+const specInteractive = ['avatar-group', 'icon-button', 'search-input', 'segmented', 'chip', 'checkbox-group', 'input-otp', 'combobox', 'disclosure', 'accordion', 'pagination', 'breadcrumbs', 'popover', 'drawer', 'confirm-dialog', 'toast', 'menu-toggle', 'card-swap', 'carousel', 'share-buttons', 'footer', 'section-head', 'cta-panel', 'navbar', 'feature-bento', 'testimonials', 'app-badges', 'instructor', 'card-grid', 'list-card', 'clear-filters', 'course-card', 'event-card', 'cohort-card', 'button', 'link', 'navigation', 'tabs', 'dropdown-menu', 'dialog', 'tooltip', 'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch'];
 // Feedback patterns that contain an action, retry, link, or copy control, so the spec's own rule makes them interactive.
 const interactivePatterns = ['empty-state', 'error-state', 'not-found', 'copy-button', 'theme-switcher'];
 

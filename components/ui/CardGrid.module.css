@@ -1,0 +1,6 @@
+.root { min-width: 0; }
+.state { min-width: 0; }
+/* Columns come from the available width; the DOM order is the reading order. List view is one card per row. */
+.list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; list-style: none; }
+.root[data-view="list"] .list { grid-template-columns: minmax(0, 1fr); }
+.item { display: grid; min-width: 0; }

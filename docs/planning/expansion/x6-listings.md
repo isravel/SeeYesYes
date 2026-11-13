@@ -4,10 +4,14 @@ Read [delivery rules](delivery.md) and [visual direction](visual-direction.md), 
 
 Phase: C — Sections and listings. Dependencies: X1–X3 and Section head from X5; optional X4 media effects only where used.
 
-- [ ] **SYX-040 — Listing.** Deliver ListingHead, Toolbar, CardGrid, ListCard and ClearFilters as a coherent kit. Connect search, filters, sort, grid/list views, pagination, counts, loading, error/retry and no matches with a clear state owner.
-- [ ] **SYX-041 — Course card.** Compose image, badges, rating, chips, original/current price, saving and details link. Consumers own currency, calculation and commercial truth.
-- [ ] **SYX-042 — Event card.** Provide poster-led presentation with accessible event information and a destination even when details are embedded in an image.
-- [ ] **SYX-043 — Cohort card.** Compose title, status, supplied tool imagery and optional tilt/texture; keep content accessible when effects are disabled.
+- [x] **SYX-040 — Listing.** Deliver ListingHead, Toolbar, CardGrid, ListCard and ClearFilters as a coherent kit. Connect search, filters, sort, grid/list views, pagination, counts, loading, error/retry and no matches with a clear state owner.
+  - 2026-11-13: checked on automated evidence only. State owner is `useListing` (exported from the `toolbar` module, rules in `lib/utils/listing.ts`). Evidence: [review](../../evidence/expansion/X6/SYX-040/review.md). Open: human visual review, packed-consumer journey, URL sync (consumer's).
+- [x] **SYX-041 — Course card.** Compose image, badges, rating, chips, original/current price, saving and details link. Consumers own currency, calculation and commercial truth.
+  - 2026-11-13: checked on automated evidence only. `CourseCard`. Evidence: [review](../../evidence/expansion/X6/SYX-041/review.md). Open: human visual review.
+- [x] **SYX-042 — Event card.** Provide poster-led presentation with accessible event information and a destination even when details are embedded in an image.
+  - 2026-11-13: checked on automated evidence only. `EventCard`. Evidence: [review](../../evidence/expansion/X6/SYX-042/review.md). Open: human visual review.
+- [x] **SYX-043 — Cohort card.** Compose title, status, supplied tool imagery and optional tilt/texture; keep content accessible when effects are disabled.
+  - 2026-11-13: checked on automated evidence only. `CohortCard`. Evidence: [review](../../evidence/expansion/X6/SYX-043/review.md). Open: human visual review.
 
 ## Variation matrix
 

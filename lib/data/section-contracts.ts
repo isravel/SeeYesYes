@@ -1,7 +1,7 @@
 import type { ComponentContract, Example } from '@/lib/contract/schema';
 
 // X5 reusable page sections. Each one composes existing primitives (Link, Button, Card), keeps content with the consumer and never invents copy, assets or endorsements.
-type Entry = {
+export type Entry = {
   id: string; name: string; category: ComponentContract['category']; purpose: string; shortPurpose: string; element: string; meaning: string;
   props: ComponentContract['props']; variants?: ComponentContract['variants']; tokenIds: string[]; states: string[];
   requirements: string[]; prohibitedUsage: string[]; prefer: string[]; allowed?: string[]; constraints?: string[];
@@ -9,11 +9,11 @@ type Entry = {
   keyboard?: ComponentContract['accessibility']['keyboard'];
   exampleId: string; previewKey: string; code: string; exampleComponentIds?: string[];
 };
-const prop = (name: string, type: string, description: string, required = false, defaultValue?: string | number | boolean): ComponentContract['props'][number] =>
+export const prop = (name: string, type: string, description: string, required = false, defaultValue?: string | number | boolean): ComponentContract['props'][number] =>
   ({ name, type, description, required, ...(defaultValue === undefined ? {} : { defaultValue }) });
-const choice = (name: string, values: (string | number)[], description: string): ComponentContract['props'][number] => ({ ...prop(name, values.join(' | '), description), defaultValue: values[0], allowedValues: values });
-const common = [prop('className', 'string', 'Additional class for placement.')];
-const levelProp = (what: string) => choice('level', [2, 3, 4], `Heading level of the ${what}. The page chooses it so heading order stays correct.`);
+export const choice = (name: string, values: (string | number)[], description: string): ComponentContract['props'][number] => ({ ...prop(name, values.join(' | '), description), defaultValue: values[0], allowedValues: values });
+export const common = [prop('className', 'string', 'Additional class for placement.')];
+export const levelProp = (what: string) => choice('level', [2, 3, 4], `Heading level of the ${what}. The page chooses it so heading order stays correct.`);
 
 const entries: Entry[] = [
   {
@@ -247,7 +247,7 @@ const entries: Entry[] = [
   },
 ];
 
-export const sectionComponentContracts: ComponentContract[] = entries.map(entry => ({
+export const toContract = (entry: Entry): ComponentContract => ({
   id: entry.id, name: entry.name, publicImport: { module: `@/components/ui/${entry.id}`, exportName: entry.name },
   purpose: entry.purpose, shortPurpose: entry.shortPurpose, category: entry.category, maturity: 'experimental', interactive: Boolean(entry.keyboard),
   semantics: { element: entry.element, meaning: entry.meaning }, anatomy: [{ part: 'root', description: entry.meaning }], props: entry.props,
@@ -257,7 +257,9 @@ export const sectionComponentContracts: ComponentContract[] = entries.map(entry 
   composition: { allowedComponentIds: entry.allowed ?? [], constraints: entry.constraints ?? ['Composed from existing primitives; content and assets come from the consumer.'] },
   prohibitedUsage: entry.prohibitedUsage, exampleIds: [entry.exampleId], ruleIds: entry.keyboard ? ['wcag-focus-visible'] : [],
   aiGuidance: { prefer: entry.prefer, avoid: entry.prohibitedUsage },
-}));
-export const sectionComponentExamples: Example[] = entries.map(entry => ({
+});
+export const toExample = (entry: Entry): Example => ({
   id: entry.exampleId, title: entry.purpose, componentIds: entry.exampleComponentIds ?? [entry.id], code: entry.code, intent: 'recommended', previewKey: entry.previewKey,
-}));
+});
+export const sectionComponentContracts: ComponentContract[] = entries.map(toContract);
+export const sectionComponentExamples: Example[] = entries.map(toExample);

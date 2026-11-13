@@ -1,0 +1,19 @@
+/* The texture sits behind the content inside the card's own stacking context, so the surface, blur and fallbacks stay Card's. */
+.root { position: relative; isolation: isolate; overflow: hidden; min-width: 0; color: var(--sys-color-foreground); }
+.root[data-texture]::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--sys-color-foreground) 14%, transparent) 1px, transparent 0); background-size: 1rem 1rem; -webkit-mask-image: linear-gradient(to bottom left, black, transparent 70%); mask-image: linear-gradient(to bottom left, black, transparent 70%); pointer-events: none; }
+.body { display: grid; gap: var(--sys-spacing-inline); justify-items: start; min-width: 0; }
+.status { max-width: 100%; }
+.title { margin: 0; font-size: var(--sys-typography-heading); line-height: 1.2; overflow-wrap: anywhere; }
+.description { color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); overflow-wrap: anywhere; }
+.description > :first-child { margin-block-start: 0; }
+.description > :last-child { margin-block-end: 0; }
+.tools { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-inline); margin: 0; padding: 0; list-style: none; }
+.toolItem { display: grid; place-items: center; min-width: 2rem; min-height: 2rem; }
+.tool { display: block; width: auto; max-width: 100%; height: 2rem; object-fit: contain; }
+.toolFallback { padding-inline: var(--sys-spacing-inline); border: 1px solid var(--sys-color-border); border-radius: var(--sys-radius-control); color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+/* The one link stretches over the whole card, so the card is a single target and nothing else inside is clickable. */
+.link { width: fit-content; max-width: 100%; }
+.link::after { content: ""; position: absolute; inset: 0; }
+.root:has(.link:focus-visible) { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (forced-colors: active) { .root[data-texture]::after { display: none; } }

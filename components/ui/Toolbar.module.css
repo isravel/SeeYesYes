@@ -1,0 +1,6 @@
+.root { min-width: 0; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline) var(--sys-spacing-stack); min-width: 0; }
+.search { flex: 1 1 14rem; min-width: 0; }
+.group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sys-spacing-inline); min-width: 0; max-width: 100%; }
+.status { flex: 1 1 100%; margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.status:empty { display: none; }

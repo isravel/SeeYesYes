@@ -74,6 +74,14 @@ import { FeatureBento } from '@/components/ui/feature-bento';
 import { Testimonials } from '@/components/ui/testimonials';
 import { AppBadges } from '@/components/ui/app-badges';
 import { Instructor } from '@/components/ui/instructor';
+import { ListingHead } from '@/components/ui/listing-head';
+import { Toolbar } from '@/components/ui/toolbar';
+import { CardGrid } from '@/components/ui/card-grid';
+import { ListCard } from '@/components/ui/list-card';
+import { ClearFilters } from '@/components/ui/clear-filters';
+import { CourseCard } from '@/components/ui/course-card';
+import { EventCard } from '@/components/ui/event-card';
+import { CohortCard } from '@/components/ui/cohort-card';
 import { Plus } from '@phosphor-icons/react';
 import { jsxProps, type Selection } from '@/lib/components/playground';
 
@@ -230,6 +238,23 @@ export const demos: Record<string, Demo> = {
     codeExtra: ' badges={[{ id: "ios", store: "app-store", href: "https://example.com/ios", src: "/sample-badge.svg" }]}' },
   instructor: { element: as(Instructor), name: 'Instructor', states: ['with-portrait', 'text-only', 'portrait-unavailable'], props: () => ({ name: 'Maya Chen', role: 'Lead instructor' }),
     extra: (s) => ({ bio: <p>Maya teaches interface design.</p>, socials: [{ id: 'site', label: 'Website', href: 'https://example.com' }], ...(s === 'text-only' ? {} : { portrait: { src: s === 'portrait-unavailable' ? '/unavailable-portrait.png' : '/sample-avatar.svg', alt: 'Portrait of Maya Chen' } }) }) },
+  'listing-head': { element: as(ListingHead), name: 'ListingHead', states: ['count-known', 'count-unknown', 'loading'], props: (_v, s) => ({ heading: 'Courses', description: 'Pick up where you left off.', count: s === 'count-known' ? 12 : undefined, loading: flag(s === 'loading') }) },
+  toolbar: { element: as(Toolbar), name: 'Toolbar', states: ['default', 'pending'], props: (_v, s) => ({ pending: flag(s === 'pending') }),
+    extra: () => ({ search: <SearchInput label="Search courses" />, sort: <Select aria-label="Sort by" defaultValue="title"><option value="title">Title</option><option value="price">Price</option></Select>, view: <Segmented label="View" defaultValue="grid" options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]} />, clear: <ClearFilters active onClear={noop} /> }),
+    codeExtra: ' search={<SearchInput label="Search courses" />} clear={<ClearFilters active onClear={clear} />}' },
+  'card-grid': { element: as(CardGrid), name: 'CardGrid', states: ['ready', 'loading', 'error', 'empty', 'no-matches'], props: (v, s) => ({ view: v.view, status: s === 'loading' || s === 'error' ? s : undefined, filtered: flag(s === 'no-matches') }),
+    extra: s => ({ items: s === 'empty' || s === 'no-matches' ? [] : [{ id: 'a', content: <ListCard title="Design basics" description="Start here." href="/courses/design-basics" /> }, { id: 'b', content: <ListCard title="Advanced layout" href="/courses/advanced-layout" /> }, { id: 'c', content: <ListCard title="Color and contrast" href="/courses/color" /> }], ...(s === 'error' ? { error: 'The course list could not be loaded.', onRetry: noop } : {}) }),
+    codeExtra: ' items={[{ id: "a", content: <ListCard title="Design basics" href="/courses/design-basics" /> }]}' },
+  'list-card': { element: as(ListCard), name: 'ListCard', states: ['static', 'linked'], props: (_v, s) => ({ title: 'Design basics', meta: '6 lessons', description: 'Start here.', href: s === 'linked' ? '/courses/design-basics' : undefined }),
+    extra: () => ({ media: <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" ratio="4:3" /> }), codeExtra: ' media={<MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" ratio="4:3" />}' },
+  'clear-filters': { element: as(ClearFilters), name: 'ClearFilters', states: ['active', 'inactive'], props: (v, s) => ({ active: s === 'active', appearance: v.appearance }), extra: () => ({ onClear: noop }), codeExtra: ' onClear={clear}' },
+  'course-card': { element: as(CourseCard), name: 'CourseCard', states: ['complete', 'minimal', 'image-unavailable'], props: (v, s) => ({ title: 'Design basics', href: '/courses/design-basics', layout: v.layout, description: s === 'minimal' ? undefined : 'Learn the building blocks.' }),
+    extra: s => s === 'minimal' ? {} : { image: { src: s === 'image-unavailable' ? '/unavailable-media.png' : '/sample-media.svg', alt: 'A green hillside under a pale sky' }, badges: ['Bestseller'], rating: { value: '4.6', label: 'Rated 4.6 out of 5 from 1,280 reviews' }, chips: ['Layout', 'Color'], price: { current: '$49', original: '$99', saving: 'Save 50%' } },
+    codeExtra: ' image={{ src: "/sample-media.svg", alt: "A green hillside under a pale sky" }} price={{ current: "$49", original: "$99", saving: "Save 50%" }}' },
+  'event-card': { element: as(EventCard), name: 'EventCard', states: ['complete', 'minimal', 'poster-unavailable'], props: (_v, s) => ({ title: 'Design systems meetup', href: '/events/design-systems-meetup', date: '14 March 2026', dateTime: '2026-03-14', time: s === 'minimal' ? undefined : '6:30 pm', location: s === 'minimal' ? undefined : 'Community hall, Chennai', description: s === 'minimal' ? undefined : 'An evening of short talks.' }),
+    extra: s => ({ poster: { src: s === 'poster-unavailable' ? '/unavailable-poster.png' : '/sample-media.svg', alt: 'Poster: Design systems meetup', width: 3, height: 4 } }), codeExtra: ' poster={{ src: "/sample-media.svg", alt: "Poster: Design systems meetup", width: 3, height: 4 }}' },
+  'cohort-card': { element: as(CohortCard), name: 'CohortCard', states: ['static', 'tilt', 'textured', 'tool-unavailable'], props: (_v, s) => ({ title: 'Spring design cohort', href: '/cohorts/spring-design', status: 'Enrolling', statusTone: 'success', description: 'Eight weeks of guided practice.', tilt: flag(s === 'tilt'), texture: flag(s === 'textured') }),
+    extra: s => ({ tools: [{ id: 'mark', label: 'Design tool', src: s === 'tool-unavailable' ? '/unavailable-tool.svg' : '/sample-mark.svg' }] }), codeExtra: ' tools={[{ id: "mark", label: "Design tool", src: "/sample-mark.svg" }]}' },
   'copy-button': { element: as(CopyButton), name: 'CopyButton', states: ['idle', 'disabled'], props: (_v, s) => ({ label: 'sample context', value: 'Component: Button', disabled: flag(s === 'disabled') }) },
 };
 

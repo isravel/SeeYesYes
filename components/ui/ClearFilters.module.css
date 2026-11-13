@@ -1,0 +1,5 @@
+/* The text appearance reads as a link. The Button appearance keeps Button's own look and only adds the unavailable cue below. */
+.root[data-appearance="text"] { min-height: var(--sys-spacing-target-minimum); padding-inline: var(--sys-spacing-control-inline); border: 0; border-radius: var(--sys-radius-control); background: transparent; color: var(--sys-color-primary); font: inherit; font-size: var(--sys-typography-label); text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .2em; cursor: pointer; }
+.root[data-appearance="text"]:hover:not([aria-disabled="true"]) { text-decoration-thickness: .14em; }
+.root[data-appearance="text"]:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.root[aria-disabled="true"] { opacity: .6; cursor: not-allowed; }

@@ -65,6 +65,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { Popover } from '@/components/ui/popover';
 import { Drawer } from '@/components/ui/drawer';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ListingFixture } from './ListingFixture';
 import { Plus } from '@phosphor-icons/react';
 import styles from './OverlayFixture.module.css';
 
@@ -281,6 +282,7 @@ export function ControlsFixture({ theme, surface, appearance = 'light' }: { them
         <Instructor data-testid="instructor-broken" level={3} name="Broken Portrait" portrait={{ src: '/missing-portrait.png', alt: 'Missing portrait' }} />
         <Instructor data-testid="instructor-text" level={3} name="Text Only" />
       </section>
+      <section aria-label="Listing kit" id="x6-listings"><ListingFixture /></section>
       <section aria-label="Confirm dialogs" id="x3-confirm">
         <ConfirmDialog triggerLabel="Archive project" title="Archive this project?" confirmLabel="Archive project" onConfirm={() => setConfirmed('archived')}><p>The project moves to the archive.</p></ConfirmDialog>
         <ConfirmDialog triggerLabel="Delete project" title="Delete Orchard?" confirmLabel="Delete project" destructive confirmText="Orchard" onConfirm={() => new Promise<void>(resolve => setTimeout(() => { setConfirmed('deleted'); resolve(); }, 400))}><p>This removes the project for everyone.</p></ConfirmDialog>

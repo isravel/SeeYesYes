@@ -74,6 +74,14 @@ import { FeatureBento } from '@/components/ui/feature-bento';
 import { Testimonials } from '@/components/ui/testimonials';
 import { AppBadges } from '@/components/ui/app-badges';
 import { Instructor } from '@/components/ui/instructor';
+import { ListingHead } from '@/components/ui/listing-head';
+import { Toolbar, useListing } from '@/components/ui/toolbar';
+import { CardGrid } from '@/components/ui/card-grid';
+import { ListCard } from '@/components/ui/list-card';
+import { ClearFilters } from '@/components/ui/clear-filters';
+import { CourseCard } from '@/components/ui/course-card';
+import { EventCard } from '@/components/ui/event-card';
+import { CohortCard } from '@/components/ui/cohort-card';
 import { Plus } from '@phosphor-icons/react';
 import { DashboardLayout, DenseDataLayout, DetailViewLayout, MarketingLayout, PageShellLayout, SettingsLayout, SplitViewLayout } from './layouts';
 function ButtonSave() {
@@ -200,6 +208,23 @@ function FeatureBentoHighlights() { return <div className="previewSections"><Fea
 function TestimonialsVoices() { return <div className="previewSections"><Testimonials items={[{ kind: 'review', id: 'review-1', quote: 'Setup took an afternoon.', author: { name: 'Priya Nair', role: 'Engineering lead' } }, { kind: 'story', id: 'story-1', src: '/sample-story.webm', title: 'How we adopted it', author: { name: 'Sam Okoye' }, captions: { src: '/sample-captions.vtt', srclang: 'en' } }]} /></div>; }
 function AppBadgesStores() { return <div className="previewSections"><AppBadges badges={[{ id: 'ios', store: 'app-store', href: 'https://example.com/ios', src: '/sample-badge.svg' }, { id: 'android', store: 'google-play', href: 'https://example.com/android', src: '/sample-badge.svg' }]} /></div>; }
 function InstructorProfile() { return <div className="previewSections"><Instructor name="Maya Chen" role="Lead instructor" bio={<p>Maya teaches interface design.</p>} portrait={{ src: '/sample-avatar.svg', alt: 'Portrait of Maya Chen' }} socials={[{ id: 'site', label: 'Website', href: 'https://example.com' }]} /></div>; }
+function ListingHeadCourses() { return <div className="previewSections"><ListingHead heading="Courses" description="Pick up where you left off." count={12} /></div>; }
+function ToolbarControls() {
+  const listing = useListing({ sort: 'title' });
+  return <div className="previewSections">
+    <Toolbar search={<SearchInput label="Search courses" value={listing.state.query} onChange={listing.setQuery} />}
+      sort={<Select aria-label="Sort by" value={listing.state.sort} onChange={event => listing.setSort(event.currentTarget.value)}><option value="title">Title</option><option value="price">Price</option></Select>}
+      view={<Segmented label="View" value={listing.state.view} onChange={value => listing.setView(value === 'list' ? 'list' : 'grid')} options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]} />}
+      clear={<ClearFilters active={listing.active} onClear={listing.clear} />} />
+    <span role="status">Page {listing.state.page}, {listing.state.view} view, sorted by {listing.state.sort}.</span>
+  </div>;
+}
+function CardGridResults() { return <div className="previewSections"><CardGrid view="grid" items={[{ id: 'a', content: <ListCard title="Design basics" description="Start here." href="/courses/design-basics" /> }, { id: 'b', content: <ListCard title="Advanced layout" href="/courses/advanced-layout" /> }]} /></div>; }
+function ListCardResult() { return <div className="previewSections"><ListCard title="Design basics" meta="6 lessons" description="Start here." href="/courses/design-basics" media={<MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" ratio="4:3" />} /></div>; }
+function ClearFiltersActive() { return <div className="previewSections"><ClearFilters active onClear={() => undefined} /></div>; }
+function CourseCardComplete() { return <div className="previewSections"><CourseCard title="Design basics" href="/courses/design-basics" image={{ src: '/sample-media.svg', alt: 'A green hillside under a pale sky' }} badges={['Bestseller']} rating={{ value: '4.6', label: 'Rated 4.6 out of 5 from 1,280 reviews' }} chips={['Layout', 'Color']} price={{ current: '$49', original: '$99', saving: 'Save 50%' }} description="Learn the building blocks." /></div>; }
+function EventCardComplete() { return <div className="previewSections"><EventCard title="Design systems meetup" href="/events/design-systems-meetup" poster={{ src: '/sample-media.svg', alt: 'Poster: Design systems meetup', width: 3, height: 4 }} date="14 March 2026" dateTime="2026-03-14" time="6:30 pm" location="Community hall, Chennai" description="An evening of short talks." /></div>; }
+function CohortCardComplete() { return <div className="previewSections"><CohortCard title="Spring design cohort" href="/cohorts/spring-design" status="Enrolling" statusTone="success" description="Eight weeks of guided practice." tools={[{ id: 'mark', label: 'Design tool', src: '/sample-mark.svg' }]} /></div>; }
 export const previewMap = {
   buttonSave: ButtonSave, spinnerProgress: SpinnerProgress, linkDocs: LinkDocs, linkButtons: LinkButtons,
   cardProfile: CardProfile, badgeStatus: BadgeStatus, separatorSections: SeparatorSections,
@@ -216,6 +241,7 @@ export const previewMap = {
   logoHeader: LogoHeader, fancyArrowHint: FancyArrowHint, tiltCardFeature: TiltCardFeature, cardSwapHighlights: CardSwapHighlights, mediaFrameFigure: MediaFrameFigure, carouselCards: CarouselCards,
   shareButtonsArticle: ShareButtonsArticle, footerSite: FooterSite, sectionHeadGuides: SectionHeadGuides, statStripNumbers: StatStripNumbers, ctaPanelStart: CtaPanelStart,
   navbarSite: NavbarSite, heroLanding: HeroLanding, featureBentoHighlights: FeatureBentoHighlights, testimonialsVoices: TestimonialsVoices, appBadgesStores: AppBadgesStores, instructorProfile: InstructorProfile,
+  listingHeadCourses: ListingHeadCourses, toolbarControls: ToolbarControls, cardGridResults: CardGridResults, listCardResult: ListCardResult, clearFiltersActive: ClearFiltersActive, courseCardComplete: CourseCardComplete, eventCardComplete: EventCardComplete, cohortCardComplete: CohortCardComplete,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
 export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };
