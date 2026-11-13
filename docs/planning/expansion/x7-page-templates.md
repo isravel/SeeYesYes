@@ -4,14 +4,14 @@ Read [delivery rules](delivery.md) and [visual direction](visual-direction.md), 
 
 Phase: D — Templates and release. Dependencies: X5–X6; auth templates require X1–X3 rather than marketing effects.
 
-- [ ] **SYX-051 — Page shell.** Compose optional Backdrop, Navbar, a system-sized content column and Footer; keep route/link configuration in one consumer-owned source.
-- [ ] **SYX-052 — Landing page.** Provide a configurable example composed from hero, stats, cohorts/courses, features, testimonials and CTA sections; no copied site order or copy is required.
-- [ ] **SYX-053 — Listing page.** Deliver a complete course-listing example with head, search/filter/sort toolbar, grid/list cards and pagination.
-- [ ] **SYX-054 — Events page.** Deliver a poster-listing example with heading, count and responsive two-column desktop layout.
-- [ ] **SYX-055 — Auth shell.** Provide a centered glass auth panel over the shared layered backdrop, labeled fields, password visibility, provider buttons and error/status regions using shared controls.
-- [ ] **SYX-056 — Sign in page.** Provide email/password entry, Google/GitHub integration callbacks, forgot-password and sign-up links, validation and pending/failure states.
-- [ ] **SYX-057 — Sign up page.** Provide name/email/password fields, a baseline eight-character minimum, provider callbacks and terms links; consumers can enforce stronger server policy.
-- [ ] **SYX-058 — Forgot password page.** Provide reset-request and neutral check-inbox states that do not reveal account existence, plus retry feedback that does not expose account details.
+- [x] **SYX-051 — Page shell.** Compose optional Backdrop, Navbar, a system-sized content column and Footer; keep route/link configuration in one consumer-owned source.
+- [x] **SYX-052 — Landing page.** Provide a configurable example composed from hero, stats, cohorts/courses, features, testimonials and CTA sections; no copied site order or copy is required.
+- [x] **SYX-053 — Listing page.** Deliver a complete course-listing example with head, search/filter/sort toolbar, grid/list cards and pagination.
+- [x] **SYX-054 — Events page.** Deliver a poster-listing example with heading, count and responsive two-column desktop layout.
+- [x] **SYX-055 — Auth shell.** Provide a centered glass auth panel over the shared layered backdrop, labeled fields, password visibility, provider buttons and error/status regions using shared controls.
+- [x] **SYX-056 — Sign in page.** Provide email/password entry, Google/GitHub integration callbacks, forgot-password and sign-up links, validation and pending/failure states.
+- [x] **SYX-057 — Sign up page.** Provide name/email/password fields, a baseline eight-character minimum, provider callbacks and terms links; consumers can enforce stronger server policy.
+- [x] **SYX-058 — Forgot password page.** Provide reset-request and neutral check-inbox states that do not reveal account existence, plus retry feedback that does not expose account details.
 
 ## Variation matrix
 

@@ -2,5 +2,8 @@
 .state { min-width: 0; }
 /* Columns come from the available width; the DOM order is the reading order. List view is one card per row. */
 .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--sys-spacing-stack); min-width: 0; margin: 0; padding: 0; list-style: none; }
+/* Two columns is for larger cards: one column until there is room for two. */
+.root[data-columns="two"] .list { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 761px) { .root[data-columns="two"] .list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .root[data-view="list"] .list { grid-template-columns: minmax(0, 1fr); }
 .item { display: grid; min-width: 0; }

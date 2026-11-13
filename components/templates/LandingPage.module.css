@@ -1,0 +1,2 @@
+.root { display: grid; gap: var(--sys-spacing-section); min-width: 0; }
+.section { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }

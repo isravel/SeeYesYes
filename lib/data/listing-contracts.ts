@@ -1,5 +1,5 @@
 import type { ComponentContract, Example } from '@/lib/contract/schema';
-import { choice, common, levelProp, prop, toContract, toExample, type Entry } from './section-contracts';
+import { choice, common, prop, toContract, toExample, type Entry } from './section-contracts';
 
 // X6 listing kit and content cards. The consumer owns the data, the currency, the totals and every claim; these parts arrange and label what they are given.
 const sizeProp = prop('size', 'small | medium | large', 'Button size when `appearance` is `button`. Text appearance has no size.');
@@ -12,7 +12,7 @@ const entries: Entry[] = [
     id: 'listing-head', name: 'ListingHead', category: 'layout', purpose: 'Head a listing with a heading, an optional description and the number of results.', shortPurpose: 'Listing heading with a supplied result count.', element: 'div',
     meaning: 'A real heading at the level the page chooses, an optional description, and a result count in a polite status region. The count is only what you pass: with none, nothing is shown.',
     props: [
-      prop('heading', 'string', 'The heading text.', true), levelProp('heading'),
+      prop('heading', 'string', 'The heading text.', true), choice('level', [2, 1, 3, 4], 'Heading level. The page chooses it so heading order stays correct; use 1 only when this is the page\'s own title.'),
       prop('description', 'ReactNode', 'Optional supporting text under the heading.'),
       prop('count', 'number', 'How many results match right now. Leave it out when the total is unknown; no total is ever estimated.'),
       prop('countLabel', '(count: number) => string', 'Builds the count text, for other wording or languages. The default is "1 result" or "N results".'),
@@ -22,8 +22,8 @@ const entries: Entry[] = [
     ],
     tokenIds: ['spacing.inline', 'spacing.stack', 'color.foreground', 'typography.heading', 'typography.title', 'color.muted-foreground', 'typography.label', 'typography.body'],
     states: ['count-known', 'count-unknown', 'loading'],
-    requirements: ['The heading level is supplied by the page; do not skip levels.', 'The count comes from the results you pass; the component never invents or rounds a total.', 'Count and loading text sit in a status region, so a change is announced politely without moving focus.', 'With no count and not loading, no count text is rendered.', 'The row wraps so the count drops below the heading on narrow screens.'],
-    prohibitedUsage: ['Showing a total you do not have.', 'Choosing a level for its size; pick it for document structure.', 'Using it for the page title; use the page h1.'],
+    requirements: ['The heading level is supplied by the page; do not skip levels, and use level 1 only for the page\'s own title.', 'The count comes from the results you pass; the component never invents or rounds a total.', 'Count and loading text sit in a status region, so a change is announced politely without moving focus.', 'With no count and not loading, no count text is rendered.', 'The row wraps so the count drops below the heading on narrow screens.'],
+    prohibitedUsage: ['Showing a total you do not have.', 'Choosing a level for its size; pick it for document structure.', 'Using level 1 when another heading already is the page title.'],
     prefer: ['Use ListingHead above a Toolbar and CardGrid. Use SectionHead to introduce a section that is not a filtered list.'], allowed: [],
     exampleId: 'listing-head-courses', previewKey: 'listingHeadCourses', exampleComponentIds: ['listing-head'],
     code: 'import { ListingHead } from "@/components/ui/listing-head";\n<ListingHead heading="Courses" description="Pick up where you left off." count={12} />',
@@ -57,6 +57,7 @@ const entries: Entry[] = [
     props: [
       prop('items', 'CardGridItem[]', 'The cards in reading order, each with a stable `id` and `content`.', true),
       choice('view', ['grid', 'list'], '`grid` flows cards into columns that fit the width; `list` shows one per row. The same cards stay mounted when it changes.'),
+      choice('columns', ['auto', 'two'], '`auto` fits as many columns as the width allows. `two` shows one column on narrow screens and two from 761px, for larger cards. List view is always one column.'),
       choice('status', ['ready', 'loading', 'error'], 'Which state to show. Defaults to showing the results.'),
       prop('label', 'string', 'Accessible name of the results list.', false, 'Results'),
       prop('loadingLabel', 'string', 'Text of the loading status.', false, 'Loading results…'),

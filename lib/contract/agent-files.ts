@@ -25,7 +25,7 @@ export function buildLlmsTxt(system: DesignSystem, articles: DocArticle[] = []):
     '- [Tokens](/system/tokens): Resolved design tokens with values, purposes, and Design Tokens downloads.',
     '- [Rules](/system/rules): The system rules with violation and corrected examples.',
     '- [Accessibility](/accessibility): Review evidence, measured contrast, and clearly labeled sample results.',
-    '- [Layouts](/layouts): Seven demo compositions built only from system components.', '',
+    '- [Layouts](/layouts): Demo compositions and page templates (site shell, landing, listings, sign in, sign up, forgot password) built only from system components.', '',
     '## Components', '', ...byId(system.components).map(component => `- [${component.name}](/components/${component.id}): ${component.shortPurpose}`), '',
     '## Documentation', '', '- [Documentation index](/docs): Searchable guides and registry-generated reference.', ...[...articles].sort((a, b) => (a.slug < b.slug ? -1 : 1)).map(article => `- [${article.title}](/docs/${article.slug}): ${article.description}`), '',
     '## AI', '',

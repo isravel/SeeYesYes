@@ -1,0 +1,8 @@
+.form { display: grid; gap: var(--sys-spacing-stack); min-width: 0; }
+/* The visibility button sits beside the field, so it never covers typed text or the field's own focus ring. */
+.passwordRow { display: flex; align-items: center; gap: var(--sys-spacing-inline); min-width: 0; }
+.passwordRow > :first-child { flex: 1 1 auto; min-width: 0; }
+.passwordRow > :last-child { flex: none; }
+.links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sys-spacing-inline) var(--sys-spacing-stack); min-width: 0; margin: 0; font-size: var(--sys-typography-label); }
+.note { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--sys-spacing-inline); min-width: 0; }

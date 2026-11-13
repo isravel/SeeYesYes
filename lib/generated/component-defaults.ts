@@ -73,9 +73,9 @@ export type ComponentDefaults = {
 "testimonials": { "label": string; "unavailableLabel": string };
 "app-badges": { "label": string; "size": "medium" | "small" | "large" };
 "instructor": { "level": 3 | 2 | 4 };
-"listing-head": { "level": 2 | 3 | 4; "loading": boolean; "loadingLabel": string };
+"listing-head": { "level": 2 | 1 | 3 | 4; "loading": boolean; "loadingLabel": string };
 "toolbar": { "label": string; "pending": boolean; "pendingLabel": string };
-"card-grid": { "view": "grid" | "list"; "status": "ready" | "loading" | "error"; "label": string; "loadingLabel": string; "retryLabel": string; "filtered": boolean };
+"card-grid": { "view": "grid" | "list"; "columns": "auto" | "two"; "status": "ready" | "loading" | "error"; "label": string; "loadingLabel": string; "retryLabel": string; "filtered": boolean };
 "list-card": { "level": 3 | 2 | 4; "linkLabel": string };
 "clear-filters": { "label": string; "appearance": "text" | "button" };
 "course-card": { "level": 3 | 2 | 4; "linkLabel": string; "layout": "grid" | "list"; "priceLabel": string; "originalPriceLabel": string };
@@ -416,6 +416,7 @@ export const contractDefaults: ComponentDefaults = {
   },
   "card-grid": {
     "view": "grid",
+    "columns": "auto",
     "status": "ready",
     "label": "Results",
     "loadingLabel": "Loading results…",

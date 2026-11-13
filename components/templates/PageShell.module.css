@@ -1,0 +1,10 @@
+/* The content column is as wide as the system allows (72rem) and never narrower than the gutter leaves room for. Header, content and footer share one inset so they line up. */
+.root { --shell-inset: max(var(--sys-spacing-stack), calc((100% - 72rem) / 2)); position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; min-width: 0; background: var(--sys-color-background); color: var(--sys-color-foreground); }
+.root[data-variant="page"] { min-height: 100dvh; grid-template-rows: auto 1fr auto; }
+.chrome { padding-inline: var(--shell-inset); }
+.stage { min-width: 0; padding: var(--sys-spacing-stack) var(--shell-inset); }
+.content { display: grid; gap: var(--sys-spacing-section); min-width: 0; }
+.content:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+/* The skip link waits just above the page and slides in on keyboard focus. */
+.skip { position: absolute; z-index: 60; inset-inline-start: var(--sys-spacing-stack); inset-block-start: var(--sys-spacing-inline); padding: var(--sys-spacing-control-block) var(--sys-spacing-control-inline); border-radius: var(--sys-radius-control); background: var(--sys-color-primary); color: var(--sys-color-on-primary); font-size: var(--sys-typography-label); transform: translateY(-300%); }
+.skip:focus-visible { transform: none; outline: 3px solid var(--sys-color-focus); outline-offset: 2px; }

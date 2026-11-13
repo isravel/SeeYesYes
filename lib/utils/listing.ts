@@ -45,3 +45,28 @@ export function reduceListing(state: ListingState, action: ListingAction): Listi
     case 'clear': return { ...state, query: '', filters: {}, page: 1 };
   }
 }
+
+/** What a listing page needs to know about each item to search, filter and sort it. Everything is text or a number you supply. */
+export type Queryable = { id: string; title: string; topic?: string; keywords?: string[]; sortValue?: number };
+export type SortKey = 'title' | 'value-asc' | 'value-desc';
+export type ListingQuery<T> = { matches: T[]; visible: T[]; page: number; pageCount: number };
+
+/**
+ * Search, filter, sort and paginate a list you already hold in memory. This is the browser-side example of what a server would do for a large listing.
+ * The search is a case-insensitive "contains" over the title, topic and keywords. The `topic` filter keeps items whose topic is one of the chosen values. Sorting never changes the input array.
+ * The returned page is clamped to the pages that exist, so a stale page number can never show an empty page when there are results.
+ */
+export function queryListing<T extends Queryable>(items: T[], state: Pick<ListingState, 'query' | 'filters' | 'sort' | 'page'>, pageSize: number): ListingQuery<T> {
+  const term = state.query.trim().toLowerCase();
+  const topics = state.filters.topic ?? [];
+  const size = Number.isFinite(pageSize) ? Math.max(1, Math.floor(pageSize)) : 1;
+  const matches = items.filter(item => (topics.length === 0 || (item.topic !== undefined && topics.includes(item.topic)))
+    && (!term || [item.title, item.topic ?? '', ...(item.keywords ?? [])].some(text => text.toLowerCase().includes(term))));
+  const value = (item: T) => item.sortValue ?? Number.POSITIVE_INFINITY;
+  const sorted = [...matches].sort((a, b) => state.sort === 'value-asc' ? value(a) - value(b) || a.title.localeCompare(b.title)
+    : state.sort === 'value-desc' ? (b.sortValue ?? Number.NEGATIVE_INFINITY) - (a.sortValue ?? Number.NEGATIVE_INFINITY) || a.title.localeCompare(b.title)
+    : a.title.localeCompare(b.title));
+  const pageCount = Math.max(1, Math.ceil(sorted.length / size));
+  const page = clampPage(state.page, pageCount);
+  return { matches: sorted, visible: sorted.slice((page - 1) * size, page * size), page, pageCount };
+}

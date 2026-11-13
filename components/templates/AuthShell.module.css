@@ -1,0 +1,16 @@
+/* The Backdrop supplies the layered background; this only centers one constrained panel on it. */
+.root { display: grid; place-items: center; min-width: 0; }
+.root[data-variant="page"] { min-height: 100dvh; }
+.main { display: grid; justify-items: center; width: 100%; min-width: 0; }
+.main:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.panel { width: min(100%, 28rem); gap: var(--sys-spacing-stack); padding: var(--sys-spacing-section) var(--sys-spacing-stack); }
+.identity { display: flex; justify-content: center; min-width: 0; }
+.heading { margin: 0; color: var(--sys-color-foreground); font-size: var(--sys-typography-title); line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+.heading:focus-visible { outline: 3px solid var(--sys-color-focus); outline-offset: 3px; }
+.description { margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-body); text-align: center; overflow-wrap: anywhere; }
+.notice { min-width: 0; }
+.providers { display: grid; gap: var(--sys-spacing-inline); min-width: 0; }
+/* The word between the lines is real text, so the split between providers and the form is never only a line. */
+.divider { display: flex; align-items: center; gap: var(--sys-spacing-inline); margin: 0; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-caption); }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--sys-color-border); }
+.footer { display: grid; gap: var(--sys-spacing-inline); justify-items: center; color: var(--sys-color-muted-foreground); font-size: var(--sys-typography-label); text-align: center; }

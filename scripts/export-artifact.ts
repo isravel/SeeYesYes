@@ -37,6 +37,8 @@ const entryPoints = [
   ...readdirSync(join(root, 'components/ui'))
     .filter(name => name.endsWith('.tsx') && name !== 'internal-trigger-button.tsx')
     .map(name => `components/ui/${name}`),
+  // X7 page templates are public too: they sit beside the controls and import only the shared controls and utilities.
+  ...readdirSync(join(root, 'components/templates')).filter(name => name.endsWith('.tsx')).map(name => `components/templates/${name}`),
   'components/theme/ThemeScope.tsx',
   'components/theme/ThemeLifecycleProvider.tsx',
   'components/theme/ThemeSwitcher.tsx',
@@ -178,7 +180,7 @@ function buildThemeSystemModule(): string {
   ].join('\n');
 }
 
-function buildIndexModule(controlFiles: string[]): string {
+function buildIndexModule(controlFiles: string[], templateFiles: string[]): string {
   const lines = [
     '// Public surface of the shared design system. Consumers import controls and the theme provider from here.',
     "export { artifactMetadata } from './artifact.generated';",
@@ -205,6 +207,7 @@ function buildIndexModule(controlFiles: string[]): string {
     const specifier = `./${file.replace(/\.tsx$/, '')}`;
     lines.push(`export * from '${specifier}';`);
   }
+  for (const file of templateFiles.sort()) lines.push(`export * from './${file.replace(/\.tsx$/, '')}';`);
   lines.push('');
   return lines.join('\n');
 }
@@ -240,6 +243,8 @@ function main(): void {
   writeFileSync(join(args.out, 'src/system/theme-system.generated.ts'), buildThemeSystemModule());
 
   const controlFiles = [...modules].filter(file => file.startsWith('components/ui/') && file.endsWith('.tsx'));
+
+  const templateFiles = [...modules].filter(file => file.startsWith('components/templates/') && file.endsWith('.tsx'));
 
   const { revision, clean } = sourceRevision();
 
@@ -306,7 +311,7 @@ function main(): void {
     `export const artifactMetadata: ArtifactMetadata = ${JSON.stringify(artifactMetadata, null, 2)};`,
     '',
   ].join('\n'));
-  writeFileSync(join(args.out, 'src/index.ts'), buildIndexModule(controlFiles));
+  writeFileSync(join(args.out, 'src/index.ts'), buildIndexModule(controlFiles, templateFiles));
 
 
   writeFileSync(join(args.out, 'README.md'), [

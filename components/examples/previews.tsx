@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { AuthShellTemplate, EventsTemplate, ForgotPasswordTemplate, LandingTemplate, ListingTemplate, SignInTemplate, SignUpTemplate, SiteShellTemplate } from './template-previews';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { Spinner } from '@/components/ui/spinner';
@@ -244,7 +245,7 @@ export const previewMap = {
   listingHeadCourses: ListingHeadCourses, toolbarControls: ToolbarControls, cardGridResults: CardGridResults, listCardResult: ListCardResult, clearFiltersActive: ClearFiltersActive, courseCardComplete: CourseCardComplete, eventCardComplete: EventCardComplete, cohortCardComplete: CohortCardComplete,
   loadingMembers: LoadingMembers, emptyProjects: EmptyProjects, errorRegistry: ErrorRegistry, notFoundComponent: NotFoundComponent, copyContext: CopyContext,
 };
-export const layoutPreviewMap = { pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };
+export const layoutPreviewMap = { siteShell: SiteShellTemplate, landingPage: LandingTemplate, listingPage: ListingTemplate, eventsPage: EventsTemplate, authShell: AuthShellTemplate, signIn: SignInTemplate, signUp: SignUpTemplate, forgotPassword: ForgotPasswordTemplate, pageShell: PageShellLayout, dashboard: DashboardLayout, splitView: SplitViewLayout, detailView: DetailViewLayout, settings: SettingsLayout, denseData: DenseDataLayout, marketing: MarketingLayout };
 
 export function ExamplePreview({ previewKey }: { previewKey: string }) {
   if (!Object.hasOwn(previewMap, previewKey)) throw new Error(`Unknown preview key: ${previewKey}`);

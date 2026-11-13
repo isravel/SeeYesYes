@@ -57,8 +57,8 @@ describe('typed adapters and reproducible mock transport', () => {
     for (const component of s.components) expect(s.examples.some(e => component.exampleIds.includes(e.id))).toBe(true);
     expect(s.themePresets[0].id).toBe(s.defaultThemeId);
     expect(s.project.guidance.length).toBeGreaterThan(0);
-    // Layouts are intentionally empty until M6; schema and transport already preserve them.
-    expect(s.layouts).toHaveLength(7);
+    // Seven original compositions plus the eight X7 page templates.
+    expect(s.layouts).toHaveLength(15);
   });
   it('labels demo reports and resolves every rule and example', () => {
     const reports = demoReports(registry);
