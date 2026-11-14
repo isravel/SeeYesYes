@@ -80,3 +80,12 @@ Not done: a missing-peer failure test, an SSR hydration-mismatch check, an opt-i
 - **Conditions were noisy.** The machine had a load average of 17 at the start of run 1 (the IDE, Podcasts and other processes were active). The Components miss appeared in only one of two runs, so it is likely noise. The Theme miss appeared in both runs, so I treat it as real until it passes on a quiet machine.
 - **Script transfer is higher than the M7 baseline** (Overview 302 → 413 KB, Components 221 → 260 KB, AI Context 301 → 411 KB). The 81-component expansion (X2–X7) landed after that baseline, so that may explain it. I have not bisected it, and I did not test whether the `react-aria` import change contributed.
 - Status: **performance gate not met.** It needs a rerun on an idle machine and a look at the Theme route's LCP and the script growth.
+
+## Script-growth bisect attempt (inconclusive)
+
+- Built a scratch worktree of an earlier commit in `/tmp`, patched its two `@react-aria/overlays` imports to `react-aria/PortalProvider` so it would build against the current `node_modules`, and ran `scripts/perf.mjs` there. The worktree is deleted; the exact base commit was not recorded here, so this cannot be reproduced from this note.
+- Result (load average 20–36 during the run, so LCP is unreliable): script transfer Overview 302 KB, Theme 216 KB, Components 221 KB, AI Context 300 KB. These match the M7 baseline and are well below the current build (413 / ~260 / 411 KB for Overview / Components / AI Context).
+- LCP in that run: Theme 2.41 s (met), AI Context 2.84 s (missed), Components 2.11 s. AI Context missed here but not on the current build, which shows how much the LCP numbers move with machine load.
+- Reading: the transfer growth is not caused by the import change itself, because the scratch build had it. It comes from something in the commits between that base and HEAD. It is not yet located.
+- Status unchanged: performance gate not met. Next step is a per-commit bisect of script transfer (cheap: build + `next start` + sum JS bytes, no Lighthouse), then an LCP rerun on an idle machine.
+- Reverted the tracked `docs/evidence/M7/performance.*` files to their committed state; they had been overwritten by a noisy run.
