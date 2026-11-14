@@ -72,6 +72,10 @@ describe('SYX-051 PageShell', () => {
     expect(out).not.toContain('<main');
     expect(out).not.toContain('Skip to content');
   });
+  it('names the navigation from site.navLabel and keeps "Main" when none is given', () => {
+    expect(html(h(PageShell, { site: { ...site, navLabel: 'Course navigation' }, variant: 'contained' }, 'Body'))).toContain('aria-label="Course navigation"');
+    expect(html(h(PageShell, { site, variant: 'contained' }, 'Body'))).toContain('aria-label="Main"');
+  });
   it('writes no links of its own and leaves the footer out when none is supplied', () => {
     const out = html(h(PageShell, { site: { brand: 'Brand' }, variant: 'contained' }, 'Body'));
     expect(out).not.toContain('<footer');

@@ -94,3 +94,13 @@ test('layouts have no serious axe findings in both densities', async ({ page }) 
     expect(serious.map(v => `${v.id}: ${v.nodes[0]?.html.slice(0, 80)}`)).toEqual([]);
   }
 });
+
+test('every navigation landmark on /layouts has its own accessible name', async ({ page }) => {
+  await page.goto('/layouts');
+  await expect(page.getByRole('heading', { name: 'Layouts', exact: true })).toBeVisible();
+  const names = await page.getByRole('navigation').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label') ?? node.getAttribute('aria-labelledby') ?? ''));
+  expect(names.length).toBeGreaterThanOrEqual(5);
+  expect(names.every(Boolean)).toBe(true);
+  expect(new Set(names).size).toBe(names.length);
+  expect(names).toEqual(expect.arrayContaining(['Site shell navigation', 'Landing page navigation', 'Course listing navigation', 'Events listing navigation', 'Site shell footer', 'Landing page footer', 'Course listing footer', 'Events listing footer']));
+});

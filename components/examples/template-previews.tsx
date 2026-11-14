@@ -24,6 +24,8 @@ const site: SiteConfig = {
     legal: <p>Demo footer. Nothing here is a real policy.</p>,
   },
 };
+// Each example on /layouts sits in one page, so each Navbar needs its own accessible name. The Navbar default ("Main") is unchanged for consumers who do not set one.
+const siteNamed = (navLabel: string, footerLabel: string): SiteConfig => ({ ...site, navLabel, footer: { ...site.footer, label: footerLabel } });
 const media = <MediaFrame src="/sample-media.svg" alt="A green hillside under a pale sky" ratio="4:3" />;
 const poster = (title: string) => ({ src: '/sample-media.svg', alt: `Poster: ${title}`, width: 3, height: 4 });
 const courses: ListingCourse[] = [
@@ -35,10 +37,10 @@ const events: ListingEvent[] = ['Design systems meetup', 'Accessibility clinic',
 }));
 
 export function SiteShellTemplate() {
-  return <PageShell variant="contained" site={site} currentHref="#courses" label="Site shell example"><p>Page content goes here. The header, footer and links all come from one site configuration.</p></PageShell>;
+  return <PageShell variant="contained" site={siteNamed('Site shell navigation', 'Site shell footer')} currentHref="#courses" label="Site shell example"><p>Page content goes here. The header, footer and links all come from one site configuration.</p></PageShell>;
 }
 export function LandingTemplate() {
-  return <PageShell variant="contained" site={site} label="Landing page example">
+  return <PageShell variant="contained" site={siteNamed('Landing page navigation', 'Landing page footer')} label="Landing page example">
     <LandingPage level={2}
       hero={{ heading: 'Learn design systems, clearly.', lead: 'Sample lead text for a demo brand.', actions: <Button>Browse courses</Button>, media }}
       stats={{ heading: 'At a glance', items: [{ id: 'courses', label: 'Courses', value: '8' }, { id: 'events', label: 'Events this season', value: '4' }, { id: 'pending', label: 'Learners' }] }}
@@ -49,10 +51,10 @@ export function LandingTemplate() {
   </PageShell>;
 }
 export function ListingTemplate() {
-  return <PageShell variant="contained" site={site} currentHref="#courses" label="Listing page example"><ListingPage level={2} heading="All courses" description="Sample courses for a demo brand." courses={courses} pageSize={4} /></PageShell>;
+  return <PageShell variant="contained" site={siteNamed('Course listing navigation', 'Course listing footer')} currentHref="#courses" label="Listing page example"><ListingPage level={2} heading="All courses" description="Sample courses for a demo brand." courses={courses} pageSize={4} /></PageShell>;
 }
 export function EventsTemplate() {
-  return <PageShell variant="contained" site={site} currentHref="#events" label="Events page example"><EventsPage level={2} heading="Events" description="Sample events for a demo brand." events={events} pageSize={4} /></PageShell>;
+  return <PageShell variant="contained" site={siteNamed('Events listing navigation', 'Events listing footer')} currentHref="#events" label="Events page example"><EventsPage level={2} heading="Events" description="Sample events for a demo brand." events={events} pageSize={4} /></PageShell>;
 }
 
 const demoNote = <p>Demo only: nothing is sent or stored. Use an address that starts with “fail” to see the failure state.</p>;
