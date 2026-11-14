@@ -1,0 +1,10 @@
+syx-consumer@ /private/tmp/syx-min
+└─┬ @seeyesyes/ui@0.1.0-src.1aebef0
+  ├── @phosphor-icons/react@2.1.10
+  ├─┬ react-aria-components@1.22.0
+  │ └── react-aria@3.53.0 deduped
+  ├── react-aria@3.53.0
+  ├── zod@4.6.7
+  └── zustand@5.1.0
+
+0

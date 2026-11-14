@@ -106,3 +106,14 @@ The static chunk sizes differ by only ~6-12 KB, so the build did not grow materi
 Theme route: transfer grew only ~5 KB, so bundle size does not explain the repeated Theme LCP of 2.56s. That miss remains unexplained and unfixed. Needs an idle-machine perf run and an LCP-element trace on `/system/theme`.
 
 Caveat: the base build was a scratch worktree (removed) with its node_modules copied from HEAD and `@react-aria/overlays` imports patched to `react-aria/PortalProvider`. Base commit is `b54eacd`.
+
+## Navbar labels and `landmark-unique` recheck
+
+- The Navbar default stays `Main`. Each template example on `/layouts` now passes its own `navLabel` (and footer label) through `SiteConfig`: "Site shell navigation", "Landing page navigation", "Course listing navigation", "Events listing navigation". A unit test checks both the custom label and the `Main` default; a browser test checks the labels on `/layouts` are unique.
+- Recheck: the targeted browser run (`browser-navlabel.log`, 16 passed, including the full axe audit) regenerated `docs/evidence/M7/a11y-audit-results.md`: 0 serious or critical findings, and the only lesser finding is the pre-existing `region` (tooltip overlay container). `landmark-unique` no longer appears.
+- `npm run check` after these changes: exit 0 (`check-final2.log`).
+
+## Missing-peer, SSR and consumer follow-up
+
+Recorded in `docs/evidence/expansion/X1/SYX-004/review.md` (packed from clean `1aebef0`, no overrides): styles, saved appearance, no-flash reload, nested-theme glass dialog, blocked and corrupt storage, no console errors, and a missing-peer build failure. SYX-004 stays open: no Node 24 run was possible (the installed `node@24` fails with a missing `libsimdjson`), and the exact peer pins need sign-off.
+Still not done for X8: full browser re-run, idle-machine `npm run perf` and the Theme LCP, opt-in glass consumer, Naazhi workflow, row-by-row audit of 81 items, human reviews (R05).

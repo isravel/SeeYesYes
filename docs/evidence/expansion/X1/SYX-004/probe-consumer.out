@@ -1,0 +1,55 @@
+{
+ "ssr": {
+  "stylesheetLink": true,
+  "bootstrapScriptInHead": true,
+  "htmlHasSuppressedHydrationRoot": true
+ },
+ "styles": {
+  "sheets": 2,
+  "buttonRadius": "8px",
+  "buttonBg": "rgba(0, 0, 0, 0)",
+  "sysVarCount": 65
+ },
+ "appearanceBefore": "light",
+ "appearanceAfter": {
+  "attr": "dark",
+  "saved": "dark"
+ },
+ "early": [
+  [
+   "readyState:interactive",
+   "dark",
+   "dark"
+  ],
+  [
+   "readyState:complete",
+   "dark",
+   "dark"
+  ],
+  [
+   "first-paint",
+   "dark",
+   "dark"
+  ],
+  [
+   "first-contentful-paint",
+   "dark",
+   "dark"
+  ]
+ ],
+ "reloadFinal": "dark",
+ "nested": {
+  "insideNestedId": true,
+  "scopeAttrs": null,
+  "blur": "blur(20px) saturate(1.4)"
+ },
+ "/listing": 200,
+ "/sign-in": 200,
+ "/forgot": 200,
+ "/sign-up": 200,
+ "problems": [
+  "first warning: The resource http://localhost:8202/_next/static/chunks/20bok-syy0ksj.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+  "first warning: The resource http://localhost:8202/_next/static/chunks/3lu8gkewyjjsk.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}
+EXIT=0

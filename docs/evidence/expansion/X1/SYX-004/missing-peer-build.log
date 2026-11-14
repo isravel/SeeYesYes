@@ -1,0 +1,492 @@
+▲ Next.js 16.4.6 (Turbopack)
+✓ Running next.config.ts took 766ms
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 16 errors:
+./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { useState, [36mtype[0m [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mEye[0m, [33mEyeSlash[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { [33mFormField[0m } [36mfrom[0m [32m'../ui/form-field'[0m;
+  [90m5 |[0m [36mimport[0m { [33mIconButton[0m } [36mfrom[0m [32m'../ui/icon-button'[0m;
+  [90m6 |[0m [36mimport[0m { [33mInput[0m } [36mfrom[0m [32m'../ui/input'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/templates/auth-providers.tsx:2:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mGithubLogo[0m, [33mGoogleLogo[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { [33mButton[0m } [36mfrom[0m [32m'../ui/button'[0m;
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mtype[0m [33mAuthProviderId[0m = [32m'google'[0m | [32m'github'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-providers.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-providers.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mDesktop[0m, [33mMoon[0m, [33mSun[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m [36mtype[0m { [33mAppearance[0m } [36mfrom[0m [32m'../../lib/contract/schema'[0m;
+  [90m5 |[0m [36mimport[0m { cn } [36mfrom[0m [32m'../../lib/utils/cn'[0m;
+  [90m6 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'./ThemeScope'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/alert.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mHTMLAttributes[0m, [33mReactNode[0m, [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mCheckCircle[0m, [33mInfo[0m, [33mWarning[0m, [33mWarningCircle[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m5 |[0m [36mimport[0m styles [36mfrom[0m [32m'./Alert.module.css'[0m;
+  [90m6 |[0m [36mexport[0m [36mtype[0m [33mAlertTone[0m = [32m'info'[0m | [32m'success'[0m | [32m'warning'[0m | [32m'destructive'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/alert.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-shell.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/alert.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-shell.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/chip.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { useId, useState, [36mtype[0m [33mHTMLAttributes[0m, [36mtype[0m [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mCheck[0m, [33mX[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m5 |[0m [36mimport[0m { [33mSpinner[0m } [36mfrom[0m [32m'./spinner'[0m;
+  [90m6 |[0m [36mimport[0m styles [36mfrom[0m [32m'./Chip.module.css'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/chip.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/ui/course-card.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/chip.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/ui/course-card.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/course-card.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mHTMLAttributes[0m, [33mReactNode[0m, [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mStar[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { [33mBadge[0m } [36mfrom[0m [32m'./badge'[0m;
+  [90m5 |[0m [36mimport[0m { [33mCard[0m } [36mfrom[0m [32m'./card'[0m;
+  [90m6 |[0m [36mimport[0m { [33mChip[0m } [36mfrom[0m [32m'./chip'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/course-card.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/course-card.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/pagination.tsx:4:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m2 |[0m [36mimport[0m [33mNextLink[0m [36mfrom[0m [32m'next/link'[0m;
+  [90m3 |[0m [36mimport[0m { useState, [36mtype[0m [33mAnchorHTMLAttributes[0m, [36mtype[0m [33mHTMLAttributes[0m, [36mtype[0m [33mReactNode[0m, [36mtype[0m [33mRef[0m...
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mCaretLeft[0m, [33mCaretRight[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m6 |[0m [36mimport[0m { isPageRoute } [36mfrom[0m [32m'../../lib/routes'[0m;
+  [90m7 |[0m [36mimport[0m [36mtype[0m { [33mFormControlSize[0m } [36mfrom[0m [32m'./input'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/pagination.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/pagination.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/search-input.tsx:3:1
+Error: Module not found: Can't resolve '@phosphor-icons/react'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { useRef, useState, [36mtype[0m [33mInputHTMLAttributes[0m, [36mtype[0m [33mKeyboardEvent[0m, [36mtype[0m [33mRef[0m } [36mfrom[0m [32m'r...[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mMagnifyingGlass[0m, [33mX[0m } [36mfrom[0m [32m'@phosphor-icons/react'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m5 |[0m [36mimport[0m { assignRef } [36mfrom[0m [32m'../../lib/utils/merge-refs'[0m;
+  [90m6 |[0m [36mimport[0m { [33mInput[0m, [36mtype[0m [33mFormControlSize[0m } [36mfrom[0m [32m'./input'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/search-input.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Client Component Browser]
+    ./app/listing/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/search-input.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/listing-page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Client Component SSR]
+    ./app/listing/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/dialog.tsx:3:1
+Error: Module not found: Can't resolve 'react-aria-components'
+  [90m1 |[0m ...[32mnt'[0m;
+  [90m2 |[0m ...[36mpe[0m { [33mReactNode[0m, [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m ...[33mDialogTrigger[0m, [33mModalOverlay[0m, [33mModal[0m, [33mDialog[0m [36mas[0m [33mAriaDialog[0m, [33mHeading[0m } [36mfrom[0m [32m'react-aria-com...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ...useComponentDefaults, useSurface } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m5 |[0m ...[33mGlassLayerContext[0m } [36mfrom[0m [32m'../theme/glass-layer'[0m;
+  [90m6 |[0m ...[33mButton[0m } [36mfrom[0m [32m'./button'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/dialog.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/dialog.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/internal-trigger-button.tsx:2:1
+Error: Module not found: Can't resolve 'react-aria-components'
+  [90m1 |[0m [32m'use client'[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { [33mButton[0m [36mas[0m [33mAriaButton[0m } [36mfrom[0m [32m'react-aria-components'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { useComponentDefaults } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m4 |[0m [36mimport[0m styles [36mfrom[0m [32m'./Button.module.css'[0m;
+  [90m5 |[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/internal-trigger-button.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/ui/dialog.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/internal-trigger-button.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/ui/dialog.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx:4:1
+Error: Module not found: Can't resolve 'react-aria-components/Focusable'
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mButtonHTMLAttributes[0m, [33mReactNode[0m, [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+  [90m3 |[0m [36mimport[0m { [33mTooltipTrigger[0m, [33mTooltip[0m [36mas[0m [33mAriaTooltip[0m } [36mfrom[0m [32m'react-aria-components/Tooltip'[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mFocusable[0m } [36mfrom[0m [32m'react-aria-components/Focusable'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { useComponentDefaults, useSurface } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m6 |[0m [36mimport[0m { [33mButton[0m } [36mfrom[0m [32m'./button'[0m;
+  [90m7 |[0m [36mimport[0m tooltipStyles [36mfrom[0m [32m'./Tooltip.module.css'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx:3:1
+Error: Module not found: Can't resolve 'react-aria-components/Tooltip'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mButtonHTMLAttributes[0m, [33mReactNode[0m, [33mRef[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mTooltipTrigger[0m, [33mTooltip[0m [36mas[0m [33mAriaTooltip[0m } [36mfrom[0m [32m'react-aria-components/Tooltip'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { [33mFocusable[0m } [36mfrom[0m [32m'react-aria-components/Focusable'[0m;
+  [90m5 |[0m [36mimport[0m { useComponentDefaults, useSurface } [36mfrom[0m [32m'../theme/ThemeScope'[0m;
+  [90m6 |[0m [36mimport[0m { [33mButton[0m } [36mfrom[0m [32m'./button'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Client Component Browser]
+    ./app/sign-in/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/ui/icon-button.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/auth-fields.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/templates/sign-in-page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Client Component SSR]
+    ./app/sign-in/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/theme/ThemeScope.tsx:3:1
+Error: Module not found: Can't resolve 'react-aria/PortalProvider'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { createContext, useContext, useEffect, useMemo, useRef, useSyncExternalStore, [36mtype[0m [33m...[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mUNSAFE_PortalProvider[0m } [36mfrom[0m [32m'react-aria/PortalProvider'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m [36mtype[0m { [33mAppearance[0m, [33mMode[0m, [33mTheme[0m } [36mfrom[0m [32m'../../lib/contract/schema'[0m;
+  [90m5 |[0m [36mimport[0m { effectiveDefaults, validateTheme, [36mtype[0m [33mThemeSystem[0m } [36mfrom[0m [32m'../../lib/contract/them...[0m
+  [90m6 |[0m [36mimport[0m { cssVariables, resolveTokens } [36mfrom[0m [32m'../../lib/theme/resolve'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeScope.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeScope.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx:3:1
+Error: Module not found: Can't resolve 'zustand'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { createContext, useContext, useEffect, useState, [36mtype[0m [33mReactNode[0m } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { useStore } [36mfrom[0m [32m'zustand'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { [33mSETTINGS_STORAGE_KEY[0m } [36mfrom[0m [32m'../../lib/theme/persistence'[0m;
+  [90m5 |[0m [36mimport[0m { createThemeStores, initializeThemeStores, [36mtype[0m [33mThemeStores[0m } [36mfrom[0m [32m'../../lib/theme...[0m
+  [90m6 |[0m [36mimport[0m { getBrowserEnv, syncFromStorage } [36mfrom[0m [32m'../../lib/theme/writer'[0m;
+
+
+
+Import traces:
+  Server Component:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/components/theme/useAppearance.ts:3:1
+Error: Module not found: Can't resolve 'zustand'
+  [90m1 |[0m [32m'use client'[0m;
+  [90m2 |[0m [36mimport[0m { useState } [36mfrom[0m [32m'react'[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { useStore } [36mfrom[0m [32m'zustand'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m [36mtype[0m { [33mAppearance[0m } [36mfrom[0m [32m'../../lib/contract/schema'[0m;
+  [90m5 |[0m [36mimport[0m { commitAppearance, getBrowserEnv } [36mfrom[0m [32m'../../lib/theme/writer'[0m;
+  [90m6 |[0m [36mimport[0m { useThemeStores, useThemeSystem } [36mfrom[0m [32m'./ThemeLifecycleProvider'[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/components/theme/useAppearance.ts [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/components/theme/useAppearance.ts [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./node_modules/@seeyesyes/ui/src/lib/theme/stores.ts:1:1
+Error: Module not found: Can't resolve 'zustand/vanilla'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { createStore, [36mtype[0m [33mStoreApi[0m } [36mfrom[0m [32m'zustand/vanilla'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mPersistenceEnvelope[0m, [33mTheme[0m, [33mWorkspaceSettings[0m } [36mfrom[0m [32m'../contract/schema'[0m;
+  [90m3 |[0m [36mimport[0m { parseWorkspaceSettings } [36mfrom[0m [32m'./check'[0m;
+  [90m4 |[0m [36mimport[0m { createPersistenceEnvelope, parseStoredSettings, [33mSETTINGS_STORAGE_KEY[0m } [36mfrom[0m [32m'./per...[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./node_modules/@seeyesyes/ui/src/lib/theme/stores.ts [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx [Client Component Browser]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./node_modules/@seeyesyes/ui/src/lib/theme/stores.ts [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx [Client Component SSR]
+    ./node_modules/@seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at ./node_modules/ (seeyesyes/ui/src/components/templates/auth-fields.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/templates/auth-providers.tsx:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/theme/ThemeSwitcher.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/alert.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/chip.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/course-card.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/pagination.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/search-input.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/dialog.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/internal-trigger-button.tsx:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/icon-button.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/ui/icon-button.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/theme/ThemeScope.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/theme/ThemeLifecycleProvider.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/components/theme/useAppearance.ts:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at ./node_modules/ (seeyesyes/ui/src/lib/theme/stores.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+EXIT=1
