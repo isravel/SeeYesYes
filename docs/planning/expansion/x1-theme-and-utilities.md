@@ -11,7 +11,7 @@ Phase: A — Foundations and controls. Dependencies: None; reuse the current pac
 - [x] **SYX-003 — Backdrop.** Provide a layered, token-driven background that makes translucent surfaces visible without competing with content. Support content-safe fading and a restrained static fallback; keep decoration hidden from assistive technology.
   - Done with automated checks only: contract, example, preview, demo and browser tests. No screenshot or human review. [Evidence](../../evidence/expansion/X1/SYX-003/review.md)
 - [ ] **SYX-004 — Theme provider.** Reuse ThemeScope and the existing persistence/bootstrap logic; expose consumer setup with no-flash initialization, nested scopes, storage failure recovery and portal inheritance.
-  - Exports added to the artifact; existing runtime behavior re-verified. Open: the packed-consumer gate and a consumer setup doc. [Evidence](../../evidence/expansion/X1/SYX-004/review.md)
+  - Exports added; a packed consumer from clean revision `1aebef0`, with declared peers and no overrides, passed styles, saved appearance, no-flash reload, nested-theme dialog, storage-failure and missing-peer checks, and the artifact README documents setup. Left open: only Node 25.6.1 was available (not the pinned Node 24), and the exact `react-aria` peer pins need owner sign-off. [Evidence](../../evidence/expansion/X1/SYX-004/review.md)
 - [x] **SYX-005 — Theme switcher.** Provide a reusable switcher with one stable accessible label and an exposed current state, connected to the same appearance store; preserve light/dark/system support.
   - Done with automated checks; pending/error states and the no-provider state lack dedicated tests. Not human-reviewed. [Evidence](../../evidence/expansion/X1/SYX-005/review.md)
 
