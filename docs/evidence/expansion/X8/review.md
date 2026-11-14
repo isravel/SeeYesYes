@@ -57,3 +57,16 @@ Not done: a missing-peer failure test, an SSR hydration-mismatch check, an opt-i
 5. Original M7 human reviews, evaluation and MCP gates remain open as recorded in the main plan.
 
 **Release decision: not approved.** The artifact may be labelled experimental only.
+
+## Full browser run after the `react-aria` peer change
+
+- Command: full Playwright suite against the production build (310 tests listed).
+- Result: **306 passed, 4 failed** (6.3 min).
+- Failing tests, all of them timeouts waiting for an element under parallel load:
+  - `component-controls.spec.ts:50` (component preview not found)
+  - `content-claims.spec.ts:40` (header not found)
+  - `x3-panels.spec.ts:172` (alertdialog not found)
+  - `views.spec.ts:68` (still on `/system/rules` instead of `/`)
+- Re-run of those four on their own with 2 workers: **4 passed** (40 s).
+- Reading: these look like load-sensitive timing, not product regressions. They are not proven flaky, because I have not reproduced the failure a second time under load. Treat as open flake work, not as a pass of the full suite.
+- Still not run: `npm run perf`, missing-peer check, SSR check, opt-in glass consumer, Naazhi workflow, Node 22/24 run.
