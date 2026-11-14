@@ -1,0 +1,22 @@
+
+Running 16 tests using 2 workers
+
+  ✓   2 tests/browser/layouts.spec.ts:8:1 › all seven layouts render real primitives, each in its own theme scope with component links (2.5s)
+  ✓   3 tests/browser/layouts.spec.ts:26:1 › density switches inside one preview without touching other previews or the workspace (774ms)
+  ✓   4 tests/browser/layouts.spec.ts:44:1 › the interactive layouts respond locally and say nothing is stored (979ms)
+  ✓   5 tests/browser/layouts.spec.ts:72:1 › previews adapt to their own width and the page fits narrow and wide viewports in both appearances (2.6s)
+  ✓   6 tests/browser/layouts.spec.ts:89:1 › layouts have no serious axe findings in both densities (5.5s)
+  ✓   7 tests/browser/layouts.spec.ts:98:1 › every navigation landmark on /layouts has its own accessible name (604ms)
+  ✓   8 tests/browser/x7-templates.spec.ts:12:1 › sign-in checks the fields in order, focuses the first problem and never says why a sign-in failed (1.8s)
+  ✓   9 tests/browser/x7-templates.spec.ts:28:1 › the password starts hidden, can be shown, and is never stored (743ms)
+  ✓  10 tests/browser/x7-templates.spec.ts:38:1 › sign-up asks for the minimum length and rejects a short password (1.0s)
+  ✓  11 tests/browser/x7-templates.spec.ts:48:1 › forgot-password shows the same neutral screen and moves focus to its heading (1.3s)
+  ✓  12 tests/browser/x7-templates.spec.ts:60:1 › the listing template searches, filters and pages, and clearing keeps the sort (929ms)
+  ✓  13 tests/browser/x7-templates.spec.ts:72:1 › the events template keeps poster text, searches by place and paginates (821ms)
+  ✓  14 tests/browser/x7-templates.spec.ts:79:1 › the page shell preview is one named region and its links come from one configuration (739ms)
+  ✓  15 tests/browser/x7-templates.spec.ts:86:1 › the landing template outline never skips a heading level (679ms)
+  ✓  16 tests/browser/x7-templates.spec.ts:94:1 › templates fit 320px in both appearances (1.1s)
+  ✓   1 tests/browser/a11y-audit.spec.ts:48:1 › every route and relevant state has no serious or critical automated accessibility findings, in both appearances (2.3m)
+
+  16 passed (2.3m)
+EXIT=0
