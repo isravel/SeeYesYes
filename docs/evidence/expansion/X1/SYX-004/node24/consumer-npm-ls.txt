@@ -1,0 +1,9 @@
+syx-n24c@ /private/tmp/syx-n24c
+└─┬ @seeyesyes/ui@0.1.0-src.23f3bb7
+  ├── @phosphor-icons/react@2.1.10
+  ├─┬ react-aria-components@1.22.0
+  │ └── react-aria@3.53.0 deduped
+  ├── react-aria@3.53.0
+  ├── zod@4.6.7
+  └── zustand@5.1.0
+

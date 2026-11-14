@@ -1,0 +1,179 @@
+{
+ "firstVisitSystemDark": {
+  "distinctAppearances": [
+   null,
+   "dark"
+  ],
+  "final": "dark",
+  "log": [
+   [
+    "init-script",
+    "no-root",
+    "",
+    ""
+   ],
+   [
+    "root-created",
+    null,
+    "normal",
+    ""
+   ],
+   [
+    "readyState:interactive",
+    null,
+    "normal",
+    "lab(3.67543% -.212148 -2.43837)"
+   ],
+   [
+    "DOMContentLoaded",
+    null,
+    "normal",
+    "lab(3.67543% -.212148 -2.43837)"
+   ],
+   [
+    "readyState:complete",
+    null,
+    "normal",
+    "lab(3.67543% -.212148 -2.43837)"
+   ],
+   [
+    "first-paint",
+    null,
+    "normal",
+    "lab(3.67543% -.212148 -2.43837)"
+   ],
+   [
+    "first-contentful-paint",
+    null,
+    "normal",
+    "lab(3.67543% -.212148 -2.43837)"
+   ],
+   [
+    "attr-change",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ]
+  ]
+ },
+ "firstVisitSystemLight": {
+  "distinctAppearances": [
+   null,
+   "light"
+  ],
+  "final": "light",
+  "log": [
+   [
+    "init-script",
+    "no-root",
+    "",
+    ""
+   ],
+   [
+    "root-created",
+    null,
+    "normal",
+    ""
+   ],
+   [
+    "readyState:interactive",
+    null,
+    "normal",
+    "lab(98.2539% -.108749 -.74997)"
+   ],
+   [
+    "DOMContentLoaded",
+    null,
+    "normal",
+    "lab(98.2539% -.108749 -.74997)"
+   ],
+   [
+    "readyState:complete",
+    null,
+    "normal",
+    "lab(98.2539% -.108749 -.74997)"
+   ],
+   [
+    "attr-change",
+    "light",
+    "light",
+    "oklch(0.985 0.002 260 / 1)"
+   ],
+   [
+    "first-paint",
+    "light",
+    "light",
+    "oklch(0.985 0.002 260 / 1)"
+   ],
+   [
+    "first-contentful-paint",
+    "light",
+    "light",
+    "oklch(0.985 0.002 260 / 1)"
+   ]
+  ]
+ },
+ "savedDarkSystemLight": {
+  "distinctAppearances": [
+   null,
+   "dark"
+  ],
+  "final": "dark",
+  "log": [
+   [
+    "init-script",
+    "no-root",
+    "",
+    ""
+   ],
+   [
+    "root-created",
+    null,
+    "normal",
+    ""
+   ],
+   [
+    "attr-change",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "readyState:interactive",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "DOMContentLoaded",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "readyState:complete",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "first-paint",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "first-contentful-paint",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ],
+   [
+    "attr-change",
+    "dark",
+    "dark",
+    "oklch(0.16 0.01 260 / 1)"
+   ]
+  ]
+ }
+}
