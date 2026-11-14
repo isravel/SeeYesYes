@@ -27,11 +27,12 @@ const isGroup = (item: DropdownMenuItem): item is DropdownMenuGroup => item.type
 export function normalizeMenuItems(items: DropdownMenuItem[]): DropdownMenuItem[] {
   const kept = items.filter(item => !isGroup(item) || item.items.length > 0);
   const result: DropdownMenuItem[] = [];
+  const endsWithSeparator = () => { const last = result[result.length - 1]; return last !== undefined && isSeparator(last); };
   for (const item of kept) {
-    if (isSeparator(item) && (result.length === 0 || isSeparator(result[result.length - 1]))) continue;
+    if (isSeparator(item) && (result.length === 0 || endsWithSeparator())) continue;
     result.push(item);
   }
-  while (result.length > 0 && isSeparator(result[result.length - 1])) result.pop();
+  while (endsWithSeparator()) result.pop();
   return result;
 }
 

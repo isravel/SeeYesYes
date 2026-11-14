@@ -86,7 +86,7 @@ export function contextMarkdown(context: AIContext): string {
     `- Radius ${theme.radius}; density ${theme.density}; shadows ${theme.shadows}; surface ${theme.effects.surface}; motion ${theme.motion}`,
     ...(Object.keys(theme.componentDefaults).length ? [`- Component defaults: ${Object.entries(theme.componentDefaults).map(([id, d]) => `${id} ${Object.entries(d).map(([k, v]) => `${k}=${String(v)}`).join(' ')}`).join('; ')}`] : []), '');
   for (const mode of ['light', 'dark'] as const) {
-    out.push(`### ${mode[0].toUpperCase()}${mode.slice(1)} colors`, '', list(Object.entries(theme.colors[mode]).sort(([a], [b]) => a.localeCompare(b)).map(([role, color]) => `${role}: ${colorText(color)}`)), '');
+    out.push(`### ${mode.charAt(0).toUpperCase()}${mode.slice(1)} colors`, '', list(Object.entries(theme.colors[mode]).sort(([a], [b]) => a.localeCompare(b)).map(([role, color]) => `${role}: ${colorText(color)}`)), '');
   }
   if (context.mode === 'task') {
     out.push('## Selection', '', `Requested: ${context.selection.requestedComponentIds.join(', ')}`, '', `Included with required dependencies: ${context.selection.includedComponentIds.join(', ')}`, '');
