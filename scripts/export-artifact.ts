@@ -271,9 +271,10 @@ function main(): void {
       'react-dom': '>=19.0.0',
       next: '>=15.0.0',
       zod: `^${(dependencyVersion('zod') ?? '4.0.0').replace(/^[^\d]*/, '')}`,
-      'react-aria-components': `^${(dependencyVersion('react-aria-components') ?? '1.22.0').replace(/^[^\d]*/, '')}`,
-      // react-aria-components pins this exact version; sharing one copy keeps a single portal context.
-      'react-aria': `^${(dependencyVersion('react-aria') ?? '3.53.0').replace(/^[^\d]*/, '')}`,
+      // react-aria-components depends on an exact react-aria version. These two peers are exact, not ranges: a range lets npm pick a newer
+      // react-aria than the one react-aria-components pins, which installs two copies and splits the portal context (nested-theme dialogs then render in the root theme).
+      'react-aria-components': (dependencyVersion('react-aria-components') ?? '1.22.0').replace(/^[^\d]*/, ''),
+      'react-aria': (dependencyVersion('react-aria') ?? '3.53.0').replace(/^[^\d]*/, ''),
       '@phosphor-icons/react': `^${(dependencyVersion('@phosphor-icons/react') ?? '2.1.10').replace(/^[^\d]*/, '')}`,
       zustand: `^${(dependencyVersion('zustand') ?? '5.0.0').replace(/^[^\d]*/, '')}`,
     },
@@ -330,9 +331,10 @@ function main(): void {
     '',
     '## Peer dependencies',
     '',
-    'Install these yourself, at versions that satisfy the ranges in `package.json`: `react`, `react-dom`, `next`, `zod`, `react-aria-components`, `react-aria`, `@phosphor-icons/react` and `zustand`.',
-    'Each is a peer so your app has exactly one copy. Do not add `overrides` or `resolutions` to make them dedupe: with these peers installed, npm resolves one copy of `react-aria`.',
-    '`react-aria` matters most. `ThemeScope` and `react-aria-components` must share one copy, or a dialog opened inside a nested theme renders in the root theme.',
+    'Install these, at versions that satisfy `package.json`: `react`, `react-dom`, `next`, `zod`, `react-aria-components`, `react-aria`, `@phosphor-icons/react` and `zustand`.',
+    'Each is a peer so your app has exactly one copy. Do not add `overrides` or `resolutions` to make them dedupe.',
+    '`react-aria-components` and `react-aria` are pinned to exact versions on purpose. `react-aria-components` depends on one exact `react-aria`, and `ThemeScope` must use that same copy, or a dialog opened inside a nested theme renders in the root theme. Keep them at the versions this package declares; if you want a newer pair, take a newer release of this package.',
+    'npm 7+ installs missing peers for you, but you can also list them in your own `package.json`. If a missing peer is not installed (for example with `--legacy-peer-deps`), the build stops with `Module not found`.',
     '',
     '## Set up the theme (Next.js App Router)',
     '',
