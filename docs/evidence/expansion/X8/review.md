@@ -89,3 +89,20 @@ Not done: a missing-peer failure test, an SSR hydration-mismatch check, an opt-i
 - Reading: the transfer growth is not caused by the import change itself, because the scratch build had it. It comes from something in the commits between that base and HEAD. It is not yet located.
 - Status unchanged: performance gate not met. Next step is a per-commit bisect of script transfer (cheap: build + `next start` + sum JS bytes, no Lighthouse), then an LCP rerun on an idle machine.
 - Reverted the tracked `docs/evidence/M7/performance.*` files to their committed state; they had been overwritten by a noisy run.
+
+## Script-growth bisect (base `b54eacd` + react-aria import patch vs HEAD)
+
+Both builds were run with `next start` and a headless request counter (JS decoded KB per route, load avg 14-24 so only sizes are used, not LCP).
+
+| Route | Base decoded KB | HEAD decoded KB | Base transfer KB | HEAD transfer KB |
+| --- | --- | --- | --- | --- |
+| `/` | 540 | 546 | 162 | 165 |
+| `/system/theme` | 691 | 703 | 211 | 216 |
+| `/components` | 541 | 547 | 163 | 165 |
+| `/ai/context` | 536 | 542 | 161 | 163 |
+
+The static chunk sizes differ by only ~6-12 KB, so the build did not grow materially. The larger numbers seen in the perf runs came from the request counter picking up two extra lazy chunks on `/` at HEAD (~215 KB and ~176 KB gzip), which contain the X2-X7 previews (CardSwap, Carousel, CohortCard, Combobox, CourseCard, FeatureBento, Hero, InputOtp, Testimonials). `/` loaded 17 scripts at base and 20 at HEAD (984 KB vs 1386 KB decoded). That is expected growth from adding the X2-X7 components to the example previews, loaded on demand through `LazyPreview`. Not a regression from the react-aria import change.
+
+Theme route: transfer grew only ~5 KB, so bundle size does not explain the repeated Theme LCP of 2.56s. That miss remains unexplained and unfixed. Needs an idle-machine perf run and an LCP-element trace on `/system/theme`.
+
+Caveat: the base build was a scratch worktree (removed) with its node_modules copied from HEAD and `@react-aria/overlays` imports patched to `react-aria/PortalProvider`. Base commit is `b54eacd`.
