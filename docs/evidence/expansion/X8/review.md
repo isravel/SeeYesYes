@@ -70,3 +70,13 @@ Not done: a missing-peer failure test, an SSR hydration-mismatch check, an opt-i
 - Re-run of those four on their own with 2 workers: **4 passed** (40 s).
 - Reading: these look like load-sensitive timing, not product regressions. They are not proven flaky, because I have not reproduced the failure a second time under load. Treat as open flake work, not as a pass of the full suite.
 - Still not run: `npm run perf`, missing-peer check, SSR check, opt-in glass consumer, Naazhi workflow, Node 22/24 run.
+
+## Performance run (`npm run perf`) on the post-peer-change build
+
+- Two runs, Lighthouse mobile, 3 runs per route (median). Both exited 1 because at least one route missed a target. The tracked report `docs/evidence/M7/performance.md` now holds the second run. Previously committed (M7) results met every target.
+- Run 1: Theme `/system/theme` LCP 2.56 s (target 2.50 s). The other three routes met targets.
+- Run 2: Theme LCP 2.56 s again; Components `/components` LCP 2.84 s (performance 94). Overview and AI Context met targets.
+- Interaction traces: 0 long tasks in both runs. Cumulative layout shift stayed within the 0.1 target.
+- **Conditions were noisy.** The machine had a load average of 17 at the start of run 1 (the IDE, Podcasts and other processes were active). The Components miss appeared in only one of two runs, so it is likely noise. The Theme miss appeared in both runs, so I treat it as real until it passes on a quiet machine.
+- **Script transfer is higher than the M7 baseline** (Overview 302 → 413 KB, Components 221 → 260 KB, AI Context 301 → 411 KB). The 81-component expansion (X2–X7) landed after that baseline, so that may explain it. I have not bisected it, and I did not test whether the `react-aria` import change contributed.
+- Status: **performance gate not met.** It needs a rerun on an idle machine and a look at the Theme route's LCP and the script growth.

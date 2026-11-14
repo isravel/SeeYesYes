@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-11-14",
   "machine": {
-    "platform": "Darwin 25.6.0 arm64",
+    "platform": "Darwin 27.2.0 arm64",
     "cpus": 10,
-    "node": "v24.22.0"
+    "node": "v25.6.1"
   },
   "lighthouse": "13.5.0",
   "chrome": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
@@ -25,39 +25,39 @@
       "path": "/",
       "samples": [
         {
-          "score": 96,
-          "lcp": 2693.4885,
+          "score": 98,
+          "lcp": 2263.9287000000004,
           "cls": 0,
-          "tbt": 83,
-          "scriptTransferKb": 302.087890625,
+          "tbt": 121.5,
+          "scriptTransferKb": 413.8740234375,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 99,
-          "lcp": 2110.11525,
+          "score": 95,
+          "lcp": 2848.57465,
           "cls": 0,
-          "tbt": 68.50000000000045,
-          "scriptTransferKb": 302.087890625,
+          "tbt": 106,
+          "scriptTransferKb": 412.884765625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 99,
-          "lcp": 2111.2255499999997,
+          "score": 98,
+          "lcp": 2258.8563,
           "cls": 0,
-          "tbt": 76,
-          "scriptTransferKb": 302.087890625,
+          "tbt": 99,
+          "scriptTransferKb": 412.884765625,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 99,
-        "lcpMs": 2111,
+        "score": 98,
+        "lcpMs": 2264,
         "cls": 0,
-        "tbtMs": 76,
-        "scriptTransferKb": 302
+        "tbtMs": 106,
+        "scriptTransferKb": 413
       }
     },
     {
@@ -65,39 +65,39 @@
       "path": "/system/theme",
       "samples": [
         {
-          "score": 98,
-          "lcp": 2406.5172000000002,
+          "score": 96,
+          "lcp": 2558.32695,
           "cls": 0,
-          "tbt": 45.5,
-          "scriptTransferKb": 216.23046875,
+          "tbt": 108,
+          "scriptTransferKb": 220.751953125,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 98,
-          "lcp": 2407.32,
+          "score": 96,
+          "lcp": 2562.8901000000005,
           "cls": 0,
-          "tbt": 52,
-          "scriptTransferKb": 216.23046875,
+          "tbt": 96.5,
+          "scriptTransferKb": 220.751953125,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 98,
-          "lcp": 2409.3852,
+          "score": 96,
+          "lcp": 2558.90985,
           "cls": 0,
-          "tbt": 52,
-          "scriptTransferKb": 216.23046875,
+          "tbt": 114.5,
+          "scriptTransferKb": 220.751953125,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 98,
-        "lcpMs": 2407,
+        "score": 96,
+        "lcpMs": 2559,
         "cls": 0,
-        "tbtMs": 52,
-        "scriptTransferKb": 216
+        "tbtMs": 108,
+        "scriptTransferKb": 221
       }
     },
     {
@@ -105,39 +105,39 @@
       "path": "/components",
       "samples": [
         {
-          "score": 98,
-          "lcp": 2109.4911,
+          "score": 94,
+          "lcp": 2836.2116499999997,
           "cls": 0.06253465299814791,
-          "tbt": 82,
-          "scriptTransferKb": 221.080078125,
+          "tbt": 113,
+          "scriptTransferKb": 260.44921875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
           "score": 98,
-          "lcp": 2108.1201,
+          "lcp": 2106.7303500000003,
           "cls": 0.06253465299814791,
-          "tbt": 73,
-          "scriptTransferKb": 221.080078125,
+          "tbt": 107,
+          "scriptTransferKb": 260.44921875,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 98,
-          "lcp": 2107.0667999999996,
+          "score": 94,
+          "lcp": 2835.51705,
           "cls": 0.06253465299814791,
-          "tbt": 76,
-          "scriptTransferKb": 221.080078125,
+          "tbt": 112,
+          "scriptTransferKb": 260.44921875,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 98,
-        "lcpMs": 2108,
+        "score": 94,
+        "lcpMs": 2836,
         "cls": 0.063,
-        "tbtMs": 76,
-        "scriptTransferKb": 221
+        "tbtMs": 112,
+        "scriptTransferKb": 260
       }
     },
     {
@@ -145,39 +145,39 @@
       "path": "/ai/context",
       "samples": [
         {
-          "score": 99,
-          "lcp": 2106.54705,
+          "score": 98,
+          "lcp": 2109.7848,
           "cls": 0.005485495877030518,
-          "tbt": 77.5,
-          "scriptTransferKb": 300.822265625,
+          "tbt": 139.5,
+          "scriptTransferKb": 411.4228515625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 99,
-          "lcp": 2108.4460499999996,
-          "cls": 0.005485495877030518,
-          "tbt": 78,
-          "scriptTransferKb": 300.822265625,
+          "score": 98,
+          "lcp": 2119.5324,
+          "cls": 0,
+          "tbt": 147.5,
+          "scriptTransferKb": 411.4228515625,
           "throttling": "simulate",
           "formFactor": "mobile"
         },
         {
-          "score": 99,
-          "lcp": 2105.9105999999997,
+          "score": 98,
+          "lcp": 2110.2666,
           "cls": 0.005485495877030518,
-          "tbt": 81.5,
-          "scriptTransferKb": 300.822265625,
+          "tbt": 146,
+          "scriptTransferKb": 411.4228515625,
           "throttling": "simulate",
           "formFactor": "mobile"
         }
       ],
       "median": {
-        "score": 99,
-        "lcpMs": 2107,
+        "score": 98,
+        "lcpMs": 2110,
         "cls": 0.005,
-        "tbtMs": 78,
-        "scriptTransferKb": 301
+        "tbtMs": 146,
+        "scriptTransferKb": 411
       }
     }
   ],
@@ -199,7 +199,7 @@
     "maxMs": 120
   },
   "pass": {
-    "routes": true,
+    "routes": false,
     "longTasks": true
   }
 }
